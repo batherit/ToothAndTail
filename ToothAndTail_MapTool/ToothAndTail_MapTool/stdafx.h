@@ -38,6 +38,21 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#include <string>
+#include <list>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <functional>
+using namespace std;
+
+#include "Define.h"
+#include "Extern.h"
+#include "Enum.h"
+#include "Function.h"
+
+#include "CGraphicDevice.h"
+#include "CObj.h"
 
 
 

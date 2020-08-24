@@ -1,7 +1,2 @@
-﻿  stdafx.cpp
-  MainFrm.cpp
-  ToothAndTail_MapTool.cpp
-  ToothAndTail_MapToolDoc.cpp
-  ToothAndTail_MapToolView.cpp
-  코드를 생성하고 있습니다...
+﻿  CCamera.cpp
   ToothAndTail_MapTool.vcxproj -> D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe

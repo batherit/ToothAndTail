@@ -5,53 +5,109 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\0.Frame">
+      <UniqueIdentifier>{15394c44-aec7-433c-a42a-8754638b68fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.Doc">
+      <UniqueIdentifier>{2c873ad7-fd0c-4128-a462-ca8479742f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.View%28Workspace%29">
+      <UniqueIdentifier>{66a047cc-939a-47fa-a2e4-dc0866f735db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.App">
+      <UniqueIdentifier>{e4ccec43-bc02-417a-af15-c2cdf4287482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Default">
+      <UniqueIdentifier>{77dbfa1c-33ac-4015-a801-9f3d3912d2cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\98.Headers">
+      <UniqueIdentifier>{181f85d3-b4c3-4ee8-99d0-320997067f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.H/W_Device">
+      <UniqueIdentifier>{b3df8f3c-2a4c-406e-bb6f-38274f1f2d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Obj">
+      <UniqueIdentifier>{432dc3a8-2a84-46fb-bcd0-e5bd3b225e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Obj\Camera">
+      <UniqueIdentifier>{362f6976-cf24-4a62-b409-8934c9a6205e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ToothAndTail_MapTool.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="MainFrm.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ToothAndTail_MapToolDoc.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\0.Frame</Filter>
     </ClInclude>
     <ClInclude Include="ToothAndTail_MapToolView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\0.View%28Workspace%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ToothAndTail_MapToolDoc.h">
+      <Filter>소스 파일\0.Doc</Filter>
+    </ClInclude>
+    <ClInclude Include="ToothAndTail_MapTool.h">
+      <Filter>소스 파일\0.App</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphicDevice.h">
+      <Filter>소스 파일\0.H/W_Device</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>소스 파일\1.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>소스 파일\1.Obj\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>소스 파일\98.Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ToothAndTail_MapTool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="MainFrm.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ToothAndTail_MapToolDoc.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\0.Frame</Filter>
     </ClCompile>
     <ClCompile Include="ToothAndTail_MapToolView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\0.View%28Workspace%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ToothAndTail_MapToolDoc.cpp">
+      <Filter>소스 파일\0.Doc</Filter>
+    </ClCompile>
+    <ClCompile Include="ToothAndTail_MapTool.cpp">
+      <Filter>소스 파일\0.App</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphicDevice.cpp">
+      <Filter>소스 파일\0.H/W_Device</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>소스 파일\1.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>소스 파일\1.Obj\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>소스 파일\98.Headers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

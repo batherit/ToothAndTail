@@ -11,6 +11,7 @@
 
 #include "ToothAndTail_MapToolDoc.h"
 #include "ToothAndTail_MapToolView.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -18,7 +19,7 @@
 
 
 // CToothAndTailMapToolView
-
+HWND g_hWND;
 IMPLEMENT_DYNCREATE(CToothAndTailMapToolView, CView)
 
 BEGIN_MESSAGE_MAP(CToothAndTailMapToolView, CView)
@@ -26,6 +27,7 @@ BEGIN_MESSAGE_MAP(CToothAndTailMapToolView, CView)
 	ON_COMMAND(ID_FILE_PRINT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CView::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CView::OnFilePrintPreview)
+	ON_WM_MOUSEWHEEL()
 END_MESSAGE_MAP()
 
 // CToothAndTailMapToolView 생성/소멸
@@ -57,7 +59,10 @@ void CToothAndTailMapToolView::OnDraw(CDC* /*pDC*/)
 	if (!pDoc)
 		return;
 
+	CGraphicDevice::GetInstance()->BeginRender();
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+
+	CGraphicDevice::GetInstance()->EndRender();
 }
 
 
@@ -102,3 +107,41 @@ CToothAndTailMapToolDoc* CToothAndTailMapToolView::GetDocument() const // 디버
 
 
 // CToothAndTailMapToolView 메시지 처리기
+
+
+void CToothAndTailMapToolView::OnInitialUpdate()
+{
+	CView::OnInitialUpdate();
+
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	CMainFrame* pMain = dynamic_cast<CMainFrame*>(::AfxGetApp()->GetMainWnd());
+	RECT rcMain = {};
+
+	// Gap을 구하기 위해서 MainFrame 크기를 구한다.
+	pMain->GetWindowRect(&rcMain);														// MainFrame 렉트를 구하고,
+	SetRect(&rcMain, 0, 0, rcMain.right - rcMain.left, rcMain.bottom - rcMain.top);		// 렉트 시작 위치를 (0, 0)으로 변환
+
+	// Gap을 구하기 위해서 View 크기를 구한다.
+	RECT rcView = {};
+	GetClientRect(&rcView); ;
+	float fGapX = rcMain.right - float(rcView.right);
+	float fGapY = WINCY + (float(rcMain.bottom) - rcView.bottom);
+
+	pMain->SetWindowPos(nullptr, 0, 0, LONG(WINCX + fGapX), LONG(fGapY), SWP_NOZORDER);
+
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	g_hWND = m_hWnd;
+	if (FAILED(CGraphicDevice::GetInstance()->GenerateGraphicDevice()))
+	{
+		ERR_MSG(L"Failed to create the hareware device.");
+		return;
+	}
+}
+
+
+BOOL CToothAndTailMapToolView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	return CView::OnMouseWheel(nFlags, zDelta, pt);
+}
