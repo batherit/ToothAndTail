@@ -40,10 +40,10 @@ bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint)
 
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect)
 {
-	if (_pObj.GetLeft() <= _rRect.left)		_pObj.SetX(_rRect.left + (_pObj.GetWidth() >> 1));
-	if (_pObj.GetTop() <= _rRect.top)		_pObj.SetY(_rRect.top + (_pObj.GetHeight() >> 1));
-	if (_pObj.GetRight() >= _rRect.right)	_pObj.SetX(_rRect.right - (_pObj.GetWidth() >> 1));
-	if (_pObj.GetBottom() >= _rRect.bottom)	_pObj.SetY(_rRect.bottom - (_pObj.GetHeight() >> 1));
+	if (_pObj.GetLeft() <= _rRect.left)		_pObj.SetX(static_cast<float>(_rRect.left + (_pObj.GetWidth() >> 1)));
+	if (_pObj.GetTop() <= _rRect.top)		_pObj.SetY(static_cast<float>(_rRect.top + (_pObj.GetHeight() >> 1)));
+	if (_pObj.GetRight() >= _rRect.right)	_pObj.SetX(static_cast<float>(_rRect.right - (_pObj.GetWidth() >> 1)));
+	if (_pObj.GetBottom() >= _rRect.bottom)	_pObj.SetY(static_cast<float>(_rRect.bottom - (_pObj.GetHeight() >> 1)));
 }
 
 bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollidedPoint)
