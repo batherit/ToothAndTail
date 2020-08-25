@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCom_Commoner.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CMultiTexture.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="MacroValue.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -171,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCom_Commoner.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />

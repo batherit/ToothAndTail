@@ -39,6 +39,7 @@ using namespace std;
 #include "Extern.h"
 #include "Function.h"
 
+#include "MacroValue.h"
 #include "CGraphicDevice.h"
 #include "CKeyMgr.h"
 

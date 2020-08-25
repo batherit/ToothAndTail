@@ -2,6 +2,7 @@
 #include "CTAT_World.h"
 #include "CSceneMgr.h"
 #include "CTestScene.h"
+#include "CTextureMgr.h"
 #include "CTimer.h"
 #include "CCamera.h"
 
@@ -23,7 +24,10 @@ LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 void CTAT_World::Ready(void)
 {
+	CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Actors/commander_commoners.png", L"COM_COMMONER");
+
 	GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
+	GetSceneManager()->RequestSceneInit();
 	SetMainCamera(new CCamera(*this, nullptr, 0.f, 0.f));		// 메인 카메라 세팅
 }
 

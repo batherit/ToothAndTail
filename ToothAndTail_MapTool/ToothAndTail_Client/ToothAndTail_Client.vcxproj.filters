@@ -57,6 +57,12 @@
     <Filter Include="소스 파일\1.Scene\TestScene">
       <UniqueIdentifier>{a6e37c75-44e1-4118-872a-ea2f17f8e53b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\Commander">
+      <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\Commander\Commoner">
+      <UniqueIdentifier>{df9cb9d3-5568-4848-b970-eddcda43e9db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -119,7 +125,15 @@
     <ClInclude Include="CScene.h">
       <Filter>소스 파일\1.Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CTestScene.h" />
+    <ClInclude Include="CTestScene.h">
+      <Filter>소스 파일\1.Scene\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CCom_Commoner.h">
+      <Filter>소스 파일\1.CObj\Commander\Commoner</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroValue.h">
+      <Filter>소스 파일\98.Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -130,9 +144,6 @@
     </ClCompile>
     <ClCompile Include="CObj.cpp">
       <Filter>소스 파일\1.CObj</Filter>
-    </ClCompile>
-    <ClCompile Include="CSpriteObj.cpp">
-      <Filter>소스 파일\1.CObj\SpriteObj</Filter>
     </ClCompile>
     <ClCompile Include="CMultiTexture.cpp">
       <Filter>소스 파일\1.Texture\MultiTexture</Filter>
@@ -177,7 +188,13 @@
       <Filter>소스 파일\1.Scene</Filter>
     </ClCompile>
     <ClCompile Include="CTestScene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\1.Scene\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CCom_Commoner.cpp">
+      <Filter>소스 파일\1.CObj\Commander\Commoner</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpriteObj.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 #include "CScene.h"
+
+class CSpriteObj;
 class CTestScene :
 	public CScene
 {
@@ -12,5 +14,9 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
+	virtual void Render(CCamera* _pCamera) override;
+
+private:
+	CSpriteObj* m_pSpriteObj = nullptr;
 };
 

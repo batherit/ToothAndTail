@@ -15,6 +15,7 @@ public:
 	virtual int Update(float _fDeltaTime) = 0;
 	virtual void LateUpdate(void) = 0;
 	virtual void Render(HDC& _hdc, CCamera* _pCamera);
+	virtual void Render(CCamera* _pCamera) {};
 	virtual void Release(void) = 0;
 	virtual void MakeModelVertices(void) {};
 
