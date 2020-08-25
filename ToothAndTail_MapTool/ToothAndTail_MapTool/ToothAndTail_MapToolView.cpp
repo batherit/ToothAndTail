@@ -12,6 +12,7 @@
 #include "ToothAndTail_MapToolDoc.h"
 #include "ToothAndTail_MapToolView.h"
 #include "MainFrm.h"
+#include "CTextureMgr.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -61,7 +62,14 @@ void CToothAndTailMapToolView::OnDraw(CDC* /*pDC*/)
 
 	CGraphicDevice::GetInstance()->BeginRender();
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
-
+	// 베이스 맵 그리기
+	const TextureInfo* pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"T_BASE_MAP");
+	//float fCenterX = float(pTextureInfo->tImageInfo.Width >> 1);
+	//float fCenterY = float(pTextureInfo->tImageInfo.Height >> 1);
+	D3DXMATRIX matScale;
+	D3DXMatrixScaling(&matScale, float(WINCX) / pTextureInfo->tImageInfo.Width, float(WINCY) / pTextureInfo->tImageInfo.Height, 0.f);
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScale);
+	CGraphicDevice::GetInstance()->GetSprite()->Draw(pTextureInfo->pTexture, nullptr, &D3DXVECTOR3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	CGraphicDevice::GetInstance()->EndRender();
 }
 
@@ -130,12 +138,21 @@ void CToothAndTailMapToolView::OnInitialUpdate()
 	pMain->SetWindowPos(nullptr, 0, 0, LONG(WINCX + fGapX), LONG(fGapY), SWP_NOZORDER);
 
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	// 장치 생성
 	g_hWND = m_hWnd;
 	if (FAILED(CGraphicDevice::GetInstance()->GenerateGraphicDevice()))
 	{
 		ERR_MSG(L"Failed to create the hareware device.");
 		return;
 	}
+
+	// 베이스 맵 텍스쳐 생성
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/Map0.png", L"T_BASE_MAP")))
+		return;
+
+
+
 }
 
 

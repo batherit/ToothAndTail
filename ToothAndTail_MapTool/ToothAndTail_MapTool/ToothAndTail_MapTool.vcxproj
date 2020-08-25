@@ -188,7 +188,11 @@
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CGraphicDevice.h" />
+    <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
+    <ClInclude Include="CSingleTexture.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
     <ClInclude Include="Extern.h" />
@@ -196,6 +200,7 @@
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToothAndTail_MapTool.h" />
     <ClInclude Include="ToothAndTail_MapToolDoc.h" />
@@ -204,7 +209,11 @@
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
+    <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
+    <ClCompile Include="CSingleTexture.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -36,6 +36,18 @@
     <Filter Include="소스 파일\1.Obj\Camera">
       <UniqueIdentifier>{362f6976-cf24-4a62-b409-8934c9a6205e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.Texture">
+      <UniqueIdentifier>{ed5fa30a-2ae9-4f05-aa86-8049af63d310}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Texture\SingleTexture">
+      <UniqueIdentifier>{9bfee4ee-5655-4e80-8ff7-359e0eda71b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Texture\MultiTexture">
+      <UniqueIdentifier>{9ea432ec-3a0d-4d42-a3c4-a71112db72f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Manager">
+      <UniqueIdentifier>{0963030d-d2d5-4f95-af98-68492b789c0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrm.h">
@@ -80,6 +92,21 @@
     <ClInclude Include="Enum.h">
       <Filter>소스 파일\98.Headers</Filter>
     </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>소스 파일\1.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CSingleTexture.h">
+      <Filter>소스 파일\1.Texture\SingleTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="CMultiTexture.h">
+      <Filter>소스 파일\1.Texture\MultiTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp">
@@ -108,6 +135,18 @@
     </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>소스 파일\98.Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>소스 파일\1.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CSingleTexture.cpp">
+      <Filter>소스 파일\1.Texture\SingleTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="CMultiTexture.cpp">
+      <Filter>소스 파일\1.Texture\MultiTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
