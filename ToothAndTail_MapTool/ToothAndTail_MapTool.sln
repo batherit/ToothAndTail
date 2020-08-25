@@ -5,6 +5,17 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToothAndTail_MapTool", "ToothAndTail_MapTool\ToothAndTail_MapTool.vcxproj", "{43351CA6-F6F1-4AE3-A196-D9BAC176CDDF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToothAndTail_Client", "ToothAndTail_Client\ToothAndTail_Client.vcxproj", "{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5AA5B70D-C476-49E8-AB3C-76DC323F6BBE}"
+	ProjectSection(SolutionItems) = preProject
+		Common\Const.h = Common\Const.h
+		Common\Define.h = Common\Define.h
+		Common\Enum.h = Common\Enum.h
+		Common\Extern.h = Common\Extern.h
+		Common\Struct.h = Common\Struct.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +32,14 @@ Global
 		{43351CA6-F6F1-4AE3-A196-D9BAC176CDDF}.Release|x64.Build.0 = Release|x64
 		{43351CA6-F6F1-4AE3-A196-D9BAC176CDDF}.Release|x86.ActiveCfg = Release|Win32
 		{43351CA6-F6F1-4AE3-A196-D9BAC176CDDF}.Release|x86.Build.0 = Release|Win32
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Debug|x64.ActiveCfg = Debug|x64
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Debug|x64.Build.0 = Debug|x64
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Debug|x86.ActiveCfg = Debug|Win32
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Debug|x86.Build.0 = Debug|Win32
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Release|x64.ActiveCfg = Release|x64
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Release|x64.Build.0 = Release|x64
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Release|x86.ActiveCfg = Release|Win32
+		{B975C504-BFDD-4570-AB07-DBCD3F5E00BD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

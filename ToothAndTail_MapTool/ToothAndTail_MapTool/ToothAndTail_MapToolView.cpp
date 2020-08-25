@@ -64,15 +64,17 @@ void CToothAndTailMapToolView::OnDraw(CDC* /*pDC*/)
 	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
 	// 베이스 맵 그리기
 	const TextureInfo* pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"T_BASE_MAP");
-	//float fCenterX = float(pTextureInfo->tImageInfo.Width >> 1);
-	//float fCenterY = float(pTextureInfo->tImageInfo.Height >> 1);
-	D3DXMATRIX matScale;
-	D3DXMatrixScaling(&matScale, float(WINCX) / pTextureInfo->tImageInfo.Width, float(WINCY) / pTextureInfo->tImageInfo.Height, 0.f);
-	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScale);
-	CGraphicDevice::GetInstance()->GetSprite()->Draw(pTextureInfo->pTexture, nullptr, &D3DXVECTOR3(0.f, 0.f, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	float fCenterX = float(pTextureInfo->tImageInfo.Width >> 1);
+	float fCenterY = float(pTextureInfo->tImageInfo.Height >> 1);
+	D3DXMATRIX matWorld, matScale, matTrans;
+	D3DXMatrixScaling(&matScale, static_cast<float>(WINCX) / pTextureInfo->tImageInfo.Width, static_cast<float>(WINCY) / pTextureInfo->tImageInfo.Height, 0.f);
+	D3DXMatrixTranslation(&matTrans, WINCX >> 1, WINCY >> 1, 0);
+	matWorld = matScale * matTrans;
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matWorld);
+	CGraphicDevice::GetInstance()->GetSprite()->Draw(pTextureInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 	CGraphicDevice::GetInstance()->EndRender();
 }
-
+//&RECT({ 0, 0, WINCX, WINCY })
 
 // CToothAndTailMapToolView 인쇄
 

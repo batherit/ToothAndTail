@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj">
+      <UniqueIdentifier>{c3fbf3dd-0fdf-4786-a8c9-ac15468f95fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\Camera">
+      <UniqueIdentifier>{53fb186c-af58-4004-b149-5026062e9ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj">
+      <UniqueIdentifier>{a2d63979-fe69-49bb-b8c2-25a619110cad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.H/W_Device">
+      <UniqueIdentifier>{3a1c7685-a128-4df9-88e9-d24b2dad51fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Texture">
+      <UniqueIdentifier>{017922f4-bb73-4703-bc83-147bb2cd609c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Texture\SingleTexture">
+      <UniqueIdentifier>{9966bbc8-e8e5-46d2-94e3-7b4ec956d899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Texture\MultiTexture">
+      <UniqueIdentifier>{3781ee72-a144-403c-b422-7784094a6eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Default">
+      <UniqueIdentifier>{14b995b7-2fdf-47ef-9015-1c2683ae7e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.Main">
+      <UniqueIdentifier>{4a04a47c-b522-4139-86b1-f45de1cd837b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Manager">
+      <UniqueIdentifier>{5b76bfb5-60f8-4346-bea1-0490c7e9b742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\98.Helper">
+      <UniqueIdentifier>{ee9d508d-b1ab-46f4-aba0-5d427c32c7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.GameWorld">
+      <UniqueIdentifier>{3465b8c6-ebe8-4dbd-9a68-8840be947f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\0.Timer">
+      <UniqueIdentifier>{382df001-a5f9-43af-a5de-c3a636c9239b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\ViewSpace">
+      <UniqueIdentifier>{54ae8bbb-0d7b-4c66-b130-b026a3ab2150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Scene">
+      <UniqueIdentifier>{39f65d8e-db8e-451b-83d2-4fbd2e49b216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Scene\TestScene">
+      <UniqueIdentifier>{a6e37c75-44e1-4118-872a-ea2f17f8e53b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CCamera.h">
+      <Filter>소스 파일\1.CObj\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphicDevice.h">
+      <Filter>소스 파일\0.H/W_Device</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>소스 파일\1.CObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpriteObj.h">
+      <Filter>소스 파일\1.CObj\SpriteObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CMultiTexture.h">
+      <Filter>소스 파일\1.Texture\MultiTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>소스 파일\1.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="ToothAndTail_Client.h">
+      <Filter>소스 파일\0.Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>소스 파일\98.Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="CSingleTexture.h">
+      <Filter>소스 파일\1.Texture\SingleTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameWorld.h">
+      <Filter>소스 파일\0.GameWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>소스 파일\0.Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpace.h">
+      <Filter>소스 파일\1.CObj\ViewSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="CTAT_World.h">
+      <Filter>소스 파일\0.GameWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>소스 파일\1.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CTestScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>소스 파일\1.CObj\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphicDevice.cpp">
+      <Filter>소스 파일\0.H/W_Device</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>소스 파일\1.CObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpriteObj.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CMultiTexture.cpp">
+      <Filter>소스 파일\1.Texture\MultiTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>소스 파일\1.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="ToothAndTail_Client.cpp">
+      <Filter>소스 파일\0.Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>소스 파일\98.Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="CSingleTexture.cpp">
+      <Filter>소스 파일\1.Texture\SingleTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameWorld.cpp">
+      <Filter>소스 파일\0.GameWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
+      <Filter>소스 파일\0.Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpace.cpp">
+      <Filter>소스 파일\1.CObj\ViewSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="CTAT_World.cpp">
+      <Filter>소스 파일\0.GameWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>소스 파일\1.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CTestScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ToothAndTail_Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="ToothAndTail_Client.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

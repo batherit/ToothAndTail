@@ -4,8 +4,10 @@ class CTexture;
 class CTextureMgr
 {
 	DECLARE_SINGLETON(CTextureMgr)
+
 public:
 	enum TEXTURE_TYPE { TYPE_SINGLE, TYPE_MULTI, TYPE_END };
+
 private:
 	CTextureMgr();
 	~CTextureMgr();

@@ -95,6 +95,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -191,16 +192,13 @@
     <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CSingleTexture.h" />
+    <ClInclude Include="CSpriteObj.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
-    <ClInclude Include="Define.h" />
-    <ClInclude Include="Enum.h" />
-    <ClInclude Include="Extern.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToothAndTail_MapTool.h" />
     <ClInclude Include="ToothAndTail_MapToolDoc.h" />
@@ -212,6 +210,7 @@
     <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CSingleTexture.cpp" />
+    <ClCompile Include="CSpriteObj.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="Function.cpp" />

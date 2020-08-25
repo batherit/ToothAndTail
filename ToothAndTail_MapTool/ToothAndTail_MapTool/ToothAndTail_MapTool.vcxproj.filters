@@ -48,6 +48,9 @@
     <Filter Include="소스 파일\2.Manager">
       <UniqueIdentifier>{0963030d-d2d5-4f95-af98-68492b789c0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.Obj\SpriteObj">
+      <UniqueIdentifier>{5d3bc660-64ea-463e-ab29-fa070e89c794}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrm.h">
@@ -71,12 +74,6 @@
     <ClInclude Include="targetver.h">
       <Filter>소스 파일\99.Default</Filter>
     </ClInclude>
-    <ClInclude Include="Define.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
     <ClInclude Include="CGraphicDevice.h">
       <Filter>소스 파일\0.H/W_Device</Filter>
     </ClInclude>
@@ -89,14 +86,8 @@
     <ClInclude Include="CCamera.h">
       <Filter>소스 파일\1.Obj\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Enum.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
     <ClInclude Include="CTexture.h">
       <Filter>소스 파일\1.Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Struct.h">
-      <Filter>소스 파일\98.Headers</Filter>
     </ClInclude>
     <ClInclude Include="CSingleTexture.h">
       <Filter>소스 파일\1.Texture\SingleTexture</Filter>
@@ -106,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="CTextureMgr.h">
       <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpriteObj.h">
+      <Filter>소스 파일\1.Obj\SpriteObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +141,9 @@
     </ClCompile>
     <ClCompile Include="CTextureMgr.cpp">
       <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpriteObj.cpp">
+      <Filter>소스 파일\1.Obj\SpriteObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
