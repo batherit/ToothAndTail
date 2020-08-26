@@ -30,6 +30,7 @@ public:
 		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
 	}
 	virtual int UpdateAnim(float _fDeltaTime);
+	bool IsAnimPlaying(void) { return 0 == UpdateAnim(0.f); }
 	AnimInfo& GetAnimInfo(void) { return m_stAnimInfo; }
 	float GetAnimProgress(void) const { return m_stAnimProcessingInfo.fAnimElapsedTime / m_stAnimInfo.fTotalTime; }
 	int GetAnimX(void) const { return (m_stAnimProcessingInfo.iCurrentIndex % m_stAnimInfo.iCol) * m_iWidth; }

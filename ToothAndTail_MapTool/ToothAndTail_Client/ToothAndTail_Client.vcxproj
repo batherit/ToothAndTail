@@ -150,6 +150,12 @@
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCommander.h" />
     <ClInclude Include="CComState_Idle.h" />
+    <ClInclude Include="CComState_Run.h" />
+    <ClInclude Include="CComState_Running_Build.h" />
+    <ClInclude Include="CComState_Running_Jump.h" />
+    <ClInclude Include="CComState_Running_WaveFlag.h" />
+    <ClInclude Include="CComState_Standing_Build.h" />
+    <ClInclude Include="CComState_Standing_WaveFlag.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CMultiTexture.h" />
@@ -178,6 +184,12 @@
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCommander.cpp" />
     <ClCompile Include="CComState_Idle.cpp" />
+    <ClCompile Include="CComState_Run.cpp" />
+    <ClCompile Include="CComState_Running_Build.cpp" />
+    <ClCompile Include="CComState_Running_Jump.cpp" />
+    <ClCompile Include="CComState_Running_WaveFlag.cpp" />
+    <ClCompile Include="CComState_Standing_Build.cpp" />
+    <ClCompile Include="CComState_Standing_WaveFlag.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />

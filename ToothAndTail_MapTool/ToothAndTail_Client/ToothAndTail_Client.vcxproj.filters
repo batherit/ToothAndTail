@@ -57,14 +57,14 @@
     <Filter Include="소스 파일\1.Scene\TestScene">
       <UniqueIdentifier>{a6e37c75-44e1-4118-872a-ea2f17f8e53b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\Commander">
-      <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.State">
       <UniqueIdentifier>{e6aafcd0-1fd3-4bd6-8752-2496fe6038db}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Commander">
       <UniqueIdentifier>{eb821ebe-0d27-44e4-980f-16244855d6a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Commander">
+      <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +135,7 @@
       <Filter>소스 파일\98.Helper</Filter>
     </ClInclude>
     <ClInclude Include="CCommander.h">
-      <Filter>소스 파일\1.CObj\Commander</Filter>
+      <Filter>소스 파일\1.CObj\SpriteObj\Commander</Filter>
     </ClInclude>
     <ClInclude Include="CState.h">
       <Filter>소스 파일\1.State</Filter>
@@ -144,6 +144,24 @@
       <Filter>소스 파일\2.Manager</Filter>
     </ClInclude>
     <ClInclude Include="CComState_Idle.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Run.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Standing_WaveFlag.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Standing_Build.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Running_Build.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Running_WaveFlag.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Running_Jump.h">
       <Filter>소스 파일\1.State\Commander</Filter>
     </ClInclude>
   </ItemGroup>
@@ -206,7 +224,7 @@
       <Filter>소스 파일\1.CObj\SpriteObj</Filter>
     </ClCompile>
     <ClCompile Include="CCommander.cpp">
-      <Filter>소스 파일\1.CObj\Commander</Filter>
+      <Filter>소스 파일\1.CObj\SpriteObj\Commander</Filter>
     </ClCompile>
     <ClCompile Include="CState.cpp">
       <Filter>소스 파일\1.State</Filter>
@@ -215,6 +233,24 @@
       <Filter>소스 파일\2.Manager</Filter>
     </ClCompile>
     <ClCompile Include="CComState_Idle.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Run.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Standing_WaveFlag.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Standing_Build.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Running_Build.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Running_WaveFlag.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Running_Jump.cpp">
       <Filter>소스 파일\1.State\Commander</Filter>
     </ClCompile>
   </ItemGroup>

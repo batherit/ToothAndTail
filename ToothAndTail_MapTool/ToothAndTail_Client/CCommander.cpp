@@ -103,3 +103,21 @@ bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 	if (_fToX == 0.f && _fToY == 0.f) return false;
 	return true;
 }
+
+bool CCommander::IsBuildKeyPressed(void) const
+{
+	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
+}
+
+bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
+{
+	_eFlagType = CCommander::FLAG_TYPE_NONE;
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON))
+		_eFlagType = CCommander::FLAG_TYPE_UNIT;
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON))
+		_eFlagType = CCommander::FLAG_TYPE_MILITARY;
+
+	return _eFlagType != CCommander::FLAG_TYPE_NONE;
+}

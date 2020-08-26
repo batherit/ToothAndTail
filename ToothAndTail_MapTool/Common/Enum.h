@@ -32,10 +32,6 @@ namespace UI {
 	enum E_PIVOT { PIVOT_LEFT/*, PIVOT_MIDDLE*/, PIVOT_END };
 }
 
-//namespace TIMER {
-//	enum E_TYPE { TIMER_TYPE_TIME, TIMER_TYPE_TICKCOUNT, TIMER_TYPE_WINDOWS };
-//}
-
 namespace BULLET {
 	enum E_TYPE { TYPE_MONSTER, TYPE_PLAYER, TYPE_END };
 }
