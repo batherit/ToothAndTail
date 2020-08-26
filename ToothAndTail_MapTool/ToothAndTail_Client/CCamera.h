@@ -17,7 +17,7 @@ public:
 		swprintf(szBuffer, sizeof(szBuffer), L"Camera X : %f, Y : %f, Zoom : %f", GetX(), GetY(), m_fZoomMultiple);
 		TextOut(_hdc, 0, 0, szBuffer, lstrlen(szBuffer));
 	};
-	virtual void Release(void) {};
+	virtual void Release(void);
 
 public:
 	void ZoomIn(float _fDeltaTime);

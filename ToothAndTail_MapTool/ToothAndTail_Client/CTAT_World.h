@@ -14,5 +14,8 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Render(void) override;
 	virtual void Release(void) override;
+
+private:
+	CCamera* m_pCamera = nullptr;
 };
 

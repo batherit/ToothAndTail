@@ -20,6 +20,7 @@ CCamera::CCamera(CGameWorld& _rGameWorld, CObj* _pOwner /*= nullptr*/, float _fX
 
 CCamera::~CCamera()
 {
+	Release();
 }
 
 int CCamera::Update(float _fDeltaTime)
@@ -120,4 +121,8 @@ D3DXMATRIX CCamera::GetScreenMatrix(const D3DXMATRIX & _matWorld)
 	matScreen._44 = 1.f;
 
 	return matScreen;
+}
+
+void CCamera::Release(void) {
+	m_pOwner = nullptr;
 }

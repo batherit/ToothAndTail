@@ -1,7 +1,7 @@
 #pragma once
 
 
-class CKeyMgr
+class CKeyMgr final
 {
 	DECLARE_SINGLETON(CKeyMgr)
 private:

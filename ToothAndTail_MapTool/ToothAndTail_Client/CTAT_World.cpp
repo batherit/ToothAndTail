@@ -35,7 +35,8 @@ void CTAT_World::Ready(void)
 		
 	GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
 	GetSceneManager()->RequestSceneInit();
-	SetMainCamera(new CCamera(*this, nullptr, 0.f, 0.f));		// 메인 카메라 세팅
+	m_pCamera = new CCamera(*this, nullptr, 0.f, 0.f);
+	SetMainCamera(m_pCamera);		//.. 메인 카메라 세팅
 }
 
 void CTAT_World::Update(void)
@@ -61,4 +62,7 @@ void CTAT_World::Render(void)
 
 void CTAT_World::Release(void)
 {
+	CKeyMgr::DestroyInstance();
+	CTextureMgr::DestroyInstance();
+	SafelyDeleteObj(m_pCamera);
 }

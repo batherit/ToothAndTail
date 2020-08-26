@@ -1,7 +1,7 @@
 #pragma once
 
 class CTexture;
-class CTextureMgr
+class CTextureMgr final
 {
 	DECLARE_SINGLETON(CTextureMgr)
 

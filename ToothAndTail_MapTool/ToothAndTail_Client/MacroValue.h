@@ -1,5 +1,6 @@
 #pragma once
 
-// 커모너
-#define COM_COMMONER_WIDTH		72
-#define COM_COMMONER_HEIGHT		72
+// 커멘더
+#define COMMANDER_WIDTH		72
+#define COMMANDER_HEIGHT	72
+#define COMMANDER_SPEED		200.f

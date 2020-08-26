@@ -3,7 +3,7 @@
 class CScene;
 class CGameWorld;
 
-class CSceneMgr
+class CSceneMgr final
 {
 public:
 	CSceneMgr(CGameWorld& _rGameWorld);

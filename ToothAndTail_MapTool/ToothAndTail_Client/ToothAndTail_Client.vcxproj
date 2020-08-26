@@ -148,7 +148,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
-    <ClInclude Include="CCom_Commoner.h" />
+    <ClInclude Include="CCommander.h" />
+    <ClInclude Include="CComState_Idle.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CMultiTexture.h" />
@@ -158,6 +159,8 @@
     <ClInclude Include="CSingleTexture.h" />
     <ClInclude Include="CSpace.h" />
     <ClInclude Include="CSpriteObj.h" />
+    <ClInclude Include="CState.h" />
+    <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTAT_World.h" />
     <ClInclude Include="CTestScene.h" />
     <ClInclude Include="CTexture.h" />
@@ -173,7 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
-    <ClCompile Include="CCom_Commoner.cpp" />
+    <ClCompile Include="CCommander.cpp" />
+    <ClCompile Include="CComState_Idle.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />
@@ -183,6 +187,8 @@
     <ClCompile Include="CSingleTexture.cpp" />
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CSpriteObj.cpp" />
+    <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTAT_World.cpp" />
     <ClCompile Include="CTestScene.cpp" />
     <ClCompile Include="CTexture.cpp" />

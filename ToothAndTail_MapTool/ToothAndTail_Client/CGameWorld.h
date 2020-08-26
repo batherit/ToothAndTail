@@ -11,7 +11,7 @@ class CGameWorld abstract
 {
 public:
 	CGameWorld();
-	~CGameWorld();
+	virtual ~CGameWorld();
 
 public:
 	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) = 0;
@@ -21,29 +21,29 @@ public:
 	virtual void Render(void) = 0;
 	virtual void Release(void) = 0;
 	CCamera* SetMainCamera(CCamera* _pCamera) { 
-		CCamera* pOldCamera = m_pCamera;
-		m_pCamera = _pCamera;
+		CCamera* pOldCamera = m_pCamera_Main;
+		m_pCamera_Main = _pCamera;
 		return pOldCamera;
 	}
-	CCamera* GetMainCamera(void) const { return m_pCamera; }
+	CCamera* GetMainCamera(void) const { return m_pCamera_Main; }
 
 public:
 	bool ConfirmValidScene(void);
 	void RunTick(void);
 	void StartRender(void);
 	void EndRender(void);
-	CTimer* GetTimer(void) const { return m_pTimer; }
-	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager; }
-	CSpace* GetViewSpace(void) const { return m_pViewSpace; }
-	list<CObj*>& GetListObjs(void) { return m_listObjs; } // 객체의 생성과 소멸은 객체를 생성/소멸하는 주체가 담당한다.
+	CTimer* GetTimer(void) const { return m_pTimer_Main; }
+	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager_Main; }
+	CSpace* GetViewSpace(void) const { return m_pViewSpace_Main; }
+	list<CObj*>& GetListObjs(void) { return m_listObjs_Main; } // 객체의 생성과 소멸은 객체를 생성/소멸하는 주체가 담당한다.
 
 private:
 	CGraphicDevice* m_pGraphicDevice = nullptr;
 
-	CCamera* m_pCamera			= nullptr;
-	CTimer* m_pTimer			= nullptr;
-	CSpace* m_pViewSpace		= nullptr;
-	CSceneMgr* m_pSceneManager	= nullptr;
-	list<CObj*> m_listObjs;
+	CCamera* m_pCamera_Main			= nullptr;
+	CTimer* m_pTimer_Main			= nullptr;
+	CSpace* m_pViewSpace_Main		= nullptr;
+	CSceneMgr* m_pSceneManager_Main	= nullptr;
+	list<CObj*> m_listObjs_Main;
 };
 

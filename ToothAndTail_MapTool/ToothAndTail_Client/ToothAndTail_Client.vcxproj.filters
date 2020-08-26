@@ -60,8 +60,11 @@
     <Filter Include="소스 파일\1.CObj\Commander">
       <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\Commander\Commoner">
-      <UniqueIdentifier>{df9cb9d3-5568-4848-b970-eddcda43e9db}</UniqueIdentifier>
+    <Filter Include="소스 파일\1.State">
+      <UniqueIdentifier>{e6aafcd0-1fd3-4bd6-8752-2496fe6038db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Commander">
+      <UniqueIdentifier>{eb821ebe-0d27-44e4-980f-16244855d6a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,11 +131,20 @@
     <ClInclude Include="CTestScene.h">
       <Filter>소스 파일\1.Scene\TestScene</Filter>
     </ClInclude>
-    <ClInclude Include="CCom_Commoner.h">
-      <Filter>소스 파일\1.CObj\Commander\Commoner</Filter>
-    </ClInclude>
     <ClInclude Include="MacroValue.h">
       <Filter>소스 파일\98.Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="CCommander.h">
+      <Filter>소스 파일\1.CObj\Commander</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>소스 파일\1.State</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CComState_Idle.h">
+      <Filter>소스 파일\1.State\Commander</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,11 +202,20 @@
     <ClCompile Include="CTestScene.cpp">
       <Filter>소스 파일\1.Scene\TestScene</Filter>
     </ClCompile>
-    <ClCompile Include="CCom_Commoner.cpp">
-      <Filter>소스 파일\1.CObj\Commander\Commoner</Filter>
-    </ClCompile>
     <ClCompile Include="CSpriteObj.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CCommander.cpp">
+      <Filter>소스 파일\1.CObj\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>소스 파일\1.State</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CComState_Idle.cpp">
+      <Filter>소스 파일\1.State\Commander</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

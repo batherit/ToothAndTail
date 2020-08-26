@@ -56,7 +56,7 @@ void CSpriteObj::Render(CCamera * _pCamera)
 int CSpriteObj::UpdateAnim(float _fDeltaTime)
 {
 	// 반환값 내용
-	// 0 : Anim이 정상적으로 업데이트 되었음.
+	// 0 : Anim이 정상적으로 업데이트 되었음. 무한 애님 포함.
 	// 1 : 현재 Anim 상태가 무효화 상태이며 새로운 상태값 입력을 요구함.
 	if (m_stAnimInfo.iCountToRepeat != 0 && m_stAnimInfo.iCountToRepeat <= m_stAnimProcessingInfo.iRepeatedCount) return 1;
 	// _anim_processing_info를 갱신한다.

@@ -1,16 +1,1 @@
-﻿  stdafx.cpp
-  CCamera.cpp
-  CGraphicDevice.cpp
-  CMultiTexture.cpp
-  CObj.cpp
-  CSingleTexture.cpp
-  CSpriteObj.cpp
-  CTexture.cpp
-  CTextureMgr.cpp
-  Function.cpp
-  MainFrm.cpp
-  ToothAndTail_MapTool.cpp
-  ToothAndTail_MapToolDoc.cpp
-  ToothAndTail_MapToolView.cpp
-  코드를 생성하고 있습니다...
-  ToothAndTail_MapTool.vcxproj -> D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe
+﻿

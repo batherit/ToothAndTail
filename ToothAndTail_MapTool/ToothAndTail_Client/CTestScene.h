@@ -15,8 +15,5 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
-
-private:
-	CSpriteObj* m_pSpriteObj = nullptr;
 };
 

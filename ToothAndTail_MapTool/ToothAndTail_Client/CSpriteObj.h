@@ -25,11 +25,11 @@ public:
 	void SetColor(const D3DCOLOR& _clRenderColor) { m_clRenderColor = _clRenderColor; }
 
 	// 애니메이션 관련 함수들
-	void SetNewAnimInfo(const AnimInfo& _stAnimInfo) {
+	virtual void SetNewAnimInfo(const AnimInfo& _stAnimInfo) {
 		m_stAnimInfo = _stAnimInfo;
 		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
 	}
-	int UpdateAnim(float _fDeltaTime);
+	virtual int UpdateAnim(float _fDeltaTime);
 	AnimInfo& GetAnimInfo(void) { return m_stAnimInfo; }
 	float GetAnimProgress(void) const { return m_stAnimProcessingInfo.fAnimElapsedTime / m_stAnimInfo.fTotalTime; }
 	int GetAnimX(void) const { return (m_stAnimProcessingInfo.iCurrentIndex % m_stAnimInfo.iCol) * m_iWidth; }
