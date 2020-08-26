@@ -36,14 +36,8 @@ void CSpriteObj::Release(void)
 
 void CSpriteObj::Render(CCamera * _pCamera)
 {
-	D3DXMATRIX matWorld, matScale, matTrans;
-	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
-
-	D3DXVECTOR3 vPosS = _pCamera->GetScreenPoint(GetXY());
-	D3DXMatrixTranslation(&matTrans, vPosS.x, vPosS.y, 0.f);
-
-	matWorld = matScale * matTrans;
-	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matWorld);
+	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(GetWorldMatrix());
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
 	RECT rcAnimFrame;
 	rcAnimFrame.left = GetAnimX();
@@ -51,7 +45,12 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	rcAnimFrame.right = rcAnimFrame.left + GetWidth();
 	rcAnimFrame.bottom = rcAnimFrame.top + GetHeight();
 
-	CGraphicDevice::GetInstance()->GetSprite()->Draw(m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture, &rcAnimFrame, &D3DXVECTOR3(GetWidth() >> 1, GetHeight() >> 1, 0.f), nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+	CGraphicDevice::GetInstance()->GetSprite()->Draw(
+		m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture, 
+		&rcAnimFrame, 
+		&D3DXVECTOR3(GetWidth() >> 1, GetHeight() >> 1, 0.f), 
+		nullptr, 
+		m_clRenderColor);
 }
 
 int CSpriteObj::UpdateAnim(float _fDeltaTime)

@@ -4,7 +4,7 @@ class CCom_Commoner :
 	public CSpriteObj
 {
 public:
-	CCom_Commoner(CGameWorld& _rGameWorld, float _fX, float _fY);
+	CCom_Commoner(CGameWorld& _rGameWorld, float _fX, float _fY, D3DCOLOR _clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255));
 	virtual ~CCom_Commoner();
 
 public:
@@ -13,5 +13,8 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
+
+private:
+	CSpriteObj* m_pIdentificationTintSprite = nullptr;
 };
 

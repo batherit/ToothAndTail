@@ -36,6 +36,7 @@ public:
 	RECT GetScreenRect(RECT& _rRectW);
 	D3DXVECTOR3 GetScreenPoint(const D3DXVECTOR3& _vPointW); //float _fXW, float _fYW);
 	D3DXVECTOR3 GetWorldPoint(const D3DXVECTOR3& _vPointS);
+	D3DXMATRIX GetScreenMatrix(const D3DXMATRIX& _matWorld);
 
 private:
 	CObj* m_pOwner = nullptr;

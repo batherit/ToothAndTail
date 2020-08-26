@@ -18,7 +18,7 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_pSpriteObj = new CCom_Commoner(m_rGameWorld, 0.f, 0.f);
+	m_pSpriteObj = new CCom_Commoner(m_rGameWorld, 0.f, 0.f, D3DCOLOR_ARGB(255, 255, 0, 0));
 	m_rGameWorld.GetListObjs().emplace_back(m_pSpriteObj);
 }
 

@@ -91,3 +91,22 @@ void CObj::SaveInfo(FILE * _fpOut)
 void CObj::LoadInfo(FILE * _fpIn)
 {
 }
+
+D3DXMATRIX CObj::GetLocalMatrix(void) const
+{
+	D3DXMATRIX matScale, matTrans;
+	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
+	D3DXMatrixTranslation(&matTrans, GetX(), GetY(), 0.f);
+
+	return matScale * matTrans;
+}
+
+D3DXMATRIX CObj::GetWorldMatrix(void) const
+{
+	D3DXMATRIX matParentW;
+	D3DXMatrixIdentity(&matParentW);
+
+	if (m_pParent) matParentW = m_pParent->GetWorldMatrix();
+
+	return GetLocalMatrix() * matParentW;
+}

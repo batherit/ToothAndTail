@@ -22,13 +22,8 @@ public:
 public:
 	// 아틀라스 텍스처(싱글 텍스처의 일종)
 	void PushTexture(const TextureInfo* _pTextureInfo) { if(_pTextureInfo) m_vecTextureInfos.emplace_back(_pTextureInfo); }
-	void SetScaleX(float _fScaleX) { m_fScaleX = _fScaleX; }
-	void SetScaleY(float _fScaleY) { m_fScaleY = _fScaleY; }
-	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
+	void SetColor(const D3DCOLOR& _clRenderColor) { m_clRenderColor = _clRenderColor; }
 
-	float GetScaleX(void) const { return m_fScaleX; }
-	float GetScaleY(void) const { return m_fScaleY; }
-	
 	// 애니메이션 관련 함수들
 	void SetNewAnimInfo(const AnimInfo& _stAnimInfo) {
 		m_stAnimInfo = _stAnimInfo;
@@ -42,9 +37,7 @@ public:
 
 private:
 	vector<const TextureInfo*> m_vecTextureInfos;
-	float m_fScaleX = 1.f;
-	float m_fScaleY = 1.f;
-	
+	D3DCOLOR m_clRenderColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 	AnimInfo m_stAnimInfo;
 	AnimProcessingInfo m_stAnimProcessingInfo;
 };

@@ -39,6 +39,7 @@ public:
 	}
 
 	// Set
+	void SetParent(CObj* _pParent) { m_pParent = _pParent; }
 	void SetValid(bool _bIsValid) { m_bIsValid = _bIsValid; }
 	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 	//void SetModelType(OBJ::E_MODEL_TYPE _eModelType) { m_eModelType = _eModelType; }
@@ -47,6 +48,7 @@ public:
 	void SetScale(float _fScale) { m_fScaleX = _fScale; m_fScaleY = _fScale; }
 	void SetScaleX(float _fScaleX) { m_fScaleX = _fScaleX; }
 	void SetScaleY(float _fScaleY) { m_fScaleY = _fScaleY; }
+	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
 	void SetX(float _fX) { m_vPos.x = _fX; if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate(); }
@@ -95,8 +97,13 @@ public:
 	}
 
 	CObj* GetCollider(void) const { return m_pCollider; }
+
+	D3DXMATRIX GetLocalMatrix(void) const;
+	D3DXMATRIX GetWorldMatrix(void) const;
 	
 protected:
+	CObj* m_pParent = nullptr;
+
 	bool m_bIsValid = true;
 	bool m_bIsVisible = true;
 
