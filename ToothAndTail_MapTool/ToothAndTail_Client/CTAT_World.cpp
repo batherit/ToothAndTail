@@ -19,7 +19,23 @@ CTAT_World::~CTAT_World()
 
 LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	switch (nMessageID)
+	{
+	case WM_MOUSEWHEEL:
+	{
+		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+
+		if (zDelta > 0) {
+			m_pCamera->ZoomIn(0.05f);
+		}
+		else {
+			m_pCamera->ZoomOut(0.05f);
+		}
+		break;
+	}
+	}
+
+	return 0;
 }
 
 void CTAT_World::Ready(void)
