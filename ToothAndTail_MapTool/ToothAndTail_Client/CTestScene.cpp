@@ -18,8 +18,10 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_pSpriteObj = new CCom_Commoner(m_rGameWorld, 0.f, 0.f, D3DCOLOR_ARGB(255, 255, 0, 0));
-	m_rGameWorld.GetListObjs().emplace_back(m_pSpriteObj);
+	m_rGameWorld.GetListObjs().emplace_back(new CCom_Commoner(m_rGameWorld, -200.f, 0.f, L"COM_MILITARY", D3DCOLOR_ARGB(255, 0, 255, 0)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCom_Commoner(m_rGameWorld, -100.f, 0.f, L"COM_CAPITALIST", D3DCOLOR_ARGB(255, 0, 0, 255)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCom_Commoner(m_rGameWorld, 0.f, 0.f, L"COM_CLERGY", D3DCOLOR_ARGB(255, 255, 255, 0)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCom_Commoner(m_rGameWorld, 100.f, 0.f, L"COM_COMMONER", D3DCOLOR_ARGB(255, 255, 0, 0)));
 }
 
 int CTestScene::Update(float _fDeltaTime)

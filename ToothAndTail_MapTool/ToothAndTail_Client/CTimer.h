@@ -2,7 +2,10 @@
 
 class CTimer final {
 public:
-	CTimer(TIMER::E_TYPE _eTimerType = TIMER::TIMER_TYPE_TIME);
+	enum E_TYPE { TIMER_TYPE_TIME, TIMER_TYPE_TICKCOUNT, TIMER_TYPE_WINDOWS };
+
+public:
+	CTimer(CTimer::E_TYPE _eTimerType = CTimer::TIMER_TYPE_TIME);
 	~CTimer();
 
 	void Reset();						// 타이머 속성을 초기화
@@ -16,7 +19,7 @@ public:
 
 private:
 	bool _bIsPaused;					// 일시정지되었는지?
-	TIMER::E_TYPE m_eTimerType;			// 타이머 타입 (time.h || windows.h)
+	CTimer::E_TYPE m_eTimerType;			// 타이머 타입 (time.h || windows.h)
 	time_t m_timeBase;					// 최초의 기본 시간 (카운트)
 	time_t m_timeBefore;				// 이전 시간 (카운트)
 	time_t m_timeCurrent;				// 현재 시간 (카운트)
@@ -30,7 +33,7 @@ private:
 class CGameWorldTimer {
 public:
 	static CTimer* Instance() {
-		static CTimer *instance = new CTimer(TIMER::TIMER_TYPE_TICKCOUNT);
+		static CTimer *instance = new CTimer(CTimer::TIMER_TYPE_TICKCOUNT);
 		return instance;
 	}
 };

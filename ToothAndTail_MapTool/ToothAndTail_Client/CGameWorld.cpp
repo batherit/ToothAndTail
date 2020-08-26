@@ -9,7 +9,7 @@
 CGameWorld::CGameWorld()
 	:
 	m_pGraphicDevice(CGraphicDevice::GetInstance()),
-	m_pTimer(new CTimer(TIMER::TIMER_TYPE_WINDOWS)),
+	m_pTimer(new CTimer(CTimer::TIMER_TYPE_WINDOWS)),
 	m_pSceneManager(new CSceneMgr(*this)),
 	// ViewSpace는 렌더 컬링할때 쓰일 수 있다.
 	m_pViewSpace(new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX), static_cast<int>(WINCY)))

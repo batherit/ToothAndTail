@@ -2,7 +2,7 @@
 #include "CTimer.h"
 
 
-CTimer::CTimer(TIMER::E_TYPE _eTimerType)
+CTimer::CTimer(CTimer::E_TYPE _eTimerType)
 	:
 	_bIsPaused(false),
 	m_eTimerType(_eTimerType),
@@ -13,15 +13,15 @@ CTimer::CTimer(TIMER::E_TYPE _eTimerType)
 	time_t timeFrequency;
 	switch (m_eTimerType)
 	{
-	case TIMER::TIMER_TYPE_TIME:
+	case CTimer::TIMER_TYPE_TIME:
 		m_timeCurrent = clock();
 		timeFrequency = CLOCKS_PER_SEC;
 		break;
-	case TIMER::TIMER_TYPE_TICKCOUNT:
+	case CTimer::TIMER_TYPE_TICKCOUNT:
 		m_timeCurrent = GetTickCount();
 		timeFrequency = CLOCKS_PER_SEC;
 		break;
-	case TIMER::TIMER_TYPE_WINDOWS:
+	case CTimer::TIMER_TYPE_WINDOWS:
 		QueryPerformanceCounter((LARGE_INTEGER*)&m_timeCurrent);
 		QueryPerformanceFrequency((LARGE_INTEGER*)&timeFrequency);
 		break;
@@ -46,13 +46,13 @@ void CTimer::Reset() {
 
 	switch (m_eTimerType)
 	{
-	case TIMER::TIMER_TYPE_TIME:
+	case CTimer::TIMER_TYPE_TIME:
 		m_timeCurrent = clock();
 		break;
-	case TIMER::TIMER_TYPE_TICKCOUNT:
+	case CTimer::TIMER_TYPE_TICKCOUNT:
 		m_timeCurrent = GetTickCount();
 		break;
-	case TIMER::TIMER_TYPE_WINDOWS:
+	case CTimer::TIMER_TYPE_WINDOWS:
 		QueryPerformanceCounter((LARGE_INTEGER*)&m_timeCurrent);
 		break;
 	default:
@@ -70,13 +70,13 @@ void CTimer::RunTick() {
 
 	switch (m_eTimerType)
 	{
-	case TIMER::TIMER_TYPE_TIME:
+	case CTimer::TIMER_TYPE_TIME:
 		m_timeCurrent = clock();
 		break;
-	case TIMER::TIMER_TYPE_TICKCOUNT:
+	case CTimer::TIMER_TYPE_TICKCOUNT:
 		m_timeCurrent = GetTickCount();
 		break;
-	case TIMER::TIMER_TYPE_WINDOWS:
+	case CTimer::TIMER_TYPE_WINDOWS:
 		QueryPerformanceCounter((LARGE_INTEGER*)&m_timeCurrent);
 		break;
 	default:
@@ -97,13 +97,13 @@ void CTimer::RunToPause() {
 	if (!_bIsPaused) {
 		switch (m_eTimerType)
 		{
-		case TIMER::TIMER_TYPE_TIME:
+		case CTimer::TIMER_TYPE_TIME:
 			m_timePausePoint = clock();
 			break;
-		case TIMER::TIMER_TYPE_TICKCOUNT:
+		case CTimer::TIMER_TYPE_TICKCOUNT:
 			m_timePausePoint = GetTickCount();
 			break;
-		case TIMER::TIMER_TYPE_WINDOWS:
+		case CTimer::TIMER_TYPE_WINDOWS:
 			QueryPerformanceCounter((LARGE_INTEGER*)&m_timePausePoint);
 			break;
 		default:
@@ -119,13 +119,13 @@ void CTimer::PauseToRun() {
 		time_t timeRunPoint;
 		switch (m_eTimerType)
 		{
-		case TIMER::TIMER_TYPE_TIME:
+		case CTimer::TIMER_TYPE_TIME:
 			timeRunPoint = clock();
 			break;
-		case TIMER::TIMER_TYPE_TICKCOUNT:
+		case CTimer::TIMER_TYPE_TICKCOUNT:
 			timeRunPoint = GetTickCount();
 			break;
-		case TIMER::TIMER_TYPE_WINDOWS:
+		case CTimer::TIMER_TYPE_WINDOWS:
 			QueryPerformanceCounter((LARGE_INTEGER*)&timeRunPoint);
 			break;
 		default:
@@ -156,13 +156,13 @@ float CTimer::GetTotalTimeFromRun() {
 	else {
 		switch (m_eTimerType)
 		{
-		case TIMER::TIMER_TYPE_TIME:
+		case CTimer::TIMER_TYPE_TIME:
 			m_timeCurrent = clock();
 			break;
-		case TIMER::TIMER_TYPE_TICKCOUNT:
+		case CTimer::TIMER_TYPE_TICKCOUNT:
 			m_timeCurrent = GetTickCount();
 			break;
-		case TIMER::TIMER_TYPE_WINDOWS:
+		case CTimer::TIMER_TYPE_WINDOWS:
 			QueryPerformanceCounter((LARGE_INTEGER*)&m_timeCurrent);
 			break;
 		default:

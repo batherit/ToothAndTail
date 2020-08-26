@@ -4,16 +4,19 @@
 #include "CTexture.h"
 
 
-CCom_Commoner::CCom_Commoner(CGameWorld & _rGameWorld, float _fX, float _fY, D3DCOLOR _clIdentificationTint_ARGB)
+CCom_Commoner::CCom_Commoner(CGameWorld & _rGameWorld, float _fX, float _fY, const wstring& _strComName, D3DCOLOR _clIdentificationTint_ARGB)
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, COM_COMMONER_WIDTH, COM_COMMONER_HEIGHT)
 {
-	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"COM_COMMONER"));
+	wstring wstrTint = _strComName;
+	wstrTint += L"_TINT";
+
+	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(_strComName));
 	SetScaleXY(3.f, 3.f);
 
 	m_pIdentificationTintSprite = new CSpriteObj(_rGameWorld, 0.f, 0.f, COM_COMMONER_WIDTH, COM_COMMONER_HEIGHT);
 	m_pIdentificationTintSprite->SetParent(this);
-	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"COM_COMMONER_TINT"));
+	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrTint));
 	m_pIdentificationTintSprite->SetColor(_clIdentificationTint_ARGB);
 
 	AnimInfo stAnimInfo(0, 8, 0, 10, 1.f, 0, false); // 무한 애님 테스트
@@ -42,6 +45,7 @@ void CCom_Commoner::LateUpdate(void)
 
 void CCom_Commoner::Release(void)
 {
+	SafelyDeleteObj(m_pIdentificationTintSprite);
 }
 
 void CCom_Commoner::Render(CCamera * _pCamera)

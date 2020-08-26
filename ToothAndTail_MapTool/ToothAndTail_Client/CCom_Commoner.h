@@ -4,7 +4,7 @@ class CCom_Commoner :
 	public CSpriteObj
 {
 public:
-	CCom_Commoner(CGameWorld& _rGameWorld, float _fX, float _fY, D3DCOLOR _clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255));
+	CCom_Commoner(CGameWorld& _rGameWorld, float _fX, float _fY, const wstring& _strComName = L"COM_COMMONER", D3DCOLOR _clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255));
 	virtual ~CCom_Commoner();
 
 public:
