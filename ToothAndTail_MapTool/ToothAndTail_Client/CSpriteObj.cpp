@@ -75,7 +75,7 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 		&rcAnimFrame,
 		&D3DXVECTOR3(GetWidth() >> 1, GetHeight() >> 1, 0.f),
 		nullptr,
-		D3DCOLOR_ARGB(122, 0, 0, 0,));
+		D3DCOLOR_ARGB(122, 0, 0, 0));
 }
 
 int CSpriteObj::UpdateAnim(float _fDeltaTime)

@@ -81,24 +81,28 @@ bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_W)) {
 		_fToX += cfDeltaX[OBJ::DIR_UP];
 		_fToY += cfDeltaY[OBJ::DIR_UP];
+		SetScaleX(3.f);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_S) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_S)) {
 		_fToX += cfDeltaX[OBJ::DIR_DOWN];
 		_fToY += cfDeltaY[OBJ::DIR_DOWN];
+		SetScaleX(-3.f);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_A) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_A)) {
 		_fToX += cfDeltaX[OBJ::DIR_LEFT];
 		_fToY += cfDeltaY[OBJ::DIR_LEFT];
+		SetScaleX(-3.f);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_D) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_D)) {
 		_fToX += cfDeltaX[OBJ::DIR_RIGHT];
 		_fToY += cfDeltaY[OBJ::DIR_RIGHT];
+		SetScaleX(3.f);
 	}
 
 	if (_fToX == 0.f && _fToY == 0.f) return false;
