@@ -55,6 +55,7 @@ void CCommander::Release(void)
 
 void CCommander::Render(CCamera * _pCamera)
 {
+	CSpriteObj::RenderShadow(_pCamera);
 	CSpriteObj::Render(_pCamera);
 	m_pIdentificationTintSprite->Render(_pCamera);
 }

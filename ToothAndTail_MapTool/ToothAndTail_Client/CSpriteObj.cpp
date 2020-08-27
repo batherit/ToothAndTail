@@ -53,6 +53,31 @@ void CSpriteObj::Render(CCamera * _pCamera)
 		m_clRenderColor);
 }
 
+void CSpriteObj::RenderShadow(CCamera * _pCamera)
+{
+	D3DXMATRIX matWorld = GetWorldMatrix();
+	matWorld._41 -= 50.f;
+	matWorld._42 += 25.f;
+	matWorld._21 += 1.5f;						// 전단
+	matWorld._22 = matWorld._22 * 0.75f;		// 스케일 Y
+	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);
+
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
+
+	RECT rcAnimFrame;
+	rcAnimFrame.left = GetAnimX();
+	rcAnimFrame.top = GetAnimY();
+	rcAnimFrame.right = rcAnimFrame.left + GetWidth();
+	rcAnimFrame.bottom = rcAnimFrame.top + GetHeight();
+
+	CGraphicDevice::GetInstance()->GetSprite()->Draw(
+		m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture,
+		&rcAnimFrame,
+		&D3DXVECTOR3(GetWidth() >> 1, GetHeight() >> 1, 0.f),
+		nullptr,
+		D3DCOLOR_ARGB(122, 0, 0, 0,));
+}
+
 int CSpriteObj::UpdateAnim(float _fDeltaTime)
 {
 	// 반환값 내용
