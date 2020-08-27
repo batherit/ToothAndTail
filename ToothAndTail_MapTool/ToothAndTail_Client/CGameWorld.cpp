@@ -18,6 +18,7 @@ CGameWorld::CGameWorld()
 
 	if (m_pGraphicDevice) m_pGraphicDevice->GenerateGraphicDevice();
 	if (m_pTimer_Main) m_pTimer_Main->Reset();
+	m_vecRenderObjs_Main.reserve(1000);
 }
 
 
@@ -26,6 +27,8 @@ CGameWorld::~CGameWorld()
 	SafelyDeleteObj(m_pTimer_Main);
 	SafelyDeleteObj(m_pSceneManager_Main);
 	SafelyDeleteObj(m_pViewSpace_Main);
+	m_vecRenderObjs_Main.clear();
+	m_vecRenderObjs_Main.shrink_to_fit();
 	m_pGraphicDevice->DestroyInstance();
 	m_pCamera_Main = nullptr;
 }
@@ -49,3 +52,17 @@ void CGameWorld::EndRender(void)
 {
 	m_pGraphicDevice->EndRender();
 }
+
+void CGameWorld::RenderListObjs(CCamera* _pCamera, bool (*funcComp)(CObj* obj1, CObj* obj2))
+{
+	m_vecRenderObjs_Main.clear();
+	for (auto& pObj : GetListObjs()) {
+		pObj->RegisterToRenderList(m_vecRenderObjs_Main);
+	}
+	sort(m_vecRenderObjs_Main.begin(), m_vecRenderObjs_Main.end(), funcComp);
+	
+	for (auto& pObj : m_vecRenderObjs_Main) {
+		pObj->Render(_pCamera);
+	}
+}
+

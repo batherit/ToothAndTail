@@ -66,6 +66,12 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\Commander">
       <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj">
+      <UniqueIdentifier>{f2621b89-5a0e-4849-888d-97373a85586a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill">
+      <UniqueIdentifier>{524c40f2-a486-4710-8d47-4a9386864347}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -164,6 +170,15 @@
     <ClInclude Include="CComState_Running_Jump.h">
       <Filter>소스 파일\1.State\Commander</Filter>
     </ClInclude>
+    <ClInclude Include="CWindmill.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClInclude>
+    <ClInclude Include="CComDepObj.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CTurbine.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -252,6 +267,15 @@
     </ClCompile>
     <ClCompile Include="CComState_Running_Jump.cpp">
       <Filter>소스 파일\1.State\Commander</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindmill.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClCompile>
+    <ClCompile Include="CComDepObj.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CTurbine.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,10 +19,10 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, L"COM_MILITARY", D3DCOLOR_ARGB(255, 0, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, L"COM_CAPITALIST", D3DCOLOR_ARGB(255, 0, 0, 255)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 0.f, 0.f, L"COM_CLERGY", D3DCOLOR_ARGB(255, 255, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 100.f, 0.f, L"COM_COMMONER", D3DCOLOR_ARGB(255, 255, 0, 0)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0)));
+	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 100.f, 0.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0)));
 }
 
 int CTestScene::Update(float _fDeltaTime)
@@ -47,7 +47,5 @@ void CTestScene::Release(void)
 
 void CTestScene::Render(CCamera * _pCamera)
 {
-	for (auto* rObj : m_rGameWorld.GetListObjs()) {
-		rObj->Render(_pCamera);
-	}
+	m_rGameWorld.RenderListObjs(_pCamera);
 }

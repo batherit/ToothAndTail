@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CComDepObj.h" />
     <ClInclude Include="CCommander.h" />
     <ClInclude Include="CComState_Idle.h" />
     <ClInclude Include="CComState_Run.h" />
@@ -172,6 +173,8 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTurbine.h" />
+    <ClInclude Include="CWindmill.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="MacroValue.h" />
@@ -182,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CComDepObj.cpp" />
     <ClCompile Include="CCommander.cpp" />
     <ClCompile Include="CComState_Idle.cpp" />
     <ClCompile Include="CComState_Run.cpp" />
@@ -206,6 +210,8 @@
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="CTurbine.cpp" />
+    <ClCompile Include="CWindmill.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -16,6 +16,9 @@ public:
 	virtual void Release(void) override;
 
 private:
+	void LoadTextures(void);
+
+private:
 	CCamera* m_pCamera = nullptr;
 };
 

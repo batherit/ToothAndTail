@@ -6,20 +6,40 @@
 #include "CComState_Idle.h"
 
 
-CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, const wstring& _strComName, D3DCOLOR _clIdentificationTint_ARGB)
-	:
-	CSpriteObj(_rGameWorld, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED)
-{
-	wstring wstrTint = _strComName;
-	wstrTint += L"_TINT";
 
-	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(_strComName));
-	SetScaleXY(3.f, 3.f);
+CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
+	:
+	CSpriteObj(_rGameWorld, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
+	m_eCommanderType(_eCommanderType),
+	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)
+{
+	wstring wstrCommander = L"";
+	switch (_eCommanderType)
+	{
+	case CCommander::COM_TYPE_COMMONER:
+		wstrCommander = L"COM_COMMONER";
+		break;
+	case CCommander::COM_TYPE_CAPITALIST:
+		wstrCommander = L"COM_CAPITALIST";
+		break;
+	case CCommander::COM_TYPE_MILITARY:
+		wstrCommander = L"COM_MILITARY";
+		break;
+	case CCommander::COM_TYPE_CLERGY:
+		wstrCommander = L"COM_CLERGY";
+		break;
+	default:
+		break;
+	}
+
+	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
+	SetScaleXY(BASE_SCALE, BASE_SCALE);
 
 	m_pIdentificationTintSprite = new CSpriteObj(_rGameWorld, 0.f, 0.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
 	m_pIdentificationTintSprite->SetParent(this);
-	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrTint));
 	m_pIdentificationTintSprite->SetColor(_clIdentificationTint_ARGB);
+	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander + L"_TINT"));
+	
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
@@ -81,28 +101,28 @@ bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_W)) {
 		_fToX += cfDeltaX[OBJ::DIR_UP];
 		_fToY += cfDeltaY[OBJ::DIR_UP];
-		SetScaleX(3.f);
+		SetScaleX(BASE_SCALE);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_S) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_S)) {
 		_fToX += cfDeltaX[OBJ::DIR_DOWN];
 		_fToY += cfDeltaY[OBJ::DIR_DOWN];
-		SetScaleX(-3.f);
+		SetScaleX(-BASE_SCALE);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_A) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_A)) {
 		_fToX += cfDeltaX[OBJ::DIR_LEFT];
 		_fToY += cfDeltaY[OBJ::DIR_LEFT];
-		SetScaleX(-3.f);
+		SetScaleX(-BASE_SCALE);
 	}
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_D) ||
 		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_D)) {
 		_fToX += cfDeltaX[OBJ::DIR_RIGHT];
 		_fToY += cfDeltaY[OBJ::DIR_RIGHT];
-		SetScaleX(3.f);
+		SetScaleX(BASE_SCALE);
 	}
 
 	if (_fToX == 0.f && _fToY == 0.f) return false;
