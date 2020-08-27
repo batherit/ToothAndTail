@@ -5,11 +5,11 @@ class CCommander;
 class CTurbine :
 	public CComDepObj
 {
-private:
+public:
 	enum E_STATE { STATE_BUILDING, STATE_COMPLETED, STATE_END };
 
 public:
-	CTurbine(CGameWorld& _rGameWorld, float _fX, float _fY, CCommander* _pCommander = nullptr);
+	CTurbine(CGameWorld& _rGameWorld, float _fX, float _fY, CTurbine::E_STATE _eState = CTurbine::STATE_BUILDING, CCommander* _pCommander = nullptr);
 	virtual ~CTurbine();
 
 public:

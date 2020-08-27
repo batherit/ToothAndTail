@@ -45,6 +45,7 @@ void CComDepObj::Release(void)
 
 void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring & _wstrTintKey)
 {
+	if (!m_pCommander) return;
 	if (m_pIdentificationTintSprite) SafelyDeleteObj(m_pIdentificationTintSprite);
 	// 색 정보를 나타내는 틴트 텍스처 장착
 	m_pIdentificationTintSprite = new CSpriteObj(GetGameWorld(), 0.f, 0.f, _iWidth, _iHeight);

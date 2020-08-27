@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CTestScene.h"
 #include "CGameWorld.h"
-//#include "CCom_Commoner.h"
 #include "CCommander.h"
+//#include "CTurbine.h"
+#include "CWindmill.h"
 
 
 CTestScene::CTestScene(CGameWorld & _rGameWorld)
@@ -19,10 +20,14 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 100.f, 0.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0)));
+	//m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
+	//m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
+	//m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0)));
+	//m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 100.f, 0.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0)));
+	//m_rGameWorld.GetListObjs().emplace_back(new CTurbine(m_rGameWorld, 0.f, 0.f, nullptr));
+	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, -300.f, 0.f, CWindmill::STATE_UNOCCUPIED, nullptr));
+	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_BUILDING, nullptr));
+	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 300.f, 0.f, CWindmill::STATE_OCCUPIED, nullptr));
 }
 
 int CTestScene::Update(float _fDeltaTime)

@@ -24,8 +24,6 @@ public:
 	virtual void Release(void);
 
 private:
-	D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
-	CSpriteObj* m_pIdentificationTintSprite = nullptr;
 	CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
 	CTurbine* m_pTurbine = nullptr;
 	CSpriteObj* m_pGround = nullptr;
