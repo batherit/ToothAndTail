@@ -2,12 +2,6 @@
 #include "CObj.h"
 
 
-CObj::CObj(CGameWorld& _rGameWorld)
-	:
-	m_rGameWorld(_rGameWorld)
-
-{
-}
 
 CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t _iWidth /*= 10*/, size_t _iHeight /*= 10*/, float _fToX, float _fToY, float _fSpeed /*= 0.f*/)
 	:
@@ -20,6 +14,7 @@ CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t
 	m_fSpeed(_fSpeed)
 {
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
+	m_vPivot = D3DXVECTOR3(static_cast<FLOAT>(m_iWidth >> 1), static_cast<FLOAT>(m_iHeight >> 1), 0.f);
 }
 
 

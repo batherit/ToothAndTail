@@ -7,8 +7,7 @@ class CWindmill :
 	public CComDepObj
 {
 public:
-	// Unoccupied
-	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_END };
+	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_DESTROYED, STATE_END };
 
 public:
 	CWindmill(CGameWorld& _rGameWorld, float _fX, float _fY, CWindmill::E_STATE _eState, CCommander* _pCommander = nullptr);

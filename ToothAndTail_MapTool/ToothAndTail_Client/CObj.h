@@ -6,7 +6,6 @@ class CCamera;
 class CObj abstract
 {
 public:
-	CObj(CGameWorld& _rGameWorld);
 	CObj(CGameWorld& _rGameWorld, float _fX = 0, float _fY = 0, size_t _iWidth = 10, size_t _iHeight = 10, float _fToX = 1.f, float _fToY = 0.f, float _fSpeed = 0.f);
 	virtual ~CObj();
 	
@@ -54,6 +53,9 @@ public:
 	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
+	void SetPivotX(float _fPivotX) { m_vPivot.x = _fPivotX; }
+	void SetPivotY(float _fPivotY) { m_vPivot.y = _fPivotY; }
+	void SetPivotXY(float _fPivotX, float _fPivotY) { SetPivotX(_fPivotX); SetPivotY(_fPivotY); }
 	void SetX(float _fX) { m_vPos.x = _fX; if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate(); }
 	void SetY(float _fY) { m_vPos.y = _fY; if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate(); }
 	void SetXY(float _fX, float _fY) { SetX(_fX); SetY(_fY); }
@@ -74,6 +76,9 @@ public:
 	//OBJ::E_MODEL_TYPE GetModelType(void) const { return m_eModelType; }
 	//const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
 	inline int GetRenderLayer(void) { return m_iRenderLayer; }
+	float GetPivotX(void) const { return m_vPivot.x; }
+	float GetPivotY(void) const { return m_vPivot.y; }
+	D3DXVECTOR3 GetPivotXY(void) const { return D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f); }
 	float GetX(void) const { return m_vPos.x; }
 	float GetY(void) const { return m_vPos.y; }
 	float GetScaleX(void) const { return m_fScaleX; }
@@ -85,7 +90,7 @@ public:
 	float GetToY(void) const { return m_vDir.y; }
 	D3DXVECTOR3 GetToXY(void) const { return D3DXVECTOR3(GetToX(), GetToY(), 0.f); }
 	float GetSpeed(void) const { return m_fSpeed; }
-	LONG GetLeft(void) const { return static_cast<int>(m_vPos.x - (m_iWidth >> 1)); }
+	/*LONG GetLeft(void) const { return static_cast<int>(m_vPos.x - (m_iWidth >> 1)); }
 	LONG GetTop(void) const { return static_cast<int>(m_vPos.y - (m_iHeight >> 1)); }
 	LONG GetRight(void) const { return static_cast<int>(m_vPos.x + (m_iWidth >> 1)); }
 	LONG GetBottom(void) const { return static_cast<int>(m_vPos.y + (m_iHeight >> 1)); }
@@ -97,7 +102,12 @@ public:
 		static_cast<LONG>(m_vPos.y + (m_iHeight >> 1))
 		}; 
 		return rc; 
-	}
+	}*/
+	inline LONG GetLeft(void) const { return static_cast<LONG>(m_vPos.x - m_vPivot.x); }
+	inline LONG GetTop(void) const { return static_cast<LONG>(m_vPos.y - m_vPivot.y); }
+	inline LONG GetRight(void) const { return static_cast<LONG>(GetLeft() + m_iWidth); }
+	inline LONG GetBottom(void) const { return static_cast<LONG>(GetTop() + m_iHeight); }
+	inline RECT GetRect(void) const { return RECT({GetLeft(), GetTop(), GetRight(), GetBottom()}); }
 
 	CObj* GetCollider(void) const { return m_pCollider; }
 
@@ -114,6 +124,7 @@ protected:
 	//OBJ::E_MODEL_TYPE m_eModelType = OBJ::MODEL_TYPE_END;
 	//vector<D3DXVECTOR3> m_vecModelVertices;
 	D3DXVECTOR3 m_vPos = { 0.f, 0.f, 0.f };
+	D3DXVECTOR3 m_vPivot = { 0.f, 0.f, 0.f };
 	D3DXVECTOR3 m_vDir = { 1.f, 0.f, 0.f };
 
 	//OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;

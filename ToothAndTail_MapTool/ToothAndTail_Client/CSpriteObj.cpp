@@ -73,7 +73,7 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	CGraphicDevice::GetInstance()->GetSprite()->Draw(
 		m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture,
 		&rcAnimFrame,
-		&D3DXVECTOR3(static_cast<FLOAT>(GetWidth() >> 1), static_cast<FLOAT>(GetHeight() >> 1), 0.f),
+		&D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f),
 		nullptr,
 		D3DCOLOR_ARGB(122, 0, 0, 0));
 }
