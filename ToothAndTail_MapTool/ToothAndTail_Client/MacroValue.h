@@ -16,3 +16,6 @@
 // 제분소 토지
 #define WINDMILL_GROUND_WIDTH	216 
 #define WINDMILL_GROUND_HEIGHT	144
+// 농장
+#define FARMLAND_WIDTH		80
+#define FARMLAND_HEIGHT		54

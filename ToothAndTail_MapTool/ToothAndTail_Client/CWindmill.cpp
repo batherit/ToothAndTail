@@ -13,11 +13,14 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CWindmill::
 	SetRenderLayer(10);
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_BASE"));
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
+	//SetPivotY(static_cast<float>(WINDMILL_HEIGHT >> 1) + 45.f);
 
 	GenerateIdentificationTintObj(WINDMILL_WIDTH, WINDMILL_HEIGHT, L"WINDMILL_BASE_TINT");
-	m_pGround = new CSpriteObj(_rGameWorld, 0.f, 50.f, WINDMILL_GROUND_WIDTH, WINDMILL_GROUND_HEIGHT);
+
+	m_pGround = new CSpriteObj(_rGameWorld, 0.f, 0.f, WINDMILL_GROUND_WIDTH, WINDMILL_GROUND_HEIGHT);
 	m_pGround->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_GROUND"));
 	m_pGround->SetParent(this);
+	//m_pGround->SetPivotY(-static_cast<float>(WINDMILL_HEIGHT >> 1) - 45.f);
 	m_pGround->SetRenderLayer(0);
 
 	switch (_eState)

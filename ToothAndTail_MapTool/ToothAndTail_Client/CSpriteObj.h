@@ -18,7 +18,7 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
-	virtual void RenderShadow(CCamera* _pCamera);
+	virtual void RenderShadow(CCamera* _pCamera, float _fInclination = 2.0f, float _fScaleWeightY = 0.75f);
 
 public:
 	// 아틀라스 텍스처(싱글 텍스처의 일종)

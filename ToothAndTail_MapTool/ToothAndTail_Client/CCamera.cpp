@@ -116,6 +116,7 @@ D3DXMATRIX CCamera::GetScreenMatrix(const D3DXMATRIX & _matWorld)
 	D3DXVECTOR3 vPointS = GetScreenPoint(D3DXVECTOR3(_matWorld._41, _matWorld._42, _matWorld._43));
 	
 	matScreen._11 *= m_fZoomMultiple;
+	matScreen._21 *= m_fZoomMultiple;
 	matScreen._22 *= m_fZoomMultiple;
 	matScreen._33 *= m_fZoomMultiple;
 	matScreen._41 = vPointS.x;

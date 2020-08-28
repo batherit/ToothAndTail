@@ -157,6 +157,7 @@
     <ClInclude Include="CComState_Running_WaveFlag.h" />
     <ClInclude Include="CComState_Standing_Build.h" />
     <ClInclude Include="CComState_Standing_WaveFlag.h" />
+    <ClInclude Include="CFarmland.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CMultiTexture.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="CComState_Running_WaveFlag.cpp" />
     <ClCompile Include="CComState_Standing_Build.cpp" />
     <ClCompile Include="CComState_Standing_WaveFlag.cpp" />
+    <ClCompile Include="CFarmland.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />

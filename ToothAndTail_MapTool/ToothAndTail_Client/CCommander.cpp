@@ -35,12 +35,15 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
+	//SetPivotXY(0.f, 0.f);
+	//SetPivotXY(-200.f, -200.f);
+	SetPivotX(m_iWidth);
 
 	m_pIdentificationTintSprite = new CSpriteObj(_rGameWorld, 0.f, 0.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
 	m_pIdentificationTintSprite->SetParent(this);
 	m_pIdentificationTintSprite->SetColor(_clIdentificationTint_ARGB);
 	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander + L"_TINT"));
-	
+	//m_pIdentificationTintSprite->SetPivotX(200.f);
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));

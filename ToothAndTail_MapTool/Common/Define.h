@@ -20,8 +20,8 @@
 #endif
 
 // 창 사이즈
-#define WINCX 800
-#define WINCY 600
+#define WINCX	1200	//800 
+#define WINCY	800		//600
 
 // 타일 사이즈 최소 단위
 //#define TILECX ??		// 타일 하나의 width
@@ -32,7 +32,7 @@
 // 매크로 싱글톤 선언문 
 #define DECLARE_SINGLETON(ClassName)							\
 public:															\
-static ClassName* GetInstance()								\
+static ClassName* GetInstance()									\
 {																\
 	if (nullptr == m_pInstance)									\
 		m_pInstance = new ClassName;							\

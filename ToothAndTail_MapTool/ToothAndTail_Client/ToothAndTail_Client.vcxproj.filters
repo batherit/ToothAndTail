@@ -72,6 +72,9 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill">
       <UniqueIdentifier>{524c40f2-a486-4710-8d47-4a9386864347}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland">
+      <UniqueIdentifier>{77c0a880-3b48-4e80-8028-d5bcbc89dd25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -179,6 +182,7 @@
     <ClInclude Include="CTurbine.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClInclude>
+    <ClInclude Include="CFarmland.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -276,6 +280,9 @@
     </ClCompile>
     <ClCompile Include="CTurbine.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClCompile>
+    <ClCompile Include="CFarmland.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

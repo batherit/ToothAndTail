@@ -36,7 +36,10 @@ void CSpriteObj::Release(void)
 
 void CSpriteObj::Render(CCamera * _pCamera)
 {
-	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(GetWorldMatrix());
+	D3DXMATRIX matScreen = GetWorldMatrix();
+	matScreen._41 += (-GetPivotX() + (m_iWidth >> 1)) * fabs(GetScaleX());
+	matScreen._42 += (-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY());
+	matScreen = _pCamera->GetScreenMatrix(matScreen);
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
 	RECT rcAnimFrame;
@@ -48,18 +51,18 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	CGraphicDevice::GetInstance()->GetSprite()->Draw(
 		m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture, 
 		&rcAnimFrame, 
-		&D3DXVECTOR3(static_cast<FLOAT>(GetWidth() >> 1), static_cast<FLOAT>(GetHeight() >> 1), 0.f),
+		&D3DXVECTOR3(m_iWidth >> 1, m_iHeight >> 1, 0.f),
 		nullptr, 
 		m_clRenderColor);
 }
 
-void CSpriteObj::RenderShadow(CCamera * _pCamera)
+void CSpriteObj::RenderShadow(CCamera * _pCamera, float _fInclination, float _fScaleWeightY)
 {
 	D3DXMATRIX matWorld = GetWorldMatrix();
-	matWorld._41 -= 50.f;
-	matWorld._42 += 25.f;
-	matWorld._21 += 1.5f;						// 전단
-	matWorld._22 = matWorld._22 * 0.75f;		// 스케일 Y
+	matWorld._21 = _fInclination;			// 전단
+	matWorld._22 *= _fScaleWeightY;		// 스케일 Y
+	matWorld._41 += (-GetPivotX() + (m_iWidth >> 1)) * fabs(GetScaleX()) - (m_iWidth >> 1) * matWorld._21;
+	matWorld._42 += (-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY()) + (m_iHeight >> 1) * fabs(GetScaleY()) * (1.f - _fScaleWeightY);
 	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);
 
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
@@ -73,7 +76,7 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	CGraphicDevice::GetInstance()->GetSprite()->Draw(
 		m_vecTextureInfos[m_stAnimInfo.iAnimIndex]->pTexture,
 		&rcAnimFrame,
-		&D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f),
+		&D3DXVECTOR3(m_iWidth >> 1, m_iHeight >> 1, 0.f),
 		nullptr,
 		D3DCOLOR_ARGB(122, 0, 0, 0));
 }
