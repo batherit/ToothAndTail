@@ -19,16 +19,16 @@ CComDepObj::~CComDepObj()
 
 void CComDepObj::Render(CCamera * _pCamera)
 {
+	CSpriteObj::Render(_pCamera);
 	if (m_pIdentificationTintSprite)
 		m_pIdentificationTintSprite->Render(_pCamera);
-	CSpriteObj::Render(_pCamera);
 }
 
 void CComDepObj::SetNewAnimInfo(const AnimInfo & _stAnimInfo)
 {
+	CSpriteObj::SetNewAnimInfo(_stAnimInfo);
 	if (m_pIdentificationTintSprite)
 		m_pIdentificationTintSprite->SetNewAnimInfo(_stAnimInfo);
-	CSpriteObj::SetNewAnimInfo(_stAnimInfo);
 }
 
 int CComDepObj::UpdateAnim(float _fDeltaTime)

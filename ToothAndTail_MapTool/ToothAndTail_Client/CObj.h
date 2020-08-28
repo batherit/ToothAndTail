@@ -73,7 +73,7 @@ public:
 	bool IsVisible(void) const { return m_bIsVisible; }
 	//OBJ::E_MODEL_TYPE GetModelType(void) const { return m_eModelType; }
 	//const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
-	int GetRenderLayer(void) { return m_iRenderLayer; }
+	inline int GetRenderLayer(void) { return m_iRenderLayer; }
 	float GetX(void) const { return m_vPos.x; }
 	float GetY(void) const { return m_vPos.y; }
 	float GetScaleX(void) const { return m_fScaleX; }
@@ -89,7 +89,7 @@ public:
 	LONG GetTop(void) const { return static_cast<int>(m_vPos.y - (m_iHeight >> 1)); }
 	LONG GetRight(void) const { return static_cast<int>(m_vPos.x + (m_iWidth >> 1)); }
 	LONG GetBottom(void) const { return static_cast<int>(m_vPos.y + (m_iHeight >> 1)); }
-	RECT GetRect(void) const { 
+	inline RECT GetRect(void) const { 
 		RECT rc = { 
 		static_cast<LONG>(m_vPos.x - (m_iWidth >> 1)),
 		static_cast<LONG>(m_vPos.y - (m_iHeight >> 1)),

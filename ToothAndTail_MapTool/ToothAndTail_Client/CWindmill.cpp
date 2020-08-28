@@ -10,6 +10,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CWindmill::
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, WINDMILL_WIDTH, WINDMILL_HEIGHT),
 	m_eState(_eState)
 {
+	SetRenderLayer(10);
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_BASE"));
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
 
@@ -17,6 +18,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CWindmill::
 	m_pGround = new CSpriteObj(_rGameWorld, 0.f, 50.f, WINDMILL_GROUND_WIDTH, WINDMILL_GROUND_HEIGHT);
 	m_pGround->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_GROUND"));
 	m_pGround->SetParent(this);
+	m_pGround->SetRenderLayer(0);
 
 	switch (_eState)
 	{

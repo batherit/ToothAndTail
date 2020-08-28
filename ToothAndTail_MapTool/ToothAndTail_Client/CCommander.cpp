@@ -13,6 +13,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_eCommanderType(_eCommanderType),
 	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)
 {
+	SetRenderLayer(10);
 	wstring wstrCommander = L"";
 	switch (_eCommanderType)
 	{

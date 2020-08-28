@@ -2,6 +2,7 @@
 #include "CScene.h"
 
 class CSpriteObj;
+class CCommander;
 class CTestScene :
 	public CScene
 {
@@ -15,5 +16,8 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
+
+private:
+	CCommander* m_pCommander = nullptr;
 };
 
