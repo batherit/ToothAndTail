@@ -95,8 +95,8 @@ public:
 	float GetSpeed(void) const { return m_fSpeed; }
 
 	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
-		D3DXVECTOR3 vLeftTop(m_vPos.x - (m_iWidth >> 1), m_vPos.y - (m_iHeight >> 1), 0.f);
-		D3DXVECTOR3 vRightBottom(m_vPos.x + (m_iWidth >> 1), m_vPos.y + (m_iHeight >> 1), 0.f);
+		D3DXVECTOR3 vLeftTop(m_vPos.x - (m_iWidth >> 1) * fabs(GetScaleX()), m_vPos.y - (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
+		D3DXVECTOR3 vRightBottom(m_vPos.x + (m_iWidth >> 1)* fabs(GetScaleX()), m_vPos.y + (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
 
 		switch (_eCoordType) {
 		case CObj::COORD_TYPE_WORLD:

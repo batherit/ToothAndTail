@@ -39,6 +39,7 @@ CTurbine::CTurbine(CGameWorld & _rGameWorld, float _fX, float _fY, CTurbine::E_S
 
 CTurbine::~CTurbine()
 {
+	Release();
 }
 
 void CTurbine::Ready(void)

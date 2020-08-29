@@ -75,6 +75,12 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland">
       <UniqueIdentifier>{77c0a880-3b48-4e80-8028-d5bcbc89dd25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland\Pig">
+      <UniqueIdentifier>{dd732d96-b1f1-4c9a-ac47-9dd7fb10100f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Crop">
+      <UniqueIdentifier>{744c2a05-c1aa-4a75-aa42-c4fda3d8bb6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -182,10 +188,16 @@
     <ClInclude Include="CTurbine.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClInclude>
-    <ClInclude Include="CFarmland.h" />
     <ClInclude Include="CWindmillBase.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClInclude>
+    <ClInclude Include="CFarmland.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland</Filter>
+    </ClInclude>
+    <ClInclude Include="CPig.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland\Pig</Filter>
+    </ClInclude>
+    <ClInclude Include="CCrop.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -281,14 +293,20 @@
     <ClCompile Include="CTurbine.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClCompile>
-    <ClCompile Include="CFarmland.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CWindmill.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClCompile>
     <ClCompile Include="CWindmillBase.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClCompile>
+    <ClCompile Include="CFarmland.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland</Filter>
+    </ClCompile>
+    <ClCompile Include="CPig.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland\Pig</Filter>
+    </ClCompile>
+    <ClCompile Include="CCrop.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

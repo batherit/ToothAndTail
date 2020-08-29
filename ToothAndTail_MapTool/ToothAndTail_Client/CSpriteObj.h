@@ -34,7 +34,7 @@ public:
 	virtual void SetNewAnimInfo(const AnimInfo& _stAnimInfo) {
 		m_stAnimInfo = _stAnimInfo;
 		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
-		UpdateAnim(0.f);
+		m_stAnimProcessingInfo.iCurrentIndex = m_stAnimInfo.iStartFrameIndex;
 	}
 	virtual int UpdateAnim(float _fDeltaTime);
 	bool IsAnimPlaying(void) { return 0 == UpdateAnim(0.f); }
