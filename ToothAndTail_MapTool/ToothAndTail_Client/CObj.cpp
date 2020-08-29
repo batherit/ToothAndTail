@@ -87,21 +87,50 @@ void CObj::LoadInfo(FILE * _fpIn)
 {
 }
 
-D3DXMATRIX CObj::GetLocalMatrix(void) const
+D3DXMATRIX CObj::GetParentMatrix(CObj::E_COORD_TYPE _eCoordType) const
 {
-	D3DXMATRIX matScale, matTrans;
+	D3DXMATRIX matParent;
+	D3DXMatrixIdentity(&matParent);
+
+	if(m_pParent) 
+		matParent = m_pParent->GetObjectMatrix(_eCoordType);
+
+	return matParent;
+}
+
+D3DXMATRIX CObj::GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType) const
+{
+	D3DXMATRIX matObj, matScale, matTrans;
+	D3DXMatrixIdentity(&matObj);
 	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
 	D3DXMatrixTranslation(&matTrans, GetX(), GetY(), 0.f);
+	matObj = matScale * matTrans;
 
-	return matScale * matTrans;
+	switch (_eCoordType)
+	{
+	case CObj::COORD_TYPE_WORLD: 
+		matObj *= GetParentMatrix(_eCoordType);
+		break;
+	}
+
+	return matObj;
 }
 
-D3DXMATRIX CObj::GetWorldMatrix(void) const
-{
-	D3DXMATRIX matParentW;
-	D3DXMatrixIdentity(&matParentW);
-
-	if (m_pParent) matParentW = m_pParent->GetWorldMatrix();
-
-	return GetLocalMatrix() * matParentW;
-}
+//D3DXMATRIX CObj::GetLocalMatrix(void) const
+//{
+//	D3DXMATRIX matScale, matTrans;
+//	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
+//	D3DXMatrixTranslation(&matTrans, GetX(), GetY(), 0.f);
+//
+//	return matScale * matTrans;
+//}
+//
+//D3DXMATRIX CObj::GetWorldMatrix(void) const
+//{
+//	D3DXMATRIX matParentW;
+//	D3DXMatrixIdentity(&matParentW);
+//
+//	if (m_pParent) matParentW = m_pParent->GetWorldMatrix();
+//
+//	return GetLocalMatrix() * matParentW;
+//}

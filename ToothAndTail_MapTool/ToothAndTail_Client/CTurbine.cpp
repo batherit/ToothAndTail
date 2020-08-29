@@ -74,3 +74,8 @@ void CTurbine::Release(void)
 {
 }
 
+void CTurbine::Render(CCamera * _pCamera)
+{
+	CComDepObj::Render(_pCamera);
+}
+

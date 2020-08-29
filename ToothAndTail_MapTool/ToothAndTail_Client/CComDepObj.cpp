@@ -43,19 +43,28 @@ void CComDepObj::Release(void)
 	SafelyDeleteObj(m_pIdentificationTintSprite);
 }
 
-void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring & _wstrTintKey)
+void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring & _wstrTintKey, D3DXCOLOR _clIdentificationTint)
 {
-	if (!m_pCommander) return;
 	if (m_pIdentificationTintSprite) SafelyDeleteObj(m_pIdentificationTintSprite);
 	// 색 정보를 나타내는 틴트 텍스처 장착
 	m_pIdentificationTintSprite = new CSpriteObj(GetGameWorld(), 0.f, 0.f, _iWidth, _iHeight);
 	m_pIdentificationTintSprite->SetParent(this);
-	m_pIdentificationTintSprite->SetColor(m_pCommander->GetIdentificationTint());
+	if(m_pCommander)
+		m_pIdentificationTintSprite->SetColor(m_pCommander->GetIdentificationTint());
+	else
+		m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
 	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(_wstrTintKey));
 }
 
-void CComDepObj::SetCommander(CCommander * _pCommander){
+void CComDepObj::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificationTint){
 	m_pCommander = _pCommander;
-	if (m_pIdentificationTintSprite)
-		m_pIdentificationTintSprite->SetColor(_pCommander->GetIdentificationTint());
+	if (m_pCommander) {
+		if (m_pIdentificationTintSprite)
+			if (m_pCommander)
+				m_pIdentificationTintSprite->SetColor(_pCommander->GetIdentificationTint());
+			else
+				m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
+		return;
+	}
+	if (m_pIdentificationTintSprite) m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
 }

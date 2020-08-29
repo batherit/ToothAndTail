@@ -2,6 +2,7 @@
 #include "CSpriteObj.h"
 
 template<typename T> class CStateMgr;
+class CComDepObj;
 class CCommander :
 	public CSpriteObj
 {
@@ -19,22 +20,22 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
-	virtual void Render(CCamera* _pCamera) override;
-	virtual void SetNewAnimInfo(const AnimInfo& _stAnimInfo) override;
-	virtual int UpdateAnim(float _fDeltaTime);
+	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
+	virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
+	virtual int UpdateAnim(float _fDeltaTime) override;
 
 public:
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }
-	D3DCOLOR GetIdentificationTint(void) const { return m_clIdentificationTint_ARGB; }
+	D3DCOLOR GetIdentificationTint(void) const;
 	CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
 	bool IsMoveKeyPressed(float & _fToX, float & _fToY);
 	bool IsBuildKeyPressed(void) const;
 	bool IsFlagKeyPressed(CCommander::E_FLAG_TYPE& _eFlagType) const;
 
 private:
-	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
-	CSpriteObj* m_pIdentificationTintSprite = nullptr;
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
+	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
+	CComDepObj* m_pCommanderSprite = nullptr;
+	D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
 };
 

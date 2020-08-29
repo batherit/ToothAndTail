@@ -176,6 +176,7 @@
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTurbine.h" />
     <ClInclude Include="CWindmill.h" />
+    <ClInclude Include="CWindmillBase.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="MacroValue.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTurbine.cpp" />
     <ClCompile Include="CWindmill.cpp" />
+    <ClCompile Include="CWindmillBase.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="stdafx.cpp">

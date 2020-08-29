@@ -5,7 +5,7 @@
 // 커멘더
 #define COMMANDER_WIDTH		72
 #define COMMANDER_HEIGHT	72
-#define COMMANDER_SPEED		300.f
+#define COMMANDER_SPEED		100.f * BASE_SCALE
 
 // 제분소
 #define WINDMILL_WIDTH		140

@@ -16,8 +16,14 @@ public:
 	virtual void Release(void) override;
 
 public:
-	void GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring& _wstrTintKey);
-	virtual void SetCommander(CCommander* _pCommander);
+	void GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring& _wstrTintKey, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
+	D3DCOLOR GetIdentificationTint(void) {
+		D3DCOLOR clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255);
+		if (m_pIdentificationTintSprite)
+			clIdentificationTint = m_pIdentificationTintSprite->GetRenderColor();
+		return clIdentificationTint;
+	}
+	virtual void SetCommander(CCommander* _pCommander, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
 	CCommander* GetCommander(void) const { return m_pCommander; }
 
 private:

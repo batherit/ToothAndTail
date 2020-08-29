@@ -6,6 +6,9 @@ class CCamera;
 class CObj abstract
 {
 public:
+	enum E_COORD_TYPE { COORD_TYPE_LOCAL, COORD_TYPE_WORLD, COORD_TYPE_END };
+
+public:
 	CObj(CGameWorld& _rGameWorld, float _fX = 0, float _fY = 0, size_t _iWidth = 10, size_t _iHeight = 10, float _fToX = 1.f, float _fToY = 0.f, float _fSpeed = 0.f);
 	virtual ~CObj();
 	
@@ -32,7 +35,7 @@ public:
 	CGameWorld& GetGameWorld(void) const { return m_rGameWorld; }
 
 public:
-	void MoveTo(float _fDeltaX, float _fDeltaY) { m_vPos.x += _fDeltaX; m_vPos.y += _fDeltaY; if (m_pCollider) m_pCollider->LateUpdate();}
+	void MoveTo(float _fDeltaX, float _fDeltaY) { m_vPos.x += _fDeltaX; m_vPos.y += _fDeltaY; /*if (m_pCollider) m_pCollider->LateUpdate();*/}
 	void MoveByDeltaTime(float _fDeltaTime) { m_vPos.x += (m_vDir.x * m_fSpeed * _fDeltaTime); m_vPos.y += (m_vDir.y * m_fSpeed * _fDeltaTime); if (m_pCollider) m_pCollider->LateUpdate();}
 	void RotateZ(float _fDeltaDegree) {
 		D3DXMATRIX matRotZ;
@@ -53,11 +56,11 @@ public:
 	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
-	void SetPivotX(float _fPivotX) { m_vPivot.x = _fPivotX; }
-	void SetPivotY(float _fPivotY) { m_vPivot.y = _fPivotY; }
-	void SetPivotXY(float _fPivotX, float _fPivotY) { SetPivotX(_fPivotX); SetPivotY(_fPivotY); }
-	void SetX(float _fX) { m_vPos.x = _fX; if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate(); }
-	void SetY(float _fY) { m_vPos.y = _fY; if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate(); }
+	//void SetPivotX(float _fPivotX) { m_vPivot.x = _fPivotX; }
+	//void SetPivotY(float _fPivotY) { m_vPivot.y = _fPivotY; }
+	//void SetPivotXY(float _fPivotX, float _fPivotY) { SetPivotX(_fPivotX); SetPivotY(_fPivotY); }
+	void SetX(float _fX) { m_vPos.x = _fX;/* if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate();*/ }
+	void SetY(float _fY) { m_vPos.y = _fY; /*if (m_pCollider && (m_pCollider != this)) m_pCollider->LateUpdate();*/ }
 	void SetXY(float _fX, float _fY) { SetX(_fX); SetY(_fY); }
 	void SetToX(float _fToX) { m_vDir.x = _fToX; }
 	void SetToY(float _fToY) { m_vDir.y = _fToY; }
@@ -76,9 +79,9 @@ public:
 	//OBJ::E_MODEL_TYPE GetModelType(void) const { return m_eModelType; }
 	//const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
 	inline int GetRenderLayer(void) { return m_iRenderLayer; }
-	float GetPivotX(void) const { return m_vPivot.x; }
-	float GetPivotY(void) const { return m_vPivot.y; }
-	D3DXVECTOR3 GetPivotXY(void) const { return D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f); }
+	//float GetPivotX(void) const { return m_vPivot.x; }
+	//float GetPivotY(void) const { return m_vPivot.y; }
+	//D3DXVECTOR3 GetPivotXY(void) const { return D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f); }
 	float GetX(void) const { return m_vPos.x; }
 	float GetY(void) const { return m_vPos.y; }
 	float GetScaleX(void) const { return m_fScaleX; }
@@ -90,29 +93,32 @@ public:
 	float GetToY(void) const { return m_vDir.y; }
 	D3DXVECTOR3 GetToXY(void) const { return D3DXVECTOR3(GetToX(), GetToY(), 0.f); }
 	float GetSpeed(void) const { return m_fSpeed; }
-	/*LONG GetLeft(void) const { return static_cast<int>(m_vPos.x - (m_iWidth >> 1)); }
-	LONG GetTop(void) const { return static_cast<int>(m_vPos.y - (m_iHeight >> 1)); }
-	LONG GetRight(void) const { return static_cast<int>(m_vPos.x + (m_iWidth >> 1)); }
-	LONG GetBottom(void) const { return static_cast<int>(m_vPos.y + (m_iHeight >> 1)); }
-	inline RECT GetRect(void) const { 
-		RECT rc = { 
-		static_cast<LONG>(m_vPos.x - (m_iWidth >> 1)),
-		static_cast<LONG>(m_vPos.y - (m_iHeight >> 1)),
-		static_cast<LONG>(m_vPos.x + (m_iWidth >> 1)),
-		static_cast<LONG>(m_vPos.y + (m_iHeight >> 1))
-		}; 
-		return rc; 
-	}*/
-	inline LONG GetLeft(void) const { return static_cast<LONG>(m_vPos.x - m_vPivot.x); }
-	inline LONG GetTop(void) const { return static_cast<LONG>(m_vPos.y - m_vPivot.y); }
-	inline LONG GetRight(void) const { return static_cast<LONG>(GetLeft() + m_iWidth); }
-	inline LONG GetBottom(void) const { return static_cast<LONG>(GetTop() + m_iHeight); }
-	inline RECT GetRect(void) const { return RECT({GetLeft(), GetTop(), GetRight(), GetBottom()}); }
+
+	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
+		D3DXVECTOR3 vLeftTop(m_vPos.x - (m_iWidth >> 1), m_vPos.y - (m_iHeight >> 1), 0.f);
+		D3DXVECTOR3 vRightBottom(m_vPos.x + (m_iWidth >> 1), m_vPos.y + (m_iHeight >> 1), 0.f);
+
+		switch (_eCoordType) {
+		case CObj::COORD_TYPE_WORLD:
+			D3DXVec3TransformCoord(&vLeftTop, &vLeftTop, &GetParentMatrix(CObj::COORD_TYPE_WORLD));
+			D3DXVec3TransformCoord(&vRightBottom, &vRightBottom, &GetParentMatrix(CObj::COORD_TYPE_WORLD));
+			break;
+		}
+		
+		return RECT({ static_cast<LONG>(vLeftTop.x), static_cast<LONG>(vLeftTop.y),
+			static_cast<LONG>(vRightBottom.x), static_cast<LONG>(vRightBottom.y) });
+	}
+	inline LONG GetLeft(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).left; }
+	inline LONG GetTop(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).top; }
+	inline LONG GetRight(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).right; }
+	inline LONG GetBottom(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).bottom; }
 
 	CObj* GetCollider(void) const { return m_pCollider; }
 
-	D3DXMATRIX GetLocalMatrix(void) const;
-	D3DXMATRIX GetWorldMatrix(void) const;
+	//D3DXMATRIX GetLocalMatrix(void) const;
+	//D3DXMATRIX GetWorldMatrix(void) const;
+	D3DXMATRIX GetParentMatrix(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const;
+	D3DXMATRIX GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const;
 	
 protected:
 	CObj* m_pParent = nullptr;

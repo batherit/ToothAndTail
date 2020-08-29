@@ -2,6 +2,7 @@
 #include "CComDepObj.h"
 
 class CCommander;
+class CWindmillBase;
 class CTurbine;
 class CWindmill :
 	public CComDepObj
@@ -21,10 +22,11 @@ public:
 	// ÇýÅÃ. y°ª Á¤·Ä ·»´õ¸µ
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
+	virtual CObj* GetCollider(void);
 
 private:
 	CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
-	CTurbine* m_pTurbine = nullptr;
 	CSpriteObj* m_pGround = nullptr;
+	CWindmillBase* m_pWindmillBase = nullptr;
 };
 

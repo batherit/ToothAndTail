@@ -28,11 +28,11 @@ void CTestScene::ResetScene(void)
 	m_rGameWorld.GetListObjs().emplace_back(new CTurbine(m_rGameWorld, 0.f, 0.f, nullptr));*/
 
 	// 2) 기수 및 제분소 렌더레이어 테스트
-	m_pCommander = new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
+	m_pCommander = new CCommander(m_rGameWorld, 0.f, 200.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander);
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, -300.f, 0.f, CWindmill::STATE_UNOCCUPIED, m_pCommander));
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_BUILDING, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 300.f, 0.f, CWindmill::STATE_OCCUPIED, m_pCommander));
+	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 300.f, 0.f, CWindmill::STATE_OCCUPIED, m_pCommander));
 }
 
 int CTestScene::Update(float _fDeltaTime)
@@ -61,6 +61,7 @@ void CTestScene::Render(CCamera * _pCamera)
 	m_rGameWorld.RenderListObjs(_pCamera, [](CObj* pObj1, CObj* pObj2) {
 		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) return true;
 		else if (pObj1->GetRenderLayer() > pObj2->GetRenderLayer()) return false;
+
 		return pObj1->GetBottom() < pObj2->GetBottom();
 	});
 }

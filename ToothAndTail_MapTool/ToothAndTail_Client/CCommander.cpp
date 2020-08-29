@@ -4,16 +4,18 @@
 #include "CTexture.h"
 #include "CStateMgr.h"
 #include "CComState_Idle.h"
+#include "CComDepObj.h"
 
 
 
 CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
-	m_eCommanderType(_eCommanderType),
-	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)
+	m_eCommanderType(_eCommanderType)/*,
+	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
 {
-	SetRenderLayer(10);
+	SetScaleXY(BASE_SCALE, BASE_SCALE);
+
 	wstring wstrCommander = L"";
 	switch (_eCommanderType)
 	{
@@ -32,18 +34,12 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	default:
 		break;
 	}
-
-	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
-	SetScaleXY(BASE_SCALE, BASE_SCALE);
-	//SetPivotXY(0.f, 0.f);
-	//SetPivotXY(-200.f, -200.f);
-	SetPivotX(m_iWidth);
-
-	m_pIdentificationTintSprite = new CSpriteObj(_rGameWorld, 0.f, 0.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
-	m_pIdentificationTintSprite->SetParent(this);
-	m_pIdentificationTintSprite->SetColor(_clIdentificationTint_ARGB);
-	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander + L"_TINT"));
-	//m_pIdentificationTintSprite->SetPivotX(200.f);
+	m_pCommanderSprite = new CComDepObj(_rGameWorld, nullptr, 0.f, -33.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
+	m_pCommanderSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
+	m_pCommanderSprite->SetShadow(true);
+	m_pCommanderSprite->SetParent(this);
+	m_pCommanderSprite->SetRenderLayer(10);
+	m_pCommanderSprite->GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
@@ -73,27 +69,30 @@ void CCommander::LateUpdate(void)
 
 void CCommander::Release(void)
 {
-	SafelyDeleteObj(m_pIdentificationTintSprite);
+	SafelyDeleteObj(m_pCommanderSprite);
+	//SafelyDeleteObj(m_pIdentificationTintSprite);
 	SafelyDeleteObj(m_pStateMgr);
 }
 
-void CCommander::Render(CCamera * _pCamera)
+void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 {
-	CSpriteObj::RenderShadow(_pCamera);
-	CSpriteObj::Render(_pCamera);
-	m_pIdentificationTintSprite->Render(_pCamera);
+	if (m_pCommanderSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
+	//if (m_pIdentificationTintSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
 }
 
 void CCommander::SetNewAnimInfo(const AnimInfo & _stAnimInfo)
 {
-	CSpriteObj::SetNewAnimInfo(_stAnimInfo);
-	m_pIdentificationTintSprite->SetNewAnimInfo(_stAnimInfo);
+	return m_pCommanderSprite->SetNewAnimInfo(_stAnimInfo);
 }
 
 int CCommander::UpdateAnim(float _fDeltaTime)
 {
-	CSpriteObj::UpdateAnim(_fDeltaTime);
-	return m_pIdentificationTintSprite->UpdateAnim(_fDeltaTime);
+	return m_pCommanderSprite->UpdateAnim(_fDeltaTime);
+}
+
+D3DCOLOR CCommander::GetIdentificationTint(void) const
+{
+	return m_pCommanderSprite->GetIdentificationTint();
 }
 
 bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)

@@ -183,6 +183,9 @@
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClInclude>
     <ClInclude Include="CFarmland.h" />
+    <ClInclude Include="CWindmillBase.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -272,9 +275,6 @@
     <ClCompile Include="CComState_Running_Jump.cpp">
       <Filter>소스 파일\1.State\Commander</Filter>
     </ClCompile>
-    <ClCompile Include="CWindmill.cpp">
-      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
-    </ClCompile>
     <ClCompile Include="CComDepObj.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj</Filter>
     </ClCompile>
@@ -283,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="CFarmland.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindmill.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
+    </ClCompile>
+    <ClCompile Include="CWindmillBase.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
