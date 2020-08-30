@@ -2,10 +2,11 @@
 #include "CTestScene.h"
 #include "CGameWorld.h"
 #include "CCommander.h"
-//#include "CTurbine.h"
 #include "CWindmill.h"
 #include "CFarmland.h"
 #include "CTunnel.h"
+#include "CCamera.h"
+#include "CTextureMgr.h"
 
 
 CTestScene::CTestScene(CGameWorld & _rGameWorld)
@@ -22,6 +23,9 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
+	m_pMap = new CSpriteObj(m_rGameWorld, 0.f, 0.f, MAP_WIDTH, MAP_HEIGHT);
+	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
+	m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
 	// 1) 기수 테스트
 	/*m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
 	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
@@ -31,6 +35,7 @@ void CTestScene::ResetScene(void)
 
 	// 2) 기수 및 제분소 렌더레이어 테스트
 	m_pCommander = new CCommander(m_rGameWorld, 0.f, 200.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
+	m_rGameWorld.GetMainCamera()->SetParent(m_pCommander);
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander);
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, -300.f, 0.f, CWindmill::STATE_UNOCCUPIED, m_pCommander));
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_BUILDING, m_pCommander));
@@ -68,11 +73,13 @@ void CTestScene::LateUpdate(void)
 void CTestScene::Release(void)
 {
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
+	SafelyDeleteObj(m_pMap);
 	m_pCommander = nullptr;
 }
 
 void CTestScene::Render(CCamera * _pCamera)
 {
+	m_pMap->Render(_pCamera);
 	m_rGameWorld.RenderListObjs(_pCamera, [](CObj* pObj1, CObj* pObj2) {
 		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) return true;
 		else if (pObj1->GetRenderLayer() > pObj2->GetRenderLayer()) return false;

@@ -83,13 +83,23 @@ public:
 	//float GetPivotX(void) const { return m_vPivot.x; }
 	//float GetPivotY(void) const { return m_vPivot.y; }
 	//D3DXVECTOR3 GetPivotXY(void) const { return D3DXVECTOR3(GetPivotX(), GetPivotY(), 0.f); }
-	float GetX(void) const { return m_vPos.x; }
-	float GetY(void) const { return m_vPos.y; }
+	float GetX(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetXY(_eCoordType).x; }
+	float GetY(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetXY(_eCoordType).y; }
+	D3DXVECTOR3 GetXY(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { 
+		D3DXVECTOR3 vPos = m_vPos;
+
+		switch (_eCoordType) {
+		case CObj::COORD_TYPE_WORLD:
+			D3DXVec3TransformCoord(&vPos, &vPos, &GetParentMatrix(CObj::COORD_TYPE_WORLD));
+			break;
+		}
+
+		return vPos;
+	}
 	float GetScaleX(void) const { return m_fScaleX; }
 	float GetScaleY(void) const { return m_fScaleY; }
 	size_t GetWidth(void) const { return m_iWidth; }
 	size_t GetHeight(void) const { return m_iHeight; }
-	D3DXVECTOR3 GetXY(void) const { return D3DXVECTOR3(GetX(), GetY(), 0.f); }
 	float GetToX(void) const { return m_vDir.x; }
 	float GetToY(void) const { return m_vDir.y; }
 	D3DXVECTOR3 GetToXY(void) const { return D3DXVECTOR3(GetToX(), GetToY(), 0.f); }

@@ -8,9 +8,10 @@ CCamera::CCamera(CGameWorld& _rGameWorld, CObj* _pOwner /*= nullptr*/, float _fX
 	CObj(_rGameWorld, _fX, _fY, 0, 0, 0.f)
 {
 	if (_pOwner) {
-		m_pOwner = _pOwner;
+		/*m_pOwner = _pOwner;
 		SetX(m_pOwner->GetX());
-		SetY(m_pOwner->GetY());
+		SetY(m_pOwner->GetY());*/
+		SetParent(_pOwner);
 	}
 	else {
 		SetSpeed(500.0f);
@@ -46,10 +47,10 @@ int CCamera::Update(float _fDeltaTime)
 		}
 	}
 
-	if (m_pOwner) {
+	/*if (m_pOwner) {
 		SetX(m_pOwner->GetX() + m_fShakeOffsetX);
 		SetY(m_pOwner->GetY() + m_fShakeOffsetY);
-	}
+	}*/
 	return 0;
 }
 

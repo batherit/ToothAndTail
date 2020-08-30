@@ -90,6 +90,9 @@
     <Filter Include="소스 파일\1.CObj\UnitGenerator">
       <UniqueIdentifier>{3cf648c0-d7a6-435e-8ccd-f71e8db65cc8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\2.MapLoader">
+      <UniqueIdentifier>{30aefa4d-e04b-4274-bfb8-3e05f1810cd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -224,6 +227,9 @@
     <ClInclude Include="CTunnel.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel</Filter>
     </ClInclude>
+    <ClInclude Include="CMapLoader.h">
+      <Filter>소스 파일\2.MapLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -348,6 +354,9 @@
     </ClCompile>
     <ClCompile Include="CTunnel.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapLoader.cpp">
+      <Filter>소스 파일\2.MapLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

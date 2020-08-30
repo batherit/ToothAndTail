@@ -8,7 +8,6 @@ CSpriteObj::CSpriteObj(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _i
 	:
 	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fToX, _fToY, _fSpeed)
 {
-
 }
 
 CSpriteObj::~CSpriteObj()

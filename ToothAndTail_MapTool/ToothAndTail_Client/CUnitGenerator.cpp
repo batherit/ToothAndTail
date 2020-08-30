@@ -5,7 +5,7 @@
 
 CUnitGenerator::CUnitGenerator(CGameWorld& _rGameWorld)
 	:
-	CObj(_rGameWorld, 0.f, 0.f)
+	m_rGameWorld(_rGameWorld)
 {
 }
 

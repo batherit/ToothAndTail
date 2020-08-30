@@ -2,6 +2,10 @@
 
 #define BASE_SCALE			3.f
 
+// ¸Ê
+#define MAP_WIDTH			2048
+#define MAP_HEIGHT			2048
+
 // Ä¿¸à´õ
 #define COMMANDER_WIDTH		72
 #define COMMANDER_HEIGHT	72
@@ -27,7 +31,7 @@
 // µÅÁö
 #define PIG_WIDTH	32
 #define PIG_HEIGHT	32
-#define PIG_SPEED	10.f
+#define PIG_SPEED	3.f * BASE_SCALE
 #define PIG_CROP_SPEED	1.f		// ÃÊ´ç ¼öÈ® ¼Óµµ
 
 // ¶¥±¼

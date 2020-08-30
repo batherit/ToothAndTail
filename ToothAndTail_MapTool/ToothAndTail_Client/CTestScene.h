@@ -18,6 +18,7 @@ public:
 	virtual void Render(CCamera* _pCamera) override;
 
 private:
+	CSpriteObj* m_pMap = nullptr;
 	CCommander* m_pCommander = nullptr;
 };
 

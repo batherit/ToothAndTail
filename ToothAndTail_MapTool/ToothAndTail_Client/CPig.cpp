@@ -58,7 +58,7 @@ void CPig::StartPatrol(void)
 {
 	m_iLocationIndex = rand() % 4;
 	
-	D3DXVECTOR3 vToDir = m_cvLocationsToPatrol[m_iLocationIndex] - GetXY();
+	D3DXVECTOR3 vToDir = m_cvLocationsToPatrol[m_iLocationIndex] - GetXY(CObj::COORD_TYPE_LOCAL);
 	D3DXVec3Normalize(&vToDir, &vToDir);
 
 	SetToXY(vToDir.x, vToDir.y);
@@ -73,7 +73,7 @@ void CPig::StartPatrol(void)
 
 int CPig::UpdatePatrol(float _fDeltaTime)
 {
-	D3DXVECTOR3 vToDir = m_cvLocationsToPatrol[m_iLocationIndex] - GetXY();
+	D3DXVECTOR3 vToDir = m_cvLocationsToPatrol[m_iLocationIndex] - GetXY(CObj::COORD_TYPE_LOCAL);
 	
 	float _fLength = D3DXVec3Length(&vToDir);
 	if (_fLength <= 1.f) {

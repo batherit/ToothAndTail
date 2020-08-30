@@ -78,6 +78,9 @@ void CTAT_World::Release(void)
 
 void CTAT_World::LoadTextures(void)
 {
+	// ¸Ê
+	CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/Map0.png", L"MAP");
+
 	// ±â¼öµé
 	// 1) Æò¹Î
 	CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Actors/commander_commoners.png", L"COM_COMMONER");

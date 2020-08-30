@@ -84,7 +84,7 @@ int CTunnel::Update(float _fDeltaTime)
 		case CTunnel::STATE_BUILDING: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				if ((m_fElapsedTime += _fDeltaTime) >= TUNNEL_MIDDLE_BUILD_SEC) {
-					SetNewAnimInfo(AnimInfo(0, 8, 4, 18, 1.f, 1, false));
+					SetNewAnimInfo(AnimInfo(0, 8, 4, 18, 2.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
 				}
@@ -114,7 +114,7 @@ int CTunnel::Update(float _fDeltaTime)
 		case CTunnel::STATE_BUILDING: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				if ((m_fElapsedTime += _fDeltaTime) >= TUNNEL_BIG_BUILD_SEC) {
-					SetNewAnimInfo(AnimInfo(0, 8, 4, 34, 1.f, 1, false));
+					SetNewAnimInfo(AnimInfo(0, 8, 4, 34, 3.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
 				}

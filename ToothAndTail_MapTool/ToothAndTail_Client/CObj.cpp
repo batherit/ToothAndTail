@@ -102,8 +102,8 @@ D3DXMATRIX CObj::GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType) const
 {
 	D3DXMATRIX matObj, matScale, matTrans;
 	D3DXMatrixIdentity(&matObj);
-	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
-	D3DXMatrixTranslation(&matTrans, GetX(), GetY(), 0.f);
+	D3DXMatrixScaling(&matScale, m_fScaleX, m_fScaleY, 0.f);	//Local
+	D3DXMatrixTranslation(&matTrans, m_vPos.x, m_vPos.y, 0.f);	//Local
 	matObj = matScale * matTrans;
 
 	switch (_eCoordType)

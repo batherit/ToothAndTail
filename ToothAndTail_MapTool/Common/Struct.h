@@ -33,7 +33,7 @@ public:
 	int iAnimIndex = 0;				// 실행할 애님 인덱스
 	int iCol = 1;					// 애님 아틀라스 이미지에서 열의 수 (실행할 프레임의 행과 열을 구하는데 쓰임.)
 	int iStartFrameIndex = 0;		// 애니메이션 시작 인덱스
-	int iFrameCount = 0;			// 시작 인덱스에서부터 출력할 총 컷수
+	int iFrameCount = 1;			// 시작 인덱스에서부터 출력할 총 컷수
 	float fTotalTime = 0.f;			// 애님 총 진행시간
 	int iCountToRepeat = 0;			// 애님 반복 횟수 (0 - 무한)
 	bool bIsReversePlay = false;	// 거꾸로 재생할 것인지?

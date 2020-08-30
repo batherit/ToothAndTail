@@ -161,6 +161,7 @@
     <ClInclude Include="CFarmland.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
+    <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPig.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="CFarmland.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
+    <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPig.cpp" />
