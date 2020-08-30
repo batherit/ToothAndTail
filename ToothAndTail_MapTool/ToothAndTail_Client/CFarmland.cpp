@@ -3,6 +3,7 @@
 #include "CTextureMgr.h"
 #include "CPig.h"
 #include "CCrop.h"
+#include "CGameWorld.h"
 
 
 CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::E_STATE _eState, CCommander * _pCommander)
@@ -122,6 +123,9 @@ void CFarmland::GenerateCrops(void)
 
 void CFarmland::GeneratePig(void)
 {
+	if (m_pPig) SafelyDeleteObj(m_pPig);
+	m_pPig = new CPig(GetGameWorld(), this, GetCommander());
+	GetGameWorld().GetListObjs().emplace_back(m_pPig);
 }
 
 bool CFarmland::Cropped(float _fCroppedAmount)

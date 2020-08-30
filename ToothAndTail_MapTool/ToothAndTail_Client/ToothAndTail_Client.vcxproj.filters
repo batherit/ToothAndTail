@@ -81,6 +81,9 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\Crop">
       <UniqueIdentifier>{744c2a05-c1aa-4a75-aa42-c4fda3d8bb6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.State\Pig">
+      <UniqueIdentifier>{448dc057-7fb4-4989-9f54-539060825be3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -197,7 +200,18 @@
     <ClInclude Include="CPig.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland\Pig</Filter>
     </ClInclude>
-    <ClInclude Include="CCrop.h" />
+    <ClInclude Include="CCrop.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\Crop</Filter>
+    </ClInclude>
+    <ClInclude Include="CPigState_Patrol.h">
+      <Filter>소스 파일\1.State\Pig</Filter>
+    </ClInclude>
+    <ClInclude Include="CPigState_Cropping.h">
+      <Filter>소스 파일\1.State\Pig</Filter>
+    </ClInclude>
+    <ClInclude Include="CPigState_Attack.h">
+      <Filter>소스 파일\1.State\Pig</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -306,7 +320,16 @@
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland\Pig</Filter>
     </ClCompile>
     <ClCompile Include="CCrop.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\1.CObj\SpriteObj\Crop</Filter>
+    </ClCompile>
+    <ClCompile Include="CPigState_Patrol.cpp">
+      <Filter>소스 파일\1.State\Pig</Filter>
+    </ClCompile>
+    <ClCompile Include="CPigState_Cropping.cpp">
+      <Filter>소스 파일\1.State\Pig</Filter>
+    </ClCompile>
+    <ClCompile Include="CPigState_Attack.cpp">
+      <Filter>소스 파일\1.State\Pig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

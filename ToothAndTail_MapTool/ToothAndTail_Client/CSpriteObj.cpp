@@ -130,10 +130,10 @@ int CSpriteObj::UpdateAnim(float _fDeltaTime)
 			}
 		}
 		else {
-			// 무한 애님이라면.
-			m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
+			// 무한 애님이라면.	
 			m_stAnimProcessingInfo.iCurrentIndex = m_stAnimInfo.iStartFrameIndex;
 		}
+		m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
 	}
 
 	float fCutTime = m_stAnimInfo.fTotalTime / m_stAnimInfo.iFrameCount;

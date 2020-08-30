@@ -164,6 +164,9 @@
     <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPig.h" />
+    <ClInclude Include="CPigState_Attack.h" />
+    <ClInclude Include="CPigState_Cropping.h" />
+    <ClInclude Include="CPigState_Patrol.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CSingleTexture.h" />
@@ -205,6 +208,9 @@
     <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPig.cpp" />
+    <ClCompile Include="CPigState_Attack.cpp" />
+    <ClCompile Include="CPigState_Cropping.cpp" />
+    <ClCompile Include="CPigState_Patrol.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CSingleTexture.cpp" />

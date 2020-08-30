@@ -27,4 +27,5 @@
 // 돼지
 #define PIG_WIDTH	32
 #define PIG_HEIGHT	32
+#define PIG_SPEED	10.f
 #define PIG_CROP_SPEED	1.f		// 초당 수확 속도
