@@ -56,6 +56,7 @@ public:
 	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
+	void SetSize(size_t _iWidth, size_t _iHeight) { SetWidth(_iWidth); SetHeight(_iHeight); }
 	//void SetPivotX(float _fPivotX) { m_vPivot.x = _fPivotX; }
 	//void SetPivotY(float _fPivotY) { m_vPivot.y = _fPivotY; }
 	//void SetPivotXY(float _fPivotX, float _fPivotY) { SetPivotX(_fPivotX); SetPivotY(_fPivotY); }

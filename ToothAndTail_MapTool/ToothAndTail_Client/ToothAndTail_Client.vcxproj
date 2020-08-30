@@ -179,7 +179,9 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTunnel.h" />
     <ClInclude Include="CTurbine.h" />
+    <ClInclude Include="CUnitGenerator.h" />
     <ClInclude Include="CWindmill.h" />
     <ClInclude Include="CWindmillBase.h" />
     <ClInclude Include="Function.h" />
@@ -223,7 +225,9 @@
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="CTunnel.cpp" />
     <ClCompile Include="CTurbine.cpp" />
+    <ClCompile Include="CUnitGenerator.cpp" />
     <ClCompile Include="CWindmill.cpp" />
     <ClCompile Include="CWindmillBase.cpp" />
     <ClCompile Include="Function.cpp" />

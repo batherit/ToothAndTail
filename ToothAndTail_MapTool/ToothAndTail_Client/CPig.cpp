@@ -49,11 +49,6 @@ void CPig::Release(void)
 	m_pFarmland = nullptr;
 }
 
-void CPig::Render(CCamera * _pCamera)
-{
-	CComDepObj::Render(_pCamera);
-}
-
 bool CPig::Cropping(float _fDeltaTime)
 {
 	return true;
@@ -68,10 +63,10 @@ void CPig::StartPatrol(void)
 
 	SetToXY(vToDir.x, vToDir.y);
 	
-	if (vToDir.y < 0.f) SetScaleX(1.f);
-	if (vToDir.y > 0.f) SetScaleX(-1.f);
-	if (vToDir.x > 0.f) SetScaleX(1.f);
-	if (vToDir.x < 0.f) SetScaleX(-1.f);
+	if (vToDir.y < 0.f) SetScaleX(fabs(GetScaleX()));
+	if (vToDir.y > 0.f) SetScaleX(-fabs(GetScaleX()));
+	if (vToDir.x > 0.f) SetScaleX(fabs(GetScaleX()));
+	if (vToDir.x < 0.f) SetScaleX(-fabs(GetScaleX()));
 
 	SetSpeed(PIG_SPEED);
 }

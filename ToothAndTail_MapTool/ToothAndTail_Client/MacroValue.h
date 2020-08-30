@@ -29,3 +29,17 @@
 #define PIG_HEIGHT	32
 #define PIG_SPEED	10.f
 #define PIG_CROP_SPEED	1.f		// 초당 수확 속도
+
+// 땅굴
+// 1) 소형
+#define TUNNEL_SMALL_WIDTH		40
+#define TUNNEL_SMALL_HEIGHT		40
+#define TUNNEL_SMALL_BUILD_SEC	5.f
+// 2) 중형
+#define TUNNEL_MIDDLE_WIDTH		54
+#define TUNNEL_MIDDLE_HEIGHT	54
+#define TUNNEL_MIDDLE_BUILD_SEC	5.f
+// 3) 대형
+#define TUNNEL_BIG_WIDTH		70
+#define TUNNEL_BIG_HEIGHT		70
+#define TUNNEL_BIG_BUILD_SEC	5.f

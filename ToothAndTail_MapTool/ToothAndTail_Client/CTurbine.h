@@ -18,7 +18,6 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
-	virtual void Render(CCamera* _pCamera) override;
 
 private:
 	CTurbine::E_STATE m_eState = CTurbine::STATE_BUILDING;

@@ -5,6 +5,7 @@
 //#include "CTurbine.h"
 #include "CWindmill.h"
 #include "CFarmland.h"
+#include "CTunnel.h"
 
 
 CTestScene::CTestScene(CGameWorld & _rGameWorld)
@@ -34,10 +35,17 @@ void CTestScene::ResetScene(void)
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, -300.f, 0.f, CWindmill::STATE_UNOCCUPIED, m_pCommander));
 	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_BUILDING, m_pCommander));
 	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_OCCUPIED, m_pCommander));
+
+	// 3) ³óÀå Å×½ºÆ®
 	m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, 72.f * BASE_SCALE, 0.f, CFarmland::STATE_UNOCCUPIED, m_pCommander));
 	m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, 0.f, 48.f * BASE_SCALE, CFarmland::STATE_BUILDING, m_pCommander));
 	m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, -72.f * BASE_SCALE, 0.f, CFarmland::STATE_OCCUPIED, m_pCommander));
 	m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, (-72.f + 36.f) * BASE_SCALE, 24.f* BASE_SCALE, CFarmland::STATE_DESTROYED, m_pCommander));
+
+	// 4) ¶¥±¼ Å×½ºÆ®
+	m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, -300.f, 300.f, CTunnel::SIZE_SMALL, nullptr, m_pCommander));
+	m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, 0.f, 300.f, CTunnel::SIZE_MIDDLE, nullptr, m_pCommander));
+	m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, 300.f, 300.f, CTunnel::SIZE_BIG, nullptr, m_pCommander));
 }
 
 int CTestScene::Update(float _fDeltaTime)
