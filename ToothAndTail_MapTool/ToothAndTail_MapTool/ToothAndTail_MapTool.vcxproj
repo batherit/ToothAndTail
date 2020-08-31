@@ -198,6 +198,7 @@
     <ClInclude Include="CSpriteObj.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
+    <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="MacroValue.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="CSpriteObj.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
+    <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="MainFrm.cpp" />

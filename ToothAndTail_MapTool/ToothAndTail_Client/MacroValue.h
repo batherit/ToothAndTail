@@ -6,6 +6,10 @@
 #define MAP_WIDTH			2048
 #define MAP_HEIGHT			2048
 
+// 타일
+#define TILE_WIDTH			42
+#define TILE_HEIGHT			28
+
 // 커멘더
 #define COMMANDER_WIDTH		72
 #define COMMANDER_HEIGHT	72

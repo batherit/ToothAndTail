@@ -60,6 +60,12 @@
     <Filter Include="소스 파일\1.Obj\Space">
       <UniqueIdentifier>{6320fc36-5d9c-40cc-90f9-b3b36c5d665c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.Obj\SpriteObj\Tile">
+      <UniqueIdentifier>{8e6a6e6d-3ca1-4d67-ae11-cd577d54b447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Obj\SpriteObj\DecoObj">
+      <UniqueIdentifier>{27d0e83e-3d0f-4ffb-a22c-fee0a2ba9d43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrm.h">
@@ -125,6 +131,9 @@
     <ClInclude Include="CSpace.h">
       <Filter>소스 파일\1.Obj\Space</Filter>
     </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>소스 파일\1.Obj\SpriteObj\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp">
@@ -180,6 +189,9 @@
     </ClCompile>
     <ClCompile Include="CSpace.cpp">
       <Filter>소스 파일\1.Obj\Space</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>소스 파일\1.Obj\SpriteObj\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "CGameWorld.h"
 class CSpriteObj;
+class CTile;
 class CMapEditor :
 	public CGameWorld
 {
@@ -16,11 +17,21 @@ public:
 	virtual void Render(void) override;
 	virtual void Release(void) override;
 
+public:
+	void RenderMap(void);
+	void RenderGrid(void);
+	void RenderTiles(void);
+
+
 private:
 	void LoadTextures(void);
 
 private:
 	CCamera* m_pCamera = nullptr;
 	CSpriteObj* m_pMap = nullptr;
+	vector<CTile*> m_vecGrid;
+	vector<CTile*> m_vecTiles;
+	int m_iMapRow = 1;
+	int m_iMapCol = 1;
 };
 

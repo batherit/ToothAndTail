@@ -89,7 +89,7 @@ HRESULT CGraphicDevice::GenerateGraphicDevice()
 	// 폰트를 생성한다.
 	if (FAILED(D3DXCreateFontIndirect(m_pDevice, &tFontInfo, &m_pFont)))
 	{
-		ERR_MSG(L"폰트 생성 실패");
+		ERR_MSG(L"Failed to create the font.");
 		return E_FAIL;
 	}
 

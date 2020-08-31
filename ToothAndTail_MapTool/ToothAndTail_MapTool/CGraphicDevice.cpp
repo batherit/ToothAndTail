@@ -80,16 +80,16 @@ HRESULT CGraphicDevice::GenerateGraphicDevice()
 	// 폰트 정보를 세팅한다.
 	D3DXFONT_DESCW tFontInfo;
 	ZeroMemory(&tFontInfo, sizeof(D3DXFONT_DESCW));
-	tFontInfo.Height = 20;
-	tFontInfo.Width = 20;
+	tFontInfo.Height = 8;
+	tFontInfo.Width = 8;
 	tFontInfo.Weight = FW_HEAVY;
 	tFontInfo.CharSet = HANGUL_CHARSET;
-	lstrcpy(tFontInfo.FaceName, L"메이플스토리");
+	lstrcpy(tFontInfo.FaceName, L"나눔바른고딕"); //메이플스토리, FFFFORWA, NanumSquareR
 
 	// 폰트를 생성한다.
 	if (FAILED(D3DXCreateFontIndirect(m_pDevice, &tFontInfo, &m_pFont)))
 	{
-		ERR_MSG(L"폰트 생성 실패");
+		ERR_MSG(L"Failed to create the font.");
 		return E_FAIL;
 	}
 

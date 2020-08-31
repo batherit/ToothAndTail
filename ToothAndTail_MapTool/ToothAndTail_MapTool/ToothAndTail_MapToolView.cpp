@@ -120,7 +120,6 @@ void CToothAndTailMapToolView::OnInitialUpdate()
 
 	// Scroll Size 세팅
 	SetScrollSizes(MM_TEXT, CSize(MAP_WIDTH + (MAP_WIDTH >> 1), MAP_HEIGHT + (MAP_HEIGHT >> 1)));
-
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 
 	// Gap을 구하기 위해서 MainFrame 크기를 구한다.
@@ -155,6 +154,13 @@ void CToothAndTailMapToolView::OnInitialUpdate()
 BOOL CToothAndTailMapToolView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	if (zDelta > 0) {
+		m_pMapEditor->GetMainCamera()->ZoomIn(0.05f);
+	}
+	else {
+		m_pMapEditor->GetMainCamera()->ZoomOut(0.05f);
+	}
 
 	return CScrollView::OnMouseWheel(nFlags, zDelta, pt);
 }
