@@ -60,14 +60,14 @@ void SafelyDeleteObjs(vector<T>& _vector) {
 template<typename T>
 void CollectGarbageObjs(list<T*>& _list)
 {
-	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { SafelyDeleteObj(pObj); } }
 	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
 }
 
 template<typename T>
 void CollectGarbageObjs(vector<T*>& _vector)
 {
-	for (auto& pObj : _vector) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+	for (auto& pObj : _vector) { DO_IF_IS_NOT_VALID_OBJ(pObj) { SafelyDeleteObj(pObj); } }
 	remove_if(_vector.begin(), _vector.end(), [](auto& pObj) { return pObj == nullptr; });
 }
 

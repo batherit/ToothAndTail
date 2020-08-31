@@ -23,7 +23,7 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_pMap = new CSpriteObj(m_rGameWorld, 0.f, 0.f, MAP_WIDTH, MAP_HEIGHT);
+	m_pMap = new CSpriteObj(m_rGameWorld, (MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE, MAP_WIDTH, MAP_HEIGHT);
 	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
 	m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
 	// 1) 기수 테스트

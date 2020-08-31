@@ -52,6 +52,7 @@ using namespace std;
 #include "Extern.h"
 #include "Enum.h"
 #include "Function.h"
+#include "MacroValue.h"
 
 
 #include "CGraphicDevice.h"

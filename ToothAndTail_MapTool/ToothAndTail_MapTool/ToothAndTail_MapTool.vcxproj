@@ -188,14 +188,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
+    <ClInclude Include="CMapEditor.h" />
     <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CSingleTexture.h" />
+    <ClInclude Include="CSpace.h" />
     <ClInclude Include="CSpriteObj.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
+    <ClInclude Include="CTimer.h" />
     <ClInclude Include="Function.h" />
+    <ClInclude Include="MacroValue.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -206,13 +211,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
+    <ClCompile Include="CMapEditor.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CSingleTexture.cpp" />
+    <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CSpriteObj.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
+    <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">

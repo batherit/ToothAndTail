@@ -2,12 +2,6 @@
 #include "CObj.h"
 
 
-CObj::CObj(CGameWorld& _rGameWorld)
-	:
-	m_rGameWorld(_rGameWorld)
-
-{
-}
 
 CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t _iWidth /*= 10*/, size_t _iHeight /*= 10*/, float _fToX, float _fToY, float _fSpeed /*= 0.f*/)
 	:
@@ -20,6 +14,7 @@ CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t
 	m_fSpeed(_fSpeed)
 {
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
+	m_vPivot = D3DXVECTOR3(static_cast<FLOAT>(m_iWidth >> 1), static_cast<FLOAT>(m_iHeight >> 1), 0.f);
 }
 
 
@@ -91,3 +86,51 @@ void CObj::SaveInfo(FILE * _fpOut)
 void CObj::LoadInfo(FILE * _fpIn)
 {
 }
+
+D3DXMATRIX CObj::GetParentMatrix(CObj::E_COORD_TYPE _eCoordType) const
+{
+	D3DXMATRIX matParent;
+	D3DXMatrixIdentity(&matParent);
+
+	if(m_pParent) 
+		matParent = m_pParent->GetObjectMatrix(_eCoordType);
+
+	return matParent;
+}
+
+D3DXMATRIX CObj::GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType) const
+{
+	D3DXMATRIX matObj, matScale, matTrans;
+	D3DXMatrixIdentity(&matObj);
+	D3DXMatrixScaling(&matScale, m_fScaleX, m_fScaleY, 0.f);	//Local
+	D3DXMatrixTranslation(&matTrans, m_vPos.x, m_vPos.y, 0.f);	//Local
+	matObj = matScale * matTrans;
+
+	switch (_eCoordType)
+	{
+	case CObj::COORD_TYPE_WORLD: 
+		matObj *= GetParentMatrix(_eCoordType);
+		break;
+	}
+
+	return matObj;
+}
+
+//D3DXMATRIX CObj::GetLocalMatrix(void) const
+//{
+//	D3DXMATRIX matScale, matTrans;
+//	D3DXMatrixScaling(&matScale, GetScaleX(), GetScaleY(), 0.f);
+//	D3DXMatrixTranslation(&matTrans, GetX(), GetY(), 0.f);
+//
+//	return matScale * matTrans;
+//}
+//
+//D3DXMATRIX CObj::GetWorldMatrix(void) const
+//{
+//	D3DXMATRIX matParentW;
+//	D3DXMatrixIdentity(&matParentW);
+//
+//	if (m_pParent) matParentW = m_pParent->GetWorldMatrix();
+//
+//	return GetLocalMatrix() * matParentW;
+//}

@@ -4,8 +4,8 @@
 
 #pragma once
 
-
-class CToothAndTailMapToolView : public CView
+class CMapEditor;
+class CToothAndTailMapToolView : public CScrollView
 {
 protected: // serialization에서만 만들어집니다.
 	CToothAndTailMapToolView() noexcept;
@@ -14,9 +14,11 @@ protected: // serialization에서만 만들어집니다.
 // 특성입니다.
 public:
 	CToothAndTailMapToolDoc* GetDocument() const;
+	CMapEditor* GetMapEditor(void) { return m_pMapEditor; }
 
 // 작업입니다.
-public:
+private:
+	CMapEditor* m_pMapEditor = nullptr;
 
 // 재정의입니다.
 public:
@@ -44,6 +46,7 @@ public:
 	virtual void OnInitialUpdate();
 //	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // ToothAndTail_MapToolView.cpp의 디버그 버전
