@@ -62,6 +62,15 @@ void CMapEditor::Render(void)
 	RenderMap();
 	RenderGrid();
 	RenderTiles();
+	
+	TCHAR szBuf[MAX_PATH];
+	POINT ptMouseCursorS = GetClientCursorPoint(g_hWND);
+	D3DXVECTOR3 vMouseCursorW = m_pCamera->GetWorldPoint(D3DXVECTOR3(ptMouseCursorS.x, ptMouseCursorS.y, 0.f));
+	swprintf_s(szBuf, L"%f %f", vMouseCursorW.x, vMouseCursorW.y);
+	D3DXMATRIX matFont;
+	D3DXMatrixScaling(&matFont, 3.f, 3.f, 0.f);
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matFont);
+	CGraphicDevice::GetInstance()->GetFont()->DrawTextW(CGraphicDevice::GetInstance()->GetSprite(), szBuf, lstrlen(szBuf), nullptr, 0, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	EndRender();
 }

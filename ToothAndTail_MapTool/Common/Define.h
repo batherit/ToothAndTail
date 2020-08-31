@@ -23,6 +23,10 @@
 #define WINCX	1200	//800 
 #define WINCY	800		//600
 
+// 폼 사이즈
+#define FORMCX	300
+#define FORMCY	WINCY
+
 // 타일 사이즈 최소 단위
 //#define TILECX ??		// 타일 하나의 width
 //#define TILECY ??		// 타일 하나의 height

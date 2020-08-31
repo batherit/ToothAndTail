@@ -66,6 +66,9 @@
     <Filter Include="소스 파일\1.Obj\SpriteObj\DecoObj">
       <UniqueIdentifier>{27d0e83e-3d0f-4ffb-a22c-fee0a2ba9d43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0.View%28Workspace%29\FormTab">
+      <UniqueIdentifier>{e8a696a2-3822-4c83-8272-efbf570195d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrm.h">
@@ -134,6 +137,15 @@
     <ClInclude Include="CTile.h">
       <Filter>소스 파일\1.Obj\SpriteObj\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="CForm.h">
+      <Filter>소스 파일\0.View%28Workspace%29</Filter>
+    </ClInclude>
+    <ClInclude Include="CTab1_Tile.h">
+      <Filter>소스 파일\0.View%28Workspace%29\FormTab</Filter>
+    </ClInclude>
+    <ClInclude Include="CTab2_Deco.h">
+      <Filter>소스 파일\0.View%28Workspace%29\FormTab</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp">
@@ -192,6 +204,15 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>소스 파일\1.Obj\SpriteObj\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CForm.cpp">
+      <Filter>소스 파일\0.View%28Workspace%29</Filter>
+    </ClCompile>
+    <ClCompile Include="CTab1_Tile.cpp">
+      <Filter>소스 파일\0.View%28Workspace%29\FormTab</Filter>
+    </ClCompile>
+    <ClCompile Include="CTab2_Deco.cpp">
+      <Filter>소스 파일\0.View%28Workspace%29\FormTab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

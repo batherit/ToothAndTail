@@ -5,6 +5,7 @@
 #pragma once
 
 class CMapEditor;
+class CToothAndTailMapToolDoc;
 class CToothAndTailMapToolView : public CScrollView
 {
 protected: // serialization에서만 만들어집니다.
@@ -19,6 +20,7 @@ public:
 // 작업입니다.
 private:
 	CMapEditor* m_pMapEditor = nullptr;
+	wstring m_wstrMousePoint;
 
 // 재정의입니다.
 public:
@@ -47,6 +49,8 @@ public:
 //	virtual void OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // ToothAndTail_MapToolView.cpp의 디버그 버전

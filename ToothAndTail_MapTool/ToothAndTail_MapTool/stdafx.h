@@ -57,6 +57,11 @@ using namespace std;
 
 #include "CGraphicDevice.h"
 #include "CObj.h"
+#include <afxwin.h>
+#include <afxext.h>
+#include <afxext.h>
+#include <afxcontrolbars.h>
+#include <afxcontrolbars.h>
 
 
 

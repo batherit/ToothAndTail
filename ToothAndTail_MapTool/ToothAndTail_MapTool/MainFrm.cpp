@@ -6,6 +6,8 @@
 #include "ToothAndTail_MapTool.h"
 
 #include "MainFrm.h"
+#include "CForm.h"
+#include "ToothAndTail_MapToolView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -104,8 +106,11 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	// ref. OnCreate를 실행하는 동안 호출됨.
+	m_MainSplitter.CreateStatic(this, 1, 2);
+	m_MainSplitter.CreateView(0, 0, RUNTIME_CLASS(CForm), CSize(300, 2000), pContext);
+	m_MainSplitter.CreateView(0, 1, RUNTIME_CLASS(CToothAndTailMapToolView), CSize(WINCX, WINCY), pContext);
+	m_MainSplitter.SetColumnInfo(0, 300, 50);
 
-
-	return CFrameWnd::OnCreateClient(lpcs, pContext); // 뷰 객체가 만들어진다.
-	//return TRUE;	// 분할 윈도우로 따로 뷰를 만들때 이 주석을 풀고 위 코드를 주석한다.
+	//return CFrameWnd::OnCreateClient(lpcs, pContext); // 뷰 객체가 만들어진다.
+	return TRUE;	// 분할 윈도우로 따로 뷰를 만들때 이 주석을 풀고 위 코드를 주석한다.
 }

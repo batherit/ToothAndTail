@@ -188,6 +188,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CForm.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CMapEditor.h" />
@@ -196,6 +197,8 @@
     <ClInclude Include="CSingleTexture.h" />
     <ClInclude Include="CSpace.h" />
     <ClInclude Include="CSpriteObj.h" />
+    <ClInclude Include="CTab1_Tile.h" />
+    <ClInclude Include="CTab2_Deco.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="CTile.h" />
@@ -212,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CForm.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
@@ -220,6 +224,8 @@
     <ClCompile Include="CSingleTexture.cpp" />
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CSpriteObj.cpp" />
+    <ClCompile Include="CTab1_Tile.cpp" />
+    <ClCompile Include="CTab2_Deco.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="CTile.cpp" />

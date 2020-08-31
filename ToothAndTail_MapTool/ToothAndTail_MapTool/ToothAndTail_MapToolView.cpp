@@ -15,6 +15,7 @@
 #include "CTextureMgr.h"
 #include "CMapEditor.h"
 #include "CCamera.h"
+#include "CForm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -32,6 +33,8 @@ BEGIN_MESSAGE_MAP(CToothAndTailMapToolView, CScrollView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CScrollView::OnFilePrintPreview)
 	ON_WM_MOUSEWHEEL()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_GETMINMAXINFO()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 // CToothAndTailMapToolView 생성/소멸
@@ -161,7 +164,7 @@ BOOL CToothAndTailMapToolView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt
 	else {
 		m_pMapEditor->GetMainCamera()->ZoomOut(0.05f);
 	}
-
+	InvalidateRect(nullptr, 0);
 	return CScrollView::OnMouseWheel(nFlags, zDelta, pt);
 }
 
@@ -173,4 +176,29 @@ void CToothAndTailMapToolView::OnLButtonDown(UINT nFlags, CPoint point)
 
 	InvalidateRect(nullptr, 0);
 	CScrollView::OnLButtonDown(nFlags, point);
+}
+
+
+void CToothAndTailMapToolView::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	lpMMI->ptMinTrackSize.x = WINCX; 
+	lpMMI->ptMinTrackSize.y = WINCY; 
+	lpMMI->ptMaxTrackSize.x = WINCX; 
+	lpMMI->ptMaxTrackSize.y = WINCY;
+
+	CScrollView::OnGetMinMaxInfo(lpMMI);
+}
+
+
+void CToothAndTailMapToolView::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	//CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+	//CForm* pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
+	//POINT ptCursorPoint = GetClientCursorPoint(g_hWND);
+
+	InvalidateRect(nullptr, 0);
+
+	CScrollView::OnMouseMove(nFlags, point);
 }
