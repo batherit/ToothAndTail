@@ -16,6 +16,7 @@
 #include "CMapEditor.h"
 #include "CCamera.h"
 #include "CForm.h"
+#include "CTile.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -175,6 +176,7 @@ void CToothAndTailMapToolView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	// TODO: 타일 클릭시 반응을 처리합니다.
+	m_pMapEditor->OnLButtonDown(nFlags, point);
 
 	InvalidateRect(nullptr, 0);
 	CScrollView::OnLButtonDown(nFlags, point);

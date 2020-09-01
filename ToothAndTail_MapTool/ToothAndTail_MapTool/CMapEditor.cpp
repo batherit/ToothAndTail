@@ -6,8 +6,8 @@
 #include "CTile.h"
 #include "MainFrm.h"
 #include "CForm.h"
+#include "ToothAndTail_MapToolView.h"
 #include "CTab2_Deco.h"
-//#include "CDecoObj.h"
 
 
 CMapEditor::CMapEditor()
@@ -27,6 +27,7 @@ CMapEditor::~CMapEditor()
 
 void CMapEditor::Ready(void)
 {
+	LinkView();
 	LoadTextures();
 
 	// 맵 스프라이트 객체 생성
@@ -36,11 +37,21 @@ void CMapEditor::Ready(void)
 	// Grid Tiles 생성
 	m_iMapRow = (MAP_HEIGHT << 1) / TILE_HEIGHT + 1;
 	m_iMapCol = MAP_WIDTH / TILE_WIDTH + 1;
+	D3DXVECTOR3 vPoint;
 	for (int i = 0; i < m_iMapRow; ++i) {
 		for (int j = 0; j < m_iMapCol; ++j) {
-			m_vecGrid.emplace_back(new CTile(*this
-				, static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)))
-				, static_cast<float>((TILE_HEIGHT >> 1) * i)));
+			vPoint.x = static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)));
+			vPoint.y = static_cast<float>((TILE_HEIGHT >> 1) * i);
+			vPoint.z = 0.f;
+
+			if (IsPointInPolygon(vPoint, m_MapBorderLines, 4)) {
+				m_vecTiles.emplace_back(new CTile(*this, vPoint.x, vPoint.y));
+			}
+
+			// 맵 경계 밖에 있는 좌표에 대해서는 타일을 추가하지 않는다.
+			/*else {
+				m_vecGrid.emplace_back(new CTile(*this, vPoint.x, vPoint.y, CTile::TYPE_BLOCKING));
+			}*/
 		}
 	}
 
@@ -63,12 +74,12 @@ void CMapEditor::Render(void)
 
 	// TODO : 그리기 연산을 수행합니다.
 	RenderMap();
-	RenderGrid();
+	RenderTiles();
 	RenderTiles();
 	
 	TCHAR szBuf[MAX_PATH];
 	POINT ptMouseCursorS = GetClientCursorPoint(g_hWND);
-	D3DXVECTOR3 vMouseCursorW = m_pCamera->GetWorldPoint(D3DXVECTOR3(ptMouseCursorS.x, ptMouseCursorS.y, 0.f));
+	D3DXVECTOR3 vMouseCursorW = m_pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<FLOAT>(ptMouseCursorS.x), static_cast<FLOAT>(ptMouseCursorS.y), 0.f));
 	swprintf_s(szBuf, L"%f %f", vMouseCursorW.x, vMouseCursorW.y);
 	D3DXMATRIX matFont;
 	D3DXMatrixScaling(&matFont, 3.f, 3.f, 0.f);
@@ -82,8 +93,31 @@ void CMapEditor::Release(void)
 {
 	SafelyDeleteObj(m_pMap);
 	SafelyDeleteObj(m_pCamera);
-	SafelyDeleteObjs(m_vecGrid);
 	SafelyDeleteObjs(m_vecTiles);
+}
+
+void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	POINT ptCursorS = GetClientCursorPoint(m_pToolView->GetSafeHwnd());
+	D3DXVECTOR3 vCursorW = GetMainCamera()->GetWorldPoint(D3DXVECTOR3(static_cast<FLOAT>(ptCursorS.x), static_cast<FLOAT>(ptCursorS.y), 0.f));
+	switch (m_pForm->GetSelectedTab())
+	{
+	case MAP_OBJ::TYPE_TILE: {
+		for (auto& pTile : m_vecTiles) {
+			if (IsPointInTile(vCursorW, pTile->GetXY(), pTile->GetWidth(), pTile->GetHeight())) {
+				pTile->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
+				break;
+			}
+		}
+	}
+		break;
+	case MAP_OBJ::TYPE_DECO: {
+
+	}
+		break;
+	default:
+		break;
+	}
 }
 
 void CMapEditor::RenderMap(void)
@@ -91,23 +125,21 @@ void CMapEditor::RenderMap(void)
 	m_pMap->Render(m_pCamera);
 }
 
-void CMapEditor::RenderGrid(void)
+void CMapEditor::RenderTiles(void)
 {
 	TCHAR szBuf[MAX_PATH] = L"";
-	for (int i = 0; i < m_vecGrid.size(); ++i) {
-		m_vecGrid[i]->Render(m_pCamera);
-		// TODO : 인덱스를 출력합니다.
+	for (int i = 0; i < m_vecTiles.size(); ++i) {
+		m_vecTiles[i]->Render(m_pCamera);
 		swprintf_s(szBuf, L"%d", i);
 		CGraphicDevice::GetInstance()->GetFont()->DrawTextW(CGraphicDevice::GetInstance()->GetSprite(), szBuf, lstrlen(szBuf), nullptr, 0, D3DCOLOR_ARGB(255, 255, 255, 255));
-
 	}
 }
 
-void CMapEditor::RenderTiles(void)
+void CMapEditor::LinkView(void)
 {
-	for (auto& pTile : m_vecTiles) {
-		pTile->Render(m_pCamera);
-	}
+	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+	m_pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
+	m_pToolView = dynamic_cast<CToothAndTailMapToolView*>(pMain->m_MainSplitter.GetPane(0, 1));
 }
 
 void CMapEditor::LoadTextures(void)
@@ -142,7 +174,7 @@ void CMapEditor::LoadTextures(void)
 	CForm* pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
 	wstring wstrKey = L"";
 	wstrKey = L"Stone";
-	for (int i = 0; i < 3; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
+	for (int i = 0; i < 3; i++) m_pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
 	wstrKey = L"Tree";
 	for (int i = 0; i < 11; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
 }

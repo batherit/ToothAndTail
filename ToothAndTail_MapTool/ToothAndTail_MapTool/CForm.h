@@ -7,6 +7,7 @@
 
 class CTab1_Tile;
 class CTab2_Deco;
+class CTile;
 
 class CForm : public CFormView
 {
@@ -33,9 +34,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
-	
+
 public:
-	pair<MAP_OBJ::E_TYPE, wstring> GetSelectedObjKey(void);
+	MAP_OBJ::E_TYPE GetSelectedTab();
+	int GetTileType();
+	pair<wstring, int> GetDecoType();
 
 	CTab1_Tile* m_pTab1_Tile = nullptr;
 	CTab2_Deco* m_pTab2_Deco = nullptr;

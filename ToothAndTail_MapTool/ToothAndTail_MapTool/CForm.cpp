@@ -67,11 +67,25 @@ void CForm::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 	CFormView::OnGetMinMaxInfo(lpMMI);
 }
 
-pair<MAP_OBJ::E_TYPE, wstring> CForm::GetSelectedObjKey(void)
+MAP_OBJ::E_TYPE CForm::GetSelectedTab()
 {
-	return pair<MAP_OBJ::E_TYPE, wstring>();
+	int iSelectedTabIndex = m_TabCtrl.GetCurSel();
+	
+	if (0 == iSelectedTabIndex) return MAP_OBJ::TYPE_TILE;
+	else if (1 == iSelectedTabIndex) return MAP_OBJ::TYPE_DECO;
+	
+	return MAP_OBJ::TYPE_NONE;
 }
 
+int CForm::GetTileType()
+{
+	return m_pTab1_Tile->GetTileType();
+}
+
+pair<wstring, int> CForm::GetDecoType()
+{
+	return m_pTab2_Deco->GetDecoType();
+}
 
 void CForm::OnInitialUpdate()
 {

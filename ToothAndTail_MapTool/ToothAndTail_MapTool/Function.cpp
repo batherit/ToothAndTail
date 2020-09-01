@@ -183,6 +183,40 @@ OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth, float _fHeight, f
 	else return OBJ::DIR_RIGHT;
 }
 
+bool IsPointInPolygon(const D3DXVECTOR3 & _vPoint, const D3DXVECTOR3 _vPolygonPointsArr[], int _iPolygonPointsNum)
+{
+	D3DXVECTOR3 vDir;
+	D3DXVECTOR3 vNormal;
+	float fDot = 0.f;
+	for (int i = 0; i < _iPolygonPointsNum; i++) {
+		// 방향 벡터를 구한다. (법선 벡터를 구하기 위함이다.)
+		vDir = _vPolygonPointsArr[(i + 1) % 4] - _vPolygonPointsArr[i % 4];
+		D3DXVec3Normalize(&vDir, &vDir);
+		// 법선 벡터를 구한다. (2차원에서만 가능, 3차원은 외적을 통해 구한다.)
+		vNormal = D3DXVECTOR3(vDir.y, -vDir.x, 0.f); // root (vDir.y^2 + vDir.x^2)이므로 단위벡터
+		// 꼭짓점에서 커서 좌표로의 방향 벡터를 구한다.
+		vDir = _vPoint - _vPolygonPointsArr[i % 4];
+		D3DXVec3Normalize(&vDir, &vDir);
+		// 내적을 구한다.
+		fDot = D3DXVec3Dot(&vDir, &vNormal);
+		// 내적이 양수이면 마름모 밖에 점이 존재한다는 의미이다. 즉, false를 반환한다.
+		if (fDot > 0.f) return false;
+	}
+	return true;
+}
+
+bool IsPointInTile(const D3DXVECTOR3 & _vPoint, const D3DXVECTOR3 & vTilePos, const float & _fTileWidth, const float & _fTileHeight)
+{
+	D3DXVECTOR3 vTilePointsArr[4] = {
+		D3DXVECTOR3(vTilePos.x, vTilePos.y - _fTileHeight * 0.5f, 0.f),
+		D3DXVECTOR3(vTilePos.x + _fTileWidth * 0.5f, vTilePos.y, 0.f),
+		D3DXVECTOR3(vTilePos.x, vTilePos.y + _fTileHeight * 0.5f, 0.f),
+		D3DXVECTOR3(vTilePos.x - _fTileWidth * 0.5f, vTilePos.y, 0.f)
+	};
+
+	return IsPointInPolygon(_vPoint, vTilePointsArr, 4);
+}
+
 CString ConvertToRelativePath(const CString & strAbsolutePath)
 {
 	TCHAR szRelativePath[MAX_PATH] = L"";

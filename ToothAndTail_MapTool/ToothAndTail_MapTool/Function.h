@@ -90,6 +90,8 @@ T GetQuadraticBezierCurve(float _fT, T _p1, T _p2, T _p3) {
 	return _p1 * (1.f - _fT) * (1.f - _fT) + _p2 * 2.f * _fT * (1.f - _fT) + _p3 * _fT * _fT;
 }
 
+bool IsPointInPolygon(const D3DXVECTOR3& _vPoint, const D3DXVECTOR3 _vPolygonPointsArr[], int _iPolygonPointsNum);
+bool IsPointInTile(const D3DXVECTOR3& _vPoint, const D3DXVECTOR3& vTilePos, const float& _fTileWidth, const float& _fTileHeight);
 
 // MFC
 CString ConvertToRelativePath(const CString& strAbsolutePath);

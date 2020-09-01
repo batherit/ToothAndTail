@@ -63,10 +63,19 @@ void CTab2_Deco::OnDropFiles(HDROP hDropInfo)
 	CDialogEx::OnDropFiles(hDropInfo);
 }
 
+pair<wstring, int> CTab2_Deco::GetDecoType(void)
+{
+	return pair<wstring, int>(m_wstrDecoKey, m_iID);
+}
+
 void CTab2_Deco::OnLbnSelchangeList1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	UpdateData(TRUE);
+
+	m_wstrDecoKey = L"";
+	m_iID = -1;
+
 	CString strFileName = L"";
 	int iSelectedIndex = m_DecoList.GetCurSel();
 
@@ -82,11 +91,16 @@ void CTab2_Deco::OnLbnSelchangeList1()
 	//m_iDrawID = _ttoi(strFileName.GetString());
 	CGraphicDevice::GetInstance()->BeginRender();
 
-	wstring wstrName = strFileName.Left(i).GetString();
+	wstring wstrDecoKey = strFileName.Left(i).GetString();
 	int iID = _ttoi(strFileName.Right(strFileName.GetLength() - i).GetString());
-	const TextureInfo* pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"Deco", wstrName, iID);
+	const TextureInfo* pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"Deco", wstrDecoKey, iID);
 	if (nullptr == pTextureInfo)
 		return;
+
+	// 선택된 데코값 세팅
+	m_wstrDecoKey = wstrDecoKey;
+	m_iID = iID;
+
 	float fCenterX = pTextureInfo->tImageInfo.Width >> 1;
 	float fCenterY = pTextureInfo->tImageInfo.Height >> 1;
 

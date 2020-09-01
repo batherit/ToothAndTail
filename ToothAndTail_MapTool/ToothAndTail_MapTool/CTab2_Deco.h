@@ -22,7 +22,12 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnDropFiles(HDROP hDropInfo);
-	
+	pair<wstring, int> GetDecoType(void);
+
 	CListBox m_DecoList;
 	afx_msg void OnLbnSelchangeList1();
+
+private:
+	wstring m_wstrDecoKey = L"";
+	int m_iID = -1;
 };

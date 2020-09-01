@@ -27,6 +27,7 @@ public:
 public:
 	// 아틀라스 텍스처(싱글 텍스처의 일종)
 	void PushTexture(const TextureInfo* _pTextureInfo) { if(_pTextureInfo) m_vecTextureInfos.emplace_back(_pTextureInfo); }
+	void SetAnimIndex(int _iIndex) { m_stAnimInfo.iAnimIndex = _iIndex; }
 	void SetColor(const D3DCOLOR& _clRenderColor) { m_clRenderColor = _clRenderColor; }
 	void SetShadowRender(bool _bIsToRenderShadow) { m_bIsToRenderShadow = _bIsToRenderShadow; }
 

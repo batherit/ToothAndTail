@@ -2,6 +2,8 @@
 #include "CGameWorld.h"
 class CSpriteObj;
 class CTile;
+class CForm;
+class CToothAndTailMapToolView;
 class CMapEditor :
 	public CGameWorld
 {
@@ -18,20 +20,32 @@ public:
 	virtual void Release(void) override;
 
 public:
+	void OnLButtonDown(UINT nFlags, CPoint point);
+
+public:
 	void RenderMap(void);
-	void RenderGrid(void);
 	void RenderTiles(void);
 
 
 private:
+	void LinkView(void);
 	void LoadTextures(void);
 
 private:
 	CCamera* m_pCamera = nullptr;
 	CSpriteObj* m_pMap = nullptr;
-	vector<CTile*> m_vecGrid;
+	const D3DXVECTOR3 m_MapBorderLines[4] = { //12시 방향부터 시계방향
+		D3DXVECTOR3(1029.f, 365.f, 0.f),
+		D3DXVECTOR3(2001.f, 1022.f, 0.f),
+		D3DXVECTOR3(1029.f, 1680.f, 0.f),
+		D3DXVECTOR3(42.5f, 1022.f, 0.f)
+	};
 	vector<CTile*> m_vecTiles;
 	int m_iMapRow = 1;
 	int m_iMapCol = 1;
+
+private:
+	CForm* m_pForm = nullptr;
+	CToothAndTailMapToolView* m_pToolView = nullptr;
 };
 
