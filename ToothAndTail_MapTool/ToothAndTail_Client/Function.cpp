@@ -2,7 +2,7 @@
 #include "Function.h"
 
 // 해당 HWND에 대한 커서 포인터 얻기
-POINT GetClientCursorPoint(HWND& _hWND)
+POINT GetClientCursorPoint(HWND _hWND)
 {
 	POINT pt;
 	GetCursorPos(&pt);				// 데스크탑 기준 좌표

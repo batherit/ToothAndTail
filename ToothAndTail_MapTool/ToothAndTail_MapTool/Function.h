@@ -3,7 +3,7 @@
 class CObj;
 
 // 해당 HWND에 대한 커서 포인터 얻기
-POINT GetClientCursorPoint(HWND& _hWND);
+POINT GetClientCursorPoint(const HWND& _hWND);
 
 // 오브젝트 충돌
 bool IsCollided(const RECT& _rRect1, const RECT& _rRect2);

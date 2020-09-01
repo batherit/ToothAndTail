@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CToothAndTailMapToolView, CScrollView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_GETMINMAXINFO()
 	ON_WM_MOUSEMOVE()
+	ON_WM_RBUTTONDOWN()
+	ON_WM_RBUTTONUP()
 END_MESSAGE_MAP()
 
 // CToothAndTailMapToolView 생성/소멸
@@ -198,7 +200,35 @@ void CToothAndTailMapToolView::OnMouseMove(UINT nFlags, CPoint point)
 	//CForm* pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
 	//POINT ptCursorPoint = GetClientCursorPoint(g_hWND);
 
-	InvalidateRect(nullptr, 0);
+	if (m_bIsDragScrolling) {
+		POINT ptCurClickedPoint = GetClientCursorPoint(GetSafeHwnd());
+		CCamera* pCamera = m_pMapEditor->GetMainCamera();
+		POINT ptDeltaMove = {
+			(m_ptClickedPoint.x - ptCurClickedPoint.x) / pCamera->GetZoomMultiple(),
+			(m_ptClickedPoint.y - ptCurClickedPoint.y) / pCamera->GetZoomMultiple()
+		};
+		SetScrollPos(0, ptDeltaMove.x + GetScrollPos(0));
+		SetScrollPos(1, ptDeltaMove.y + GetScrollPos(1));
+		m_ptClickedPoint = ptCurClickedPoint;
+	}
 
+	InvalidateRect(nullptr, 0);
 	CScrollView::OnMouseMove(nFlags, point);
+}
+
+
+void CToothAndTailMapToolView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_bIsDragScrolling = true;
+	m_ptClickedPoint = GetClientCursorPoint(GetSafeHwnd());
+	CScrollView::OnRButtonDown(nFlags, point);
+}
+
+
+void CToothAndTailMapToolView::OnRButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_bIsDragScrolling = false;
+	CScrollView::OnRButtonUp(nFlags, point);
 }

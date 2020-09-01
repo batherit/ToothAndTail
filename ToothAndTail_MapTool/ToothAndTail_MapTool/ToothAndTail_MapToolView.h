@@ -21,6 +21,9 @@ public:
 private:
 	CMapEditor* m_pMapEditor = nullptr;
 	wstring m_wstrMousePoint;
+	bool m_bIsDragScrolling = false;
+	POINT m_ptClickedPoint;
+	bool m_bIsDragPainting = false;
 
 // 재정의입니다.
 public:
@@ -51,6 +54,8 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // ToothAndTail_MapToolView.cpp의 디버그 버전
