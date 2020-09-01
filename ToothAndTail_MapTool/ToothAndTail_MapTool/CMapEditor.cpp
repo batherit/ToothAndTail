@@ -4,6 +4,9 @@
 #include "CTextureMgr.h"
 #include "CSpriteObj.h"
 #include "CTile.h"
+#include "MainFrm.h"
+#include "CForm.h"
+#include "CTab2_Deco.h"
 //#include "CDecoObj.h"
 
 
@@ -127,4 +130,19 @@ void CMapEditor::LoadTextures(void)
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Tile/CollisionTile3.png", L"TILE_RED")))
 		return;
 
+	// 데코
+	// 1) 바위
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_MULTI, L"../Texture/Map/Stone/Stone%d.png", L"Deco", L"Stone", 3)))
+		return;
+	// 2) 나무
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_MULTI, L"../Texture/Map/Tree/Tree%d.png", L"Deco", L"Tree", 11)))
+		return;
+	// 데코 리스트에 등록
+	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
+	CForm* pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
+	wstring wstrKey = L"";
+	wstrKey = L"Stone";
+	for (int i = 0; i < 3; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
+	wstrKey = L"Tree";
+	for (int i = 0; i < 11; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
 }

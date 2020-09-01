@@ -27,6 +27,7 @@ void CForm::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TAB1, m_TabCtrl);
+	DDX_Control(pDX, IDC_PIC_SELECTED, m_PicView);
 }
 
 BEGIN_MESSAGE_MAP(CForm, CFormView)

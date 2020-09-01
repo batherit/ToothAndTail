@@ -1,5 +1,4 @@
-﻿  CForm.cpp
-  MainFrm.cpp
-  ToothAndTail_MapToolView.cpp
-  코드를 생성하고 있습니다...
+﻿  CMapEditor.cpp
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\cmapeditor.cpp(71): warning C4244: '인수': 'LONG'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\cmapeditor.cpp(97): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   ToothAndTail_MapTool.vcxproj -> D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe

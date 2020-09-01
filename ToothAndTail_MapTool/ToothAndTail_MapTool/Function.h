@@ -90,3 +90,7 @@ T GetQuadraticBezierCurve(float _fT, T _p1, T _p2, T _p3) {
 	return _p1 * (1.f - _fT) * (1.f - _fT) + _p2 * 2.f * _fT * (1.f - _fT) + _p3 * _fT * _fT;
 }
 
+
+// MFC
+CString ConvertToRelativePath(const CString& strAbsolutePath);
+void AdjustHorizontalScroll(CListBox& _rListBox);

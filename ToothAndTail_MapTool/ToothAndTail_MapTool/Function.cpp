@@ -182,3 +182,42 @@ OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth, float _fHeight, f
 	}
 	else return OBJ::DIR_RIGHT;
 }
+
+CString ConvertToRelativePath(const CString & strAbsolutePath)
+{
+	TCHAR szRelativePath[MAX_PATH] = L"";
+	TCHAR szCurDirectory[MAX_PATH] = L"";
+	GetCurrentDirectory(MAX_PATH, szCurDirectory);
+	PathRelativePathTo(szRelativePath, szCurDirectory, FILE_ATTRIBUTE_DIRECTORY, strAbsolutePath, FILE_ATTRIBUTE_DIRECTORY);
+
+	//절대 경로 : 어떤 지점까지 경로 다나옴
+	//상대 경로 : 현재 경로에서 어떤 지점까지 경로 다나옴
+	//현재 경로 : 현재 플젝있는 곳까지 경로 다나옴
+	return CString(szRelativePath);
+}
+
+void AdjustHorizontalScroll(CListBox & _rListBox)
+{
+	CString strName;
+	CSize tSize;
+	int iCX = 0;
+
+	CDC* pDC = _rListBox.GetDC();
+	for (int i = 0; i < _rListBox.GetCount(); ++i)
+	{
+		// 리스트박스로부터 i번째 인덱스의 문자열 얻기
+		_rListBox.GetText(i, strName);
+
+		// 문자열의 가로 픽셀 길이 얻기
+		tSize = pDC->GetTextExtent(strName);
+
+		// 가장 긴 가로 픽셀 길이(iCX) 구하기
+		if (tSize.cx > iCX)
+			iCX = tSize.cx;
+	}
+	_rListBox.ReleaseDC(pDC);
+
+	// 가로 스크롤 사이즈 조정
+	if (_rListBox.GetHorizontalExtent() < iCX)
+		_rListBox.SetHorizontalExtent(iCX);
+}

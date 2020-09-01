@@ -14,7 +14,6 @@
 #define IDC_RADIO2                      1002
 #define IDC_LIST1                       1003
 #define IDC_PIC_SELECTED                1004
-#define IDC_TEXT_MOUSE_POINT            1005
 
 // Next default values for new objects
 // 
