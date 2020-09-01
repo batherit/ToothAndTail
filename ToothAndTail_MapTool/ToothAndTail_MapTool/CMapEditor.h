@@ -2,6 +2,7 @@
 #include "CGameWorld.h"
 class CSpriteObj;
 class CTile;
+class CDeco;
 class CForm;
 class CToothAndTailMapToolView;
 class CMapEditor :
@@ -23,9 +24,10 @@ public:
 	void OnLButtonDown(UINT nFlags, CPoint point);
 
 public:
-	void RenderMap(void);
-	void RenderTiles(void);
-
+	void RenderMap();
+	void RenderTiles();
+	void RenderDecos();
+	void RenderSelectedObj();
 
 private:
 	void LinkView(void);
@@ -40,7 +42,8 @@ private:
 		D3DXVECTOR3(1029.f, 1680.f, 0.f),
 		D3DXVECTOR3(42.5f, 1022.f, 0.f)
 	};
-	vector<CTile*> m_vecTiles;
+	list<CTile*> m_listTiles;
+	list<CDeco*> m_listDecos;
 	int m_iMapRow = 1;
 	int m_iMapCol = 1;
 

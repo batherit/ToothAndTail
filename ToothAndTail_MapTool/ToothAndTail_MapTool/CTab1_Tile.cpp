@@ -46,4 +46,5 @@ int CTab1_Tile::GetTileType(void)
 {
 	if (0 != m_rbTileType[0].GetCheck()) return 0;
 	if (0 != m_rbTileType[1].GetCheck()) return 1;
+	return -1;
 }

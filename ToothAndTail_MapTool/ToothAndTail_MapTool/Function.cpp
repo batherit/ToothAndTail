@@ -38,6 +38,11 @@ bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint)
 	return (_rRect.left <= _rPoint.x && _rPoint.x <= _rRect.right) && (_rRect.top <= _rPoint.y && _rPoint.y <= _rRect.bottom);
 }
 
+bool IsPointInRect(const RECT & _rRect, const D3DXVECTOR3 & _rPoint)
+{
+	return (_rRect.left <= _rPoint.x && _rPoint.x <= _rRect.right) && (_rRect.top <= _rPoint.y && _rPoint.y <= _rRect.bottom);
+}
+
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect)
 {
 	if (_pObj.GetLeft() <= _rRect.left)		_pObj.SetX(static_cast<float>(_rRect.left + (_pObj.GetWidth() >> 1)));

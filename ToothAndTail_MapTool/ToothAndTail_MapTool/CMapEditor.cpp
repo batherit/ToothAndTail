@@ -4,6 +4,7 @@
 #include "CTextureMgr.h"
 #include "CSpriteObj.h"
 #include "CTile.h"
+#include "CDeco.h"
 #include "MainFrm.h"
 #include "CForm.h"
 #include "ToothAndTail_MapToolView.h"
@@ -45,7 +46,7 @@ void CMapEditor::Ready(void)
 			vPoint.z = 0.f;
 
 			if (IsPointInPolygon(vPoint, m_MapBorderLines, 4)) {
-				m_vecTiles.emplace_back(new CTile(*this, vPoint.x, vPoint.y));
+				m_listTiles.emplace_back(new CTile(*this, vPoint.x, vPoint.y));
 			}
 
 			// 맵 경계 밖에 있는 좌표에 대해서는 타일을 추가하지 않는다.
@@ -75,7 +76,8 @@ void CMapEditor::Render(void)
 	// TODO : 그리기 연산을 수행합니다.
 	RenderMap();
 	RenderTiles();
-	RenderTiles();
+	RenderDecos();
+	RenderSelectedObj();
 	
 	TCHAR szBuf[MAX_PATH];
 	POINT ptMouseCursorS = GetClientCursorPoint(g_hWND);
@@ -93,7 +95,9 @@ void CMapEditor::Release(void)
 {
 	SafelyDeleteObj(m_pMap);
 	SafelyDeleteObj(m_pCamera);
-	SafelyDeleteObjs(m_vecTiles);
+	SafelyDeleteObjs(m_listTiles);
+	SafelyDeleteObjs(m_listDecos);
+	CTextureMgr::DestroyInstance();
 }
 
 void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
@@ -103,8 +107,9 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 	switch (m_pForm->GetSelectedTab())
 	{
 	case MAP_OBJ::TYPE_TILE: {
-		for (auto& pTile : m_vecTiles) {
+		for (auto& pTile : m_listTiles) {
 			if (IsPointInTile(vCursorW, pTile->GetXY(), pTile->GetWidth(), pTile->GetHeight())) {
+				// 선택된 타일의 타입을 변경한다.
 				pTile->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
 				break;
 			}
@@ -112,7 +117,25 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 		break;
 	case MAP_OBJ::TYPE_DECO: {
-
+		auto& rDecoType = m_pForm->GetDecoType();
+		if (rDecoType.second != -1) {
+			m_listDecos.emplace_back(new CDeco(*this, vCursorW.x, vCursorW.y, rDecoType.first, rDecoType.second));
+			m_listDecos.sort([](CDeco* pDeco1, CDeco* pDeco2) {
+				return pDeco1->GetBottom() < pDeco2->GetBottom();
+			});
+		}
+		else {
+			std::list<CDeco*>::reverse_iterator rIter = m_listDecos.rbegin();
+			for (; rIter != m_listDecos.rend(); ++rIter) {
+				if (IsPointInRect((*rIter)->GetRect(), vCursorW)) {
+					break;
+				}
+			}
+			if (rIter != m_listDecos.rend()) {
+				SafelyDeleteObj(*rIter);
+				m_listDecos.erase(std::next(rIter).base());
+			}
+		}
 	}
 		break;
 	default:
@@ -128,11 +151,28 @@ void CMapEditor::RenderMap(void)
 void CMapEditor::RenderTiles(void)
 {
 	TCHAR szBuf[MAX_PATH] = L"";
-	for (int i = 0; i < m_vecTiles.size(); ++i) {
-		m_vecTiles[i]->Render(m_pCamera);
-		swprintf_s(szBuf, L"%d", i);
+	int iIndex = 0;
+	for (auto& pTile : m_listTiles) {
+		pTile->Render(m_pCamera);
+		swprintf_s(szBuf, L"%d", iIndex++);
 		CGraphicDevice::GetInstance()->GetFont()->DrawTextW(CGraphicDevice::GetInstance()->GetSprite(), szBuf, lstrlen(szBuf), nullptr, 0, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
+}
+
+void CMapEditor::RenderDecos(void)
+{
+	TCHAR szBuf[MAX_PATH] = L"";
+	int iIndex = 0;
+	for (auto& pTile : m_listDecos) {
+		pTile->Render(m_pCamera);
+		swprintf_s(szBuf, L"%d", iIndex++);
+		CGraphicDevice::GetInstance()->GetFont()->DrawTextW(CGraphicDevice::GetInstance()->GetSprite(), szBuf, lstrlen(szBuf), nullptr, 0, D3DCOLOR_ARGB(255, 0, 255, 255));
+	}
+}
+
+void CMapEditor::RenderSelectedObj()
+{
+
 }
 
 void CMapEditor::LinkView(void)
@@ -170,6 +210,7 @@ void CMapEditor::LoadTextures(void)
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_MULTI, L"../Texture/Map/Tree/Tree%d.png", L"Deco", L"Tree", 11)))
 		return;
 	// 데코 리스트에 등록
+	m_pForm->m_pTab2_Deco->m_DecoList.AddString(L"Delete");
 	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
 	CForm* pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
 	wstring wstrKey = L"";
