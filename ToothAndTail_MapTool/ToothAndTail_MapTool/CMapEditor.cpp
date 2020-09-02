@@ -248,10 +248,7 @@ void CMapEditor::RenderSelectedObj()
 
 void CMapEditor::SaveMapBorderLines(HANDLE& _hfOut)
 {
-	//DWORD dwByte = 0;
-	for (int i = 0; i < 4; i++) {
-		WriteFile(_hfOut, &m_vMapBorderLines[i], sizeof(m_vMapBorderLines[i]), nullptr, nullptr);
-	}
+	WriteFile(_hfOut, m_vMapBorderLines, sizeof(m_vMapBorderLines[0]) * 4, nullptr, nullptr);
 }
 
 void CMapEditor::SaveTiles(HANDLE & _hfOut)
@@ -280,10 +277,7 @@ void CMapEditor::ClearObjs()
 
 void CMapEditor::LoadMapBorderLines(HANDLE & _hfIn)
 {
-	//DWORD dwByte = 0;
-	for (int i = 0; i < 4; ++i) {
-		ReadFile(_hfIn, &m_vMapBorderLines[i], sizeof(m_vMapBorderLines[i]), nullptr, nullptr);
-	}
+	ReadFile(_hfIn, m_vMapBorderLines, sizeof(m_vMapBorderLines[0]) * 4, nullptr, nullptr);
 }
 
 void CMapEditor::LoadTiles(HANDLE & _hfIn)

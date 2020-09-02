@@ -3,6 +3,7 @@
 
 class CSpriteObj;
 class CCommander;
+class CMapLoader;
 class CTestScene :
 	public CScene
 {
@@ -18,7 +19,8 @@ public:
 	virtual void Render(CCamera* _pCamera) override;
 
 private:
-	CSpriteObj* m_pMap = nullptr;
+	//CSpriteObj* m_pMap = nullptr;
+	CMapLoader* m_pMapLoader = nullptr;
 	CCommander* m_pCommander = nullptr;
 };
 

@@ -93,6 +93,12 @@
     <Filter Include="소스 파일\2.MapLoader">
       <UniqueIdentifier>{30aefa4d-e04b-4274-bfb8-3e05f1810cd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Deco">
+      <UniqueIdentifier>{f8e4941d-5e2f-4443-b8e0-7659d6cd9f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Tile">
+      <UniqueIdentifier>{b1c859d5-1803-4102-b2f8-0b3ee4ef8845}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -230,6 +236,12 @@
     <ClInclude Include="CMapLoader.h">
       <Filter>소스 파일\2.MapLoader</Filter>
     </ClInclude>
+    <ClInclude Include="CDeco.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\Deco</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -357,6 +369,12 @@
     </ClCompile>
     <ClCompile Include="CMapLoader.cpp">
       <Filter>소스 파일\2.MapLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CDeco.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\Deco</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

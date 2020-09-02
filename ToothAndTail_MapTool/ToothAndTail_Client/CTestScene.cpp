@@ -7,6 +7,8 @@
 #include "CTunnel.h"
 #include "CCamera.h"
 #include "CTextureMgr.h"
+#include "CMapLoader.h"
+#include "CDeco.h"
 
 
 CTestScene::CTestScene(CGameWorld & _rGameWorld)
@@ -23,9 +25,9 @@ CTestScene::~CTestScene()
 void CTestScene::ResetScene(void)
 {
 	Release();
-	m_pMap = new CSpriteObj(m_rGameWorld, (MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE, MAP_WIDTH, MAP_HEIGHT);
-	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
-	m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
+
+	m_pMapLoader = new CMapLoader(m_rGameWorld, L"../Data/MapData.dat");
+
 	// 1) 기수 테스트
 	/*m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
 	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
@@ -72,14 +74,16 @@ void CTestScene::LateUpdate(void)
 
 void CTestScene::Release(void)
 {
+	SafelyDeleteObj(m_pMapLoader);
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
-	SafelyDeleteObj(m_pMap);
 	m_pCommander = nullptr;
 }
 
 void CTestScene::Render(CCamera * _pCamera)
 {
-	m_pMap->Render(_pCamera);
+	if(m_pMapLoader) m_pMapLoader->RenderMap(_pCamera);
+	if(m_pMapLoader) m_pMapLoader->RenderTile(_pCamera);
+
 	m_rGameWorld.RenderListObjs(_pCamera, [](CObj* pObj1, CObj* pObj2) {
 		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) return true;
 		else if (pObj1->GetRenderLayer() > pObj2->GetRenderLayer()) return false;

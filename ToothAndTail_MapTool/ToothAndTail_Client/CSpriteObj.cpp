@@ -35,6 +35,7 @@ void CSpriteObj::Release(void)
 
 void CSpriteObj::Render(CCamera * _pCamera)
 {
+	if (m_vecTextureInfos.empty()) return;
 	if (m_bIsToRenderShadow) RenderShadow(_pCamera);
 
 	D3DXMATRIX matScreen = GetObjectMatrix();

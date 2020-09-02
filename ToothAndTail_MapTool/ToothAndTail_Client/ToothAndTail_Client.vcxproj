@@ -158,6 +158,7 @@
     <ClInclude Include="CComState_Standing_Build.h" />
     <ClInclude Include="CComState_Standing_WaveFlag.h" />
     <ClInclude Include="CCrop.h" />
+    <ClInclude Include="CDeco.h" />
     <ClInclude Include="CFarmland.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="CTestScene.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
+    <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTunnel.h" />
     <ClInclude Include="CTurbine.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="CComState_Standing_Build.cpp" />
     <ClCompile Include="CComState_Standing_WaveFlag.cpp" />
     <ClCompile Include="CCrop.cpp" />
+    <ClCompile Include="CDeco.cpp" />
     <ClCompile Include="CFarmland.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
@@ -226,6 +229,7 @@
     <ClCompile Include="CTestScene.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
+    <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTunnel.cpp" />
     <ClCompile Include="CTurbine.cpp" />

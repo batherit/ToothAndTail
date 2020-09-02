@@ -10,6 +10,7 @@ bool IsCollided(const RECT& _rRect1, const RECT& _rRect2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint);
 bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint);
+bool IsPointInRect(const RECT& _rRect, const D3DXVECTOR3& _rPoint);
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect);
 bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollidedPoint);
 
@@ -90,3 +91,9 @@ T GetQuadraticBezierCurve(float _fT, T _p1, T _p2, T _p3) {
 	return _p1 * (1.f - _fT) * (1.f - _fT) + _p2 * 2.f * _fT * (1.f - _fT) + _p3 * _fT * _fT;
 }
 
+bool IsPointInPolygon(const D3DXVECTOR3& _vPoint, const D3DXVECTOR3 _vPolygonPointsArr[], int _iPolygonPointsNum);
+bool IsPointInTile(const D3DXVECTOR3& _vPoint, const D3DXVECTOR3& vTilePos, const float& _fTileWidth, const float& _fTileHeight);
+
+// MFC
+//CString ConvertToRelativePath(const CString& strAbsolutePath);
+//void AdjustHorizontalScroll(CListBox& _rListBox);

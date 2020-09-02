@@ -117,7 +117,20 @@ ClassName* ClassName::m_pInstance = nullptr;
 #define KM_X		0x00200000
 
 // 파일 입출력 관련
+
+
+#ifdef _AFX
+
+#define F_WRITE_DATA(_valueName, _fpOut)	WriteFile(_hfIn, &_valueName, sizeof(_valueName), nullptr, nullptr)
+#define F_READ_DATA(_valueName, _fpIn)		ReadFile(_hfIn, &_valueName, sizeof(_valueName), nullptr, nullptr)
+#define F_WRITE_HEAD(_valueName, _fpOut)	WriteFile(_hfIn, &_valueName, sizeof(_valueName), nullptr, nullptr)
+#define F_READ_HEAD(_valueName, _fpIn)		ReadFile(_hfIn, &_valueName, sizeof(_valueName), nullptr, nullptr)
+
+#else
+
 #define F_WRITE_DATA(_valueName, _fpOut)	fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
 #define F_READ_DATA(_valueName, _fpIn)		fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
 #define F_WRITE_HEAD(_valueName, _fpOut)	fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
 #define F_READ_HEAD(_valueName, _fpIn)		fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
+
+#endif

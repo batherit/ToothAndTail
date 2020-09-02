@@ -44,3 +44,4 @@ using namespace std;
 #include "CKeyMgr.h"
 
 #include "CObj.h"
+#include "CSpriteObj.h"
