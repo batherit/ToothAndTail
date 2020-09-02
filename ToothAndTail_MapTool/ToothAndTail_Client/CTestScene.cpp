@@ -8,6 +8,7 @@
 #include "CCamera.h"
 #include "CTextureMgr.h"
 #include "CMapLoader.h"
+#include "CTile.h"
 #include "CDeco.h"
 
 
@@ -65,6 +66,11 @@ int CTestScene::Update(float _fDeltaTime)
 
 void CTestScene::LateUpdate(void)
 {
+	m_pMapLoader->PushObjectInMap(m_pCommander);
+	for (auto& pBlockingTile : m_pMapLoader->GetBlockingTiles()) {
+		pBlockingTile->PushOutOfTile(m_pCommander);
+	}
+
 	for (auto& rObj : m_rGameWorld.GetListObjs()) {
 		rObj->LateUpdate();
 	}

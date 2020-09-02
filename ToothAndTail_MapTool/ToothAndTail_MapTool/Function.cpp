@@ -195,12 +195,12 @@ bool IsPointInPolygon(const D3DXVECTOR3 & _vPoint, const D3DXVECTOR3 _vPolygonPo
 	float fDot = 0.f;
 	for (int i = 0; i < _iPolygonPointsNum; i++) {
 		// 방향 벡터를 구한다. (법선 벡터를 구하기 위함이다.)
-		vDir = _vPolygonPointsArr[(i + 1) % 4] - _vPolygonPointsArr[i % 4];
+		vDir = _vPolygonPointsArr[(i + 1) % _iPolygonPointsNum] - _vPolygonPointsArr[i % _iPolygonPointsNum];
 		D3DXVec3Normalize(&vDir, &vDir);
 		// 법선 벡터를 구한다. (2차원에서만 가능, 3차원은 외적을 통해 구한다.)
 		vNormal = D3DXVECTOR3(vDir.y, -vDir.x, 0.f); // root (vDir.y^2 + vDir.x^2)이므로 단위벡터
 		// 꼭짓점에서 커서 좌표로의 방향 벡터를 구한다.
-		vDir = _vPoint - _vPolygonPointsArr[i % 4];
+		vDir = _vPoint - _vPolygonPointsArr[i % _iPolygonPointsNum];
 		D3DXVec3Normalize(&vDir, &vDir);
 		// 내적을 구한다.
 		fDot = D3DXVec3Dot(&vDir, &vNormal);

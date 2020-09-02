@@ -17,6 +17,8 @@ public:
 	
 public:
 	void SetTileType(CTile::E_TYPE _eTileType) { m_eTileType = _eTileType; SetAnimIndex(m_eTileType);}
+	CTile::E_TYPE GetTileType() const { return m_eTileType; }
+	void PushOutOfTile(CObj* _pObj);
 
 private:
 	CTile::E_TYPE m_eTileType = CTile::TYPE_NORMAL;

@@ -16,8 +16,10 @@ public:
 	void RenderMap(CCamera* _pCamera);
 	void RenderTile(CCamera* _pCamera);
 
-	const vector<CTile*>& GetTiles(void) { return m_vecTiles; }
-	const vector<CDeco*>& GetDecos(void) { return m_vecDecos; }
+	const vector<CTile*>& GetTiles() { return m_vecTiles; }
+	const vector<CDeco*>& GetDecos() { return m_vecDecos; }
+	const vector<CTile*>& GetBlockingTiles() { return m_vecBlockingTiles; }
+	const void PushObjectInMap(CObj* pObj);
 
 private:
 	void ClearObjs();
