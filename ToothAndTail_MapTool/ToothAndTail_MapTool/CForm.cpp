@@ -7,6 +7,7 @@
 #include "CForm.h"
 #include "CTab1_Tile.h"
 #include "CTab2_Deco.h"
+#include "CMapEditor.h"
 
 
 // CForm
@@ -33,6 +34,8 @@ void CForm::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CForm, CFormView)
 	ON_WM_GETMINMAXINFO()
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CForm::OnTcnSelchangeTab1)
+	ON_BN_CLICKED(IDC_BUTTON1, &CForm::OnBnClickedSave)
+	ON_BN_CLICKED(IDC_BUTTON2, &CForm::OnBnClickedLoad)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +156,19 @@ void CForm::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 //
 //	return CFormView::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
 //}
+
+
+void CForm::OnBnClickedSave()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	MessageBox(L"정말로 저장하시겠습니까?", L"저장", MB_OK);
+	m_pMapEditor->SaveInfo();
+}
+
+
+void CForm::OnBnClickedLoad()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	MessageBox(L"정말로 로드하시겠습니까?", L"로드", MB_OK);
+	m_pMapEditor->LoadInfo();
+}

@@ -25,8 +25,10 @@ public:
 	virtual void MakeModelVertices(void) {};
 
 	// 파일 입출력 관련
-	virtual void SaveInfo(FILE* _fpOut);
-	virtual void LoadInfo(FILE* _fpIn);
+	virtual void SaveInfo(FILE* _fpOut) {};
+	virtual void LoadInfo(FILE* _fpIn) {};
+	virtual void SaveInfo(HANDLE& _hfOut) {};
+	virtual void LoadInfo(HANDLE& _hfIn) {};
 
 	// 충돌 반응 관련
 	virtual void ReactToCollider(CObj * _pCollider, RECT& _rcCollisionRect) {}; // 충돌체에 대한 반응을 정의해야함.
@@ -50,9 +52,9 @@ public:
 	//void SetModelType(OBJ::E_MODEL_TYPE _eModelType) { m_eModelType = _eModelType; }
 	//void SetObjType(OBJ::E_TYPE _eObjType) { m_eObjType = _eObjType; }
 	void SetRenderLayer(int _iRenderLayer) { m_iRenderLayer = _iRenderLayer; }
-	void SetScale(float _fScale) { m_fScaleX = _fScale; m_fScaleY = _fScale; }
-	void SetScaleX(float _fScaleX) { m_fScaleX = _fScaleX; }
-	void SetScaleY(float _fScaleY) { m_fScaleY = _fScaleY; }
+	void SetScale(float _fScale) { m_vScale.x = _fScale;  m_vScale.y = _fScale; }
+	void SetScaleX(float _fScaleX) { m_vScale.x = _fScaleX; }
+	void SetScaleY(float _fScaleY) { m_vScale.y = _fScaleY; }
 	void SetScaleXY(float _fScaleX, float _fScaleY) { SetScaleX(_fScaleX); SetScaleY(_fScaleY); }
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
@@ -96,8 +98,8 @@ public:
 
 		return vPos;
 	}
-	float GetScaleX(void) const { return m_fScaleX; }
-	float GetScaleY(void) const { return m_fScaleY; }
+	float GetScaleX(void) const { return m_vScale.x; }
+	float GetScaleY(void) const { return m_vScale.y; }
 	size_t GetWidth(void) const { return m_iWidth; }
 	size_t GetHeight(void) const { return m_iHeight; }
 	float GetToX(void) const { return m_vDir.x; }
@@ -141,13 +143,12 @@ protected:
 	//OBJ::E_MODEL_TYPE m_eModelType = OBJ::MODEL_TYPE_END;
 	//vector<D3DXVECTOR3> m_vecModelVertices;
 	D3DXVECTOR3 m_vPos = { 0.f, 0.f, 0.f };
+	D3DXVECTOR3 m_vScale = { 1.f, 1.f, 0.f };
 	D3DXVECTOR3 m_vPivot = { 0.f, 0.f, 0.f };
 	D3DXVECTOR3 m_vDir = { 1.f, 0.f, 0.f };
 
 	//OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;
 	float m_fSpeed = 0.f;
-	float m_fScaleX = 1.f;
-	float m_fScaleY = 1.f;
 	size_t m_iWidth = 0;
 	size_t m_iHeight = 0;
 	int m_iRenderLayer = 0;

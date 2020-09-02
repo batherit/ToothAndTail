@@ -8,6 +8,7 @@
 class CTab1_Tile;
 class CTab2_Deco;
 class CTile;
+class CMapEditor;
 
 class CForm : public CFormView
 {
@@ -43,6 +44,7 @@ public:
 	CTab1_Tile* m_pTab1_Tile = nullptr;
 	CTab2_Deco* m_pTab2_Deco = nullptr;
 	CTabCtrl m_TabCtrl;
+	CMapEditor* m_pMapEditor = nullptr;
 
 public:
 	virtual void OnInitialUpdate();
@@ -51,6 +53,8 @@ public:
 //	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 	
 	CStatic m_PicView;
+	afx_msg void OnBnClickedSave();
+	afx_msg void OnBnClickedLoad();
 };
 
 

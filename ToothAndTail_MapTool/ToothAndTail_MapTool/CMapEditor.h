@@ -24,23 +24,36 @@ public:
 	void OnLButtonDown(UINT nFlags, CPoint point);
 
 public:
+	void SaveInfo();
+	void LoadInfo();
+
 	void RenderMap();
 	void RenderTiles();
 	void RenderDecos();
 	void RenderSelectedObj();
 
 private:
+	void SaveMapBorderLines(HANDLE& _hfOut);
+	void SaveTiles(HANDLE& _hfOut);
+	void SaveDecos(HANDLE& _hfOut);
+
+	void ClearObjs();
+	void LoadMapBorderLines(HANDLE& _hfIn);
+	void LoadTiles(HANDLE& _hfIn);
+	void LoadDecos(HANDLE& _hfIn);
+
+
 	void LinkView(void);
 	void LoadTextures(void);
 
 private:
 	CCamera* m_pCamera = nullptr;
 	CSpriteObj* m_pMap = nullptr;
-	const D3DXVECTOR3 m_MapBorderLines[4] = { //12시 방향부터 시계방향
-		D3DXVECTOR3(1029.f, 365.f, 0.f),
-		D3DXVECTOR3(2001.f, 1022.f, 0.f),
-		D3DXVECTOR3(1029.f, 1680.f, 0.f),
-		D3DXVECTOR3(42.5f, 1022.f, 0.f)
+	D3DXVECTOR3 m_vMapBorderLines[4] = { //12시 방향부터 시계방향
+		D3DXVECTOR3(1029.f * BASE_SCALE, 365.f* BASE_SCALE, 0.f),
+		D3DXVECTOR3(2001.f* BASE_SCALE, 1022.f* BASE_SCALE, 0.f),
+		D3DXVECTOR3(1029.f* BASE_SCALE, 1680.f* BASE_SCALE, 0.f),
+		D3DXVECTOR3(42.5f* BASE_SCALE, 1022.f* BASE_SCALE, 0.f)
 	};
 	list<CTile*> m_listTiles;
 	list<CDeco*> m_listDecos;

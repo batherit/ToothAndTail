@@ -32,21 +32,27 @@ void CMapEditor::Ready(void)
 	LoadTextures();
 
 	// 맵 스프라이트 객체 생성
-	m_pMap = new CSpriteObj(*this, (MAP_WIDTH >> 1), (MAP_HEIGHT >> 1), MAP_WIDTH, MAP_HEIGHT);
+	m_pMap = new CSpriteObj(*this, (MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE, MAP_WIDTH, MAP_HEIGHT);
 	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
+	m_pMap->SetScale(BASE_SCALE);
+
+	m_pToolView->SetScrollSizes(MM_TEXT, CSize(m_pMap->GetWidth() * BASE_SCALE * 1.5f, m_pMap->GetHeight() * BASE_SCALE * 1.5f));
 
 	// Grid Tiles 생성
 	m_iMapRow = (MAP_HEIGHT << 1) / TILE_HEIGHT + 1;
 	m_iMapCol = MAP_WIDTH / TILE_WIDTH + 1;
 	D3DXVECTOR3 vPoint;
+	CTile* pTile = nullptr;
 	for (int i = 0; i < m_iMapRow; ++i) {
 		for (int j = 0; j < m_iMapCol; ++j) {
-			vPoint.x = static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)));
-			vPoint.y = static_cast<float>((TILE_HEIGHT >> 1) * i);
+			vPoint.x = (static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)))) * BASE_SCALE ;
+			vPoint.y = (static_cast<float>((TILE_HEIGHT >> 1) * i)) * BASE_SCALE;
 			vPoint.z = 0.f;
 
-			if (IsPointInPolygon(vPoint, m_MapBorderLines, 4)) {
-				m_listTiles.emplace_back(new CTile(*this, vPoint.x, vPoint.y));
+			if (IsPointInPolygon(vPoint, m_vMapBorderLines, 4)) {
+				pTile = new CTile(*this, vPoint.x, vPoint.y);
+				pTile->SetScale(BASE_SCALE);
+				m_listTiles.emplace_back(pTile);
 			}
 
 			// 맵 경계 밖에 있는 좌표에 대해서는 타일을 추가하지 않는다.
@@ -119,7 +125,10 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 	case MAP_OBJ::TYPE_DECO: {
 		auto& rDecoType = m_pForm->GetDecoType();
 		if (rDecoType.second != -1) {
-			m_listDecos.emplace_back(new CDeco(*this, vCursorW.x, vCursorW.y, rDecoType.first, rDecoType.second));
+			CDeco* pDeco = new CDeco(*this, vCursorW.x, vCursorW.y, rDecoType.first, rDecoType.second);
+			pDeco->SetY(pDeco->GetY() - (pDeco->GetHeight() * BASE_SCALE * 0.5f) + (TILE_HEIGHT >> 1));
+			pDeco->SetScale(BASE_SCALE);
+			m_listDecos.emplace_back(pDeco);
 			m_listDecos.sort([](CDeco* pDeco1, CDeco* pDeco2) {
 				return pDeco1->GetBottom() < pDeco2->GetBottom();
 			});
@@ -141,6 +150,68 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 	default:
 		break;
 	}
+}
+
+void CMapEditor::SaveInfo()
+{
+	// TODO : 저장을 만듭니다.
+	// 3배수 기준
+	//for(int i = 0; i )
+
+
+	//m_MapBorderLines[4]
+	//for(auto&)
+
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(FALSE, L"dat", L"MapData.dat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"Data File(*.dat) | *.dat||", m_pForm);
+	TCHAR szCurPath[MAX_PATH] = L"";
+	TCHAR szDataPath[MAX_PATH] = L"";
+	GetCurrentDirectory(MAX_PATH, szCurPath);
+	PathRemoveFileSpec(szCurPath);
+	PathCombine(szDataPath, szCurPath, L"Data");
+	Dlg.m_ofn.lpstrInitialDir = szDataPath;
+	if (IDOK == Dlg.DoModal())
+	{
+		CString strPath = Dlg.GetPathName();
+		HANDLE hFile = CreateFile(strPath.GetString(), GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+		if (INVALID_HANDLE_VALUE == hFile)
+			return;
+
+		SaveMapBorderLines(hFile);
+		SaveTiles(hFile);
+		SaveDecos(hFile);
+
+		CloseHandle(hFile);
+	}
+}
+
+void CMapEditor::LoadInfo()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CFileDialog Dlg(TRUE, L"dat", L"MapData.dat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"Data File(*.dat) | *.dat||", m_pForm);
+	TCHAR szCurPath[MAX_PATH] = L"";
+	TCHAR szDataPath[MAX_PATH] = L"";
+	GetCurrentDirectory(MAX_PATH, szCurPath);
+	PathRemoveFileSpec(szCurPath);
+	PathCombine(szDataPath, szCurPath, L"Data");
+	Dlg.m_ofn.lpstrInitialDir = szDataPath;
+	if (IDOK == Dlg.DoModal())
+	{
+		CString strPath = Dlg.GetPathName();
+		HANDLE hFile = CreateFile(strPath.GetString(), GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+		if (INVALID_HANDLE_VALUE == hFile)
+			return;
+
+		ClearObjs();
+		LoadMapBorderLines(hFile);
+		LoadTiles(hFile);
+		LoadDecos(hFile);
+
+		CloseHandle(hFile);
+	}
+	//UpdateData(FALSE);
 }
 
 void CMapEditor::RenderMap(void)
@@ -175,10 +246,75 @@ void CMapEditor::RenderSelectedObj()
 
 }
 
+void CMapEditor::SaveMapBorderLines(HANDLE& _hfOut)
+{
+	//DWORD dwByte = 0;
+	for (int i = 0; i < 4; i++) {
+		WriteFile(_hfOut, &m_vMapBorderLines[i], sizeof(m_vMapBorderLines[i]), nullptr, nullptr);
+	}
+}
+
+void CMapEditor::SaveTiles(HANDLE & _hfOut)
+{
+	int iTilesSize = m_listTiles.size();
+	WriteFile(_hfOut, &iTilesSize, sizeof(iTilesSize), nullptr, nullptr);
+	for (auto& pTile : m_listTiles) {
+		pTile->SaveInfo(_hfOut);
+	}
+}
+
+void CMapEditor::SaveDecos(HANDLE & _hfOut)
+{
+	int iDecosSize = m_listDecos.size();
+	WriteFile(_hfOut, &iDecosSize, sizeof(iDecosSize), nullptr, nullptr);
+	for (auto& pDeco : m_listDecos) {
+		pDeco->SaveInfo(_hfOut);
+	}
+}
+
+void CMapEditor::ClearObjs()
+{
+	SafelyDeleteObjs(m_listTiles);
+	SafelyDeleteObjs(m_listDecos);
+}
+
+void CMapEditor::LoadMapBorderLines(HANDLE & _hfIn)
+{
+	//DWORD dwByte = 0;
+	for (int i = 0; i < 4; ++i) {
+		ReadFile(_hfIn, &m_vMapBorderLines[i], sizeof(m_vMapBorderLines[i]), nullptr, nullptr);
+	}
+}
+
+void CMapEditor::LoadTiles(HANDLE & _hfIn)
+{
+	int iTilesSize = 0;
+	ReadFile(_hfIn, &iTilesSize, sizeof(iTilesSize), nullptr, nullptr);
+	CTile* pTile = nullptr;
+	for (int i = 0; i < iTilesSize; ++i) {
+		pTile = new CTile(*this);
+		pTile->LoadInfo(_hfIn);
+		m_listTiles.emplace_back(pTile);
+	}
+}
+
+void CMapEditor::LoadDecos(HANDLE & _hfIn)
+{
+	int iDecosSize = 0;
+	ReadFile(_hfIn, &iDecosSize, sizeof(iDecosSize), nullptr, nullptr);
+	CDeco* pDeco = nullptr;
+	for (int i = 0; i < iDecosSize; ++i) {
+		pDeco = new CDeco(*this);
+		pDeco->LoadInfo(_hfIn);
+		m_listDecos.emplace_back(pDeco);
+	}
+}
+
 void CMapEditor::LinkView(void)
 {
 	CMainFrame* pMain = dynamic_cast<CMainFrame*>(AfxGetApp()->GetMainWnd());
 	m_pForm = dynamic_cast<CForm*>(pMain->m_MainSplitter.GetPane(0, 0));
+	m_pForm->m_pMapEditor = this;
 	m_pToolView = dynamic_cast<CToothAndTailMapToolView*>(pMain->m_MainSplitter.GetPane(0, 1));
 }
 

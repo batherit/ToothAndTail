@@ -79,14 +79,6 @@ void CObj::Render(HDC & _hdc, CCamera * _pCamera)
 	}*/
 }
 
-void CObj::SaveInfo(FILE * _fpOut)
-{
-}
-
-void CObj::LoadInfo(FILE * _fpIn)
-{
-}
-
 D3DXMATRIX CObj::GetParentMatrix(CObj::E_COORD_TYPE _eCoordType) const
 {
 	D3DXMATRIX matParent;
@@ -102,7 +94,7 @@ D3DXMATRIX CObj::GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType) const
 {
 	D3DXMATRIX matObj, matScale, matTrans;
 	D3DXMatrixIdentity(&matObj);
-	D3DXMatrixScaling(&matScale, m_fScaleX, m_fScaleY, 0.f);	//Local
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, 0.f);	//Local
 	D3DXMatrixTranslation(&matTrans, m_vPos.x, m_vPos.y, 0.f);	//Local
 	matObj = matScale * matTrans;
 
