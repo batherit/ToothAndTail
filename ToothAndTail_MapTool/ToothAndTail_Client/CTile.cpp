@@ -33,6 +33,8 @@ CTile::~CTile()
 {
 }
 
+
+
 void CTile::SaveInfo(HANDLE & _hfOut)
 {
 	//DWORD dwByte = 0;
@@ -54,6 +56,24 @@ void CTile::LoadInfo(HANDLE & _hfIn)
 	SetAnimIndex(m_eTileType);
 	m_iWidth = ptSize.x;
 	m_iHeight = ptSize.y;
+}
+
+int CTile::Update(float _fDeltaTime)
+{
+	if (!m_pDetectedObj) return 0;
+	DO_IF_IS_NOT_VALID_OBJ(m_pDetectedObj) {
+		m_pDetectedObj = nullptr;
+		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_eTileType = CTile::TYPE_NORMAL;
+	}
+
+	if (!IsPointInTile(m_pDetectedObj->GetXY(), GetXY(), GetWidth() * fabs(GetScaleX()), GetHeight() * fabs(GetScaleY()))) {
+		m_pDetectedObj = nullptr;
+		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_eTileType = CTile::TYPE_NORMAL;
+	}
+
+	return 0;
 }
 
 void CTile::PushOutOfTile(CObj* _pObj) {

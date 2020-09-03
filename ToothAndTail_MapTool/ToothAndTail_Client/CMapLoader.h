@@ -16,10 +16,19 @@ public:
 	void RenderMap(CCamera* _pCamera);
 	void RenderTile(CCamera* _pCamera);
 
+	bool IsTileInRange(int iRow, int iCol) const;
+	bool IsTileInRange(int iLineIndex) const;
 	const vector<CTile*>& GetTiles() { return m_vecTiles; }
+	CTile* GetTile(D3DXVECTOR3 _vPos) const;
+	CTile* GetTile(int _iRow, int _iCol) const;
+	CTile* GetTile(int _iLineIndex) const;
 	const vector<CDeco*>& GetDecos() { return m_vecDecos; }
 	const vector<CTile*>& GetBlockingTiles() { return m_vecBlockingTiles; }
 	const void PushObjectInMap(CObj* pObj);
+	POINT GetRowColIndex(const D3DXVECTOR3& _vPos) const;
+	POINT GetRowColIndex(int _iLineIndex) const;
+	int GetLineIndex(const D3DXVECTOR3& _vPos) const;
+	void UpdateBlockingTiles();
 
 private:
 	void ClearObjs();
@@ -34,7 +43,8 @@ private:
 	vector<CTile*> m_vecTiles;
 	vector<CTile*> m_vecBlockingTiles;
 	vector<CDeco*> m_vecDecos;
-	//int m_iMapRow = 1;
+	const int m_ciMapRow = 47;
+	const int m_ciMapCol = 47;
 	//int m_iMapCol = 1;
 };
 

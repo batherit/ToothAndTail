@@ -36,7 +36,9 @@ void CMapEditor::Ready(void)
 	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
 	m_pMap->SetScale(BASE_SCALE);
 
-	m_pToolView->SetScrollSizes(MM_TEXT, CSize(m_pMap->GetWidth() * BASE_SCALE * 1.5f, m_pMap->GetHeight() * BASE_SCALE * 1.5f));
+	m_pToolView->SetScrollSizes(MM_TEXT, CSize(
+		static_cast<int>(m_pMap->GetWidth() * BASE_SCALE * 1.5f), 
+		static_cast<int>(m_pMap->GetHeight() * BASE_SCALE * 1.5f)));
 
 	// Grid Tiles 생성
 	//m_iMapRow = (MAP_HEIGHT << 1) / TILE_HEIGHT + 1;
@@ -46,8 +48,8 @@ void CMapEditor::Ready(void)
 	float fTileEdgeLength = sqrtf((TILE_WIDTH * TILE_WIDTH) + (TILE_HEIGHT * TILE_HEIGHT));
 	// 맵 모서리 길이를 구한다.
 	float fMapEdgeLength = sqrtf((MAP_WIDTH * MAP_WIDTH) + (MAP_HEIGHT * MAP_HEIGHT));
-	m_iMapRow = fMapEdgeLength / fTileEdgeLength + 1;
-	m_iMapCol = fMapEdgeLength / fTileEdgeLength + 1;
+	m_iMapRow = static_cast<int>(fMapEdgeLength / fTileEdgeLength + 1);
+	m_iMapCol = static_cast<int>(fMapEdgeLength / fTileEdgeLength + 1);
 	
 	D3DXVECTOR3 vTilePoint;
 	CTile* pTile = nullptr;
@@ -369,7 +371,7 @@ void CMapEditor::LoadTextures(void)
 	for (int i = 0; i < 11; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
 }
 
-POINT CMapEditor::GetRowColIndex(const D3DXVECTOR3 & _vPos)
+POINT CMapEditor::GetRowColIndex(const D3DXVECTOR3 & _vPos) const
 {
 	POINT ptIndexes = {-1, -1};
 	if (m_vecTiles.empty()) return ptIndexes;
@@ -384,7 +386,7 @@ POINT CMapEditor::GetRowColIndex(const D3DXVECTOR3 & _vPos)
 	return ptIndexes;
 }
 
-int CMapEditor::GetLineIndex(const D3DXVECTOR3 & _vPos)
+int CMapEditor::GetLineIndex(const D3DXVECTOR3 & _vPos) const
 {
 	POINT ptIndexes = GetRowColIndex(_vPos);
 	if (ptIndexes.x < 0 || ptIndexes.y < 0) return -1;

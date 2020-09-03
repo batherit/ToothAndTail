@@ -12,7 +12,6 @@ CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::
 	m_eState(_eState)
 {
 	SetRenderLayer(5);
-	SetScaleXY(BASE_SCALE, BASE_SCALE);
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"FARMLAND"));
 
 	switch (_eState) 
@@ -33,6 +32,7 @@ CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::
 		AnimInfo stAnimInfo(0, 8, 0, 1, 1.f, 0, false);
 		SetNewAnimInfo(stAnimInfo);
 		GenerateCrops();
+		GeneratePig();
 		break;
 	}
 	case CFarmland::STATE_DESTROYED: {

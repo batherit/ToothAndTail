@@ -52,6 +52,38 @@ void CMapLoader::RenderTile(CCamera * _pCamera)
 	}
 }
 
+bool CMapLoader::IsTileInRange(int iRow, int iCol) const
+{
+	if (0 > iRow || iRow >= m_ciMapRow) return false;
+	if (0 > iCol || iCol >= m_ciMapCol) return false;
+	return true;
+}
+
+bool CMapLoader::IsTileInRange(int iLineIndex) const
+{
+	if (0 > iLineIndex || iLineIndex >= m_vecTiles.size()) return false;
+	return true;
+}
+
+CTile * CMapLoader::GetTile(D3DXVECTOR3 _vPos) const
+{
+	int iLineIndex = GetLineIndex(_vPos);
+
+	if (-1 == iLineIndex) return nullptr;
+	return m_vecTiles[iLineIndex];
+}
+
+CTile * CMapLoader::GetTile(int _iRow, int _iCol) const
+{
+	return GetTile(_iRow * m_ciMapCol + _iCol);
+}
+
+CTile * CMapLoader::GetTile(int _iLineIndex) const
+{
+	if (!IsTileInRange(_iLineIndex)) return nullptr;
+	return m_vecTiles[_iLineIndex];
+}
+
 const void CMapLoader::PushObjectInMap(CObj * pObj)
 {
 	// 기울기 구하기
@@ -130,5 +162,49 @@ void CMapLoader::LoadDecos(HANDLE & _hfIn)
 		pDeco = new CDeco(m_rGameWorld);
 		pDeco->LoadInfo(_hfIn);
 		m_vecDecos.emplace_back(pDeco);
+	}
+}
+
+POINT CMapLoader::GetRowColIndex(const D3DXVECTOR3 & _vPos) const
+{
+	POINT ptIndexes = { -1, -1 };
+	if (m_vecTiles.empty()) return ptIndexes;
+	D3DXVECTOR3 vTileStartPos = m_vecTiles[0]->GetXY();
+
+	float fSumIJ = (_vPos.x - vTileStartPos.x) / ((TILE_WIDTH >> 1) * BASE_SCALE);
+	float fSubIJ = (_vPos.y - vTileStartPos.y) / ((TILE_HEIGHT >> 1) * BASE_SCALE);
+
+	ptIndexes.x = static_cast<LONG>(round((fSumIJ - fSubIJ) * 0.5f));
+	ptIndexes.y = static_cast<LONG>(round((fSumIJ + fSubIJ) * 0.5f));
+
+	return ptIndexes;
+}
+
+POINT CMapLoader::GetRowColIndex(int _iLineIndex) const
+{
+	POINT ptIndexes = {-1, -1};
+
+	if (!IsTileInRange(_iLineIndex)) return ptIndexes;
+
+	ptIndexes.x = _iLineIndex % m_ciMapCol;
+	ptIndexes.y = _iLineIndex / m_ciMapCol;
+
+	return ptIndexes;
+}
+
+int CMapLoader::GetLineIndex(const D3DXVECTOR3 & _vPos) const
+{
+	POINT ptIndexes = GetRowColIndex(_vPos);
+	if (ptIndexes.x < 0 || ptIndexes.y < 0) return -1;
+	return ptIndexes.y * m_ciMapCol + ptIndexes.x;
+}
+
+void CMapLoader::UpdateBlockingTiles()
+{
+	m_vecBlockingTiles.clear();
+	for (int i = 0; i < m_vecTiles.size(); ++i) {
+		if (m_vecTiles[i]->GetTileType() == CTile::TYPE_BLOCKING) {
+			m_vecBlockingTiles.emplace_back(m_vecTiles[i]);
+		}
 	}
 }

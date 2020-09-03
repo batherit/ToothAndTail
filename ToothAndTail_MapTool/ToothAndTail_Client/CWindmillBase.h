@@ -19,6 +19,7 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void) override;
+	virtual float GetFloor() const override { return GetBottom() - 35.f; }
 
 private:
 	CWindmillBase::E_STATE m_eState = CWindmillBase::STATE_BUILDING;

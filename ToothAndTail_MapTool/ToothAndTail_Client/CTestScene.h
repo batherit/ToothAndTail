@@ -20,7 +20,6 @@ public:
 
 private:
 	//CSpriteObj* m_pMap = nullptr;
-	CMapLoader* m_pMapLoader = nullptr;
-	CCommander* m_pCommander = nullptr;
+	CCommander* m_pCommander[4] = { nullptr, };
 };
 

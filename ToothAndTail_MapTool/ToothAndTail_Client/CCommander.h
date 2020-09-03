@@ -1,10 +1,10 @@
 #pragma once
-#include "CSpriteObj.h"
+#include "CComDepObj.h"
 
 template<typename T> class CStateMgr;
 class CComDepObj;
 class CCommander :
-	public CSpriteObj
+	public CComDepObj
 {
 public:
 	enum E_COM_TYPE { COM_TYPE_COMMONER, COM_TYPE_CAPITALIST, COM_TYPE_MILITARY, COM_TYPE_CLERGY, COM_TYPE_END };
@@ -20,13 +20,13 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
-	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
-	virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
-	virtual int UpdateAnim(float _fDeltaTime) override;
+	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
+	//virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
+	//virtual int UpdateAnim(float _fDeltaTime) override;
 
 public:
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }
-	D3DCOLOR GetIdentificationTint(void) const;
+	//D3DCOLOR GetIdentificationTint(void) const;
 	CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
 	bool IsMoveKeyPressed(float & _fToX, float & _fToY);
 	bool IsBuildKeyPressed(void) const;
@@ -35,7 +35,7 @@ public:
 private:
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	CComDepObj* m_pCommanderSprite = nullptr;
-	D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
+	//CComDepObj* m_pCommanderSprite = nullptr;
+	//D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
 };
 

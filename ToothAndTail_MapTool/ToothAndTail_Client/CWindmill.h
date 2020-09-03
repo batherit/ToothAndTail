@@ -4,6 +4,8 @@
 class CCommander;
 class CWindmillBase;
 class CTurbine;
+class CFarmland;
+
 class CWindmill :
 	public CComDepObj
 {
@@ -11,7 +13,8 @@ public:
 	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_DESTROYED, STATE_END };
 
 public:
-	CWindmill(CGameWorld& _rGameWorld, float _fX, float _fY, CWindmill::E_STATE _eState, CCommander* _pCommander = nullptr);
+	CWindmill(CGameWorld& _rGameWorld, float _fX, float _fY, CCommander* _pCommander = nullptr);
+	CWindmill(CGameWorld& _rGameWorld, int _iLineIndex, CCommander* _pCommander = nullptr);
 	virtual ~CWindmill();
 
 public:
@@ -27,6 +30,7 @@ public:
 private:
 	CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
 	CSpriteObj* m_pGround = nullptr;
+	vector<CFarmland*> m_vecFarmlands;
 	CWindmillBase* m_pWindmillBase = nullptr;
 };
 

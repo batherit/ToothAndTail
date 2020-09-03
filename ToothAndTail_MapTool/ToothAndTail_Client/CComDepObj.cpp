@@ -49,6 +49,7 @@ void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, 
 	// 색 정보를 나타내는 틴트 텍스처 장착
 	m_pIdentificationTintSprite = new CSpriteObj(GetGameWorld(), 0.f, 0.f, _iWidth, _iHeight);
 	m_pIdentificationTintSprite->SetParent(this);
+	m_pIdentificationTintSprite->SetRenderOffsetXY(GetRenderOffsetXY());
 	if(m_pCommander)
 		m_pIdentificationTintSprite->SetColor(m_pCommander->GetIdentificationTint());
 	else

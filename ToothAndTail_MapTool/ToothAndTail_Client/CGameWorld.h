@@ -6,6 +6,7 @@ class CSpace;
 class CCamera;
 class CObj;
 class CGraphicDevice;
+class CMapLoader;
 
 class CGameWorld abstract
 {
@@ -26,6 +27,12 @@ public:
 		return pOldCamera;
 	}
 	CCamera* GetMainCamera(void) const { return m_pCamera_Main; }
+	CMapLoader* SetMapLoader(CMapLoader* _pMapLoader) {
+		CMapLoader* pOldMapLoader = m_pMapLoader_Main;
+		m_pMapLoader_Main = _pMapLoader;
+		return pOldMapLoader;
+	}
+	CMapLoader* GetMapLoader() const { return m_pMapLoader_Main; }
 
 public:
 	bool ConfirmValidScene(void);
@@ -42,6 +49,7 @@ public:
 private:
 	CGraphicDevice* m_pGraphicDevice = nullptr;
 
+	CMapLoader* m_pMapLoader_Main = nullptr;
 	CCamera* m_pCamera_Main			= nullptr;
 	CTimer* m_pTimer_Main			= nullptr;
 	CSpace* m_pViewSpace_Main		= nullptr;

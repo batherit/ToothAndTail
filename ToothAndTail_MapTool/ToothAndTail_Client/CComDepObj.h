@@ -29,5 +29,8 @@ public:
 private:
 	CCommander* m_pCommander = nullptr;
 	CSpriteObj* m_pIdentificationTintSprite = nullptr; // ÆÀ ±¸ºÐ »ö»ó °´Ã¼
+	int iCoveredRow = 1;
+	int iCoveredCol = 1;
+	POINT iCoveredPivot = { 0, 0 };
 };
 

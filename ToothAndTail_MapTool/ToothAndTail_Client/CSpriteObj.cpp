@@ -39,6 +39,9 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	if (m_bIsToRenderShadow) RenderShadow(_pCamera);
 
 	D3DXMATRIX matScreen = GetObjectMatrix();
+	// RenderOffset을 적용한다.
+	matScreen._41 += GetRenderOffsetX();
+	matScreen._42 += GetRenderOffsetY();
 	matScreen = _pCamera->GetScreenMatrix(matScreen);
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
@@ -86,8 +89,8 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	D3DXMATRIX matWorld = GetObjectMatrix();
 	matWorld._21 = m_fInclination;			// 전단
 	matWorld._22 *= m_fScaleWeightY;			// 스케일 Y
-	matWorld._41 += (m_iWidth >> 1) * -m_fInclination;
-	matWorld._42 += (m_iHeight >> 1) * fParentAbsScaleY * fabs(GetScaleY()) * (1.f - m_fScaleWeightY);
+	matWorld._41 += GetRenderOffsetX() + (m_iWidth >> 1) * -m_fInclination;
+	matWorld._42 += GetRenderOffsetY() + (m_iHeight >> 1) * fParentAbsScaleY * fabs(GetScaleY()) * (1.f - m_fScaleWeightY);
 	//matWorld._41 += /*(-GetPivotX() + (m_iWidth >> 1)) * fabs(GetScaleX()) * fabs(fParentScaleX)*/ ;
 	//matWorld._42 += /*(-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY()) * fabs(fParentScaleY)*/ + (m_iHeight >> 1)* fabs(GetScaleY())* fabs(fParentScaleY) * (1.f - _fScaleWeightY);
 	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);

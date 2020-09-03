@@ -4,13 +4,12 @@
 #include "CTexture.h"
 #include "CStateMgr.h"
 #include "CComState_Idle.h"
-#include "CComDepObj.h"
 
 
 
 CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
 	:
-	CSpriteObj(_rGameWorld, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
+	CComDepObj(_rGameWorld, nullptr, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
 	m_eCommanderType(_eCommanderType)/*,
 	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
 {
@@ -34,12 +33,17 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	default:
 		break;
 	}
-	m_pCommanderSprite = new CComDepObj(_rGameWorld, nullptr, 0.f, -33.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
-	m_pCommanderSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
-	m_pCommanderSprite->SetShadow(true);
-	m_pCommanderSprite->SetParent(this);
-	m_pCommanderSprite->SetRenderLayer(10);
-	m_pCommanderSprite->GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
+	//m_pCommanderSprite = new CComDepObj(_rGameWorld, nullptr, 0.f, -33.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
+	//m_pCommanderSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
+	//m_pCommanderSprite->SetShadow(true);
+	//m_pCommanderSprite->SetParent(this);
+	//m_pCommanderSprite->SetRenderLayer(10);
+	//m_pCommanderSprite->GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
+	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
+	SetShadow(true);
+	SetRenderLayer(10);
+	SetRenderOffsetY(-((COMMANDER_HEIGHT >> 1) - 3.f) * BASE_SCALE);
+	GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
@@ -69,31 +73,31 @@ void CCommander::LateUpdate(void)
 
 void CCommander::Release(void)
 {
-	SafelyDeleteObj(m_pCommanderSprite);
+	//SafelyDeleteObj(m_pCommanderSprite);
 	//SafelyDeleteObj(m_pIdentificationTintSprite);
 	SafelyDeleteObj(m_pStateMgr);
 }
 
-void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)
-{
-	if (m_pCommanderSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
-	//if (m_pIdentificationTintSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
-}
-
-void CCommander::SetNewAnimInfo(const AnimInfo & _stAnimInfo)
-{
-	return m_pCommanderSprite->SetNewAnimInfo(_stAnimInfo);
-}
-
-int CCommander::UpdateAnim(float _fDeltaTime)
-{
-	return m_pCommanderSprite->UpdateAnim(_fDeltaTime);
-}
-
-D3DCOLOR CCommander::GetIdentificationTint(void) const
-{
-	return m_pCommanderSprite->GetIdentificationTint();
-}
+//void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+//{
+//	//if (m_pCommanderSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
+//	//if (m_pIdentificationTintSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
+//}
+//
+//void CCommander::SetNewAnimInfo(const AnimInfo & _stAnimInfo)
+//{
+//	return m_pCommanderSprite->SetNewAnimInfo(_stAnimInfo);
+//}
+//
+//int CCommander::UpdateAnim(float _fDeltaTime)
+//{
+//	return m_pCommanderSprite->UpdateAnim(_fDeltaTime);
+//}
+//
+//D3DCOLOR CCommander::GetIdentificationTint(void) const
+//{
+//	return m_pCommanderSprite->GetIdentificationTint();
+//}
 
 bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 {
