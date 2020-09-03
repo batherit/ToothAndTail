@@ -45,17 +45,20 @@ private:
 
 	void LinkView(void);
 	void LoadTextures(void);
+	POINT GetRowColIndex(const D3DXVECTOR3& _vPos);
+	int GetLineIndex(const D3DXVECTOR3& _vPos);
 
 private:
 	CCamera* m_pCamera = nullptr;
 	CSpriteObj* m_pMap = nullptr;
+	const D3DXVECTOR3 m_vStartPoint = D3DXVECTOR3(-10.f, (MAP_HEIGHT >> 1) * BASE_SCALE + 30.f, 0.f);
 	D3DXVECTOR3 m_vMapBorderLines[4] = { //12시 방향부터 시계방향
 		D3DXVECTOR3(1029.f * BASE_SCALE, 365.f* BASE_SCALE, 0.f),
 		D3DXVECTOR3(2001.f* BASE_SCALE, 1022.f* BASE_SCALE, 0.f),
 		D3DXVECTOR3(1029.f* BASE_SCALE, 1680.f* BASE_SCALE, 0.f),
 		D3DXVECTOR3(42.5f* BASE_SCALE, 1022.f* BASE_SCALE, 0.f)
 	};
-	list<CTile*> m_listTiles;
+	vector<CTile*> m_vecTiles;
 	list<CDeco*> m_listDecos;
 	int m_iMapRow = 1;
 	int m_iMapCol = 1;

@@ -39,25 +39,40 @@ void CMapEditor::Ready(void)
 	m_pToolView->SetScrollSizes(MM_TEXT, CSize(m_pMap->GetWidth() * BASE_SCALE * 1.5f, m_pMap->GetHeight() * BASE_SCALE * 1.5f));
 
 	// Grid Tiles 생성
-	m_iMapRow = (MAP_HEIGHT << 1) / TILE_HEIGHT + 1;
-	m_iMapCol = MAP_WIDTH / TILE_WIDTH + 1;
-	D3DXVECTOR3 vPoint;
+	//m_iMapRow = (MAP_HEIGHT << 1) / TILE_HEIGHT + 1;
+	//m_iMapCol = MAP_WIDTH / TILE_WIDTH + 1;
+
+	// 타일 모서리 길이를 구한다.
+	float fTileEdgeLength = sqrtf((TILE_WIDTH * TILE_WIDTH) + (TILE_HEIGHT * TILE_HEIGHT));
+	// 맵 모서리 길이를 구한다.
+	float fMapEdgeLength = sqrtf((MAP_WIDTH * MAP_WIDTH) + (MAP_HEIGHT * MAP_HEIGHT));
+	m_iMapRow = fMapEdgeLength / fTileEdgeLength + 1;
+	m_iMapCol = fMapEdgeLength / fTileEdgeLength + 1;
+	
+	D3DXVECTOR3 vTilePoint;
 	CTile* pTile = nullptr;
 	for (int i = 0; i < m_iMapRow; ++i) {
 		for (int j = 0; j < m_iMapCol; ++j) {
-			vPoint.x = (static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)))) * BASE_SCALE ;
-			vPoint.y = (static_cast<float>((TILE_HEIGHT >> 1) * i)) * BASE_SCALE;
-			vPoint.z = 0.f;
+			//vPoint.x = (static_cast<float>((TILE_WIDTH * j) + ((i % 2)* (TILE_WIDTH >> 1)))) * BASE_SCALE ;
+			//vPoint.y = (static_cast<float>((TILE_HEIGHT >> 1) * i)) * BASE_SCALE;
+			//vPoint.z = 0.f;
+			vTilePoint.x = m_vStartPoint.x + (i + j) * (TILE_WIDTH >> 1) * BASE_SCALE;
+			vTilePoint.y = m_vStartPoint.y + (i - j) * (TILE_HEIGHT >> 1) * BASE_SCALE;
+			vTilePoint.z = 0.f;
 
-			if (IsPointInPolygon(vPoint, m_vMapBorderLines, 4)) {
-				pTile = new CTile(*this, vPoint.x, vPoint.y);
+
+			if (IsPointInPolygon(vTilePoint, m_vMapBorderLines, 4)) {
+				pTile = new CTile(*this, vTilePoint.x, vTilePoint.y);
 				pTile->SetScale(BASE_SCALE);
-				m_listTiles.emplace_back(pTile);
+				m_vecTiles.emplace_back(pTile);
 			}
 
 			// 맵 경계 밖에 있는 좌표에 대해서는 타일을 추가하지 않는다.
 			/*else {
-				m_vecGrid.emplace_back(new CTile(*this, vPoint.x, vPoint.y, CTile::TYPE_BLOCKING));
+				pTile = new CTile(*this, vTilePoint.x, vTilePoint.y);
+				pTile->SetScale(BASE_SCALE);
+				m_vecTiles.emplace_back(pTile);
+				
 			}*/
 		}
 	}
@@ -101,7 +116,7 @@ void CMapEditor::Release(void)
 {
 	SafelyDeleteObj(m_pMap);
 	SafelyDeleteObj(m_pCamera);
-	SafelyDeleteObjs(m_listTiles);
+	SafelyDeleteObjs(m_vecTiles);
 	SafelyDeleteObjs(m_listDecos);
 	CTextureMgr::DestroyInstance();
 }
@@ -113,12 +128,16 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 	switch (m_pForm->GetSelectedTab())
 	{
 	case MAP_OBJ::TYPE_TILE: {
-		for (auto& pTile : m_listTiles) {
-			if (IsPointInTile(vCursorW, pTile->GetXY(), pTile->GetWidth(), pTile->GetHeight())) {
-				// 선택된 타일의 타입을 변경한다.
-				pTile->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
-				break;
-			}
+		//for (auto& pTile : m_vecTiles) {
+		//	if (IsPointInTile(vCursorW, pTile->GetXY(), pTile->GetWidth(), pTile->GetHeight())) {
+		//		// 선택된 타일의 타입을 변경한다.
+		//		pTile->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
+		//		break;
+		//	}
+		//}
+		int iIndex = GetLineIndex(vCursorW);
+		if (iIndex >= 0) {
+			m_vecTiles[iIndex]->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
 		}
 	}
 		break;
@@ -223,7 +242,7 @@ void CMapEditor::RenderTiles(void)
 {
 	TCHAR szBuf[MAX_PATH] = L"";
 	int iIndex = 0;
-	for (auto& pTile : m_listTiles) {
+	for (auto& pTile : m_vecTiles) {
 		pTile->Render(m_pCamera);
 		swprintf_s(szBuf, L"%d", iIndex++);
 		CGraphicDevice::GetInstance()->GetFont()->DrawTextW(CGraphicDevice::GetInstance()->GetSprite(), szBuf, lstrlen(szBuf), nullptr, 0, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -253,9 +272,9 @@ void CMapEditor::SaveMapBorderLines(HANDLE& _hfOut)
 
 void CMapEditor::SaveTiles(HANDLE & _hfOut)
 {
-	int iTilesSize = m_listTiles.size();
+	int iTilesSize = m_vecTiles.size();
 	WriteFile(_hfOut, &iTilesSize, sizeof(iTilesSize), nullptr, nullptr);
-	for (auto& pTile : m_listTiles) {
+	for (auto& pTile : m_vecTiles) {
 		pTile->SaveInfo(_hfOut);
 	}
 }
@@ -271,7 +290,7 @@ void CMapEditor::SaveDecos(HANDLE & _hfOut)
 
 void CMapEditor::ClearObjs()
 {
-	SafelyDeleteObjs(m_listTiles);
+	SafelyDeleteObjs(m_vecTiles);
 	SafelyDeleteObjs(m_listDecos);
 }
 
@@ -288,7 +307,7 @@ void CMapEditor::LoadTiles(HANDLE & _hfIn)
 	for (int i = 0; i < iTilesSize; ++i) {
 		pTile = new CTile(*this);
 		pTile->LoadInfo(_hfIn);
-		m_listTiles.emplace_back(pTile);
+		m_vecTiles.emplace_back(pTile);
 	}
 }
 
@@ -348,4 +367,26 @@ void CMapEditor::LoadTextures(void)
 	for (int i = 0; i < 3; i++) m_pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
 	wstrKey = L"Tree";
 	for (int i = 0; i < 11; i++) pForm->m_pTab2_Deco->m_DecoList.AddString((wstrKey + to_wstring(i)).c_str());
+}
+
+POINT CMapEditor::GetRowColIndex(const D3DXVECTOR3 & _vPos)
+{
+	POINT ptIndexes = {-1, -1};
+	if (m_vecTiles.empty()) return ptIndexes;
+	D3DXVECTOR3 vTileStartPos = m_vecTiles[0]->GetXY();
+
+	float fSumIJ = (_vPos.x - vTileStartPos.x) / ((TILE_WIDTH >> 1) * BASE_SCALE);
+	float fSubIJ = (_vPos.y - vTileStartPos.y) / ((TILE_HEIGHT >> 1) * BASE_SCALE);
+
+	ptIndexes.x = static_cast<LONG>(round((fSumIJ - fSubIJ) * 0.5f));
+	ptIndexes.y = static_cast<LONG>(round((fSumIJ + fSubIJ) * 0.5f));
+
+	return ptIndexes;
+}
+
+int CMapEditor::GetLineIndex(const D3DXVECTOR3 & _vPos)
+{
+	POINT ptIndexes = GetRowColIndex(_vPos);
+	if (ptIndexes.x < 0 || ptIndexes.y < 0) return -1;
+	return ptIndexes.y * 47 + ptIndexes.x;
 }
