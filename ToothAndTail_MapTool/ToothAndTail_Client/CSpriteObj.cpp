@@ -43,8 +43,20 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	matScreen._41 += GetRenderOffsetX();
 	matScreen._42 += GetRenderOffsetY();
 	matScreen = _pCamera->GetScreenMatrix(matScreen);
-	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
+	// 컬링을 적용한다.
+	RECT rcObjRect = GetRect(CObj::COORD_TYPE_WORLD);
+	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
+	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
+	RECT rcViewRect = {
+		static_cast<LONG>(vViewLeftTopW.x),
+		static_cast<LONG>(vViewLeftTopW.y),
+		static_cast<LONG>(vViewRightBottomW.x),
+		static_cast<LONG>(vViewRightBottomW.y)
+	};
+	if (!IsCollided(rcViewRect, rcObjRect)) return;
+
+	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 	RECT rcAnimFrame;
 	rcAnimFrame.left = GetAnimX();
 	rcAnimFrame.top = GetAnimY();
@@ -94,6 +106,18 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	//matWorld._41 += /*(-GetPivotX() + (m_iWidth >> 1)) * fabs(GetScaleX()) * fabs(fParentScaleX)*/ ;
 	//matWorld._42 += /*(-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY()) * fabs(fParentScaleY)*/ + (m_iHeight >> 1)* fabs(GetScaleY())* fabs(fParentScaleY) * (1.f - _fScaleWeightY);
 	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);
+
+	// 컬링을 적용한다.
+	RECT rcObjRect = GetRect(CObj::COORD_TYPE_WORLD);
+	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
+	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
+	RECT rcViewRect = {
+		static_cast<LONG>(vViewLeftTopW.x),
+		static_cast<LONG>(vViewLeftTopW.y),
+		static_cast<LONG>(vViewRightBottomW.x),
+		static_cast<LONG>(vViewRightBottomW.y)
+	};
+	if (!IsCollided(rcViewRect, rcObjRect)) return;
 
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
