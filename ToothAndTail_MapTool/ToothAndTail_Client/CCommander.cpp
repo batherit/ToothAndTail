@@ -49,6 +49,11 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
 
 	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_SQUIRREL, this));
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_LIZARD, this));
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_MOLE, this));
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_SKUNK, this));
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_BADGER, this));
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_FOX, this));
 }
 
 CCommander::~CCommander()

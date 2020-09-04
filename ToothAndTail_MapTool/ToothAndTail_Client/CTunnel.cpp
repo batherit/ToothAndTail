@@ -59,6 +59,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	case CTunnel::SIZE_SMALL: {
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_SMALL"));
 		SetSize(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT);
+		SetRenderOffsetY(-5.f * BASE_SCALE);
 		GenerateIdentificationTintObj(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT, L"TUNNEL_SMALL_TINT");
 		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
 		// 렌더 오프셋을 세팅한다.
@@ -67,6 +68,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	case CTunnel::SIZE_MIDDLE: {
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_MIDDLE"));
 		SetSize(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT);
+		SetRenderOffsetXY(1.f * BASE_SCALE, -9.f * BASE_SCALE);
 		GenerateIdentificationTintObj(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT, L"TUNNEL_MIDDLE_TINT");
 		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
 	}
@@ -74,6 +76,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	case CTunnel::SIZE_BIG: {
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_BIG"));
 		SetSize(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT);
+		SetRenderOffsetXY(3.f * BASE_SCALE, -11.f * BASE_SCALE);
 		GenerateIdentificationTintObj(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT, L"TUNNEL_BIG_TINT");
 		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
 	}
