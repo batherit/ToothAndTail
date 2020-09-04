@@ -139,7 +139,7 @@ void CMapEditor::OnLButtonDown(UINT nFlags, CPoint point)
 		//}
 		int iIndex = GetLineIndex(vCursorW);
 		if (iIndex >= 0) {
-			m_vecTiles[iIndex]->SetTileType(static_cast<CTile::E_TYPE>(m_pForm->GetTileType()));
+			m_vecTiles[iIndex]->SetTileType(static_cast<TILE::E_TYPE>(m_pForm->GetTileType()));
 		}
 	}
 		break;

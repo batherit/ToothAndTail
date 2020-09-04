@@ -3,11 +3,8 @@
 class CTile :
 	public CSpriteObj
 {
-public: 
-	enum E_TYPE { TYPE_NORMAL, TYPE_BLOCKING, TYPE_OK, TYPE_NO, TYPE_END };
-
 public:
-	CTile(CGameWorld& _rGameWorld, float _fX, float _fY, CTile::E_TYPE _eTileType = CTile::TYPE_NORMAL);
+	CTile(CGameWorld& _rGameWorld, float _fX, float _fY, TILE::E_TYPE _eTileType = TILE::TYPE_NORMAL);
 	CTile(CGameWorld& _rGameWorld);	// 데이터 로드용
 	virtual ~CTile();
 
@@ -16,11 +13,11 @@ public:
 	virtual void LoadInfo(HANDLE& _hfIn);
 	
 public:
-	void SetTileType(CTile::E_TYPE _eTileType) { m_eTileType = _eTileType; SetAnimIndex(m_eTileType);}
-	CTile::E_TYPE GetTileType() const { return m_eTileType; }
+	void SetTileType(TILE::E_TYPE _eTileType) { m_eTileType = _eTileType; SetAnimIndex(m_eTileType);}
+	TILE::E_TYPE GetTileType() const { return m_eTileType; }
 	void PushOutOfTile(CObj* _pObj);
 
 private:
-	CTile::E_TYPE m_eTileType = CTile::TYPE_NORMAL;
+	TILE::E_TYPE m_eTileType = TILE::TYPE_NORMAL;
 };
 

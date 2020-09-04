@@ -87,9 +87,6 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Pig">
       <UniqueIdentifier>{dd732d96-b1f1-4c9a-ac47-9dd7fb10100f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\UnitGenerator">
-      <UniqueIdentifier>{3cf648c0-d7a6-435e-8ccd-f71e8db65cc8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\2.MapLoader">
       <UniqueIdentifier>{30aefa4d-e04b-4274-bfb8-3e05f1810cd9}</UniqueIdentifier>
     </Filter>
@@ -98,6 +95,15 @@
     </Filter>
     <Filter Include="소스 파일\1.CObj\SpriteObj\Tile">
       <UniqueIdentifier>{b1c859d5-1803-4102-b2f8-0b3ee4ef8845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Generator">
+      <UniqueIdentifier>{d8c82ba5-a32d-493d-a33e-6d6696e2ae44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Generator\UnitGenerator">
+      <UniqueIdentifier>{3cf648c0-d7a6-435e-8ccd-f71e8db65cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Generator\TunnelGenerator">
+      <UniqueIdentifier>{0c2d4977-4a19-4bf5-aedb-2194c1c009f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +233,6 @@
     <ClInclude Include="CPigState_Attack.h">
       <Filter>소스 파일\1.State\Pig</Filter>
     </ClInclude>
-    <ClInclude Include="CUnitGenerator.h">
-      <Filter>소스 파일\1.CObj\UnitGenerator</Filter>
-    </ClInclude>
     <ClInclude Include="CTunnel.h">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel</Filter>
     </ClInclude>
@@ -241,6 +244,12 @@
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>소스 파일\1.CObj\SpriteObj\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CUnitGenerator.h">
+      <Filter>소스 파일\2.Generator\UnitGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="CTunnelGenerator.h">
+      <Filter>소스 파일\2.Generator\TunnelGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -362,7 +371,7 @@
       <Filter>소스 파일\1.State\Pig</Filter>
     </ClCompile>
     <ClCompile Include="CUnitGenerator.cpp">
-      <Filter>소스 파일\1.CObj\UnitGenerator</Filter>
+      <Filter>소스 파일\2.Generator\UnitGenerator</Filter>
     </ClCompile>
     <ClCompile Include="CTunnel.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel</Filter>
@@ -375,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CTunnelGenerator.cpp">
+      <Filter>소스 파일\2.Generator\TunnelGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

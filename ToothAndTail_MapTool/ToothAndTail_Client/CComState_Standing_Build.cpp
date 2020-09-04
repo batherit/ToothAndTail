@@ -22,6 +22,7 @@ void CComState_Standing_Build::OnLoaded(void)
 	AnimInfo stAnimInfo(0, 8, 20, 2, 0.15f, 1, false);
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetSpeed(0);
+	m_rOwner.GenerateTunnel();
 }
 
 int CComState_Standing_Build::Update(float _fDeltaTime)

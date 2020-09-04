@@ -183,6 +183,7 @@
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTunnel.h" />
+    <ClInclude Include="CTunnelGenerator.h" />
     <ClInclude Include="CTurbine.h" />
     <ClInclude Include="CUnitGenerator.h" />
     <ClInclude Include="CWindmill.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTunnel.cpp" />
+    <ClCompile Include="CTunnelGenerator.cpp" />
     <ClCompile Include="CTurbine.cpp" />
     <ClCompile Include="CUnitGenerator.cpp" />
     <ClCompile Include="CWindmill.cpp" />

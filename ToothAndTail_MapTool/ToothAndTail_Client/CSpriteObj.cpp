@@ -45,14 +45,14 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	matScreen = _pCamera->GetScreenMatrix(matScreen);
 
 	// 컬링을 적용한다.
-	RECT rcObjRect = GetRect(CObj::COORD_TYPE_WORLD);
+	RECT rcObjRect = GetRect();
 	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
 	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
 	RECT rcViewRect = {
-		static_cast<LONG>(vViewLeftTopW.x),
-		static_cast<LONG>(vViewLeftTopW.y),
-		static_cast<LONG>(vViewRightBottomW.x),
-		static_cast<LONG>(vViewRightBottomW.y)
+		static_cast<LONG>(vViewLeftTopW.x /*+ GetRenderOffsetX()*/),
+		static_cast<LONG>(vViewLeftTopW.y /*+ GetRenderOffsetY()*/),
+		static_cast<LONG>(vViewRightBottomW.x /*+ GetRenderOffsetX()*/),
+		static_cast<LONG>(vViewRightBottomW.y /*+ GetRenderOffsetY()*/)
 	};
 	if (!IsCollided(rcViewRect, rcObjRect)) return;
 
@@ -71,7 +71,7 @@ void CSpriteObj::Render(CCamera * _pCamera)
 		m_clRenderColor);
 
 	// 렉트 표시용.
-	/*RECT rcObjRect = GetRect();
+	/*rcObjRect = GetRect();
 	D3DXVECTOR3 vLeftTop = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.left), static_cast<FLOAT>(rcObjRect.top), 0.f));
 	D3DXVECTOR3 vRightBottom = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.right), static_cast<FLOAT>(rcObjRect.bottom), 0.f));
 	D3DXVECTOR2 vecList[] =
@@ -107,15 +107,15 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	//matWorld._42 += /*(-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY()) * fabs(fParentScaleY)*/ + (m_iHeight >> 1)* fabs(GetScaleY())* fabs(fParentScaleY) * (1.f - _fScaleWeightY);
 	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);
 
-	// 컬링을 적용한다.
-	RECT rcObjRect = GetRect(CObj::COORD_TYPE_WORLD);
+	// 컬링을 적용한다. (월드 좌표에서 비교)
+	RECT rcObjRect = GetRect();
 	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
 	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
 	RECT rcViewRect = {
-		static_cast<LONG>(vViewLeftTopW.x),
-		static_cast<LONG>(vViewLeftTopW.y),
-		static_cast<LONG>(vViewRightBottomW.x),
-		static_cast<LONG>(vViewRightBottomW.y)
+		static_cast<LONG>(vViewLeftTopW.x /*+ GetRenderOffsetX()*/),
+		static_cast<LONG>(vViewLeftTopW.y /*+ GetRenderOffsetY()*/),
+		static_cast<LONG>(vViewRightBottomW.x /*+ GetRenderOffsetX()*/),
+		static_cast<LONG>(vViewRightBottomW.y /*+ GetRenderOffsetY()*/)
 	};
 	if (!IsCollided(rcViewRect, rcObjRect)) return;
 

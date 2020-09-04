@@ -65,6 +65,24 @@ bool CMapLoader::IsTileInRange(int iLineIndex) const
 	return true;
 }
 
+bool CMapLoader::IsEmptyLot(const D3DXVECTOR3 & _vPos, int _iRow, int _iCol, int _iPivotRow, int _iPivotCol)
+{
+	POINT ptTileRowCol = GetRowColIndex(_vPos);
+	if (ptTileRowCol.x < 0 || ptTileRowCol.y < 0) return false;
+
+	CTile* pTile = nullptr;
+	for (int i = 0 - _iPivotRow; i < _iRow - _iPivotRow; ++i) {
+		for (int j = 0 - _iPivotCol; j < _iCol - _iPivotCol; ++j) {
+			pTile = GetTile(ptTileRowCol.y + i, ptTileRowCol.x + j);
+			if (!pTile) return false;
+			if (pTile->GetTileType() == TILE::TYPE_BLOCKING ||
+				pTile->GetTileType() == TILE::TYPE_NO) return false;
+		}
+	}
+
+	return true;
+}
+
 CTile * CMapLoader::GetTile(D3DXVECTOR3 _vPos) const
 {
 	int iLineIndex = GetLineIndex(_vPos);
@@ -144,10 +162,10 @@ void CMapLoader::LoadTiles(HANDLE & _hfIn)
 	ReadFile(_hfIn, &iTilesSize, sizeof(iTilesSize), nullptr, nullptr);
 	CTile* pTile = nullptr;
 	for (int i = 0; i < iTilesSize; ++i) {
-		pTile = new CTile(m_rGameWorld);
+		pTile = new CTile(m_rGameWorld, i);
 		pTile->LoadInfo(_hfIn);
 		m_vecTiles.emplace_back(pTile);
-		if (pTile->GetTileType() == CTile::TYPE_BLOCKING) {
+		if (pTile->GetTileType() == TILE::TYPE_BLOCKING) {
 			m_vecBlockingTiles.emplace_back(pTile);
 		}
 	}
@@ -171,11 +189,11 @@ POINT CMapLoader::GetRowColIndex(const D3DXVECTOR3 & _vPos) const
 	if (m_vecTiles.empty()) return ptIndexes;
 	D3DXVECTOR3 vTileStartPos = m_vecTiles[0]->GetXY();
 
-	float fSumIJ = (_vPos.x - vTileStartPos.x) / ((TILE_WIDTH >> 1) * BASE_SCALE);
-	float fSubIJ = (_vPos.y - vTileStartPos.y) / ((TILE_HEIGHT >> 1) * BASE_SCALE);
+	float fSumIJ = (_vPos.x - vTileStartPos.x) / ((TILE_WIDTH >> 1) * BASE_SCALE);	// i + j
+	float fSubIJ = (_vPos.y - vTileStartPos.y) / ((TILE_HEIGHT >> 1) * BASE_SCALE);	// i - j
 
-	ptIndexes.x = static_cast<LONG>(round((fSumIJ - fSubIJ) * 0.5f));
-	ptIndexes.y = static_cast<LONG>(round((fSumIJ + fSubIJ) * 0.5f));
+	ptIndexes.x = static_cast<LONG>(round((fSumIJ - fSubIJ) * 0.5f)); // j
+	ptIndexes.y = static_cast<LONG>(round((fSumIJ + fSubIJ) * 0.5f)); // i
 
 	return ptIndexes;
 }
@@ -203,8 +221,44 @@ void CMapLoader::UpdateBlockingTiles()
 {
 	m_vecBlockingTiles.clear();
 	for (int i = 0; i < m_vecTiles.size(); ++i) {
-		if (m_vecTiles[i]->GetTileType() == CTile::TYPE_BLOCKING) {
+		if (m_vecTiles[i]->GetTileType() == TILE::TYPE_BLOCKING) {
 			m_vecBlockingTiles.emplace_back(m_vecTiles[i]);
+		}
+	}
+}
+
+D3DXVECTOR3 CMapLoader::GetSiteCenter(const TileSiteInfo & _rTileSiteInfo)
+{
+	D3DXVECTOR3 vCenter(0.f, 0.f, 0.f);
+	int iCnt = 0;
+	CTile* pTile = nullptr;
+	POINT ptRowColIndex = GetRowColIndex(_rTileSiteInfo.iTileLineIndex);
+	
+	for (int i = 0 - _rTileSiteInfo.iPivotRow; i < _rTileSiteInfo.iCoveredRow - _rTileSiteInfo.iPivotRow; ++i) {
+		for (int j = 0 - _rTileSiteInfo.iPivotCol; j < _rTileSiteInfo.iCoveredCol - _rTileSiteInfo.iPivotCol; ++j) {
+			pTile = GetTile(ptRowColIndex.y + i, ptRowColIndex.x + j);
+			if (pTile) {
+				vCenter += pTile->GetXY();
+				++iCnt;
+			}
+		}
+	}
+
+	if (0 == iCnt) return vCenter;
+
+	vCenter /= static_cast<FLOAT>(iCnt);
+	return vCenter;
+}
+
+void CMapLoader::SetSiteType(const TileSiteInfo & _rTileSiteInfo, TILE::E_TYPE _eTileType)
+{
+	POINT ptTileIndexes = GetRowColIndex(_rTileSiteInfo.iTileLineIndex);
+	CTile* pTile = nullptr;
+	for (int i = 0 - _rTileSiteInfo.iPivotRow; i < _rTileSiteInfo.iCoveredRow - _rTileSiteInfo.iPivotRow; ++i) {
+		for (int j = 0 - _rTileSiteInfo.iPivotCol; j < _rTileSiteInfo.iCoveredCol - _rTileSiteInfo.iPivotCol ; ++j) {
+			pTile = GetTile(ptTileIndexes.y + i, ptTileIndexes.x + j);
+			if (pTile)
+				pTile->SetTileType(_eTileType);
 		}
 	}
 }

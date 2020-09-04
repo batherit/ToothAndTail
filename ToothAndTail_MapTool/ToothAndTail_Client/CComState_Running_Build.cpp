@@ -25,6 +25,7 @@ void CComState_Running_Build::OnLoaded(void)
 	AnimInfo stAnimInfo(0, 8, 42, 5, 0.4f, 1, false);
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetSpeed(COMMANDER_SPEED);
+	m_rOwner.GenerateTunnel();
 }
 
 int CComState_Running_Build::Update(float _fDeltaTime)

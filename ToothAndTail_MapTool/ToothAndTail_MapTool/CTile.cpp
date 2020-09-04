@@ -4,7 +4,7 @@
 
 
 
-CTile::CTile(CGameWorld & _rGameWorld, float _fX, float _fY, CTile::E_TYPE _eTileType)
+CTile::CTile(CGameWorld & _rGameWorld, float _fX, float _fY, TILE::E_TYPE _eTileType)
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, TILE_WIDTH, TILE_HEIGHT),
 	m_eTileType(_eTileType)
@@ -58,7 +58,7 @@ void CTile::LoadInfo(HANDLE & _hfIn)
 
 void CTile::PushOutOfTile(CObj* _pObj)
 {
-	if (m_eTileType != CTile::TYPE_BLOCKING) return;
+	if (m_eTileType != TILE::TYPE_BLOCKING) return;
 
 	D3DXVECTOR3 vTilePos = GetXY();
 	D3DXVECTOR3 vObjPos = _pObj->GetXY();

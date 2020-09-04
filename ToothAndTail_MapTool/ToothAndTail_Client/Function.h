@@ -28,8 +28,12 @@ float GetVectorLength(const float & _fToX, const float & _fToY);
 
 // 각
 float GetRadianByVector(float _fToX, float _fToY);
+float GetRadianByVector(const D3DXVECTOR3& _vDir);
 float GetPositiveDegreeByVector(float _fToX, float _fToY);
+float GetPositiveDegreeByVector(const D3DXVECTOR3& _vDir);
 OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth, float _fHeight, float _fWeight);
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree);
+OBJ::E_DIRECTION GetDirByVector(const D3DXVECTOR3& _vDir);
 
 // 메모리 해제
 template<class T>

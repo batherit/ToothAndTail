@@ -114,8 +114,8 @@ public:
 	virtual float GetFloor() const { return GetBottom(); }
 
 	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
-		D3DXVECTOR3 vLeftTop(m_vPos.x + m_vRenderOffset.x - (m_iWidth >> 1) * fabs(GetScaleX()), m_vPos.y + m_vRenderOffset.y - (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
-		D3DXVECTOR3 vRightBottom(m_vPos.x + m_vRenderOffset.x + (m_iWidth >> 1)* fabs(GetScaleX()), m_vPos.y + m_vRenderOffset.y + (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
+		D3DXVECTOR3 vLeftTop(m_vPos.x /*+ m_vRenderOffset.x*/ - (m_iWidth >> 1) * fabs(GetScaleX()), m_vPos.y /*+ m_vRenderOffset.y*/ - (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
+		D3DXVECTOR3 vRightBottom(m_vPos.x /*+ m_vRenderOffset.x*/ + (m_iWidth >> 1)* fabs(GetScaleX()), m_vPos.y /*+ m_vRenderOffset.y*/ + (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
 
 		switch (_eCoordType) {
 		case CObj::COORD_TYPE_WORLD:
@@ -124,8 +124,8 @@ public:
 			break;
 		}
 		
-		return RECT({ static_cast<LONG>(vLeftTop.x), static_cast<LONG>(vLeftTop.y),
-			static_cast<LONG>(vRightBottom.x), static_cast<LONG>(vRightBottom.y) });
+		return RECT({ static_cast<LONG>(vLeftTop.x + m_vRenderOffset.x), static_cast<LONG>(vLeftTop.y + m_vRenderOffset.y),
+			static_cast<LONG>(vRightBottom.x + m_vRenderOffset.x), static_cast<LONG>(vRightBottom.y + m_vRenderOffset.y) });
 	}
 	inline LONG GetLeft(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).left; }
 	inline LONG GetTop(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).top; }

@@ -2,13 +2,16 @@
 #include "CTunnel.h"
 #include "CUnitGenerator.h"
 #include "CTextureMgr.h"
+#include "CGameWorld.h"
+#include "CMapLoader.h"
 
 
-CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, CUnitGenerator* _pUnitGenerator, CCommander* _pCommander)
+CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander)
 	:
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY),
-	m_eSize(_eSize),
-	m_pUnitGenerator(_pUnitGenerator)	// 외부에서 할당받아서 내부에서 해제한다.
+	m_eUnitType(_eUnitType),
+	m_eSize(_eSize)
+	//m_pUnitGenerator(_pUnitGenerator)	// 외부에서 할당받아서 내부에서 해제한다.
 {
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
@@ -36,6 +39,45 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE 
 		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
 	}
 		break;
+	}
+}
+
+CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander)
+	:
+	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f),
+	m_eUnitType(_eUnitType),
+	m_eSize(_eSize)
+{
+	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
+	SetRenderLayer(6);
+	SetScaleXY(BASE_SCALE, BASE_SCALE);
+
+	_rGameWorld.GetMapLoader()->SetSiteType(_rTileSiteInfo, TILE::TYPE_NO);
+	SetXY(_rGameWorld.GetMapLoader()->GetSiteCenter(_rTileSiteInfo));
+
+	switch (_eSize) {
+	case CTunnel::SIZE_SMALL: {
+		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_SMALL"));
+		SetSize(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT);
+		GenerateIdentificationTintObj(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT, L"TUNNEL_SMALL_TINT");
+		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+		// 렌더 오프셋을 세팅한다.
+	}
+							  break;
+	case CTunnel::SIZE_MIDDLE: {
+		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_MIDDLE"));
+		SetSize(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT);
+		GenerateIdentificationTintObj(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT, L"TUNNEL_MIDDLE_TINT");
+		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+	}
+							   break;
+	case CTunnel::SIZE_BIG: {
+		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_BIG"));
+		SetSize(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT);
+		GenerateIdentificationTintObj(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT, L"TUNNEL_BIG_TINT");
+		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+	}
+							break;
 	}
 }
 
@@ -72,7 +114,7 @@ int CTunnel::Update(float _fDeltaTime)
 			break;
 		}
 		case CTunnel::STATE_GENERATE_UNIT: {
-			if(m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
+			//if(m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
 			break;
 		}
 		}
@@ -102,7 +144,7 @@ int CTunnel::Update(float _fDeltaTime)
 			break;
 		}
 		case CTunnel::STATE_GENERATE_UNIT: {
-			if (m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
+			//if (m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
 			break;
 		}
 		}
@@ -132,7 +174,7 @@ int CTunnel::Update(float _fDeltaTime)
 			break;
 		}
 		case CTunnel::STATE_GENERATE_UNIT: {
-			if (m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
+			//if (m_pUnitGenerator) m_pUnitGenerator->Update(_fDeltaTime);
 			break;
 		}
 		}
@@ -145,5 +187,5 @@ int CTunnel::Update(float _fDeltaTime)
 
 void CTunnel::Release(void)
 {
-	SafelyDeleteObj(m_pUnitGenerator);
+	//SafelyDeleteObj(m_pUnitGenerator);
 }

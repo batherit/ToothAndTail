@@ -14,6 +14,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander*
 	:
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
+	// 안쓰이는 생성자,,,
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
 
 	m_pGround = new CSpriteObj(_rGameWorld, 0.f, 0.f, WINDMILL_GROUND_WIDTH, WINDMILL_GROUND_HEIGHT);
@@ -66,30 +67,15 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
 	// 이부분 마음에 안들어
-	CMapLoader* pMapLoader = _rGameWorld.GetMapLoader();
-	POINT ptTileIndexes = pMapLoader->GetRowColIndex(_iLineIndex);
-	POINT ptCoverredPivot = { 3, 3 };
-	CTile* pTile = nullptr;
-	for (int i = 0 - ptCoverredPivot.y; i < 6 - ptCoverredPivot.y; ++i) {
-		for (int j = 0 - ptCoverredPivot.x; j < 6 - ptCoverredPivot.x; ++j) {
-			pTile = pMapLoader->GetTile(ptTileIndexes.y + j, ptTileIndexes.x + i);
-			if (pTile)
-				pTile->SetTileType(CTile::TYPE_OK);
-		}
-	}
-	ptCoverredPivot = { 1, 1 };
-	for (int i = 0 - ptCoverredPivot.y; i < 2 - ptCoverredPivot.y; ++i) {
-		for (int j = 0 - ptCoverredPivot.x; j < 2 - ptCoverredPivot.x; ++j) {
-			pTile = pMapLoader->GetTile(ptTileIndexes.y + j, ptTileIndexes.x + i);
-			if (pTile)
-				pTile->SetTileType(CTile::TYPE_BLOCKING);
-		}
-	}
-	pMapLoader->UpdateBlockingTiles();
 
-	D3DXVECTOR3 vTilePos = pMapLoader->GetTile(_iLineIndex)->GetXY();
+	CMapLoader* pMapLoader = _rGameWorld.GetMapLoader();
+	pMapLoader->SetSiteType(TileSiteInfo(_iLineIndex, 6, 6, 3, 3), TILE::TYPE_NO);
+	pMapLoader->SetSiteType(TileSiteInfo(_iLineIndex, 2, 2, 1, 1), TILE::TYPE_BLOCKING);
+	pMapLoader->UpdateBlockingTiles();
+	SetXY(pMapLoader->GetSiteCenter(TileSiteInfo(_iLineIndex, 2, 2, 1, 1)));
+	/*D3DXVECTOR3 vTilePos = pMapLoader->GetTile(_iLineIndex)->GetXY();
 	vTilePos.x -= (TILE_WIDTH >> 1) * BASE_SCALE;
-	SetXY(vTilePos);
+	SetXY(vTilePos);*/
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
 
 	// 그라운드 생성

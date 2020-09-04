@@ -3,6 +3,8 @@
 
 template<typename T> class CStateMgr;
 class CComDepObj;
+class CTunnelGenerator;
+
 class CCommander :
 	public CComDepObj
 {
@@ -20,6 +22,9 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
+	virtual void Render(CCamera* _pCamera) override {
+		CComDepObj::Render(_pCamera);
+	};
 	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
 	//virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
 	//virtual int UpdateAnim(float _fDeltaTime) override;
@@ -32,10 +37,24 @@ public:
 	bool IsBuildKeyPressed(void) const;
 	bool IsFlagKeyPressed(CCommander::E_FLAG_TYPE& _eFlagType) const;
 
+	UINT GetMoney() const { return m_iMoney; }
+	void DecreseMoney(UINT _iAmount) { m_iMoney -= _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }
+	void IncreaseMoney(UINT _iAmount) { m_iMoney += _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }
+	void DesignateNextUnit() { 
+		m_iTunnelGeneratorIndex = (m_iTunnelGeneratorIndex + 1) % m_vecTunnelGenerator.size();
+	}
+	void DesignatePrevUnit() { 
+		m_iTunnelGeneratorIndex -= 1; 
+		if (0 > m_iTunnelGeneratorIndex)
+			m_iTunnelGeneratorIndex += m_vecTunnelGenerator.size();
+	}
+	void GenerateTunnel();
+
 private:
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	//CComDepObj* m_pCommanderSprite = nullptr;
-	//D3DCOLOR m_clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255);
+	UINT m_iMoney = MAX_MONEY;
+	vector<CTunnelGenerator*> m_vecTunnelGenerator;
+	int m_iTunnelGeneratorIndex = 0;
 };
 

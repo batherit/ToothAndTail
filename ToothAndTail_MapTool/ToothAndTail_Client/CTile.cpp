@@ -4,10 +4,11 @@
 
 
 
-CTile::CTile(CGameWorld & _rGameWorld, float _fX, float _fY, CTile::E_TYPE _eTileType)
+CTile::CTile(CGameWorld & _rGameWorld, float _fX, float _fY, TILE::E_TYPE _eTileType, int _iLineIndex)
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, TILE_WIDTH, TILE_HEIGHT),
-	m_eTileType(_eTileType)
+	m_eTileType(_eTileType),
+	m_iLineIndex(_iLineIndex)
 {
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TILE_NORMAL"));
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TILE_BLOCKING"));
@@ -17,9 +18,10 @@ CTile::CTile(CGameWorld & _rGameWorld, float _fX, float _fY, CTile::E_TYPE _eTil
 	SetAnimIndex(_eTileType);
 }
 
-CTile::CTile(CGameWorld & _rGameWorld)
+CTile::CTile(CGameWorld & _rGameWorld, int _iLineIndex)
 	:
-	CSpriteObj(_rGameWorld)
+	CSpriteObj(_rGameWorld),
+	m_iLineIndex(_iLineIndex)
 {
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TILE_NORMAL"));
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TILE_BLOCKING"));
@@ -41,7 +43,7 @@ void CTile::SaveInfo(HANDLE & _hfOut)
 	WriteFile(_hfOut, &m_eTileType, sizeof(m_eTileType), nullptr, nullptr);
 	WriteFile(_hfOut, &m_vPos, sizeof(m_vPos), nullptr, nullptr);
 	WriteFile(_hfOut, &m_vScale, sizeof(m_vScale), nullptr, nullptr);
-	POINT ptSize{ m_iWidth, m_iHeight };
+	POINT ptSize{ static_cast<LONG>(m_iWidth), static_cast<LONG>(m_iHeight) };
 	WriteFile(_hfOut, &ptSize, sizeof(ptSize), nullptr, nullptr);
 }
 
@@ -64,20 +66,20 @@ int CTile::Update(float _fDeltaTime)
 	DO_IF_IS_NOT_VALID_OBJ(m_pDetectedObj) {
 		m_pDetectedObj = nullptr;
 		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-		m_eTileType = CTile::TYPE_NORMAL;
+		m_eTileType = TILE::TYPE_NORMAL;
 	}
 
 	if (!IsPointInTile(m_pDetectedObj->GetXY(), GetXY(), GetWidth() * fabs(GetScaleX()), GetHeight() * fabs(GetScaleY()))) {
 		m_pDetectedObj = nullptr;
 		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-		m_eTileType = CTile::TYPE_NORMAL;
+		m_eTileType = TILE::TYPE_NORMAL;
 	}
 
 	return 0;
 }
 
 void CTile::PushOutOfTile(CObj* _pObj) {
-	if (m_eTileType != CTile::TYPE_BLOCKING) return;
+	if (m_eTileType != TILE::TYPE_BLOCKING) return;
 
 	D3DXVECTOR3 vTilePos = GetXY();
 	D3DXVECTOR3 vObjPos = _pObj->GetXY();

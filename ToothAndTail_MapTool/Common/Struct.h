@@ -45,3 +45,23 @@ typedef struct _anim_processing_info {
 	int iCurrentIndex = 0;
 	int iRepeatedCount = 0;
 }AnimProcessingInfo;
+
+// 타일 면적 구조체
+typedef struct _tile_site_info {
+public:
+	_tile_site_info(int _iTileLineIndex = -1, int _iCoveredRow = 1, int _iCoveredCol = 1, int _iPivotRow = 0, int _iPivotCol = 0)
+		:
+		iTileLineIndex(_iTileLineIndex),
+		iCoveredRow(_iCoveredRow),
+		iCoveredCol(_iCoveredCol),
+		iPivotRow(_iPivotRow),
+		iPivotCol(_iPivotCol)
+	{}
+
+public:
+	int iTileLineIndex = -1;
+	int iCoveredRow = 1;
+	int iCoveredCol = 1;
+	int iPivotRow = 0;
+	int iPivotCol = 0;
+}TileSiteInfo;

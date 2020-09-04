@@ -149,13 +149,28 @@ float GetVectorLength(const float & _fToX, const float & _fToY)
 float GetRadianByVector(float _fToX, float _fToY)
 {
 	float fRadian = acosf(_fToX / GetVectorLength(_fToX, _fToY));
-	if (_fToY < 0) fRadian *= -1.f;
+	if (_fToY < 0.f) fRadian *= -1.f;
+
+	return fRadian;
+}
+
+float GetRadianByVector(const D3DXVECTOR3 & _vDir)
+{
+	float fRadian = acosf(_vDir.x / D3DXVec3Length(&_vDir));
+	if (_vDir.y < 0.f) fRadian *= -1.f;
 
 	return fRadian;
 }
 
 float GetPositiveDegreeByVector(float _fToX, float _fToY) {
 	float fDegree = TO_DEGREE(GetRadianByVector(_fToX, _fToY));
+	if (fDegree < 0.f) fDegree += 360.f;
+	return fDegree;
+}
+
+float GetPositiveDegreeByVector(const D3DXVECTOR3 & _vDir)
+{
+	float fDegree = D3DXToDegree(GetRadianByVector(_vDir));
 	if (fDegree < 0.f) fDegree += 360.f;
 	return fDegree;
 }
@@ -186,6 +201,19 @@ OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth, float _fHeight, f
 		return OBJ::DIR_UP;
 	}
 	else return OBJ::DIR_RIGHT;
+}
+
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree)
+{
+	if (45.f < _fDegree && _fDegree <= 135.f) return OBJ::DIR_DOWN;
+	else if (135.f < _fDegree && _fDegree <= 225.f) return OBJ::DIR_LEFT;
+	else if (225.f < _fDegree && _fDegree <= 315.f) return OBJ::DIR_UP;
+	return OBJ::DIR_RIGHT;
+}
+
+OBJ::E_DIRECTION GetDirByVector(const D3DXVECTOR3 & _vDir)
+{
+	return GetDirByDegree(GetPositiveDegreeByVector(_vDir));
 }
 
 bool IsPointInPolygon(const D3DXVECTOR3 & _vPoint, const D3DXVECTOR3 _vPolygonPointsArr[], int _iPolygonPointsNum)

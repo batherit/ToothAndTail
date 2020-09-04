@@ -4,6 +4,7 @@
 #include "CTexture.h"
 #include "CStateMgr.h"
 #include "CComState_Idle.h"
+#include "CTunnelGenerator.h"
 
 
 
@@ -14,7 +15,6 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
 {
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
-
 	wstring wstrCommander = L"";
 	switch (_eCommanderType)
 	{
@@ -47,6 +47,8 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
+
+	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_SQUIRREL, this));
 }
 
 CCommander::~CCommander()
@@ -62,6 +64,9 @@ int CCommander::Update(float _fDeltaTime)
 {
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) DesignatePrevUnit();
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) DesignateNextUnit();
 
 	return 0;
 }
@@ -152,4 +157,11 @@ bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
 		_eFlagType = CCommander::FLAG_TYPE_MILITARY;
 
 	return _eFlagType != CCommander::FLAG_TYPE_NONE;
+}
+
+void CCommander::GenerateTunnel()
+{
+	if (m_vecTunnelGenerator.empty()) return;
+
+	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel();
 }

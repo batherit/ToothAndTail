@@ -3,6 +3,7 @@ class CGameWorld;
 class CSpriteObj;
 class CTile;
 class CDeco;
+
 class CMapLoader final
 {
 public:
@@ -18,6 +19,7 @@ public:
 
 	bool IsTileInRange(int iRow, int iCol) const;
 	bool IsTileInRange(int iLineIndex) const;
+	bool IsEmptyLot(const D3DXVECTOR3& _vPos, int _iRow, int _iCol, int _iPivotI, int _iPivotJ);
 	const vector<CTile*>& GetTiles() { return m_vecTiles; }
 	CTile* GetTile(D3DXVECTOR3 _vPos) const;
 	CTile* GetTile(int _iRow, int _iCol) const;
@@ -29,6 +31,8 @@ public:
 	POINT GetRowColIndex(int _iLineIndex) const;
 	int GetLineIndex(const D3DXVECTOR3& _vPos) const;
 	void UpdateBlockingTiles();
+	D3DXVECTOR3 GetSiteCenter(const TileSiteInfo&  _rTileSiteInfo);
+	void SetSiteType(const TileSiteInfo& _rTileSiteInfo, TILE::E_TYPE _eTileType);
 
 private:
 	void ClearObjs();

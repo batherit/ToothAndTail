@@ -1,7 +1,7 @@
 #pragma once
 #include "CComDepObj.h"
 
-class CUnitGenerator;
+//class CUnitGenerator;
 class CCommander;
 class CTunnel final:
 	public CComDepObj 
@@ -10,7 +10,8 @@ public:
 	enum E_SIZE { SIZE_SMALL, SIZE_MIDDLE, SIZE_BIG, SIZE_END };
 
 public:
-	CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, CUnitGenerator* _pUnitGenerator, CCommander* _pCommander = nullptr);
+	CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander = nullptr);
+	CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander = nullptr);
 	virtual ~CTunnel();
 
 	virtual int Update(float _fDeltaTime) override;
@@ -19,7 +20,7 @@ public:
 private:
 	enum E_STATE { STATE_BUILDING, STATE_COMPLETED, STATE_GENERATE_UNIT, STATE_END };
 
-	CUnitGenerator* m_pUnitGenerator;
+	UNIT::E_TYPE m_eUnitType = UNIT::TYPE_END;
 	CTunnel::E_SIZE m_eSize = CTunnel::SIZE_SMALL;
 	CTunnel::E_STATE m_eState = CTunnel::STATE_BUILDING;
 
