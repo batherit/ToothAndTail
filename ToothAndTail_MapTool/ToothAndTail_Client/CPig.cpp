@@ -45,6 +45,7 @@ void CPig::LateUpdate(void)
 
 void CPig::Release(void)
 {
+	// CComDepObj::Release(); // 가상 소멸자에서 호출하니깐 굳이 호출안해도 됨.
 	SafelyDeleteObj(m_pStateMgr);
 	m_pFarmland = nullptr;
 }
@@ -63,6 +64,7 @@ void CPig::StartPatrol(void)
 
 	SetToXY(vToDir.x, vToDir.y);
 	
+	// 방향 전환
 	if (vToDir.y < 0.f) SetScaleX(fabs(GetScaleX()));
 	if (vToDir.y > 0.f) SetScaleX(-fabs(GetScaleX()));
 	if (vToDir.x > 0.f) SetScaleX(fabs(GetScaleX()));

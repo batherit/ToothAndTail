@@ -9,7 +9,7 @@ public:
 	virtual ~CTunnelGenerator();
 
 public:
-	bool GenerateTunnel();
+	bool GenerateTunnel(int _iID);
 	UNIT::E_TYPE GetUnitType() { return m_eUnitType; }
 
 protected:

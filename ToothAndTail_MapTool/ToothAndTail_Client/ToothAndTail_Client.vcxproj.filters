@@ -105,6 +105,42 @@
     <Filter Include="소스 파일\2.Generator\TunnelGenerator">
       <UniqueIdentifier>{0c2d4977-4a19-4bf5-aedb-2194c1c009f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Squirrel">
+      <UniqueIdentifier>{55b703da-74d0-4d4d-8abe-1b370c7ea2da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Squirrel">
+      <UniqueIdentifier>{a66e3ee5-72e1-4b76-b8ce-92f631361820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Lizard">
+      <UniqueIdentifier>{721c035b-95a8-4536-a579-ad8d2d0b101d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Lizard">
+      <UniqueIdentifier>{b58dd3b0-eab2-439b-a181-0cf5a0ce0ee3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Mole">
+      <UniqueIdentifier>{66e0b513-9758-4671-a376-c2f253a97ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Mole">
+      <UniqueIdentifier>{dffbd892-4680-4cdb-96fc-8ef2374855ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Skunk">
+      <UniqueIdentifier>{9999b82b-f367-4878-8b7f-acd5a7b35cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Skunk">
+      <UniqueIdentifier>{9d11533e-c0b4-438b-97eb-758e04af3e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Badger">
+      <UniqueIdentifier>{5537df20-f413-4129-b333-00bdf516c5ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Badger">
+      <UniqueIdentifier>{70f1f889-511d-4cca-a72c-02b7a067d8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Fox">
+      <UniqueIdentifier>{846ac60f-7329-41fd-a94a-218e51d7ca0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\Fox">
+      <UniqueIdentifier>{f42e9ace-1a10-49a6-9279-7ce536bb5426}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -251,6 +287,42 @@
     <ClInclude Include="CTunnelGenerator.h">
       <Filter>소스 파일\2.Generator\TunnelGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="CSquirrel.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Squirrel</Filter>
+    </ClInclude>
+    <ClInclude Include="CSquirrelState_Idle.h">
+      <Filter>소스 파일\1.State\Squirrel</Filter>
+    </ClInclude>
+    <ClInclude Include="CLizard.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Lizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CLizardState_Idle.h">
+      <Filter>소스 파일\1.State\Lizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CMole.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Mole</Filter>
+    </ClInclude>
+    <ClInclude Include="CMoleState_Idle.h">
+      <Filter>소스 파일\1.State\Mole</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkunk.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Skunk</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkunkState_Idle.h">
+      <Filter>소스 파일\1.State\Skunk</Filter>
+    </ClInclude>
+    <ClInclude Include="CBadger.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Badger</Filter>
+    </ClInclude>
+    <ClInclude Include="CBadgerState_Idle.h">
+      <Filter>소스 파일\1.State\Badger</Filter>
+    </ClInclude>
+    <ClInclude Include="CFox.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Fox</Filter>
+    </ClInclude>
+    <ClInclude Include="CFoxState_Idle.h">
+      <Filter>소스 파일\1.State\Fox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -387,6 +459,42 @@
     </ClCompile>
     <ClCompile Include="CTunnelGenerator.cpp">
       <Filter>소스 파일\2.Generator\TunnelGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="CSquirrel.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Squirrel</Filter>
+    </ClCompile>
+    <ClCompile Include="CSquirrelState_Idle.cpp">
+      <Filter>소스 파일\1.State\Squirrel</Filter>
+    </ClCompile>
+    <ClCompile Include="CLizard.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Lizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CLizardState_Idle.cpp">
+      <Filter>소스 파일\1.State\Lizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CMole.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="CMoleState_Idle.cpp">
+      <Filter>소스 파일\1.State\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkunk.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Skunk</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkunkState_Idle.cpp">
+      <Filter>소스 파일\1.State\Skunk</Filter>
+    </ClCompile>
+    <ClCompile Include="CBadger.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Badger</Filter>
+    </ClCompile>
+    <ClCompile Include="CBadgerState_Idle.cpp">
+      <Filter>소스 파일\1.State\Badger</Filter>
+    </ClCompile>
+    <ClCompile Include="CFox.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Fox</Filter>
+    </ClCompile>
+    <ClCompile Include="CFoxState_Idle.cpp">
+      <Filter>소스 파일\1.State\Fox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

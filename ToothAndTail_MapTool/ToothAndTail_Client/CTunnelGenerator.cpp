@@ -19,7 +19,7 @@ CTunnelGenerator::~CTunnelGenerator()
 {
 }
 
-bool CTunnelGenerator::GenerateTunnel()
+bool CTunnelGenerator::GenerateTunnel(int _iID)
 {
 	if (!m_pCommander) return false;
 	
@@ -59,7 +59,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_SMALL_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_SQUIRREL, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_SQUIRREL, m_pCommander, _iID));
 		
 		break;
 	}
@@ -68,7 +68,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_SMALL_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_LIZARD, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_LIZARD, m_pCommander, _iID));
 
 		break;
 	}
@@ -77,7 +77,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_SMALL_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_MOLE, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_SMALL, UNIT::TYPE_MOLE, m_pCommander, _iID));
 
 		break;
 	}
@@ -86,7 +86,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_MIDDLE_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_MIDDLE, UNIT::TYPE_SKUNK, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_MIDDLE, UNIT::TYPE_SKUNK, m_pCommander, _iID));
 
 		break;
 	}
@@ -95,7 +95,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_BIG_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_BIG, UNIT::TYPE_BADGER, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_BIG, UNIT::TYPE_BADGER, m_pCommander, _iID));
 
 		break;
 	}
@@ -104,7 +104,7 @@ bool CTunnelGenerator::GenerateTunnel()
 		if (!m_rGameWorld.GetMapLoader()->IsEmptyLot(m_pCommander->GetXY(), 2, 2, iPivotRow, iPivotCol)) return false;
 		m_pCommander->DecreseMoney(TUNNEL_BIG_BUILD_COST);
 		TileSiteInfo tTileSiteInfo(pTile->GetLineIndex(), 2, 2, iPivotRow, iPivotCol);
-		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_BIG, UNIT::TYPE_FOX, m_pCommander));
+		m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, tTileSiteInfo, CTunnel::SIZE_BIG, UNIT::TYPE_FOX, m_pCommander, _iID));
 
 		break;
 	}

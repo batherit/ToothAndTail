@@ -62,18 +62,18 @@ void CTile::LoadInfo(HANDLE & _hfIn)
 
 int CTile::Update(float _fDeltaTime)
 {
-	if (!m_pDetectedObj) return 0;
-	DO_IF_IS_NOT_VALID_OBJ(m_pDetectedObj) {
-		m_pDetectedObj = nullptr;
-		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-		m_eTileType = TILE::TYPE_NORMAL;
-	}
+	//if (!m_pDetectedObj) return 0;
+	//DO_IF_IS_NOT_VALID_OBJ(m_pDetectedObj) {
+	//	m_pDetectedObj = nullptr;
+	//	SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+	//	m_eTileType = TILE::TYPE_NORMAL;
+	//}
 
-	if (!IsPointInTile(m_pDetectedObj->GetXY(), GetXY(), GetWidth() * fabs(GetScaleX()), GetHeight() * fabs(GetScaleY()))) {
-		m_pDetectedObj = nullptr;
-		SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-		m_eTileType = TILE::TYPE_NORMAL;
-	}
+	//if (!IsPointInTile(m_pDetectedObj->GetXY(), GetXY(), GetWidth() * fabs(GetScaleX()), GetHeight() * fabs(GetScaleY()))) {
+	//	m_pDetectedObj = nullptr;
+	//	SetColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+	//	//m_eTileType = TILE::TYPE_NORMAL;
+	//}
 
 	return 0;
 }

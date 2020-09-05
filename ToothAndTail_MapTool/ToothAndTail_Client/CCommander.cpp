@@ -168,5 +168,6 @@ void CCommander::GenerateTunnel()
 {
 	if (m_vecTunnelGenerator.empty()) return;
 
-	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel();
+	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
+	// m_iTunnelGeneratorIndex¸¦ ID·Î »ï´Â´Ù.
 }

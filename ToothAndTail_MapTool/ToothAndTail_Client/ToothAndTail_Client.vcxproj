@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBadger.h" />
+    <ClInclude Include="CBadgerState_Idle.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CComDepObj.h" />
     <ClInclude Include="CCommander.h" />
@@ -160,9 +162,15 @@
     <ClInclude Include="CCrop.h" />
     <ClInclude Include="CDeco.h" />
     <ClInclude Include="CFarmland.h" />
+    <ClInclude Include="CFox.h" />
+    <ClInclude Include="CFoxState_Idle.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
+    <ClInclude Include="CLizard.h" />
+    <ClInclude Include="CLizardState_Idle.h" />
     <ClInclude Include="CMapLoader.h" />
+    <ClInclude Include="CMole.h" />
+    <ClInclude Include="CMoleState_Idle.h" />
     <ClInclude Include="CMultiTexture.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CPig.h" />
@@ -172,8 +180,12 @@
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CSingleTexture.h" />
+    <ClInclude Include="CSkunk.h" />
+    <ClInclude Include="CSkunkState_Idle.h" />
     <ClInclude Include="CSpace.h" />
     <ClInclude Include="CSpriteObj.h" />
+    <ClInclude Include="CSquirrel.h" />
+    <ClInclude Include="CSquirrelState_Idle.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTAT_World.h" />
@@ -197,6 +209,8 @@
     <ClInclude Include="ToothAndTail_Client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBadger.cpp" />
+    <ClCompile Include="CBadgerState_Idle.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CComDepObj.cpp" />
     <ClCompile Include="CCommander.cpp" />
@@ -210,9 +224,15 @@
     <ClCompile Include="CCrop.cpp" />
     <ClCompile Include="CDeco.cpp" />
     <ClCompile Include="CFarmland.cpp" />
+    <ClCompile Include="CFox.cpp" />
+    <ClCompile Include="CFoxState_Idle.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
+    <ClCompile Include="CLizard.cpp" />
+    <ClCompile Include="CLizardState_Idle.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
+    <ClCompile Include="CMole.cpp" />
+    <ClCompile Include="CMoleState_Idle.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CPig.cpp" />
@@ -222,8 +242,12 @@
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CSingleTexture.cpp" />
+    <ClCompile Include="CSkunk.cpp" />
+    <ClCompile Include="CSkunkState_Idle.cpp" />
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CSpriteObj.cpp" />
+    <ClCompile Include="CSquirrel.cpp" />
+    <ClCompile Include="CSquirrelState_Idle.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTAT_World.cpp" />

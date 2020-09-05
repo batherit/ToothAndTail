@@ -36,8 +36,7 @@ void CSpriteObj::Release(void)
 void CSpriteObj::Render(CCamera * _pCamera)
 {
 	if (m_vecTextureInfos.empty()) return;
-	if (m_bIsToRenderShadow) RenderShadow(_pCamera);
-
+	
 	D3DXMATRIX matScreen = GetObjectMatrix();
 	// RenderOffset을 적용한다.
 	matScreen._41 += GetRenderOffsetX();
@@ -56,6 +55,10 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	};
 	if (!IsCollided(rcViewRect, rcObjRect)) return;
 
+	// 그림자를 그린다.
+	if (m_bIsToRenderShadow) RenderShadow(_pCamera);
+
+	// 객체를 그린다.
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 	RECT rcAnimFrame;
 	rcAnimFrame.left = GetAnimX();
@@ -107,17 +110,17 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 	//matWorld._42 += /*(-GetPivotY() + (m_iHeight >> 1)) * fabs(GetScaleY()) * fabs(fParentScaleY)*/ + (m_iHeight >> 1)* fabs(GetScaleY())* fabs(fParentScaleY) * (1.f - _fScaleWeightY);
 	D3DXMATRIX matScreen = _pCamera->GetScreenMatrix(matWorld);
 
-	// 컬링을 적용한다. (월드 좌표에서 비교)
-	RECT rcObjRect = GetRect();
-	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
-	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
-	RECT rcViewRect = {
-		static_cast<LONG>(vViewLeftTopW.x /*+ GetRenderOffsetX()*/),
-		static_cast<LONG>(vViewLeftTopW.y /*+ GetRenderOffsetY()*/),
-		static_cast<LONG>(vViewRightBottomW.x /*+ GetRenderOffsetX()*/),
-		static_cast<LONG>(vViewRightBottomW.y /*+ GetRenderOffsetY()*/)
-	};
-	if (!IsCollided(rcViewRect, rcObjRect)) return;
+	// 컬링을 적용한다. (월드 좌표에서 비교) => 본체 Render에서 체크하기 때문에 해줄 필요는 없음.
+	//RECT rcObjRect = GetRect();
+	//D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
+	//D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
+	//RECT rcViewRect = {
+	//	static_cast<LONG>(vViewLeftTopW.x /*+ GetRenderOffsetX()*/),
+	//	static_cast<LONG>(vViewLeftTopW.y /*+ GetRenderOffsetY()*/),
+	//	static_cast<LONG>(vViewRightBottomW.x /*+ GetRenderOffsetX()*/),
+	//	static_cast<LONG>(vViewRightBottomW.y /*+ GetRenderOffsetY()*/)
+	//};
+	//if (!IsCollided(rcViewRect, rcObjRect)) return;
 
 	CGraphicDevice::GetInstance()->GetSprite()->SetTransform(&matScreen);
 
@@ -133,6 +136,25 @@ void CSpriteObj::RenderShadow(CCamera * _pCamera)
 		&D3DXVECTOR3(static_cast<FLOAT>(m_iWidth >> 1), static_cast<FLOAT>(m_iHeight >> 1), 0.f),
 		nullptr,
 		D3DCOLOR_ARGB(122, 0, 0, 0));
+
+	/*RECT rcObjRect = GetRect();
+	D3DXVECTOR3 vLeftTop = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.left), static_cast<FLOAT>(rcObjRect.top), 0.f));
+	D3DXVECTOR3 vRightBottom = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.right), static_cast<FLOAT>(rcObjRect.bottom), 0.f));
+	D3DXVECTOR2 vecList[] =
+	{
+	   D3DXVECTOR2(vLeftTop.x, vLeftTop.y),
+	   D3DXVECTOR2(vLeftTop.x, vRightBottom.y),
+	   D3DXVECTOR2(vRightBottom.x, vRightBottom.y),
+	   D3DXVECTOR2(vRightBottom.x, vLeftTop.y),
+	   D3DXVECTOR2(vLeftTop.x, vLeftTop.y)
+	};
+
+	LPD3DXLINE pLine;
+	D3DXCreateLine(CGraphicDevice::GetInstance()->GetDevice(), &pLine);
+	pLine->Begin();
+	pLine->Draw(vecList, 5, D3DCOLOR_ARGB(255, 255, 0, 0));
+	pLine->End();
+	pLine->Release();*/
 }
 
 int CSpriteObj::UpdateAnim(float _fDeltaTime)

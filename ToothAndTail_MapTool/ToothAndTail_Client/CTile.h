@@ -19,12 +19,12 @@ public:
 	void SetTileType(TILE::E_TYPE _eTileType) { m_eTileType = _eTileType; SetAnimIndex(m_eTileType);}
 	TILE::E_TYPE GetTileType() const { return m_eTileType; }
 	void PushOutOfTile(CObj* _pObj);
-	void RegisterObjOnTile(CObj* _pObj) {
+	/*void RegisterObjOnTile(CObj* _pObj) {
 		DO_IF_IS_NOT_VALID_OBJ(_pObj) return;
 		if (m_eTileType != TILE::TYPE_NORMAL) return;
 		m_pDetectedObj = _pObj;
 		SetColor(D3DCOLOR_ARGB(255, 0, 255, 0));
-	}
+	}*/
 	int GetLineIndex() const { return m_iLineIndex; }
 
 private:
