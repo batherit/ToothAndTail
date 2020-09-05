@@ -1,5 +1,6 @@
 #pragma once
 
+class CObj;
 // 텍스처 관련
 typedef struct _texture_info
 {
@@ -65,3 +66,12 @@ public:
 	int iPivotRow = 0;
 	int iPivotCol = 0;
 }TileSiteInfo;
+
+// 커멘더 명령 구조체
+typedef struct _command_info {
+	COMMANDER::E_COMMAND eCommand = COMMANDER::COMMAND_NOTHING;
+	int iUnitID = -1;	// 집결시 iUnitID가 -1이라면 전체 집결
+	bool bIgnoreEnemy = false;	// 집결 시 중간에 만나는 적을 무시할 것인지?
+	CObj* pTarget = nullptr;
+	D3DXVECTOR3 vTargetPos; // 이동 목표 지점
+}CommandInfo;

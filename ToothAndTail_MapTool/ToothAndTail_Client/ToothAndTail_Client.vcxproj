@@ -186,6 +186,7 @@
     <ClInclude Include="CSpriteObj.h" />
     <ClInclude Include="CSquirrel.h" />
     <ClInclude Include="CSquirrelState_Idle.h" />
+    <ClInclude Include="CSquirrelState_Run.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTAT_World.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="CSpriteObj.cpp" />
     <ClCompile Include="CSquirrel.cpp" />
     <ClCompile Include="CSquirrelState_Idle.cpp" />
+    <ClCompile Include="CSquirrelState_Run.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTAT_World.cpp" />

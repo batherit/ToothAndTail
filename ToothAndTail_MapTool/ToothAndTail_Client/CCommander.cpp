@@ -73,6 +73,8 @@ int CCommander::Update(float _fDeltaTime)
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) DesignatePrevUnit();
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) DesignateNextUnit();
 
+	UpdateCommand(_fDeltaTime);
+
 	return 0;
 }
 
@@ -170,4 +172,47 @@ void CCommander::GenerateTunnel()
 
 	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
 	// m_iTunnelGeneratorIndex를 ID로 삼는다.
+}
+
+void CCommander::UpdateCommand(float _fDeltaTime)
+{
+	CommandInfo tNewCommandInfo;
+	tNewCommandInfo.vTargetPos = GetXY();
+
+	// 유닛은 COMMANDER::COMMAND_GATHERING 명령을 받으면 매 목표지점을 갱신한다.
+	// 그렇지 않으면, 목표 지점을 갱신하지 않는다.
+	// 명령어 작성
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON) &&
+		CKeyMgr::GetInstance()->IsKeyNone(KEY::KEY_LBUTTON)) {
+		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
+		tNewCommandInfo.iUnitID = -1;
+		tNewCommandInfo.bIgnoreEnemy = false;
+		m_fElapsedTime = _fDeltaTime;
+	}
+	else if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON)) {
+		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
+		tNewCommandInfo.iUnitID = -1;
+		tNewCommandInfo.bIgnoreEnemy = false;
+		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
+			tNewCommandInfo.bIgnoreEnemy = true;
+			m_fElapsedTime = 0.2f;
+		}
+	}
+	else if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
+		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
+		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
+		tNewCommandInfo.bIgnoreEnemy = false;
+		m_fElapsedTime = _fDeltaTime;
+	}
+	else if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON)) {
+		// Index는 LBUTTON을 누르고 있는 도중에 변할 수 있기 때문에 매번 갱신한다.
+		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
+		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
+		tNewCommandInfo.bIgnoreEnemy = false;
+		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
+			tNewCommandInfo.bIgnoreEnemy = true;
+			m_fElapsedTime = 0.2f;
+		}
+	}
+	m_tCommandInfo = tNewCommandInfo;
 }

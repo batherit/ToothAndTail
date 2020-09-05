@@ -25,12 +25,16 @@ public:
 	}
 	virtual void SetCommander(CCommander* _pCommander, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
 	CCommander* GetCommander(void) const { return m_pCommander; }
+	bool IsThereNewTargetPoint() const;
+	bool GoToTargetPoint(float _fDeltaTime);
+	void SetTargetPos(const D3DXVECTOR3& _vTargetPos) { m_vTargetPos = _vTargetPos; }
+
+//protected:
+//	void ConfirmCommanderOrder(void);
 
 private:
 	CCommander* m_pCommander = nullptr;
 	CSpriteObj* m_pIdentificationTintSprite = nullptr; // ÆÀ ±¸ºÐ »ö»ó °´Ã¼
-	int iCoveredRow = 1;
-	int iCoveredCol = 1;
-	POINT iCoveredPivot = { 0, 0 };
+	D3DXVECTOR3 m_vTargetPos;
 };
 

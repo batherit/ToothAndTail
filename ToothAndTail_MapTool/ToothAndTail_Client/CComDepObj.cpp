@@ -69,3 +69,13 @@ void CComDepObj::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificat
 	}
 	if (m_pIdentificationTintSprite) m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
 }
+
+bool CComDepObj::IsThereNewTargetPoint() const
+{
+	return false;
+}
+
+bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
+{
+	return false;
+}

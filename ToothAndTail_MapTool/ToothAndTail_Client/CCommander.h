@@ -49,12 +49,19 @@ public:
 			m_iTunnelGeneratorIndex += m_vecTunnelGenerator.size();
 	}
 	void GenerateTunnel();
+	CommandInfo GetCurrentCommandInfo() { return m_tCommandInfo; }
+
+private:
+	void UpdateCommand(float _fDeltaTime);
 
 private:
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
+	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
 	UINT m_iMoney = MAX_MONEY;
 	vector<CTunnelGenerator*> m_vecTunnelGenerator;
 	int m_iTunnelGeneratorIndex = 0;
+
+	float m_fElapsedTime = 0.f;
 };
 

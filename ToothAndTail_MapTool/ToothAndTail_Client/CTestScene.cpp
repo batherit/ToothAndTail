@@ -41,22 +41,27 @@ void CTestScene::ResetScene(void)
 	m_pCommander[0] = new CCommander(m_rGameWorld, 0.f, 200.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
 	m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[0]); // 좀 고쳐야 된다.
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[0]);
-	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 288, m_pCommander[0]));
-	
-	m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
-	//m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[1]); // 좀 고쳐야 된다.
-	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
-	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 323, m_pCommander[1]));
-	
-	m_pCommander[2] = new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0));
-	//m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[2]); // 좀 고쳐야 된다.
-	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[2]);
-	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1933, m_pCommander[2]));
+	CWindmill* pWindmill = new CWindmill(m_rGameWorld, 288, m_pCommander[0]);
+	D3DXVECTOR3 pNewPos = pWindmill->GetXY();
+	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE ;
+	m_pCommander[0]->SetXY(pNewPos);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 
-	m_pCommander[3] = new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255));
-	//m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[3]); // 좀 고쳐야 된다.
-	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[3]);
-	m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1968, m_pCommander[3]));
+	
+	//m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
+	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[1]); // 좀 고쳐야 된다.
+	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
+	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 323, m_pCommander[1]));
+	//
+	//m_pCommander[2] = new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0));
+	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[2]); // 좀 고쳐야 된다.
+	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[2]);
+	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1933, m_pCommander[2]));
+
+	//m_pCommander[3] = new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255));
+	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[3]); // 좀 고쳐야 된다.
+	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[3]);
+	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1968, m_pCommander[3]));
 	
 	
 	
@@ -90,7 +95,7 @@ int CTestScene::Update(float _fDeltaTime)
 
 void CTestScene::LateUpdate(void)
 {
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 1; ++i) {
 		m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
 		//CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
 		//pTile->RegisterObjOnTile(m_pCommander[i]);

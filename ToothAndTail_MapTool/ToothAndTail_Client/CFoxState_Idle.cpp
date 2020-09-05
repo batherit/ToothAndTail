@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CFoxState_Idle.h"
+//#include "CFoxState_Run.h"
 #include "CFox.h"
 
 CFoxState_Idle::CFoxState_Idle(CGameWorld & _rGameWorld, CFox & _rOwner)
@@ -21,6 +22,10 @@ void CFoxState_Idle::OnLoaded(void)
 
 int CFoxState_Idle::Update(float _fDeltaTime)
 {
+	// 새로운 목표 지점을 발견했는지?
+	/*if (m_rOwner.IsThereNewTargetPoint()) {
+	}*/
+
 	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 

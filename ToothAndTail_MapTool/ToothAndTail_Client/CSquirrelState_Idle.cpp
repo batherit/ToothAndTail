@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CSquirrelState_Idle.h"
+#include "CSquirrelState_Run.h"
 #include "CSquirrel.h"
+#include "CStateMgr.h"
 
 CSquirrelState_Idle::CSquirrelState_Idle(CGameWorld & _rGameWorld, CSquirrel & _rOwner)
 	:
@@ -21,6 +23,9 @@ void CSquirrelState_Idle::OnLoaded(void)
 
 int CSquirrelState_Idle::Update(float _fDeltaTime)
 {
+	if (m_rOwner.IsThereNewTargetPoint()) {
+		m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
+	}
 	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 
