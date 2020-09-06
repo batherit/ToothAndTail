@@ -120,6 +120,7 @@ void CTestScene::LateUpdate(void)
 	for (auto& rObj : m_rGameWorld.GetListObjs()) {
 		rObj->CollectGarbageObjs();
 	}
+
 	CollectGarbageObjs(m_rGameWorld.GetListObjs());
 }
 

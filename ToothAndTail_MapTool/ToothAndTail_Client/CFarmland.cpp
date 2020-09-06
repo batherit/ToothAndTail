@@ -85,19 +85,12 @@ int CFarmland::Update(float _fDeltaTime)
 	}
 	}
 
-	/*if (m_pPig) {
-		m_pPig->Update(_fDeltaTime);
-	}*/
-
 
 	return 0;
 }
 
 void CFarmland::LateUpdate(void)
 {
-	/*if (m_pPig) {
-		m_pPig->LateUpdate();
-	}*/
 }
 
 void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
@@ -106,13 +99,20 @@ void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 	for (auto& pCrop : m_vecCrops) {
 		pCrop->RegisterToRenderList(_vecRenderList);	// ÀÛ¹°À» ·»´õÇÑ´Ù.
 	}
-	//if (m_pPig) m_pPig->RegisterToRenderList(_vecRenderList);	// µÅÁö¸¦ ·»´õÇÑ´Ù.
 }
 
 void CFarmland::Release(void)
 {
-	//SafelyDeleteObj(m_pPig); 
 	SafelyDeleteObjs(m_vecCrops);
+	DO_IF_IS_VALID_OBJ(m_pPig) {
+		m_pPig->SetValid(false);
+		m_pPig = nullptr;
+	}
+}
+
+void CFarmland::CollectGarbageObjs()
+{
+	DO_IF_IS_NOT_VALID_OBJ(m_pPig) m_pPig = nullptr;
 }
 
 void CFarmland::GenerateCrops(void)
@@ -138,8 +138,4 @@ void CFarmland::GeneratePig(void)
 bool CFarmland::Cropped(float _fCroppedAmount)
 {
 	return false;
-}
-
-void CFarmland::DestroyFarmland(void)
-{
 }

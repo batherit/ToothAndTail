@@ -22,12 +22,12 @@ public:
 	// ÇýÅÃ. y°ª Á¤·Ä ·»´õ¸µ
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
+	virtual void CollectGarbageObjs();
 	
 public:
 	void GenerateCrops(void);
 	void GeneratePig(void);
 	bool Cropped(float _fCroppedAmount);
-	void DestroyFarmland(void);
 
 private:
 	CFarmland::E_STATE m_eState = STATE_UNOCCUPIED;

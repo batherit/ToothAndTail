@@ -35,9 +35,9 @@ int CPigState_Attack::Update(float _fDeltaTime)
 
 		if (!m_bIsShooting) {
 			// 1.5초 대기후 탄환을 발사한다.
-			if ((m_fElapsedTime += _fDeltaTime) >= 1.0f) {
+			if ((m_fElapsedTime += _fDeltaTime) >= PIG_ATTACK_DELAY) {
 				// 총알 생성
-				m_rGameWorld.GetListObjs().emplace_back(new CBullet(m_rGameWorld, pTargetEnemy, UNIT::TYPE_PIG, m_rOwner.GetXY()));
+				//m_rGameWorld.GetListObjs().emplace_back(new CBullet(m_rGameWorld, pTargetEnemy, UNIT::TYPE_PIG, m_rOwner.GetXY()));
 				// 발사 애니메이션을 진행한다.
 				m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 26, 3, 0.2f, 1, false));
 				m_bIsShooting = true;

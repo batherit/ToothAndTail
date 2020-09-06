@@ -347,6 +347,9 @@
     <ClInclude Include="CBullet.h">
       <Filter>소스 파일\1.CObj\SpriteObj\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="CSquirrelState_Attack.h">
+      <Filter>소스 파일\1.State\Squirrel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -540,6 +543,9 @@
     </ClCompile>
     <ClCompile Include="CBullet.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CSquirrelState_Attack.cpp">
+      <Filter>소스 파일\1.State\Squirrel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

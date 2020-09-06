@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CSquirrelState_Run.h"
 #include "CSquirrelState_Idle.h"
+#include "CSquirrelState_Attack.h"
 #include "CSquirrel.h"
 #include "CStateMgr.h"
 #include "CCommander.h"
@@ -28,11 +29,13 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 	CommandInfo tCommandInfo = m_rOwner.GetCommander()->GetCurrentCommandInfo();
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
-		// 커멘더의 명령이 없다면, 타겟 지점까지 이동하며, 이동 도중 적을 만나면 적과 싸운다.
-		// 적을 만난 경우와 만나지 않은 경우로 나누어야 할 것이다. 지금은 적 개념이 없으니 만나지 않은 경우만 고려한다.
-		// TODO : 적을 만난 경우
-		// 적과 만나지 않은 경우
-		if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
+		// 주변에 적이 있는지 확인해본다.
+		m_rOwner.DetectEnemyAround();
+		if (m_rOwner.GetTargetEnemy()) {
+			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
+		}
+		else if(!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
 			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
 		}
 
@@ -49,12 +52,6 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 	case COMMANDER::COMMAND_SATURATION:
 		// TODO : 타겟을 향해 집중 공격한다.
 		break;
-	}
-
-
-
-	if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-		m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
 	}
 
 	return m_rOwner.UpdateAnim(_fDeltaTime);

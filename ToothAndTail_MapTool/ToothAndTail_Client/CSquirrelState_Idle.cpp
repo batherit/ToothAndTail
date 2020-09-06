@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CSquirrelState_Idle.h"
 #include "CSquirrelState_Run.h"
+#include "CSquirrelState_Attack.h"
 #include "CSquirrel.h"
 #include "CStateMgr.h"
 #include "CCommander.h"
@@ -41,6 +42,13 @@ int CSquirrelState_Idle::Update(float _fDeltaTime)
 	case COMMANDER::COMMAND_SATURATION:
 		// TODO : 타겟을 향해 집중 공격한다.
 		break;
+	}
+
+	// 적이 있는지를 찾아본다.
+	m_rOwner.DetectEnemyAround();
+	if (m_rOwner.GetTargetEnemy()) {
+		// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+		m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
 	}
 
 	return m_rOwner.UpdateAnim(_fDeltaTime);

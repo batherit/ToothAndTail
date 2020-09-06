@@ -67,7 +67,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
 	// 이부분 마음에 안들어
-
+	SetTileSiteInfo(TileSiteInfo(_iLineIndex, 6, 6, 3, 3));
 	CMapLoader* pMapLoader = _rGameWorld.GetMapLoader();
 	pMapLoader->SetSiteType(TileSiteInfo(_iLineIndex, 6, 6, 3, 3), TILE::TYPE_NO);
 	pMapLoader->SetSiteType(TileSiteInfo(_iLineIndex, 2, 2, 1, 1), TILE::TYPE_BLOCKING);
