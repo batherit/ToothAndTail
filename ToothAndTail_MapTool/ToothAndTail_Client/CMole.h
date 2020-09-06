@@ -14,6 +14,7 @@ public:
 public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate() override;
+	virtual void Release() override;
 
 public:
 	CStateMgr<CMole>* GetStateMgr(void) const { return m_pStateMgr; }

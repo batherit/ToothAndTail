@@ -10,6 +10,8 @@ CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, FOX_WIDTH, FOX_HEIGHT, 0.f, 1.f, FOX_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetDetectionRange(FOX_DETECTION_RANGE);
+
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);
@@ -22,6 +24,7 @@ CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel
 
 CFox::~CFox()
 {
+	Release();
 }
 
 int CFox::Update(float _fDeltaTime)
@@ -35,4 +38,9 @@ int CFox::Update(float _fDeltaTime)
 void CFox::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CFox::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }

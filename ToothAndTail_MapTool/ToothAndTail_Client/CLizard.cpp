@@ -9,6 +9,8 @@ CLizard::CLizard(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, LIZARD_WIDTH, LIZARD_HEIGHT, 0.f, 1.f, LIZARD_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetDetectionRange(LIZARD_DETECTION_RANGE);
+
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);
@@ -21,6 +23,7 @@ CLizard::CLizard(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 
 CLizard::~CLizard()
 {
+	Release();
 }
 
 int CLizard::Update(float _fDeltaTime)
@@ -34,4 +37,9 @@ int CLizard::Update(float _fDeltaTime)
 void CLizard::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CLizard::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }

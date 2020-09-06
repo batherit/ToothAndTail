@@ -33,12 +33,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	default:
 		break;
 	}
-	//m_pCommanderSprite = new CComDepObj(_rGameWorld, nullptr, 0.f, -33.f, COMMANDER_WIDTH, COMMANDER_HEIGHT);
-	//m_pCommanderSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
-	//m_pCommanderSprite->SetShadow(true);
-	//m_pCommanderSprite->SetParent(this);
-	//m_pCommanderSprite->SetRenderLayer(10);
-	//m_pCommanderSprite->GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
+	
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(wstrCommander));
 	SetShadow(true);
 	SetRenderLayer(10);
@@ -67,6 +62,8 @@ void CCommander::Ready(void)
 
 int CCommander::Update(float _fDeltaTime)
 {
+	if (m_bIsAI) return 1;
+
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -80,6 +77,8 @@ int CCommander::Update(float _fDeltaTime)
 
 void CCommander::LateUpdate(void)
 {
+	if (m_bIsAI) return;
+
 	m_pStateMgr->LateUpdate();
 }
 
@@ -88,6 +87,7 @@ void CCommander::Release(void)
 	//SafelyDeleteObj(m_pCommanderSprite);
 	//SafelyDeleteObj(m_pIdentificationTintSprite);
 	SafelyDeleteObj(m_pStateMgr);
+	SafelyDeleteObjs(m_vecTunnelGenerator);
 }
 
 //void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)

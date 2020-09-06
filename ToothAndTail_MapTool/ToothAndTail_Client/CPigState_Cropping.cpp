@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CPigState_Cropping.h"
 #include "CPigState_Patrol.h"
+#include "CPigState_Attack.h"
 #include "CPig.h"
 #include "CStateMgr.h"
 
@@ -23,6 +24,12 @@ void CPigState_Cropping::OnLoaded(void)
 
 int CPigState_Cropping::Update(float _fDeltaTime)
 {
+	m_rOwner.DetectEnemyAround();
+	if (m_rOwner.GetTargetEnemy()) {
+		// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+		m_rOwner.GetStateMgr()->SetNextState(new CPigState_Attack(m_rGameWorld, m_rOwner));
+	}
+
 	if (1 == m_rOwner.UpdateAnim(_fDeltaTime)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPigState_Patrol(m_rGameWorld, m_rOwner));
 	}

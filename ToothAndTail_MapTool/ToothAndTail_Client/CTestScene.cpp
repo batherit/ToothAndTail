@@ -47,6 +47,15 @@ void CTestScene::ResetScene(void)
 	m_pCommander[0]->SetXY(pNewPos);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 
+	m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
+	m_pCommander[1]->SetAI(true);
+	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
+	pWindmill = new CWindmill(m_rGameWorld, 323, m_pCommander[1]);
+	pNewPos = pWindmill->GetXY();
+	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE;
+	m_pCommander[1]->SetXY(pNewPos);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
+
 	
 	//m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
 	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[1]); // 좀 고쳐야 된다.
@@ -95,10 +104,10 @@ int CTestScene::Update(float _fDeltaTime)
 
 void CTestScene::LateUpdate(void)
 {
-	for (int i = 0; i < 1; ++i) {
+	for (int i = 0; i < 2; ++i) {
 		m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
 		CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
-	pTile->RegisterObjOnTile(m_pCommander[i]);
+		pTile->RegisterObjOnTile(m_pCommander[i]);
 		for (auto& pBlockingTile : m_rGameWorld.GetMapLoader()->GetBlockingTiles()) {
 			pBlockingTile->PushOutOfTile(m_pCommander[i]);
 		}
@@ -108,6 +117,9 @@ void CTestScene::LateUpdate(void)
 		rObj->LateUpdate();
 	}
 
+	for (auto& rObj : m_rGameWorld.GetListObjs()) {
+		rObj->CollectGarbageObjs();
+	}
 	CollectGarbageObjs(m_rGameWorld.GetListObjs());
 }
 

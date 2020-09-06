@@ -45,9 +45,6 @@
     <Filter Include="소스 파일\0.GameWorld">
       <UniqueIdentifier>{3465b8c6-ebe8-4dbd-9a68-8840be947f95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0.Timer">
-      <UniqueIdentifier>{382df001-a5f9-43af-a5de-c3a636c9239b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.CObj\ViewSpace">
       <UniqueIdentifier>{54ae8bbb-0d7b-4c66-b130-b026a3ab2150}</UniqueIdentifier>
     </Filter>
@@ -62,9 +59,6 @@
     </Filter>
     <Filter Include="소스 파일\1.State\Commander">
       <UniqueIdentifier>{eb821ebe-0d27-44e4-980f-16244855d6a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\Commander">
-      <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj">
       <UniqueIdentifier>{f2621b89-5a0e-4849-888d-97373a85586a}</UniqueIdentifier>
@@ -141,6 +135,15 @@
     <Filter Include="소스 파일\1.State\Fox">
       <UniqueIdentifier>{f42e9ace-1a10-49a6-9279-7ce536bb5426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\0.Timer">
+      <UniqueIdentifier>{382df001-a5f9-43af-a5de-c3a636c9239b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Bullet">
+      <UniqueIdentifier>{425472eb-6621-48c3-9e4f-a4e918e5fbf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Commander">
+      <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -210,7 +213,7 @@
       <Filter>소스 파일\98.Helper</Filter>
     </ClInclude>
     <ClInclude Include="CCommander.h">
-      <Filter>소스 파일\1.CObj\SpriteObj\Commander</Filter>
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Commander</Filter>
     </ClInclude>
     <ClInclude Include="CState.h">
       <Filter>소스 파일\1.State</Filter>
@@ -341,6 +344,9 @@
     <ClInclude Include="CBadgerState_Run.h">
       <Filter>소스 파일\1.State\Badger</Filter>
     </ClInclude>
+    <ClInclude Include="CBullet.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -401,7 +407,7 @@
       <Filter>소스 파일\1.CObj\SpriteObj</Filter>
     </ClCompile>
     <ClCompile Include="CCommander.cpp">
-      <Filter>소스 파일\1.CObj\SpriteObj\Commander</Filter>
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\Commander</Filter>
     </ClCompile>
     <ClCompile Include="CState.cpp">
       <Filter>소스 파일\1.State</Filter>
@@ -531,6 +537,9 @@
     </ClCompile>
     <ClCompile Include="CBadgerState_Run.cpp">
       <Filter>소스 파일\1.State\Badger</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

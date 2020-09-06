@@ -76,9 +76,7 @@ int CFarmland::Update(float _fDeltaTime)
 	}
 	case CFarmland::STATE_OCCUPIED: {
 		UpdateAnim(_fDeltaTime);
-		if (m_pPig) {
-			m_pPig->Cropping(_fDeltaTime);
-		}
+		
 		break;
 	}
 	case CFarmland::STATE_DESTROYED: {
@@ -86,11 +84,20 @@ int CFarmland::Update(float _fDeltaTime)
 		break;
 	}
 	}
+
+	/*if (m_pPig) {
+		m_pPig->Update(_fDeltaTime);
+	}*/
+
+
 	return 0;
 }
 
 void CFarmland::LateUpdate(void)
 {
+	/*if (m_pPig) {
+		m_pPig->LateUpdate();
+	}*/
 }
 
 void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
@@ -99,12 +106,12 @@ void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 	for (auto& pCrop : m_vecCrops) {
 		pCrop->RegisterToRenderList(_vecRenderList);	// ÀÛ¹°À» ·»´õÇÑ´Ù.
 	}
-	if (m_pPig) m_pPig->RegisterToRenderList(_vecRenderList);	// µÅÁö¸¦ ·»´õÇÑ´Ù.
+	//if (m_pPig) m_pPig->RegisterToRenderList(_vecRenderList);	// µÅÁö¸¦ ·»´õÇÑ´Ù.
 }
 
 void CFarmland::Release(void)
 {
-	SafelyDeleteObj(m_pPig);
+	//SafelyDeleteObj(m_pPig); 
 	SafelyDeleteObjs(m_vecCrops);
 }
 
@@ -123,7 +130,7 @@ void CFarmland::GenerateCrops(void)
 
 void CFarmland::GeneratePig(void)
 {
-	if (m_pPig) SafelyDeleteObj(m_pPig);
+	if (m_pPig) return;
 	m_pPig = new CPig(GetGameWorld(), this, GetCommander());
 	GetGameWorld().GetListObjs().emplace_back(m_pPig);
 }

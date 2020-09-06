@@ -30,6 +30,7 @@ public:
 	//virtual int UpdateAnim(float _fDeltaTime) override;
 
 public:
+	void SetAI(bool _bIsAI) { m_bIsAI = _bIsAI; }
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }
 	//D3DCOLOR GetIdentificationTint(void) const;
 	CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
@@ -55,6 +56,7 @@ private:
 	void UpdateCommand(float _fDeltaTime);
 
 private:
+	bool m_bIsAI = false;
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;

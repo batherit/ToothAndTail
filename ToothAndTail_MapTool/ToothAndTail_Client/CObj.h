@@ -16,6 +16,7 @@ public:
 	virtual void Ready(void) = 0;
 	virtual int Update(float _fDeltaTime) = 0;
 	virtual void LateUpdate(void) = 0;
+	virtual void CollectGarbageObjs() {};
 	virtual void Render(HDC& _hdc, CCamera* _pCamera);
 	virtual void Render(CCamera* _pCamera) {};
 	// 조립 객체를 따로 따로 렌더링 하려는 경우.

@@ -9,6 +9,8 @@ CSquirrel::CSquirrel(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, SQUIRREL_WIDTH, SQUIRREL_HEIGHT, 0.f, 1.f, SQUIRREL_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetDetectionRange(SQUIRREL_DETECTION_RANGE);
+
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);
@@ -21,6 +23,7 @@ CSquirrel::CSquirrel(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel
 
 CSquirrel::~CSquirrel()
 {
+	Release();
 }
 
 int CSquirrel::Update(float _fDeltaTime)
@@ -34,4 +37,9 @@ int CSquirrel::Update(float _fDeltaTime)
 void CSquirrel::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CSquirrel::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }

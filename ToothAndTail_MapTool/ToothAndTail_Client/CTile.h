@@ -3,8 +3,6 @@
 class CTile :
 	public CSpriteObj
 {
-
-
 public:
 	CTile(CGameWorld& _rGameWorld, float _fX, float _fY, TILE::E_TYPE _eTileType = TILE::TYPE_NORMAL, int _iLineIndex = -1);
 	CTile(CGameWorld& _rGameWorld, int iLineIndex = -1);	// 데이터 로드용

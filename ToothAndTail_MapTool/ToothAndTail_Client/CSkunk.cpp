@@ -10,6 +10,8 @@ CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTu
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, SKUNK_WIDTH, SKUNK_HEIGHT, 0.f, 1.f, SKUNK_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetDetectionRange(SKUNK_DETECTION_RANGE);
+
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);
@@ -22,6 +24,7 @@ CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTu
 
 CSkunk::~CSkunk()
 {
+	Release();
 }
 
 int CSkunk::Update(float _fDeltaTime)
@@ -35,4 +38,9 @@ int CSkunk::Update(float _fDeltaTime)
 void CSkunk::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CSkunk::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }

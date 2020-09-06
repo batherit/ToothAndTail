@@ -94,6 +94,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	SetRenderLayer(6);
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
 
+	SetTileSiteInfo(_rTileSiteInfo);
 	_rGameWorld.GetMapLoader()->SetSiteType(_rTileSiteInfo, TILE::TYPE_NO);
 	SetXY(_rGameWorld.GetMapLoader()->GetSiteCenter(_rTileSiteInfo));
 

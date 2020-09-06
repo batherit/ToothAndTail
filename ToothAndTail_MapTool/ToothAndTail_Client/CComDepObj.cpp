@@ -2,6 +2,8 @@
 #include "CComDepObj.h"
 #include "CCommander.h"
 #include "CTextureMgr.h"
+#include "CGameWorld.h"
+#include "CMapLoader.h"
 
 
 
@@ -42,6 +44,14 @@ int CComDepObj::UpdateAnim(float _fDeltaTime)
 void CComDepObj::Release(void)
 {
 	SafelyDeleteObj(m_pIdentificationTintSprite);
+}
+
+void CComDepObj::DestroyObj()
+{
+	if (m_tTilesiteInfo.iTileLineIndex != -1) {
+		GetGameWorld().GetMapLoader()->SetSiteType(m_tTilesiteInfo, TILE::TYPE_NORMAL);
+	}
+	SetValid(false);
 }
 
 void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring & _wstrTintKey, D3DXCOLOR _clIdentificationTint)
@@ -91,6 +101,32 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 	MoveByDeltaTime(_fDeltaTime);
 
 	return true;
+}
+
+void CComDepObj::DetectEnemyAround()
+{
+	m_pTargetEnemy = nullptr;
+	
+	CComDepObj* pTargetEnemy = nullptr;
+	CCommander* pTargetCommander = nullptr;
+	float fMinLength = 987654321.f * BASE_SCALE;
+	float fLength = 0.f;
+	for (auto& pObj : GetGameWorld().GetListObjs()) {
+		pTargetEnemy = dynamic_cast<CComDepObj*>(pObj);
+		DO_IF_IS_NOT_VALID_OBJ(pTargetEnemy) continue;
+		
+		pTargetCommander = pTargetEnemy->GetCommander();
+		if (pTargetCommander && pTargetCommander != GetCommander()) {
+			// 커멘더가 해당 객체의 커멘더와 다르면 적으로 간주 가능하다.
+			fLength = D3DXVec3Length(&(pTargetEnemy->GetXY() - GetXY()));
+			if (fLength <= m_fDetectionRange && fLength < fMinLength) {
+				// 감지 범위에 존재하며,
+				// 자기로부터 가장 가까이에 있는 적을 타겟 적으로 삼는다.
+				fMinLength = fLength;
+				m_pTargetEnemy = pTargetEnemy;
+			}
+		}
+	}
 }
 
 void CComDepObj::UpdateSpriteDir(void)

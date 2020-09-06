@@ -22,6 +22,7 @@ CBadger::CBadger(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 
 CBadger::~CBadger()
 {
+	Release();
 }
 
 int CBadger::Update(float _fDeltaTime)
@@ -35,4 +36,9 @@ int CBadger::Update(float _fDeltaTime)
 void CBadger::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CBadger::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }

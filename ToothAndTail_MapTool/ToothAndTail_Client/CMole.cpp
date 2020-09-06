@@ -10,6 +10,8 @@ CMole::CMole(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunn
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, MOLE_WIDTH, MOLE_HEIGHT, 0.f, 1.f, MOLE_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetDetectionRange(MOLE_DETECTION_RANGE);
+
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);
@@ -22,6 +24,7 @@ CMole::CMole(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunn
 
 CMole::~CMole()
 {
+	Release();
 }
 
 int CMole::Update(float _fDeltaTime)
@@ -35,4 +38,9 @@ int CMole::Update(float _fDeltaTime)
 void CMole::LateUpdate()
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CMole::Release()
+{
+	SafelyDeleteObj(m_pStateMgr);
 }
