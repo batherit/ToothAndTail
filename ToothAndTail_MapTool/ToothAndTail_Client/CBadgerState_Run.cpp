@@ -1,28 +1,28 @@
 #include "stdafx.h"
-#include "CSquirrelState_Run.h"
-#include "CSquirrelState_Idle.h"
-#include "CSquirrel.h"
+#include "CBadgerState_Run.h"
+#include "CBadgerState_Idle.h"
+#include "CBadger.h"
 #include "CStateMgr.h"
 #include "CCommander.h"
 
-CSquirrelState_Run::CSquirrelState_Run(CGameWorld & _rGameWorld, CSquirrel & _rOwner)
+CBadgerState_Run::CBadgerState_Run(CGameWorld & _rGameWorld, CBadger & _rOwner)
 	:
 	CState(_rGameWorld, _rOwner)
 {
 }
 
-CSquirrelState_Run::~CSquirrelState_Run()
+CBadgerState_Run::~CBadgerState_Run()
 {
 }
 
-void CSquirrelState_Run::OnLoaded(void)
+void CBadgerState_Run::OnLoaded(void)
 {
 	// 돼지는 StartPatrol에서 방향을 바꾼다,,,
 	m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 4, 5, 0.5f, 0, false));
-	m_rOwner.SetSpeed(SQUIRREL_SPEED);
+	m_rOwner.SetSpeed(BADGER_SPEED);
 }
 
-int CSquirrelState_Run::Update(float _fDeltaTime)
+int CBadgerState_Run::Update(float _fDeltaTime)
 {
 	// 커멘더의 명령을 확인한다.
 	CommandInfo tCommandInfo = m_rOwner.GetCommander()->GetCurrentCommandInfo();
@@ -33,7 +33,7 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 		// TODO : 적을 만난 경우
 		// 적과 만나지 않은 경우
 		if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
+			m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Idle(m_rGameWorld, m_rOwner));
 		}
 
 		break;
@@ -43,7 +43,7 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 		}
 		if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
+			m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Idle(m_rGameWorld, m_rOwner));
 		}
 		break;
 	case COMMANDER::COMMAND_SATURATION:
@@ -54,16 +54,16 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 
 
 	if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-		m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
+		m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Idle(m_rGameWorld, m_rOwner));
 	}
 
 	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 
-void CSquirrelState_Run::LateUpdate(void)
+void CBadgerState_Run::LateUpdate(void)
 {
 }
 
-void CSquirrelState_Run::OnExited(void)
+void CBadgerState_Run::OnExited(void)
 {
 }

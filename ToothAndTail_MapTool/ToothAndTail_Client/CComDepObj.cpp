@@ -5,10 +5,11 @@
 
 
 
-CComDepObj::CComDepObj(CGameWorld & _rGameWorld, CCommander* _pCommander, float _fX, float _fY, size_t _iWidth, size_t _iHeight, float _fToX, float _fToY, float _fSpeed)
+CComDepObj::CComDepObj(CGameWorld & _rGameWorld, CCommander* _pCommander, float _fX, float _fY, size_t _iWidth, size_t _iHeight, float _fToX, float _fToY, float _fSpeed, int _iID)
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fToX, _fToY, _fSpeed),
-	m_pCommander(_pCommander)
+	m_pCommander(_pCommander),
+	m_iID(_iID)
 {
 }
 
@@ -70,12 +71,34 @@ void CComDepObj::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificat
 	if (m_pIdentificationTintSprite) m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
 }
 
-bool CComDepObj::IsThereNewTargetPoint() const
+bool CComDepObj::IsLocatedAtTargetPoint(void) const
 {
-	return false;
+	D3DXVECTOR3 vToTarget = m_vTargetPos - GetXY();
+	float fLength = D3DXVec3Length(&vToTarget);
+
+	return fLength <= STOP_RANGE;
 }
 
 bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 {
-	return false;
+	if (IsLocatedAtTargetPoint()) return false;
+
+	// 아마 레이븐 알고리즘이 적용될 곳,,, 지금은 단순히 목표 지점으로 이동만 하는 코드
+	D3DXVECTOR3 vToTarget = m_vTargetPos - GetXY();
+	D3DXVec3Normalize(&vToTarget, &vToTarget);
+	SetToXY(vToTarget);
+	UpdateSpriteDir();
+	MoveByDeltaTime(_fDeltaTime);
+
+	return true;
+}
+
+void CComDepObj::UpdateSpriteDir(void)
+{
+	D3DXVECTOR3 vDir = GetToXY();
+	// 방향 전환
+	if (vDir.y < 0.f) SetScaleX(fabs(GetScaleX()));
+	if (vDir.y > 0.f) SetScaleX(-fabs(GetScaleX()));
+	if (vDir.x > 0.f) SetScaleX(fabs(GetScaleX()));
+	if (vDir.x < 0.f) SetScaleX(-fabs(GetScaleX()));
 }

@@ -65,43 +65,46 @@
 #define SQUIRREL_GEN_TIME		5.f
 #define SQUIRREL_WIDTH			26
 #define SQUIRREL_HEIGHT			26
-#define SQUIRREL_SPEED			90.f * BASE_SCALE
+#define SQUIRREL_SPEED			50.f * BASE_SCALE
 // 2) 도마뱀(LIZARD, 소형)
 #define LIZARD_COST				20
 #define LIZARD_SUPPLY_NUM		3
 #define LIZARD_GEN_TIME			5.f
 #define LIZARD_WIDTH			32
 #define LIZARD_HEIGHT			32
-#define LIZARD_SPEED			90.f * BASE_SCALE
+#define LIZARD_SPEED			50.f * BASE_SCALE
 // 3) 두더지(MOLE, 소형)
 #define MOLE_COST				60
 #define MOLE_SUPPLY_NUM			2
 #define MOLE_GEN_TIME			5.f
 #define MOLE_WIDTH				28
 #define MOLE_HEIGHT				28
-#define MOLE_SPEED				85.f * BASE_SCALE
+#define MOLE_SPEED				45.f * BASE_SCALE
 // 4) 스컹크(MOLE, 중형)
 #define SKUNK_COST				120
 #define SKUNK_SUPPLY_NUM		2
 #define SKUNK_GEN_TIME			5.f
 #define SKUNK_WIDTH				32
 #define SKUNK_HEIGHT			32
-#define SKUNK_SPEED				85.f
+#define SKUNK_SPEED				45.f
 // 5) 오소리(BADGER, 대형)
 #define BADGER_COST				180
 #define BADGER_SUPPLY_NUM		2	
 #define BADGER_GEN_TIME			5.f
 #define BADGER_WIDTH			52
 #define BADGER_HEIGHT			52
-#define BADGER_SPEED			85.f
+#define BADGER_SPEED			45.f
 // 6) 여우(FOX, 대형)
 #define FOX_COST				180
 #define FOX_SUPPLY_NUM			2
 #define FOX_GEN_TIME			5.f
 #define FOX_WIDTH				72
 #define FOX_HEIGHT				72
-#define FOX_SPEED				90.f
+#define FOX_SPEED				50.f
 
 // 금액
 #define MIN_MONEY	static_cast<UINT>(0)
 #define MAX_MONEY	static_cast<UINT>(9999)
+
+// 정지 범위
+#define STOP_RANGE	30.f

@@ -326,6 +326,21 @@
     <ClInclude Include="CSquirrelState_Run.h">
       <Filter>소스 파일\1.State\Squirrel</Filter>
     </ClInclude>
+    <ClInclude Include="CSkunkState_Run.h">
+      <Filter>소스 파일\1.State\Skunk</Filter>
+    </ClInclude>
+    <ClInclude Include="CLizardState_Run.h">
+      <Filter>소스 파일\1.State\Lizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CMoleState_Run.h">
+      <Filter>소스 파일\1.State\Mole</Filter>
+    </ClInclude>
+    <ClInclude Include="CFoxState_Run.h">
+      <Filter>소스 파일\1.State\Fox</Filter>
+    </ClInclude>
+    <ClInclude Include="CBadgerState_Run.h">
+      <Filter>소스 파일\1.State\Badger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -501,6 +516,21 @@
     </ClCompile>
     <ClCompile Include="CSquirrelState_Run.cpp">
       <Filter>소스 파일\1.State\Squirrel</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkunkState_Run.cpp">
+      <Filter>소스 파일\1.State\Skunk</Filter>
+    </ClCompile>
+    <ClCompile Include="CLizardState_Run.cpp">
+      <Filter>소스 파일\1.State\Lizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CMoleState_Run.cpp">
+      <Filter>소스 파일\1.State\Mole</Filter>
+    </ClCompile>
+    <ClCompile Include="CFoxState_Run.cpp">
+      <Filter>소스 파일\1.State\Fox</Filter>
+    </ClCompile>
+    <ClCompile Include="CBadgerState_Run.cpp">
+      <Filter>소스 파일\1.State\Badger</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

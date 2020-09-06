@@ -97,8 +97,8 @@ void CTestScene::LateUpdate(void)
 {
 	for (int i = 0; i < 1; ++i) {
 		m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
-		//CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
-		//pTile->RegisterObjOnTile(m_pCommander[i]);
+		CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
+	pTile->RegisterObjOnTile(m_pCommander[i]);
 		for (auto& pBlockingTile : m_rGameWorld.GetMapLoader()->GetBlockingTiles()) {
 			pBlockingTile->PushOutOfTile(m_pCommander[i]);
 		}

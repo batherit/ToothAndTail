@@ -27,9 +27,11 @@ bool CTunnelGenerator::GenerateTunnel(int _iID)
 	if (!pTile) return false;
 
 	D3DXVECTOR3 vToPlayer = m_pCommander->GetXY() - pTile->GetXY();
+	D3DXVec3Normalize(&vToPlayer, &vToPlayer);
+
 	int iPivotRow = 0;
 	int iPivotCol = 0;
-	switch (GetDirByVector(m_pCommander->GetToXY())) {
+	switch (GetDirByVector(vToPlayer)) {
 	case OBJ::DIR_RIGHT:
 		iPivotRow = 0;
 		iPivotCol = 0;

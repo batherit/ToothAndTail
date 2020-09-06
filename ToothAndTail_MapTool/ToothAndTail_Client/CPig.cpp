@@ -65,10 +65,7 @@ void CPig::StartPatrol(void)
 	SetToXY(vToDir.x, vToDir.y);
 	
 	// 방향 전환
-	if (vToDir.y < 0.f) SetScaleX(fabs(GetScaleX()));
-	if (vToDir.y > 0.f) SetScaleX(-fabs(GetScaleX()));
-	if (vToDir.x > 0.f) SetScaleX(fabs(GetScaleX()));
-	if (vToDir.x < 0.f) SetScaleX(-fabs(GetScaleX()));
+	UpdateSpriteDir();
 
 	SetSpeed(PIG_SPEED);
 }

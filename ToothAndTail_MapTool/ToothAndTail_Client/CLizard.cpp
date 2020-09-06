@@ -6,8 +6,7 @@
 
 CLizard::CLizard(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
-	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, LIZARD_WIDTH, LIZARD_HEIGHT, 0.f, 1.f, LIZARD_SPEED),
-	m_iID(_iID),
+	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, LIZARD_WIDTH, LIZARD_HEIGHT, 0.f, 1.f, LIZARD_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
 	SetRenderLayer(10);
