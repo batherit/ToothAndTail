@@ -19,6 +19,7 @@ public:
 	// ÇýÅÃ. y°ª Á¤·Ä ·»´õ¸µ
 	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) { _vecRenderList.emplace_back(this); }
 	virtual void Release(void);
+	virtual void InvalidateObj(void) override;
 
 public:
 	CStateMgr<CPig>* GetStateMgr(void) const { return m_pStateMgr; }

@@ -176,4 +176,6 @@ void CTAT_World::LoadTextures(void)
 	// ¿©¿ì ÅºÈ¯
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Bullets/tracer_sniper.png", L"FOX_BULLET"))) return;
 
+	// Æø¹ß ÀÌÆåÆ®
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Atlas/particles.png", L"BURST"))) return;
 }

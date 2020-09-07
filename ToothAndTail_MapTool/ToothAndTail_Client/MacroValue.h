@@ -72,7 +72,7 @@
 #define SQUIRREL_HEIGHT				26
 #define SQUIRREL_SPEED				50.f * BASE_SCALE
 #define SQUIRREL_DETECTION_RANGE	80.f * BASE_SCALE
-#define SQUIRREL_BULLET_DAMAGE		0//3
+#define SQUIRREL_BULLET_DAMAGE		3
 #define SQUIRREL_BULLET_SPEED		250.f * BASE_SCALE
 #define SQUIRREL_ATTACK_DELAY		1.f	
 // 2) µµ¸¶¹ì(LIZARD, ¼ÒÇü)
@@ -129,6 +129,11 @@
 #define FOX_BULLET_DAMAGE		20
 #define FOX_BULLET_SPEED		450.f * BASE_SCALE
 #define FOX_ATTACK_DELAY		1.f	
+
+// Æø¹ß ÀÌÆåÆ®
+#define BURST_WIDTH			120
+#define BURST_HEIGHT			170
+
 // ±Ý¾×
 #define MIN_MONEY	static_cast<UINT>(0)
 #define MAX_MONEY	static_cast<UINT>(9999)

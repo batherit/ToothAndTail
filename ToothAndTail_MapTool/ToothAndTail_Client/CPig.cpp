@@ -4,6 +4,8 @@
 #include "CStateMgr.h"
 #include "CTextureMgr.h"
 #include "CPigState_Patrol.h"
+#include "CGameWorld.h"
+#include "CBurst.h"
 
 
 
@@ -51,6 +53,12 @@ void CPig::Release(void)
 	// CComDepObj::Release(); // 가상 소멸자에서 호출하니깐 굳이 호출안해도 됨.
 	SafelyDeleteObj(m_pStateMgr);
 	m_pFarmland = nullptr;
+}
+
+void CPig::InvalidateObj(void)
+{
+	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
+	CComDepObj::InvalidateObj();
 }
 
 bool CPig::Cropping(float _fDeltaTime)

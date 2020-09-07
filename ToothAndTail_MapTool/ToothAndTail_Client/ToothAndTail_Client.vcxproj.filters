@@ -60,26 +60,11 @@
     <Filter Include="소스 파일\1.State\Commander">
       <UniqueIdentifier>{eb821ebe-0d27-44e4-980f-16244855d6a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj">
-      <UniqueIdentifier>{f2621b89-5a0e-4849-888d-97373a85586a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill">
-      <UniqueIdentifier>{524c40f2-a486-4710-8d47-4a9386864347}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland">
-      <UniqueIdentifier>{77c0a880-3b48-4e80-8028-d5bcbc89dd25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.CObj\SpriteObj\Crop">
       <UniqueIdentifier>{744c2a05-c1aa-4a75-aa42-c4fda3d8bb6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Pig">
       <UniqueIdentifier>{448dc057-7fb4-4989-9f54-539060825be3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel">
-      <UniqueIdentifier>{7624a55c-65d1-498e-8597-11bb7a7fe8c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Pig">
-      <UniqueIdentifier>{dd732d96-b1f1-4c9a-ac47-9dd7fb10100f}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\2.MapLoader">
       <UniqueIdentifier>{30aefa4d-e04b-4274-bfb8-3e05f1810cd9}</UniqueIdentifier>
@@ -99,38 +84,20 @@
     <Filter Include="소스 파일\2.Generator\TunnelGenerator">
       <UniqueIdentifier>{0c2d4977-4a19-4bf5-aedb-2194c1c009f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Squirrel">
-      <UniqueIdentifier>{55b703da-74d0-4d4d-8abe-1b370c7ea2da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.State\Squirrel">
       <UniqueIdentifier>{a66e3ee5-72e1-4b76-b8ce-92f631361820}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Lizard">
-      <UniqueIdentifier>{721c035b-95a8-4536-a579-ad8d2d0b101d}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Lizard">
       <UniqueIdentifier>{b58dd3b0-eab2-439b-a181-0cf5a0ce0ee3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Mole">
-      <UniqueIdentifier>{66e0b513-9758-4671-a376-c2f253a97ee2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.State\Mole">
       <UniqueIdentifier>{dffbd892-4680-4cdb-96fc-8ef2374855ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Skunk">
-      <UniqueIdentifier>{9999b82b-f367-4878-8b7f-acd5a7b35cf7}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Skunk">
       <UniqueIdentifier>{9d11533e-c0b4-438b-97eb-758e04af3e98}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Badger">
       <UniqueIdentifier>{5537df20-f413-4129-b333-00bdf516c5ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Badger">
-      <UniqueIdentifier>{70f1f889-511d-4cca-a72c-02b7a067d8e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Fox">
-      <UniqueIdentifier>{846ac60f-7329-41fd-a94a-218e51d7ca0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.State\Fox">
       <UniqueIdentifier>{f42e9ace-1a10-49a6-9279-7ce536bb5426}</UniqueIdentifier>
@@ -140,6 +107,39 @@
     </Filter>
     <Filter Include="소스 파일\1.CObj\SpriteObj\Bullet">
       <UniqueIdentifier>{425472eb-6621-48c3-9e4f-a4e918e5fbf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj">
+      <UniqueIdentifier>{f2621b89-5a0e-4849-888d-97373a85586a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Windmill">
+      <UniqueIdentifier>{524c40f2-a486-4710-8d47-4a9386864347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Farmland">
+      <UniqueIdentifier>{77c0a880-3b48-4e80-8028-d5bcbc89dd25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Tunnel">
+      <UniqueIdentifier>{7624a55c-65d1-498e-8597-11bb7a7fe8c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Pig">
+      <UniqueIdentifier>{dd732d96-b1f1-4c9a-ac47-9dd7fb10100f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Squirrel">
+      <UniqueIdentifier>{55b703da-74d0-4d4d-8abe-1b370c7ea2da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Lizard">
+      <UniqueIdentifier>{721c035b-95a8-4536-a579-ad8d2d0b101d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Mole">
+      <UniqueIdentifier>{66e0b513-9758-4671-a376-c2f253a97ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Skunk">
+      <UniqueIdentifier>{9999b82b-f367-4878-8b7f-acd5a7b35cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Badger">
+      <UniqueIdentifier>{70f1f889-511d-4cca-a72c-02b7a067d8e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Fox">
+      <UniqueIdentifier>{846ac60f-7329-41fd-a94a-218e51d7ca0b}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Commander">
       <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
@@ -365,6 +365,7 @@
     <ClInclude Include="CFoxState_Attack.h">
       <Filter>소스 파일\1.State\Fox</Filter>
     </ClInclude>
+    <ClInclude Include="CBurst.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -576,6 +577,9 @@
     </ClCompile>
     <ClCompile Include="CFoxState_Attack.cpp">
       <Filter>소스 파일\1.State\Fox</Filter>
+    </ClCompile>
+    <ClCompile Include="CBurst.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

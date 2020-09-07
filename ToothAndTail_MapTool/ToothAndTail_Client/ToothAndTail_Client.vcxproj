@@ -152,6 +152,7 @@
     <ClInclude Include="CBadgerState_Idle.h" />
     <ClInclude Include="CBadgerState_Run.h" />
     <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CBurst.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CComDepObj.h" />
     <ClInclude Include="CCommander.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="CBadgerState_Idle.cpp" />
     <ClCompile Include="CBadgerState_Run.cpp" />
     <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CBurst.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CComDepObj.cpp" />
     <ClCompile Include="CCommander.cpp" />
