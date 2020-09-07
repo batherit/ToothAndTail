@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBadger.h" />
+    <ClInclude Include="CBadgerState_Attack.h" />
     <ClInclude Include="CBadgerState_Idle.h" />
     <ClInclude Include="CBadgerState_Run.h" />
     <ClInclude Include="CBullet.h" />
@@ -165,15 +166,18 @@
     <ClInclude Include="CDeco.h" />
     <ClInclude Include="CFarmland.h" />
     <ClInclude Include="CFox.h" />
+    <ClInclude Include="CFoxState_Attack.h" />
     <ClInclude Include="CFoxState_Idle.h" />
     <ClInclude Include="CFoxState_Run.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CGraphicDevice.h" />
     <ClInclude Include="CLizard.h" />
+    <ClInclude Include="CLizardState_Attack.h" />
     <ClInclude Include="CLizardState_Idle.h" />
     <ClInclude Include="CLizardState_Run.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMole.h" />
+    <ClInclude Include="CMoleState_Attack.h" />
     <ClInclude Include="CMoleState_Idle.h" />
     <ClInclude Include="CMoleState_Run.h" />
     <ClInclude Include="CMultiTexture.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CSingleTexture.h" />
     <ClInclude Include="CSkunk.h" />
+    <ClInclude Include="CSkunkState_Attack.h" />
     <ClInclude Include="CSkunkState_Idle.h" />
     <ClInclude Include="CSkunkState_Run.h" />
     <ClInclude Include="CSpace.h" />
@@ -218,6 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBadger.cpp" />
+    <ClCompile Include="CBadgerState_Attack.cpp" />
     <ClCompile Include="CBadgerState_Idle.cpp" />
     <ClCompile Include="CBadgerState_Run.cpp" />
     <ClCompile Include="CBullet.cpp" />
@@ -235,15 +241,18 @@
     <ClCompile Include="CDeco.cpp" />
     <ClCompile Include="CFarmland.cpp" />
     <ClCompile Include="CFox.cpp" />
+    <ClCompile Include="CFoxState_Attack.cpp" />
     <ClCompile Include="CFoxState_Idle.cpp" />
     <ClCompile Include="CFoxState_Run.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CGraphicDevice.cpp" />
     <ClCompile Include="CLizard.cpp" />
+    <ClCompile Include="CLizardState_Attack.cpp" />
     <ClCompile Include="CLizardState_Idle.cpp" />
     <ClCompile Include="CLizardState_Run.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMole.cpp" />
+    <ClCompile Include="CMoleState_Attack.cpp" />
     <ClCompile Include="CMoleState_Idle.cpp" />
     <ClCompile Include="CMoleState_Run.cpp" />
     <ClCompile Include="CMultiTexture.cpp" />
@@ -256,6 +265,7 @@
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CSingleTexture.cpp" />
     <ClCompile Include="CSkunk.cpp" />
+    <ClCompile Include="CSkunkState_Attack.cpp" />
     <ClCompile Include="CSkunkState_Idle.cpp" />
     <ClCompile Include="CSkunkState_Run.cpp" />
     <ClCompile Include="CSpace.cpp" />
