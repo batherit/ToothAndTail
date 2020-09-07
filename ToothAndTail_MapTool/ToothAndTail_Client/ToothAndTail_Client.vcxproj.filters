@@ -144,6 +144,15 @@
     <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\Commander">
       <UniqueIdentifier>{173c10e8-267a-4727-9fdf-7bfe86081af1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\UI">
+      <UniqueIdentifier>{21ebbc19-c151-41cf-b064-04d133c1d8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\Button">
+      <UniqueIdentifier>{b08cda9c-e3bc-4512-b8a7-f6f7e45d97b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\Gauge">
+      <UniqueIdentifier>{8c5f110c-70ef-46aa-a96d-b1c5b93a4fae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -366,6 +375,12 @@
       <Filter>소스 파일\1.State\Fox</Filter>
     </ClInclude>
     <ClInclude Include="CBurst.h" />
+    <ClInclude Include="UI_Button.h">
+      <Filter>소스 파일\1.CObj\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Gauge.h">
+      <Filter>소스 파일\1.CObj\UI\Gauge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -580,6 +595,12 @@
     </ClCompile>
     <ClCompile Include="CBurst.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Button.cpp">
+      <Filter>소스 파일\1.CObj\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Gauge.cpp">
+      <Filter>소스 파일\1.CObj\UI\Gauge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

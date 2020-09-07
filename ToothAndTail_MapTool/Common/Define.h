@@ -20,8 +20,8 @@
 #endif
 
 // 창 사이즈
-#define WINCX	1200	//800 
-#define WINCY	800		//600
+#define WINCX	1400	//800 
+#define WINCY	900		//600
 
 // 폼 사이즈
 #define FORMCX	300

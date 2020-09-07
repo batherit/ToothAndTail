@@ -221,6 +221,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToothAndTail_Client.h" />
+    <ClInclude Include="UI_Button.h" />
+    <ClInclude Include="UI_Gauge.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBadger.cpp" />
@@ -299,6 +301,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToothAndTail_Client.cpp" />
+    <ClCompile Include="UI_Button.cpp" />
+    <ClCompile Include="UI_Gauge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ToothAndTail_Client.rc" />
