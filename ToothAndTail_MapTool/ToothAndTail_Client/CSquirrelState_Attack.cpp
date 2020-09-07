@@ -32,23 +32,46 @@ int CSquirrelState_Attack::Update(float _fDeltaTime)
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		// 하던 공격을 마저한다.
-		m_fTickTime = 0.f;
+		//m_fTickTime = 0.f;
 		break;
 	case COMMANDER::COMMAND_GATHERING:
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
-			if ((m_fTickTime += _fDeltaTime) >= 0.1f) {
-				// 집합 명령이 내려지고 나서 0.1초후 달리기 상태 전환 여부를 따진다.
+			//if ((m_fTickTime += _fDeltaTime) >= 0.1f) {
 				m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 				// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
 				if (!m_rOwner.IsLocatedAtTargetPoint())
 					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
 				else
 					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
-			}
+			//}
 		}
 		break;
 	case COMMANDER::COMMAND_SATURATION:
-		// TODO : 타겟을 향해 집중 공격한다.
+		// 집중공격.
+		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
+			// 기수가 선정한 타겟이 유효한가?
+			DO_IF_IS_VALID_OBJ(tCommandInfo.pTarget) {
+				// 공격 타겟은 기수가 선정한 타겟이다.
+				m_rOwner.SetTargetPos(tCommandInfo.pTarget->GetXY());
+				m_rOwner.SetTargetEnemy(tCommandInfo.pTarget);
+				if (!m_rOwner.CanAttackTargetEnemy()) {
+					// 적을 공격할 수 없는 거리에 있다면 적이 있는 곳으로 달려간다.
+					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
+				}
+			}
+			ELSE{
+				if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
+					//if ((m_fTickTime += _fDeltaTime) >= 0.1f) {}
+					// 집합 명령이 내려지고 나서 0.1초후 달리기 상태 전환 여부를 따진다.
+					m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
+					// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
+					if (!m_rOwner.IsLocatedAtTargetPoint())
+						m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
+					else
+						m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
+					}
+				}
+			}
 		break;
 	}
 

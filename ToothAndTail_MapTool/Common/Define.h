@@ -61,6 +61,7 @@ ClassName* ClassName::m_pInstance = nullptr;
 #define IS_VALID_OBJ(_pObj)				((_pObj) && (_pObj->IsValid()))
 #define DO_IF_IS_NOT_VALID_OBJ(_pObj)	if(!IS_VALID_OBJ(_pObj))
 #define DO_IF_IS_VALID_OBJ(_pObj)		if(IS_VALID_OBJ(_pObj))
+#define ELSE else
 
 // 수학 관련
 #define PI acos(-1.f) //== acos(cos(pi)) == pi

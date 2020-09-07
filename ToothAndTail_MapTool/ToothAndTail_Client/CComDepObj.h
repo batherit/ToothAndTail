@@ -15,7 +15,10 @@ public:
 	virtual int UpdateAnim(float _fDeltaTime);
 	virtual void Release(void) override;
 	virtual void CollectGarbageObjs() { DO_IF_IS_NOT_VALID_OBJ(m_pTargetEnemy) m_pTargetEnemy = nullptr; };
-	void DestroyObj();
+
+	// 직접 삭제를 진행하지 않고, 무효화 처리하여 프레임워크가 알아서 삭제하도록 함.
+	// 단, GameWorld내 GameObjsList에 한해서 작동한다.
+	virtual void InvalidateObj();
 
 public:
 	void GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring& _wstrTintKey, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -38,10 +41,13 @@ public:
 	// 목표 지점으로 이동할 때 쓰인다.
 	bool GoToTargetPoint(float _fDeltaTime);		
 	// 교전 관련
+	// 1) 감지 범위 세팅하기
 	void SetDetectionRange(float _fDetectionRange) { m_fDetectionRange = _fDetectionRange; }
+	// 2) 주변 감지된 적 선별(거리순)
 	void DetectEnemyAround();
 	void SetTargetEnemy(CComDepObj* _pTargetEnemy) { m_pTargetEnemy = _pTargetEnemy; }
 	CComDepObj* GetTargetEnemy() const { return m_pTargetEnemy; }
+	bool CanAttackTargetEnemy();
 	bool IsDead() const { return m_iHP <= 0; }
 	void TakeDamage(int _iDamageAmount) { m_iHP -= _iDamageAmount; if (m_iHP < 0) m_iHP = 0; }
 	void UpdateSpriteDir(void);

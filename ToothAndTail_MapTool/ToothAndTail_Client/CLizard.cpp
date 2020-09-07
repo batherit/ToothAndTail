@@ -9,6 +9,7 @@ CLizard::CLizard(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, LIZARD_WIDTH, LIZARD_HEIGHT, 0.f, 1.f, LIZARD_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(LIZARD_DETECTION_RANGE);
 
 	SetRenderLayer(10);

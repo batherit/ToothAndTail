@@ -75,8 +75,8 @@ int CBullet::Update(float _fDeltaTime)
 		DO_IF_IS_VALID_OBJ(m_pTarget) {
 			m_pTarget->TakeDamage(m_fDamage);
 			if (m_pTarget->IsDead())
-				// 타겟이 죽었다면 파괴한다.
-				m_pTarget->DestroyObj();
+				// 타겟이 죽었다면 무효화한다.
+				m_pTarget->InvalidateObj();
 		}
 		// 명중했다면, 총알 무효화 처리
 		SetValid(false);

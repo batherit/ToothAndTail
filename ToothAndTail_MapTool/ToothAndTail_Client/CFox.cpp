@@ -10,6 +10,7 @@ CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, FOX_WIDTH, FOX_HEIGHT, 0.f, 1.f, FOX_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(FOX_DETECTION_RANGE);
 
 	SetRenderLayer(10);

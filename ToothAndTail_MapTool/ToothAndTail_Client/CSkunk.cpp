@@ -10,6 +10,7 @@ CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTu
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, SKUNK_WIDTH, SKUNK_HEIGHT, 0.f, 1.f, SKUNK_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(SKUNK_DETECTION_RANGE);
 
 	SetRenderLayer(10);

@@ -51,6 +51,33 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 		break;
 	case COMMANDER::COMMAND_SATURATION:
 		// TODO : 타겟을 향해 집중 공격한다.
+		// 집중공격.
+		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
+			// 기수가 선정한 타겟이 유효한가?
+			DO_IF_IS_VALID_OBJ(tCommandInfo.pTarget) {
+				// 공격 타겟은 기수가 선정한 타겟이다.
+				m_rOwner.SetTargetPos(tCommandInfo.pTarget->GetXY());
+				m_rOwner.SetTargetEnemy(tCommandInfo.pTarget);
+				if (m_rOwner.CanAttackTargetEnemy()) {
+					// 적을 공격할 수 있는 상황이라면, 바로 공격한다.
+					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
+				}
+				else {
+					// 적을 공격할 수 없는 거리에 있다면 적이 있는 곳으로 달려간다.
+					m_rOwner.GoToTargetPoint(_fDeltaTime);
+				}
+			}
+			ELSE{
+				if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
+					// 명령에 해당하는 병력은 새로운 목표지점을 세팅한다.
+					m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
+				}
+				if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
+					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
+				}
+			}
+		}
+
 		break;
 	}
 

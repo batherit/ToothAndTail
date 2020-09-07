@@ -10,6 +10,7 @@ CBadger::CBadger(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, BADGER_WIDTH, BADGER_HEIGHT, 0.f, 1.f, BADGER_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);
 	SetShadow(true);

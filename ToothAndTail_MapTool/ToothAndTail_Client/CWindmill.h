@@ -25,7 +25,8 @@ public:
 	// ÇýÅÃ. y°ª Á¤·Ä ·»´õ¸µ
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
-	virtual CObj* GetCollider(void);
+	virtual void InvalidateObj() override;
+	//virtual void CollectGarbageObjs();
 
 private:
 	CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;

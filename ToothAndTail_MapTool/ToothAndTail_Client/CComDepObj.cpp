@@ -46,7 +46,7 @@ void CComDepObj::Release(void)
 	SafelyDeleteObj(m_pIdentificationTintSprite);
 }
 
-void CComDepObj::DestroyObj()
+void CComDepObj::InvalidateObj()
 {
 	if (m_tTilesiteInfo.iTileLineIndex != -1) {
 		GetGameWorld().GetMapLoader()->SetSiteType(m_tTilesiteInfo, TILE::TYPE_NORMAL);
@@ -61,7 +61,7 @@ void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, 
 	m_pIdentificationTintSprite = new CSpriteObj(GetGameWorld(), 0.f, 0.f, _iWidth, _iHeight);
 	m_pIdentificationTintSprite->SetParent(this);
 	m_pIdentificationTintSprite->SetRenderOffsetXY(GetRenderOffsetXY());
-	if(m_pCommander)
+	if(m_pCommander && (m_pCommander != this))
 		m_pIdentificationTintSprite->SetColor(m_pCommander->GetIdentificationTint());
 	else
 		m_pIdentificationTintSprite->SetColor(_clIdentificationTint);
@@ -70,7 +70,7 @@ void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, 
 
 void CComDepObj::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificationTint){
 	m_pCommander = _pCommander;
-	if (m_pCommander) {
+	if (m_pCommander && (m_pCommander != this)) {
 		if (m_pIdentificationTintSprite)
 			if (m_pCommander)
 				m_pIdentificationTintSprite->SetColor(_pCommander->GetIdentificationTint());
@@ -116,7 +116,10 @@ void CComDepObj::DetectEnemyAround()
 		DO_IF_IS_NOT_VALID_OBJ(pTargetEnemy) continue;
 		
 		pTargetCommander = pTargetEnemy->GetCommander();
-		if (pTargetCommander && pTargetCommander != GetCommander()) {
+		// 1) 타겟 커멘더가 유효한 상태이다.
+		// 2) 타겟 커멘더는 자신의 커멘더와 다르다. => 적이다.
+		// 3) 적은 커멘더가 아니다. => 기수가 아닌 일반 유닛이다.
+		if (pTargetCommander && pTargetCommander != GetCommander() && pTargetCommander != pTargetEnemy) {
 			// 커멘더가 해당 객체의 커멘더와 다르면 적으로 간주 가능하다.
 			fLength = D3DXVec3Length(&(pTargetEnemy->GetXY() - GetXY()));
 			if (fLength <= m_fDetectionRange && fLength < fMinLength) {
@@ -127,6 +130,16 @@ void CComDepObj::DetectEnemyAround()
 			}
 		}
 	}
+}
+
+bool CComDepObj::CanAttackTargetEnemy()
+{
+	if (!m_pTargetEnemy) return false;
+
+	float fLength = D3DXVec3Length(&(m_pTargetEnemy->GetXY() - GetXY()));
+
+	// 감지범위 내에 있다면 공격할 수 있다.
+	return fLength <= m_fDetectionRange;
 }
 
 void CComDepObj::UpdateSpriteDir(void)

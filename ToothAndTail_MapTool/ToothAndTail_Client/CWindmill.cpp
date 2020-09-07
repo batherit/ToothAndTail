@@ -185,7 +185,18 @@ void CWindmill::Release(void)
 	SafelyDeleteObjs(m_vecFarmlands);
 }
 
-CObj * CWindmill::GetCollider(void)
+void CWindmill::InvalidateObj()
 {
-	return m_pWindmillBase;
+	// 자기 자신을 무효화한다.
+	CComDepObj::InvalidateObj();
+	for (auto& pFarmland : m_vecFarmlands) {
+		pFarmland->InvalidateObj();
+	}
 }
+
+//void CWindmill::CollectGarbageObjs()
+//{
+//	for (auto& pFarmland : m_vecFarmlands) {
+//		pFarmland->CollectGarbageObjs();
+//	}
+//}

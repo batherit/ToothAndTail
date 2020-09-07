@@ -22,7 +22,8 @@ public:
 	// ÇýÅÃ. y°ª Á¤·Ä ·»´õ¸µ
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
-	virtual void CollectGarbageObjs();
+	virtual void InvalidateObj() override;
+	//virtual void CollectGarbageObjs();
 	
 public:
 	void GenerateCrops(void);

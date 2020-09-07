@@ -101,6 +101,15 @@ void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 	}
 }
 
+void CFarmland::InvalidateObj()
+{
+	CComDepObj::InvalidateObj();
+	DO_IF_IS_VALID_OBJ(m_pPig) {
+		m_pPig->SetValid(false);
+		m_pPig = nullptr;
+	}
+}
+
 void CFarmland::Release(void)
 {
 	SafelyDeleteObjs(m_vecCrops);
@@ -110,10 +119,10 @@ void CFarmland::Release(void)
 	}
 }
 
-void CFarmland::CollectGarbageObjs()
-{
-	DO_IF_IS_NOT_VALID_OBJ(m_pPig) m_pPig = nullptr;
-}
+//void CFarmland::CollectGarbageObjs()
+//{
+//	DO_IF_IS_NOT_VALID_OBJ(m_pPig) m_pPig = nullptr;
+//}
 
 void CFarmland::GenerateCrops(void)
 {
