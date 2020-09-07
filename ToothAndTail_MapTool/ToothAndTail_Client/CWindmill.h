@@ -10,10 +10,7 @@ class CWindmill :
 	public CComDepObj
 {
 public:
-	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_DESTROYED, STATE_END };
-
-public:
-	CWindmill(CGameWorld& _rGameWorld, float _fX, float _fY, CCommander* _pCommander = nullptr);
+	//CWindmill(CGameWorld& _rGameWorld, float _fX, float _fY, CCommander* _pCommander = nullptr);
 	CWindmill(CGameWorld& _rGameWorld, int _iLineIndex, CCommander* _pCommander = nullptr);
 	virtual ~CWindmill();
 
@@ -26,10 +23,18 @@ public:
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
 	virtual void InvalidateObj() override;
+	void Occupied(CCommander* _pCommander);
 	//virtual void CollectGarbageObjs();
+	//vector<CFarmland*>& GetFarmlands() { return m_vecFarmlands; }
+
+public:
+	//void SetWindmillState(CWindmill::E_STATE _eState) { m_eState = _eState; }
+	//CWindmill::E_STATE GetWindmillState() const { return m_eState; }
+	WINDMILL::E_STATE GetState() const;
+	
 
 private:
-	CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
+	//CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
 	CSpriteObj* m_pGround = nullptr;
 	vector<CFarmland*> m_vecFarmlands;
 	CWindmillBase* m_pWindmillBase = nullptr;

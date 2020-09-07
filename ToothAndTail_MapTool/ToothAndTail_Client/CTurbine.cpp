@@ -55,6 +55,7 @@ int CTurbine::Update(float _fDeltaTime)
 			AnimInfo stAnimInfo(0, 16, 45, 60, 5.0f, 0, false);
 			SetNewAnimInfo(stAnimInfo);
 			m_eState = CTurbine::STATE_COMPLETED;
+			return 1;
 		}
 		break;
 	case CTurbine::STATE_COMPLETED:

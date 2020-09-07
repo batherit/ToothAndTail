@@ -7,10 +7,7 @@ class CWindmillBase :
 	public CComDepObj
 {
 public:
-	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_DESTROYED, STATE_END };
-
-public:
-	CWindmillBase(CGameWorld& _rGameWorld, float _fX, float _fY, CWindmillBase::E_STATE _eState, CCommander* _pCommander = nullptr);
+	CWindmillBase(CGameWorld& _rGameWorld, float _fX, float _fY, WINDMILL::E_STATE _eState, CCommander* _pCommander = nullptr);
 	virtual ~CWindmillBase();
 
 public:
@@ -20,9 +17,11 @@ public:
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void) override;
 	virtual float GetFloor() const override { return GetBottom() - 35.f; }
+	void SetWindmillBaseState(WINDMILL::E_STATE _eState);
+	WINDMILL::E_STATE GetState() const { return m_eState; }
 
 private:
-	CWindmillBase::E_STATE m_eState = CWindmillBase::STATE_BUILDING;
+	WINDMILL::E_STATE m_eState = WINDMILL::STATE_BUILDING;
 	CTurbine* m_pTurbine = nullptr;
 };
 

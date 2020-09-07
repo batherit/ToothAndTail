@@ -37,6 +37,7 @@ public:
 	bool IsMoveKeyPressed(float & _fToX, float & _fToY);
 	bool IsBuildKeyPressed(void) const;
 	bool IsFlagKeyPressed(CCommander::E_FLAG_TYPE& _eFlagType) const;
+	bool IsSpaceKeyPressed() const;
 
 	UINT GetMoney() const { return m_iMoney; }
 	void DecreseMoney(UINT _iAmount) { m_iMoney -= _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }

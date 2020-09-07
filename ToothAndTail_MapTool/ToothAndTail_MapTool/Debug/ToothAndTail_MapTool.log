@@ -1,3 +1,33 @@
-﻿  CTile.cpp
+﻿  stdafx.cpp
+  CCamera.cpp
+  CDeco.cpp
+  CForm.cpp
+  CGameWorld.cpp
+  CGraphicDevice.cpp
+  CMapEditor.cpp
+  CMultiTexture.cpp
+  CObj.cpp
+  CSingleTexture.cpp
+  CSpace.cpp
+  CSpriteObj.cpp
+  CTab1_Tile.cpp
+  CTab2_Deco.cpp
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\ctab2_deco.cpp(104): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\ctab2_deco.cpp(105): warning C4244: '초기화 중': 'UINT'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CTexture.cpp
+  CTextureMgr.cpp
+  CTile.cpp
 d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\ctile.cpp(42): warning C4838: 'size_t'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+  CTimer.cpp
+  Function.cpp
+  MainFrm.cpp
+  ToothAndTail_MapTool.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  ToothAndTail_MapToolDoc.cpp
+  ToothAndTail_MapToolView.cpp
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\toothandtail_maptoolview.cpp(211): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\toothandtail_maptoolview.cpp(209): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\toothandtail_maptoolview.cpp(210): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   ToothAndTail_MapTool.vcxproj -> D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe

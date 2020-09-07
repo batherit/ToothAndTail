@@ -56,6 +56,9 @@ void CTestScene::ResetScene(void)
 	m_pCommander[1]->SetXY(pNewPos);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 
+	// 점령되지 않은 제분소
+	pWindmill = new CWindmill(m_rGameWorld, 813, nullptr);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 	
 	//m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
 	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[1]); // 좀 고쳐야 된다.

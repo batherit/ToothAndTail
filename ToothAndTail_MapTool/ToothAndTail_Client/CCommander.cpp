@@ -5,6 +5,8 @@
 #include "CStateMgr.h"
 #include "CComState_Idle.h"
 #include "CTunnelGenerator.h"
+#include "CGameWorld.h"
+#include "CWindmill.h"
 
 
 
@@ -72,12 +74,32 @@ int CCommander::Update(float _fDeltaTime)
 
 	UpdateCommand(_fDeltaTime);
 
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
+		// 점령되지 않은 제분소를 찾는다.
+		CWindmill* pWindmill = nullptr;
+		for (auto& pObj : GetGameWorld().GetListObjs()) {
+			pWindmill = dynamic_cast<CWindmill*>(pObj);
+			// 제분소 중앙은 2*2 타일을 점령하고 있기 때문에 2를 곱하고 0.5배만큼의 오프셋을 두었다.
+			if (pWindmill && (pWindmill->GetState() == WINDMILL::STATE_UNOCCUPIED || pWindmill->GetState() == WINDMILL::STATE_DESTROYED)
+				&& IsPointInTile(GetXY(), pWindmill->GetXY(), TILE_WIDTH * BASE_SCALE * 2.5f, TILE_HEIGHT * BASE_SCALE * 2.5f)) {
+				break;
+			}
+			else pWindmill = nullptr;
+		}
+
+		if (pWindmill) {
+			pWindmill->Occupied(GetCommander());
+		}
+	}
+
 	return 0;
 }
 
 void CCommander::LateUpdate(void)
 {
 	if (m_bIsAI) return;
+
+	
 
 	m_pStateMgr->LateUpdate();
 }
@@ -164,6 +186,11 @@ bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
 		_eFlagType = CCommander::FLAG_TYPE_MILITARY;
 
 	return _eFlagType != CCommander::FLAG_TYPE_NONE;
+}
+
+bool CCommander::IsSpaceKeyPressed() const
+{
+	return CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_SPACE);
 }
 
 void CCommander::GenerateTunnel()

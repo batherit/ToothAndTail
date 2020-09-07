@@ -26,9 +26,12 @@ public:
 	//virtual void CollectGarbageObjs();
 	
 public:
+	CFarmland::E_STATE GetFarmlandState() const { return m_eState; }
 	void GenerateCrops(void);
 	void GeneratePig(void);
 	bool Cropped(float _fCroppedAmount);
+
+	//void Occupied(CCommander* _pCommander);
 
 private:
 	CFarmland::E_STATE m_eState = STATE_UNOCCUPIED;
