@@ -58,6 +58,7 @@ void CPig::Release(void)
 void CPig::InvalidateObj(void)
 {
 	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
+	m_pFarmland->ReleasePig(this);
 	CComDepObj::InvalidateObj();
 }
 

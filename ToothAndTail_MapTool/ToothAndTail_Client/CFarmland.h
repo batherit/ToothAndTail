@@ -30,6 +30,7 @@ public:
 	void GenerateCrops(void);
 	void GeneratePig(void);
 	bool Cropped(float _fCroppedAmount);
+	void ReleasePig(CPig* _pPig);
 
 	//void Occupied(CCommander* _pCommander);
 

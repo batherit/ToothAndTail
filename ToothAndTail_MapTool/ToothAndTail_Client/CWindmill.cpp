@@ -175,12 +175,14 @@ void CWindmill::Release(void)
 
 void CWindmill::InvalidateObj()
 {
+	// 일종의 무효화처리(무효화된 상태이므로 더이상 무효화하지 마라.)
+	if (GetState() == WINDMILL::STATE_DESTROYED) return;
 	// 자기 자신을 무효화한다.
 	//CComDepObj::InvalidateObj();
 	SetCommander(nullptr);
 	D3DXVECTOR3 vBurstPos = GetXY();
-	vBurstPos.y -= 200.f;
-	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), vBurstPos, 2.0f, 3.f));
+	vBurstPos.y -= 35.f * BASE_SCALE;
+	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), vBurstPos, 1.2f, 3.f));
 	// TODO : 점령 과정을 작성한다.
 	if (m_pWindmillBase) {
 		m_pWindmillBase->SetCommander(nullptr);

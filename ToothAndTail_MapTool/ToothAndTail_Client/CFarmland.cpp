@@ -163,7 +163,8 @@ void CFarmland::InvalidateObj()
 
 	// 돼지를 없앤다.
 	DO_IF_IS_VALID_OBJ(m_pPig) {
-		m_pPig->SetValid(false);
+		// 무효화한다.
+		m_pPig->InvalidateObj();
 		m_pPig = nullptr;
 	}
 }
@@ -200,6 +201,13 @@ void CFarmland::GeneratePig(void)
 bool CFarmland::Cropped(float _fCroppedAmount)
 {
 	return false;
+}
+
+void CFarmland::ReleasePig(CPig * _pPig)
+{
+	if (m_pPig == _pPig) {
+		m_pPig = nullptr;
+	}
 }
 
 //void CFarmland::Occupied(CCommander* _pCommander)

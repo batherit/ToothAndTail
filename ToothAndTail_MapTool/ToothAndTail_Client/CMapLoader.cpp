@@ -93,6 +93,7 @@ CTile * CMapLoader::GetTile(D3DXVECTOR3 _vPos) const
 
 CTile * CMapLoader::GetTile(int _iRow, int _iCol) const
 {
+	if (0 > _iRow || _iRow >= m_ciMapRow || 0 > _iCol || _iCol >= m_ciMapCol) return nullptr;
 	return GetTile(_iRow * m_ciMapCol + _iCol);
 }
 

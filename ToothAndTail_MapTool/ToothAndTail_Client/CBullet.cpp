@@ -72,7 +72,7 @@ int CBullet::Update(float _fDeltaTime)
 	
 	if (fLength <= 10.f || D3DXVec3Dot(&GetToXY(), &vToTarget) <= 0.f) {
 		// 탄환이 타겟 중점으로부터 10이하 길이로 있거나, 꿰뚫고 지나간 경우
-		DO_IF_IS_VALID_OBJ(m_pTarget) {
+		if(IS_VALID_OBJ(m_pTarget) && !m_pTarget->IsDead()) {
 			m_pTarget->TakeDamage(m_fDamage);
 			if (m_pTarget->IsDead())
 				// 타겟이 죽었다면 무효화한다.

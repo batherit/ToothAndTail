@@ -190,7 +190,7 @@ bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
 
 bool CCommander::IsSpaceKeyPressed() const
 {
-	return CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_SPACE);
+	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
 }
 
 void CCommander::GenerateTunnel()
