@@ -3,6 +3,7 @@
 #include "CUI_Image.h"
 #include "CTextureMgr.h"
 #include "CUI_Minimap.h"
+#include "CCommander.h"
 
 
 CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, const D3DXVECTOR3 & _rPos)
@@ -72,6 +73,13 @@ void CUI_InGameUI::Release(void)
 void CUI_InGameUI::Render(CCamera * _pCamera)
 {
 	m_pLeftWoodBack->Render(nullptr);
+	
+	TCHAR szBuf[64] = L"NULL";
+	if (m_pCommander) {
+		swprintf_s(szBuf, L"%d", m_pCommander->GetMoney());	
+	}
+	CGraphicDevice::GetInstance()->RenderText(szBuf, D3DXVECTOR3(260.f, WINCY - 70.f, 0.f));
+
 	m_pMiddleWoodBack->Render(nullptr);
 	m_pRightWoodBack->Render(nullptr);
 
