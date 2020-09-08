@@ -41,12 +41,17 @@ void CSpriteObj::Render(CCamera * _pCamera)
 	// RenderOffset을 적용한다.
 	matScreen._41 += GetRenderOffsetX();
 	matScreen._42 += GetRenderOffsetY();
-	matScreen = _pCamera->GetScreenMatrix(matScreen);
+	if(_pCamera) matScreen = _pCamera->GetScreenMatrix(matScreen);
 
 	// 컬링을 적용한다.
 	RECT rcObjRect = GetRect();
-	D3DXVECTOR3 vViewLeftTopW = _pCamera->GetWorldPoint(D3DXVECTOR3(0.f, 0.f, 0.f));
-	D3DXVECTOR3 vViewRightBottomW = _pCamera->GetWorldPoint(D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f));
+	D3DXVECTOR3 vViewLeftTopW = D3DXVECTOR3(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vViewRightBottomW = D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f);
+	if (_pCamera) {
+		vViewLeftTopW = _pCamera->GetWorldPoint(vViewLeftTopW);
+		vViewRightBottomW = _pCamera->GetWorldPoint(vViewRightBottomW);
+	}
+
 	RECT rcViewRect = {
 		static_cast<LONG>(vViewLeftTopW.x /*+ GetRenderOffsetX()*/),
 		static_cast<LONG>(vViewLeftTopW.y /*+ GetRenderOffsetY()*/),

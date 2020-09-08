@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "UI_Gauge.h"
+#include "CUI_Gauge.h"
 
 
 //CUI_Gauge::CUI_Gauge(CGameWorld& _rGameWorld, CObj* _pOwner, size_t _iMaxWidth, size_t _iMaxHeight, float _fMax, float _fCurrent, float _fOffsetX /*= 0.f*/, float _fOffsetY /*= 0.f*/, UI::E_GAUGE _eDir /*= UI::GAUGE_HORIZONTAL*/)

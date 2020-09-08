@@ -49,6 +49,7 @@ void SafelyDeleteObj(T& rObj) {
 		rObj = nullptr;
 	}
 }
+
 template<typename T>
 void SafelyDeleteObjs(list<T>& _list) {
 	for (auto& pObj : _list) { SafelyDeleteObj(pObj); }

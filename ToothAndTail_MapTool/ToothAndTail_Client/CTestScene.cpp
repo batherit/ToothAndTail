@@ -16,6 +16,7 @@ CTestScene::CTestScene(CGameWorld & _rGameWorld)
 	:
 	CScene(_rGameWorld)
 {
+	ResetScene();
 }
 
 CTestScene::~CTestScene()

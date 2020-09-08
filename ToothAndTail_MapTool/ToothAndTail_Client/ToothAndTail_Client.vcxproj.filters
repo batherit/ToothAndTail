@@ -153,6 +153,15 @@
     <Filter Include="소스 파일\1.CObj\UI\Gauge">
       <UniqueIdentifier>{8c5f110c-70ef-46aa-a96d-b1c5b93a4fae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.Scene\TitleScene">
+      <UniqueIdentifier>{b3e703a2-3bcb-4f3b-a199-c2cb1c39a930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\Burst">
+      <UniqueIdentifier>{c3653da8-b9cd-473a-a41a-1df69b645239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\Image">
+      <UniqueIdentifier>{001f8f76-03e8-4da0-8d92-6daf98439291}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -374,12 +383,20 @@
     <ClInclude Include="CFoxState_Attack.h">
       <Filter>소스 파일\1.State\Fox</Filter>
     </ClInclude>
-    <ClInclude Include="CBurst.h" />
-    <ClInclude Include="UI_Button.h">
+    <ClInclude Include="CTitleScene.h">
+      <Filter>소스 파일\1.Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CBurst.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\Burst</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_Button.h">
       <Filter>소스 파일\1.CObj\UI\Button</Filter>
     </ClInclude>
-    <ClInclude Include="UI_Gauge.h">
+    <ClInclude Include="CUI_Gauge.h">
       <Filter>소스 파일\1.CObj\UI\Gauge</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_Image.h">
+      <Filter>소스 파일\1.CObj\UI\Image</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -593,14 +610,20 @@
     <ClCompile Include="CFoxState_Attack.cpp">
       <Filter>소스 파일\1.State\Fox</Filter>
     </ClCompile>
-    <ClCompile Include="CBurst.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="CTitleScene.cpp">
+      <Filter>소스 파일\1.Scene\TitleScene</Filter>
     </ClCompile>
-    <ClCompile Include="UI_Button.cpp">
+    <ClCompile Include="CBurst.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\Burst</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Button.cpp">
       <Filter>소스 파일\1.CObj\UI\Button</Filter>
     </ClCompile>
-    <ClCompile Include="UI_Gauge.cpp">
+    <ClCompile Include="CUI_Gauge.cpp">
       <Filter>소스 파일\1.CObj\UI\Gauge</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Image.cpp">
+      <Filter>소스 파일\1.CObj\UI\Image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

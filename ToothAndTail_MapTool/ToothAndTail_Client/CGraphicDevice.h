@@ -14,6 +14,7 @@ public:
 	LPD3DXFONT GetFont() { return m_pFont; }
 
 public:
+	void RenderText(const wstring& _wstrText, D3DXVECTOR3 _vPos, float _fScale = 1.f, D3DXCOLOR _clRenderColor = D3DCOLOR_ARGB(255, 255, 255, 255));
 	HRESULT GenerateGraphicDevice();
 	void ReleaseGraphicDevice();
 

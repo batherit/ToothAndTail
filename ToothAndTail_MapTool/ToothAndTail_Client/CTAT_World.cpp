@@ -2,6 +2,7 @@
 #include "CTAT_World.h"
 #include "CSceneMgr.h"
 #include "CTestScene.h"
+#include "CTitleScene.h"
 #include "CTextureMgr.h"
 #include "CTimer.h"
 #include "CCamera.h"
@@ -42,7 +43,8 @@ void CTAT_World::Ready(void)
 {
 	LoadTextures();
 		
-	GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
+	//GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
+	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	GetSceneManager()->RequestSceneInit();
 	m_pCamera = new CCamera(*this, nullptr, 0.f, 0.f);
 	SetMainCamera(m_pCamera);		//.. 메인 카메라 세팅

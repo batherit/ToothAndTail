@@ -45,3 +45,4 @@ using namespace std;
 
 #include "CObj.h"
 #include "CSpriteObj.h"
+#include "CUI_Button.h"

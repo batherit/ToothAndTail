@@ -13,6 +13,17 @@ CGraphicDevice::~CGraphicDevice()
 	ReleaseGraphicDevice();
 }
 
+void CGraphicDevice::RenderText(const wstring & _wstrText, D3DXVECTOR3 _vPos, float _fScale, D3DXCOLOR _clRenderColor)
+{
+	D3DXMATRIX matWorld, matScale, matTrans;
+	D3DXMatrixScaling(&matScale, _fScale, _fScale, _fScale);
+	D3DXMatrixTranslation(&matTrans, _vPos.x, _vPos.y, _vPos.z);
+	matWorld = matScale * matTrans;
+	m_pSprite->SetTransform(&matWorld);
+
+	m_pFont->DrawTextW(m_pSprite, _wstrText.c_str(), _wstrText.length(), nullptr, 0, _clRenderColor);
+}
+
 HRESULT CGraphicDevice::GenerateGraphicDevice()
 {
 	// 장치 초기화 과정
@@ -80,11 +91,13 @@ HRESULT CGraphicDevice::GenerateGraphicDevice()
 	// 폰트 정보를 세팅한다.
 	D3DXFONT_DESCW tFontInfo;
 	ZeroMemory(&tFontInfo, sizeof(D3DXFONT_DESCW));
-	tFontInfo.Height = 20;
-	tFontInfo.Width = 20;
+	//tFontInfo.Height = DEFAULT_;
+	//tFontInfo.Width = 24;
+	tFontInfo.Height = 70;
+	tFontInfo.Width = 35;
 	tFontInfo.Weight = FW_HEAVY;
-	tFontInfo.CharSet = HANGUL_CHARSET;
-	lstrcpy(tFontInfo.FaceName, L"메이플스토리");
+	tFontInfo.CharSet = DEFAULT_CHARSET;
+	lstrcpy(tFontInfo.FaceName, L"FFF Forward");
 
 	// 폰트를 생성한다.
 	if (FAILED(D3DXCreateFontIndirect(m_pDevice, &tFontInfo, &m_pFont)))

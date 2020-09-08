@@ -208,9 +208,11 @@
     <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTunnel.h" />
     <ClInclude Include="CTunnelGenerator.h" />
     <ClInclude Include="CTurbine.h" />
+    <ClInclude Include="CUI_Image.h" />
     <ClInclude Include="CUnitGenerator.h" />
     <ClInclude Include="CWindmill.h" />
     <ClInclude Include="CWindmillBase.h" />
@@ -221,8 +223,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="ToothAndTail_Client.h" />
-    <ClInclude Include="UI_Button.h" />
-    <ClInclude Include="UI_Gauge.h" />
+    <ClInclude Include="CUI_Button.h" />
+    <ClInclude Include="CUI_Gauge.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBadger.cpp" />
@@ -286,9 +288,11 @@
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTunnel.cpp" />
     <ClCompile Include="CTunnelGenerator.cpp" />
     <ClCompile Include="CTurbine.cpp" />
+    <ClCompile Include="CUI_Image.cpp" />
     <ClCompile Include="CUnitGenerator.cpp" />
     <ClCompile Include="CWindmill.cpp" />
     <ClCompile Include="CWindmillBase.cpp" />
@@ -301,8 +305,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ToothAndTail_Client.cpp" />
-    <ClCompile Include="UI_Button.cpp" />
-    <ClCompile Include="UI_Gauge.cpp" />
+    <ClCompile Include="CUI_Button.cpp" />
+    <ClCompile Include="CUI_Gauge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ToothAndTail_Client.rc" />
