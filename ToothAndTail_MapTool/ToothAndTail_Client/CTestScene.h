@@ -4,6 +4,7 @@
 class CSpriteObj;
 class CCommander;
 class CMapLoader;
+class CUI_InGameUI;
 class CTestScene :
 	public CScene
 {
@@ -21,5 +22,6 @@ public:
 private:
 	//CSpriteObj* m_pMap = nullptr;
 	CCommander* m_pCommander[4] = { nullptr, };
+	CUI_InGameUI* m_pInGameUI = nullptr;
 };
 

@@ -10,6 +10,7 @@
 #include "CMapLoader.h"
 #include "CTile.h"
 #include "CDeco.h"
+#include "CUI_InGameUI.h"
 
 
 CTestScene::CTestScene(CGameWorld & _rGameWorld)
@@ -47,6 +48,9 @@ void CTestScene::ResetScene(void)
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE ;
 	m_pCommander[0]->SetXY(pNewPos);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
+
+	// 인게임 UI 생성
+	m_pInGameUI = new CUI_InGameUI(m_rGameWorld, m_pCommander[0]);
 
 	m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
 	m_pCommander[1]->SetAI(true);
@@ -133,6 +137,7 @@ void CTestScene::Release(void)
 	CMapLoader* pOldMapLoader = m_rGameWorld.SetMapLoader(nullptr);
 	SafelyDeleteObj(pOldMapLoader);
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
+	SafelyDeleteObj(m_pInGameUI);
 }
 
 void CTestScene::Render(CCamera * _pCamera)
@@ -146,4 +151,6 @@ void CTestScene::Render(CCamera * _pCamera)
 
 		return pObj1->GetFloor() < pObj2->GetFloor();
 	});
+
+	m_pInGameUI->Render(_pCamera);
 }

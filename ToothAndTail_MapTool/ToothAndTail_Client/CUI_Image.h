@@ -36,6 +36,7 @@ public:
 		m_rcExtractionArea = _rcExractionArea;
 		SetScaleX(static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left));
 		SetScaleY(static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
+		SetSize((m_rcExtractionArea.right - m_rcExtractionArea.left), (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
 	}
 	void SetExtractionArea(LONG _lLeft, LONG _lTop, LONG _lRight, LONG _lBottom) {
 		SetExtractionArea(RECT({ _lLeft, _lTop, _lRight, _lBottom }));
