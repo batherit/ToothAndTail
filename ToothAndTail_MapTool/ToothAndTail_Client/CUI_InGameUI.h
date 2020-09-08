@@ -4,6 +4,7 @@
 class CCommander;
 class CUI_Image;
 class CCamera;
+class CUI_Minimap;
 class CUI_InGameUI :
 	public CObj
 {
@@ -24,5 +25,7 @@ private:
 	CUI_Image* m_pLeftWoodBack = nullptr;
 	CUI_Image* m_pMiddleWoodBack = nullptr;
 	CUI_Image* m_pRightWoodBack = nullptr;
+
+	CUI_Minimap* m_pMinimap = nullptr;
 };
 

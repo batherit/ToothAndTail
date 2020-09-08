@@ -22,12 +22,7 @@ public:
 
 public:
 	void GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring& _wstrTintKey, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
-	D3DCOLOR GetIdentificationTint(void) {
-		D3DCOLOR clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255);
-		if (m_pIdentificationTintSprite)
-			clIdentificationTint = m_pIdentificationTintSprite->GetRenderColor();
-		return clIdentificationTint;
-	}
+	D3DCOLOR GetIdentificationTint(void) const;
 
 	// 명령 관련
 	int GetID(void) const { return m_iID; }
@@ -51,6 +46,8 @@ public:
 	bool IsDead() const { return m_iHP <= 0; }
 	void TakeDamage(int _iDamageAmount) { m_iHP -= _iDamageAmount; if (m_iHP < 0) m_iHP = 0; }
 	void UpdateSpriteDir(void);
+	void SetMinimapSign(MINIMAP::E_SIGN _eMinimapSign) { m_eMinimapSign = _eMinimapSign; }
+	MINIMAP::E_SIGN GetMinimapSign() const { return m_eMinimapSign; }
 
 protected:
 	void SetID(int _iID) { m_iID = _iID; }
@@ -67,5 +64,6 @@ private:
 	int m_iHP = 100;
 	
 	TileSiteInfo m_tTilesiteInfo;
+	MINIMAP::E_SIGN m_eMinimapSign = MINIMAP::SIGN_NONE;
 };
 

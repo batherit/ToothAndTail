@@ -7,9 +7,9 @@ CUI_Image::CUI_Image(CGameWorld & _rGameWorld, const TextureInfo * _pTextureInfo
 	:
 	CObj(_rGameWorld, _vPos.x, _vPos.y, 10U, 10U)
 {
-	SetTextureInfo(_pTextureInfo);
-	SetSize(_pTextureInfo->tImageInfo.Width, _pTextureInfo->tImageInfo.Height);
 	if (_pTextureInfo) {
+		SetTextureInfo(_pTextureInfo);
+		SetSize(_pTextureInfo->tImageInfo.Width, _pTextureInfo->tImageInfo.Height);
 		SetExtractionArea(RECT({ 0, 0, static_cast<LONG>(m_iWidth), static_cast<LONG>(m_iHeight) }));
 		SetOutputArea(RECT(
 			{
@@ -29,11 +29,10 @@ void CUI_Image::Render(CCamera * _pCamera)
 {
 	if (!m_pTextureInfo) return;
 
-	// 스케일 조정
-	//SetScaleX(static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / static_cast<float>(m_rcExtractionArea.right - m_rcOutputArea.left));
-	//SetScaleY(static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / static_cast<float>(m_rcExtractionArea.bottom - m_rcOutputArea.top));
-
-	D3DXMATRIX matScreen = GetObjectMatrix();
+	D3DXMATRIX matScreen;
+	// 보정 비율을 곱한다.
+	D3DXMatrixScaling(&matScreen, m_fCorrectionRatioX, m_fCorrectionRatioY, 0.f);
+	matScreen *= GetObjectMatrix();
 	// RenderOffset을 적용한다.
 	matScreen._41 += GetRenderOffsetX();
 	matScreen._42 += GetRenderOffsetY();
@@ -62,9 +61,11 @@ void CUI_Image::Render(CCamera * _pCamera)
 	CGraphicDevice::GetInstance()->GetSprite()->Draw(
 		m_pTextureInfo->pTexture,
 		&m_rcExtractionArea,
-		&D3DXVECTOR3(static_cast<FLOAT>(m_iWidth >> 1), static_cast<FLOAT>(m_iHeight >> 1), 0.f),
-		nullptr,
-		m_clRenderColor);
+		&D3DXVECTOR3(
+			static_cast<FLOAT>((m_rcExtractionArea.right - m_rcExtractionArea.left) >> 1), 
+			static_cast<FLOAT>((m_rcExtractionArea.bottom - m_rcExtractionArea.top) >> 1),
+			0.f),
+		nullptr, m_clRenderColor);
 }
 
 void CUI_Image::Ready(void)

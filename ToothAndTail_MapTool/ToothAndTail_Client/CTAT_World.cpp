@@ -181,7 +181,7 @@ void CTAT_World::LoadTextures(void)
 	// Æø¹ß ÀÌÆåÆ®
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Atlas/particles.png", L"BURST"))) return;
 
-	// UI
+	// UI ¾ÆÆ²¶ó½º
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Atlas/ui.png", L"UI_SET"))) return;
 
 	// Å¸ÀÌÆ²
@@ -193,4 +193,10 @@ void CTAT_World::LoadTextures(void)
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/UI/Buttons/buttontab1_on.png", L"BUTTON_ON"))) return;
 	// 2) ¹öÆ° OFF
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/UI/Buttons/buttontab1_off.png", L"BUTTON_OFF"))) return;
+
+	// ¹Ì´Ï¸Ê
+	// 1) ¹Ì´Ï¸Ê
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/Map1.png", L"MINIMAP"))) return;
+	// 2) ¹Ì´Ï¸Ê Ç¥½Ä
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/unit.png", L"MINIMAP_SIGN"))) return;
 }

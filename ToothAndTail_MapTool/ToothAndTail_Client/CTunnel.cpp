@@ -21,6 +21,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE 
 	m_eSize(_eSize)
 	//m_pUnitGenerator(_pUnitGenerator)	// 외부에서 할당받아서 내부에서 해제한다.
 {
+	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
@@ -90,6 +91,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	m_eUnitType(_eUnitType),
 	m_eSize(_eSize)
 {
+	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
 	SetScaleXY(BASE_SCALE, BASE_SCALE);

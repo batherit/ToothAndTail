@@ -3,6 +3,7 @@
 #include "CTile.h"
 #include "CDeco.h"
 #include "CTextureMgr.h"
+#include "CUI_Image.h"
 
 
 CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const wstring & wstrMapFilePath)
@@ -18,9 +19,11 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const wstring & wstrMapFilePath
 	ClearObjs();
 
 	// 맵 정보 생성
-	m_pMap = new CSpriteObj(m_rGameWorld, (MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE, MAP_WIDTH, MAP_HEIGHT);
-	m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
-	m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
+	//m_pMap = new CSpriteObj(m_rGameWorld, (MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE, MAP_WIDTH, MAP_HEIGHT);
+	//m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
+	//m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
+	m_pMapImage = new CUI_Image(m_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
+	m_pMapImage->SetOutputArea(0, 0, MAP_WIDTH * BASE_SCALE, MAP_HEIGHT * BASE_SCALE);
 	
 	// 맵 오브젝트 정보 생성
 	LoadMapBorderLines(hFile);
@@ -42,7 +45,7 @@ void CMapLoader::Release(void)
 
 void CMapLoader::RenderMap(CCamera * _pCamera)
 {
-	m_pMap->Render(_pCamera);
+	m_pMapImage->Render(_pCamera);
 }
 
 void CMapLoader::RenderTile(CCamera * _pCamera)
@@ -145,7 +148,7 @@ const void CMapLoader::PushObjectInMap(CObj * pObj)
 
 void CMapLoader::ClearObjs()
 {
-	SafelyDeleteObj(m_pMap);
+	SafelyDeleteObj(m_pMapImage);
 	SafelyDeleteObjs(m_vecTiles);
 	m_vecBlockingTiles.clear();
 	m_vecBlockingTiles.shrink_to_fit();

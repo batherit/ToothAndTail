@@ -14,6 +14,7 @@ CPig::CPig(CGameWorld & _rGameWorld, CFarmland* _pFarmland, CCommander * _pComma
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, PIG_WIDTH, PIG_HEIGHT),
 	m_pFarmland(_pFarmland)
 {
+	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetDetectionRange(PIG_DETECTION_RANGE);
 
 	SetRenderLayer(10);

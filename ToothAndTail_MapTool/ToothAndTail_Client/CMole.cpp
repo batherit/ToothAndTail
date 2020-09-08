@@ -10,6 +10,7 @@ CMole::CMole(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunn
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, MOLE_WIDTH, MOLE_HEIGHT, 0.f, 1.f, MOLE_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(MOLE_DETECTION_RANGE);
 

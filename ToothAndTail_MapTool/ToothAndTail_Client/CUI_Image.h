@@ -4,7 +4,7 @@ class CUI_Image :
 	public CObj
 {
 public:
-	CUI_Image(CGameWorld& _rGameWorld, const TextureInfo* _pTextureInfo, const D3DXVECTOR3& _vPos);
+	CUI_Image(CGameWorld& _rGameWorld, const TextureInfo* _pTextureInfo, const D3DXVECTOR3& _vPos = D3DXVECTOR3(0.f, 0.f, 0.f));
 	virtual ~CUI_Image();
 
 public:
@@ -19,8 +19,9 @@ public:
 	void SetOutputArea(const RECT& _rcOutputArea) { 
 		m_rcOutputArea = _rcOutputArea;
 		SetXY(static_cast<float>(_rcOutputArea.left + _rcOutputArea.right) * 0.5f, static_cast<float>(_rcOutputArea.top + _rcOutputArea.bottom) * 0.5f);
-		SetScaleX(static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left));
-		SetScaleY(static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
+		m_fCorrectionRatioX = static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left);
+		m_fCorrectionRatioY = static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / (m_rcExtractionArea.bottom - m_rcExtractionArea.top);
+		SetSize((m_rcOutputArea.right - m_rcOutputArea.left), (m_rcOutputArea.bottom - m_rcOutputArea.top));
 	}
 	void SetOutputArea(LONG _lLeft, LONG _lTop, LONG _lRight, LONG _lBottom) {
 		SetOutputArea(RECT({ _lLeft, _lTop, _lRight, _lBottom }));
@@ -34,9 +35,9 @@ public:
 	}
 	void SetExtractionArea(const RECT& _rcExractionArea) { 
 		m_rcExtractionArea = _rcExractionArea;
-		SetScaleX(static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left));
-		SetScaleY(static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
-		SetSize((m_rcExtractionArea.right - m_rcExtractionArea.left), (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
+		m_fCorrectionRatioX = static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left);
+		m_fCorrectionRatioY = static_cast<float>(m_rcOutputArea.bottom - m_rcOutputArea.top) / (m_rcExtractionArea.bottom - m_rcExtractionArea.top);
+		//SetSize((m_rcExtractionArea.right - m_rcExtractionArea.left), (m_rcExtractionArea.bottom - m_rcExtractionArea.top));
 	}
 	void SetExtractionArea(LONG _lLeft, LONG _lTop, LONG _lRight, LONG _lBottom) {
 		SetExtractionArea(RECT({ _lLeft, _lTop, _lRight, _lBottom }));
@@ -52,7 +53,8 @@ private:
 	RECT m_rcOutputArea;
 	RECT m_rcExtractionArea;
 	D3DXCOLOR m_clRenderColor = D3DCOLOR_ARGB(255, 255, 255, 255);
-
+	float m_fCorrectionRatioX = 1.f;
+	float m_fCorrectionRatioY = 1.f;
 	
 };
 

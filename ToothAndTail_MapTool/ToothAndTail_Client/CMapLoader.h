@@ -3,6 +3,7 @@ class CGameWorld;
 class CSpriteObj;
 class CTile;
 class CDeco;
+class CUI_Image;
 
 class CMapLoader final
 {
@@ -20,6 +21,8 @@ public:
 	bool IsTileInRange(int iRow, int iCol) const;
 	bool IsTileInRange(int iLineIndex) const;
 	bool IsEmptyLot(const D3DXVECTOR3& _vPos, int _iRow, int _iCol, int _iPivotI, int _iPivotJ);
+
+	CUI_Image* GetMapImage() const { return m_pMapImage; }
 	const vector<CTile*>& GetTiles() { return m_vecTiles; }
 	CTile* GetTile(D3DXVECTOR3 _vPos) const;
 	CTile* GetTile(int _iRow, int _iCol) const;
@@ -42,7 +45,7 @@ private:
 
 private:
 	CGameWorld& m_rGameWorld;
-	CSpriteObj* m_pMap = nullptr;
+	CUI_Image* m_pMapImage = nullptr;
 	D3DXVECTOR3 m_vMapBorderLines[4];
 	vector<CTile*> m_vecTiles;
 	vector<CTile*> m_vecBlockingTiles;

@@ -165,6 +165,9 @@
     <Filter Include="소스 파일\1.CObj\UI\InGameUI">
       <UniqueIdentifier>{bccfec52-3556-45ad-bebd-cd1b09cddf2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\Minimap">
+      <UniqueIdentifier>{97233a81-1739-404a-b04b-d68292b15bd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -404,6 +407,9 @@
     <ClInclude Include="CUI_InGameUI.h">
       <Filter>소스 파일\1.CObj\UI\InGameUI</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_Minimap.h">
+      <Filter>소스 파일\1.CObj\UI\Minimap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -633,6 +639,9 @@
     </ClCompile>
     <ClCompile Include="CUI_InGameUI.cpp">
       <Filter>소스 파일\1.CObj\UI\InGameUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Minimap.cpp">
+      <Filter>소스 파일\1.CObj\UI\Minimap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

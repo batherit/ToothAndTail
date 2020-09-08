@@ -68,6 +68,17 @@ void CComDepObj::GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, 
 	m_pIdentificationTintSprite->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(_wstrTintKey));
 }
 
+D3DCOLOR CComDepObj::GetIdentificationTint(void) const
+{
+	D3DCOLOR clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255);
+	if (m_pIdentificationTintSprite)
+		clIdentificationTint = m_pIdentificationTintSprite->GetRenderColor();
+	else if (m_pCommander && m_pCommander != this) {
+		clIdentificationTint = m_pCommander->GetIdentificationTint();
+	}
+	return clIdentificationTint;
+}
+
 void CComDepObj::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificationTint){
 	m_pCommander = _pCommander;
 	if (m_pCommander && (m_pCommander != this)) {

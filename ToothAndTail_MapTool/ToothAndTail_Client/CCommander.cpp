@@ -16,6 +16,8 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_eCommanderType(_eCommanderType)/*,
 	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
 {
+	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
+
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
 	wstring wstrCommander = L"";
 	switch (_eCommanderType)

@@ -62,6 +62,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	:
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
+	SetMinimapSign(MINIMAP::SIGN_WINDMILL);
 	// 이부분 마음에 안들어
 	SetTileSiteInfo(TileSiteInfo(_iLineIndex, 6, 6, 3, 3));
 	CMapLoader* pMapLoader = _rGameWorld.GetMapLoader();
@@ -197,7 +198,7 @@ void CWindmill::Occupied(CCommander* _pCommander)
 {
 	/*if (m_eState != CWindmill::STATE_UNOCCUPIED && m_eState != CWindmill::STATE_DESTROYED) return;
 	m_eState = CWindmill::STATE_BUILDING;*/
-
+	SetCommander(_pCommander);
 	// TODO : 점령 과정을 작성한다.
 	if (m_pWindmillBase) {
 		m_pWindmillBase->SetCommander(_pCommander);
