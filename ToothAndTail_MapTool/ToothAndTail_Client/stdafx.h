@@ -46,3 +46,8 @@ using namespace std;
 #include "CObj.h"
 #include "CSpriteObj.h"
 #include "CUI_Button.h"
+
+#include <io.h>
+#include "fmod.h"
+#pragma comment(lib, "fmodex_vc.lib")
+#include "CSoundMgr.h"

@@ -33,6 +33,7 @@ CTitleScene::CTitleScene(CGameWorld & _rGameWorld)
 		, this, &CTitleScene::ClickQuitButton);
 	m_pExitButton->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_HOVERED, &CTitleScene::HoveredOnExitButton, nullptr);
 	m_pExitButton->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_UNHOVERED, &CTitleScene::UnhoveredOnExitButton, nullptr);
+	CSoundMgr::GetInstance()->PlayBGM(L"Title.wav");
 }
 
 CTitleScene::~CTitleScene()
@@ -95,7 +96,10 @@ void CTitleScene::Release(void)
 void CTitleScene::HoveredOnStartButton(void *)
 {
 	// 시작 버튼 온
-	m_bIsOnStartButtonHovered = true;
+	if (!m_bIsOnStartButtonHovered) {
+		CSoundMgr::GetInstance()->PlaySound(TEXT("Menu_OnMouse.wav"), CSoundMgr::UI);
+		m_bIsOnStartButtonHovered = true;
+	}
 }
 
 void CTitleScene::UnhoveredOnStartButton(void *)
@@ -107,13 +111,18 @@ void CTitleScene::UnhoveredOnStartButton(void *)
 void CTitleScene::ClickStartButton(void *)
 {
 	// TODO : 플레이 씬으로 넘어간다.
+	CSoundMgr::GetInstance()->StopSound(CSoundMgr::BGM);
 	m_rGameWorld.GetSceneManager()->SetNextScene(new CTestScene(m_rGameWorld));
 }
 
 void CTitleScene::HoveredOnExitButton(void *)
 {
 	// 종료 버튼 온
-	m_bIsOnExitButtonHovered = true;
+	if (!m_bIsOnExitButtonHovered) {
+		CSoundMgr::GetInstance()->PlaySound(TEXT("Menu_OnMouse.wav"), CSoundMgr::UI);
+		m_bIsOnExitButtonHovered = true;
+	}
+	
 }
 
 void CTitleScene::UnhoveredOnExitButton(void *)

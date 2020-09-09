@@ -47,6 +47,9 @@ public:
 	void RenderListObjs(CCamera* _pCamera, bool(*funcComp)(CObj* obj1, CObj* obj2) = [](CObj*, CObj*) { return false; });
 
 private:
+	virtual void LoadResources() = 0;
+
+private:
 	CGraphicDevice* m_pGraphicDevice = nullptr;
 
 	CMapLoader* m_pMapLoader_Main = nullptr;

@@ -41,7 +41,7 @@ LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 
 void CTAT_World::Ready(void)
 {
-	LoadTextures();
+	LoadResources();
 		
 	//GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
@@ -75,11 +75,15 @@ void CTAT_World::Release(void)
 {
 	CKeyMgr::DestroyInstance();
 	CTextureMgr::DestroyInstance();
+	CSoundMgr::DestroyInstance();
 	SafelyDeleteObj(m_pCamera);
 }
 
-void CTAT_World::LoadTextures(void)
+void CTAT_World::LoadResources(void)
 {
+	// 사운드 로드
+	CSoundMgr::GetInstance()->Initialize();
+
 	// 맵
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/Map0.png", L"MAP"))) return;
 

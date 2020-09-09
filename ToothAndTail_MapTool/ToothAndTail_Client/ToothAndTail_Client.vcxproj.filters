@@ -177,6 +177,9 @@
     <Filter Include="소스 파일\1.CObj\UI\BuildGauge">
       <UniqueIdentifier>{b2d31f7b-a5a3-40c8-830a-c499cfa80f7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\97.FMOD">
+      <UniqueIdentifier>{197b0c85-9474-4780-abdb-33e2afa1622e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -428,6 +431,30 @@
     <ClInclude Include="CUI_BuildGauge.h">
       <Filter>소스 파일\1.CObj\UI\BuildGauge</Filter>
     </ClInclude>
+    <ClInclude Include="fmod.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod.hpp">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_codec.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_errors.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_memoryinfo.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_output.h">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -670,6 +697,9 @@
     <ClCompile Include="CUI_BuildGauge.cpp">
       <Filter>소스 파일\1.CObj\UI\BuildGauge</Filter>
     </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ToothAndTail_Client.rc">
@@ -683,5 +713,18 @@
     <Image Include="ToothAndTail_Client.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fmodex.dll">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </None>
+    <None Include="fmodexL.dll">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="fmodex_vc.lib">
+      <Filter>소스 파일\97.FMOD</Filter>
+    </Library>
   </ItemGroup>
 </Project>
