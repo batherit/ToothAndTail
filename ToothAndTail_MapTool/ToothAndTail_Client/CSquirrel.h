@@ -15,6 +15,7 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate() override;
 	virtual void Release() override;
+	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 
 public:
 	CStateMgr<CSquirrel>* GetStateMgr(void) const { return m_pStateMgr; }

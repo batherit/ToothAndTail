@@ -33,6 +33,19 @@ public:
 			static_cast<LONG>(_ptPos.x + _iWidth * 0.5f),
 			static_cast<LONG>(_ptPos.y + _iHeight * 0.5f)}));
 	}
+	void SetSyncOutputArea(const RECT& _rcOutputArea) {
+		RECT rcNewExtractionArea = {
+			static_cast<LONG>(m_rcExtractionArea.left + (_rcOutputArea.left - m_rcOutputArea.left) / m_fCorrectionRatioX) ,
+			static_cast<LONG>(m_rcExtractionArea.top + (_rcOutputArea.top - m_rcOutputArea.top) / m_fCorrectionRatioY),
+			static_cast<LONG>(m_rcExtractionArea.right + (_rcOutputArea.right - m_rcOutputArea.right) / m_fCorrectionRatioX),
+			static_cast<LONG>(m_rcExtractionArea.bottom + (_rcOutputArea.bottom - m_rcOutputArea.bottom) / m_fCorrectionRatioY)
+		};
+		m_rcExtractionArea = rcNewExtractionArea;
+		m_rcOutputArea = _rcOutputArea;
+		SetXY(static_cast<float>(_rcOutputArea.left + _rcOutputArea.right) * 0.5f, static_cast<float>(_rcOutputArea.top + _rcOutputArea.bottom) * 0.5f);	
+		SetSize((m_rcOutputArea.right - m_rcOutputArea.left), (m_rcOutputArea.bottom - m_rcOutputArea.top));
+	}
+	
 	void SetExtractionArea(const RECT& _rcExractionArea) { 
 		m_rcExtractionArea = _rcExractionArea;
 		m_fCorrectionRatioX = static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left);
@@ -42,6 +55,9 @@ public:
 	void SetExtractionArea(LONG _lLeft, LONG _lTop, LONG _lRight, LONG _lBottom) {
 		SetExtractionArea(RECT({ _lLeft, _lTop, _lRight, _lBottom }));
 	}
+
+	
+
 	void SetTextureInfo(const TextureInfo* _pTextureInfo) { if (_pTextureInfo) m_pTextureInfo = _pTextureInfo; }
 	void SetRenderColor(const D3DXCOLOR& _clRenderColor) { m_clRenderColor = _clRenderColor; }
 

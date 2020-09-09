@@ -171,6 +171,9 @@
     <Filter Include="소스 파일\1.CObj\UI\UnitSign">
       <UniqueIdentifier>{97e3daf1-1ccd-4f01-b44f-bbee33d0dccd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\UnitHP">
+      <UniqueIdentifier>{125a410a-6af7-4834-b6d0-87e1c8c0f81d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -413,7 +416,12 @@
     <ClInclude Include="CUI_Minimap.h">
       <Filter>소스 파일\1.CObj\UI\Minimap</Filter>
     </ClInclude>
-    <ClInclude Include="CUI_UnitSign.h" />
+    <ClInclude Include="CUI_UnitSign.h">
+      <Filter>소스 파일\1.CObj\UI\UnitSign</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_UnitHP.h">
+      <Filter>소스 파일\1.CObj\UI\UnitHP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -648,7 +656,10 @@
       <Filter>소스 파일\1.CObj\UI\Minimap</Filter>
     </ClCompile>
     <ClCompile Include="CUI_UnitSign.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\1.CObj\UI\UnitSign</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_UnitHP.cpp">
+      <Filter>소스 파일\1.CObj\UI\UnitHP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

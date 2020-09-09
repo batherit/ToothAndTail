@@ -2,6 +2,7 @@
 #include "CSpriteObj.h"
 
 class CCommander;
+class CUI_UnitHP;
 class CComDepObj :
 	public CSpriteObj
 {
@@ -44,14 +45,21 @@ public:
 	CComDepObj* GetTargetEnemy() const { return m_pTargetEnemy; }
 	bool CanAttackTargetEnemy();
 	bool IsDead() const { return m_iHP <= 0; }
-	void TakeDamage(int _iDamageAmount) { m_iHP -= _iDamageAmount; if (m_iHP < 0) m_iHP = 0; }
+	void TakeDamage(int _iDamageAmount);
 	void UpdateSpriteDir(void);
 	void SetMinimapSign(MINIMAP::E_SIGN _eMinimapSign) { m_eMinimapSign = _eMinimapSign; }
 	MINIMAP::E_SIGN GetMinimapSign() const { return m_eMinimapSign; }
+	float GetHPRatio() const { return static_cast<float>(m_iHP) / m_iMaxHP; }
 
 protected:
 	void SetID(int _iID) { m_iID = _iID; }
 	void SetTileSiteInfo(const TileSiteInfo& _rTilesiteInfo) { m_tTilesiteInfo = _rTilesiteInfo; }
+	void InitHP(int _iHP) { m_iMaxHP = _iHP; if (m_iMaxHP < 0) m_iMaxHP = 0; m_iHP = m_iMaxHP; }
+	void SetHP(int _iHP) { m_iHP = _iHP; Clamp(&m_iHP, 0, m_iMaxHP); }
+	int GetHP() const { return m_iHP; }
+	void SetMaxHP(int _iMaxHP) { m_iMaxHP = _iMaxHP; if (m_iMaxHP < 0) m_iMaxHP = 0; Clamp(&m_iHP, 0, m_iMaxHP); }
+	int GetMaxHP() const { return m_iMaxHP; }
+	CUI_UnitHP* GetUIUnitHP(void) const { return m_pUIUnitHP; }
 
 private:
 	int m_iID = -1;
@@ -62,6 +70,8 @@ private:
 	float m_fDetectionRange = 100.f;
 	CComDepObj* m_pTargetEnemy = nullptr;
 	int m_iHP = 100;
+	int m_iMaxHP = 100;
+	CUI_UnitHP* m_pUIUnitHP = nullptr;
 	
 	TileSiteInfo m_tTilesiteInfo;
 	MINIMAP::E_SIGN m_eMinimapSign = MINIMAP::SIGN_NONE;

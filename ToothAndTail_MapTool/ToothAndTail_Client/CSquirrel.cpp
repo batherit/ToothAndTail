@@ -3,12 +3,15 @@
 #include "CTextureMgr.h"
 #include "CStateMgr.h"
 #include "CSquirrelState_Idle.h"
+#include "CUI_UnitHP.h"
 
 CSquirrel::CSquirrel(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, SQUIRREL_WIDTH, SQUIRREL_HEIGHT, 0.f, 1.f, SQUIRREL_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	GetUIUnitHP()->SetY(-20.f);
+
 	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(SQUIRREL_DETECTION_RANGE);
@@ -30,6 +33,7 @@ CSquirrel::~CSquirrel()
 
 int CSquirrel::Update(float _fDeltaTime)
 {
+	GetUIUnitHP()->Update(_fDeltaTime);
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -44,4 +48,10 @@ void CSquirrel::LateUpdate()
 void CSquirrel::Release()
 {
 	SafelyDeleteObj(m_pStateMgr);
+}
+
+void CSquirrel::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+{
+	CObj::RegisterToRenderList(_vecRenderList);
+	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }

@@ -4,12 +4,15 @@
 #include "CTextureMgr.h"
 #include "CStateMgr.h"
 #include "CFoxState_Idle.h"
+#include "CUI_UnitHP.h"
 
 CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, FOX_WIDTH, FOX_HEIGHT, 0.f, 1.f, FOX_SPEED, _iID),
 	m_pTunnel(_pTunnel)
 {
+	GetUIUnitHP()->SetY(-20.f);
+
 	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(FOX_DETECTION_RANGE);
@@ -31,6 +34,7 @@ CFox::~CFox()
 
 int CFox::Update(float _fDeltaTime)
 {
+	GetUIUnitHP()->Update(_fDeltaTime);
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -45,4 +49,10 @@ void CFox::LateUpdate()
 void CFox::Release()
 {
 	SafelyDeleteObj(m_pStateMgr);
+}
+
+void CFox::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+{
+	CObj::RegisterToRenderList(_vecRenderList);
+	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }

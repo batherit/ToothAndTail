@@ -7,6 +7,7 @@
 #include "CTunnelGenerator.h"
 #include "CGameWorld.h"
 #include "CWindmill.h"
+#include "CUI_UnitHP.h"
 
 
 
@@ -16,6 +17,8 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_eCommanderType(_eCommanderType)/*,
 	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
 {
+	//GetUIUnitHP()->SetY(-35.f);
+
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
@@ -66,8 +69,9 @@ void CCommander::Ready(void)
 
 int CCommander::Update(float _fDeltaTime)
 {
-	if (m_bIsAI) return 1;
+	//GetUIUnitHP()->Update(_fDeltaTime);
 
+	if (m_bIsAI) return 1;
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 

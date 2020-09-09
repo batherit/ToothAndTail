@@ -6,6 +6,7 @@
 #include "CPigState_Patrol.h"
 #include "CGameWorld.h"
 #include "CBurst.h"
+#include "CUI_UnitHP.h"
 
 
 
@@ -14,6 +15,8 @@ CPig::CPig(CGameWorld & _rGameWorld, CFarmland* _pFarmland, CCommander * _pComma
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, PIG_WIDTH, PIG_HEIGHT),
 	m_pFarmland(_pFarmland)
 {
+	GetUIUnitHP()->SetY(-20.f);
+
 	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetDetectionRange(PIG_DETECTION_RANGE);
 
@@ -38,6 +41,7 @@ void CPig::Ready(void)
 
 int CPig::Update(float _fDeltaTime)
 {
+	GetUIUnitHP()->Update(_fDeltaTime);
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -47,6 +51,12 @@ int CPig::Update(float _fDeltaTime)
 void CPig::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
+}
+
+void CPig::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+{
+	_vecRenderList.emplace_back(this);
+	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }
 
 void CPig::Release(void)

@@ -4,6 +4,7 @@
 #include "CTextureMgr.h"
 #include "CGameWorld.h"
 #include "CMapLoader.h"
+#include "CUI_UnitHP.h"
 
 
 
@@ -11,7 +12,8 @@ CComDepObj::CComDepObj(CGameWorld & _rGameWorld, CCommander* _pCommander, float 
 	:
 	CSpriteObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fToX, _fToY, _fSpeed),
 	m_pCommander(_pCommander),
-	m_iID(_iID)
+	m_iID(_iID),
+	m_pUIUnitHP(new CUI_UnitHP(_rGameWorld, this))
 {
 }
 
@@ -44,6 +46,7 @@ int CComDepObj::UpdateAnim(float _fDeltaTime)
 void CComDepObj::Release(void)
 {
 	SafelyDeleteObj(m_pIdentificationTintSprite);
+	SafelyDeleteObj(m_pUIUnitHP);
 }
 
 void CComDepObj::InvalidateObj()
@@ -151,6 +154,14 @@ bool CComDepObj::CanAttackTargetEnemy()
 
 	// 감지범위 내에 있다면 공격할 수 있다.
 	return fLength <= m_fDetectionRange;
+}
+
+void CComDepObj::TakeDamage(int _iDamageAmount)
+{
+	m_iHP -= _iDamageAmount; 
+	if (m_iHP < 0)
+		m_iHP = 0; 
+	m_pUIUnitHP->DisplayHP();
 }
 
 void CComDepObj::UpdateSpriteDir(void)

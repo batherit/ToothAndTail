@@ -17,7 +17,7 @@ public:
 	virtual void LateUpdate(void);
 	// 조립 객체를 따로 따로 렌더링 하려는 경우.
 	// 혜택. y값 정렬 렌더링
-	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) { _vecRenderList.emplace_back(this); }
+	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
 	virtual void InvalidateObj(void) override;
 

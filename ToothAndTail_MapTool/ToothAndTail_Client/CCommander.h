@@ -22,9 +22,6 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
-	virtual void Render(CCamera* _pCamera) override {
-		CComDepObj::Render(_pCamera);
-	};
 	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
 	//virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
 	//virtual int UpdateAnim(float _fDeltaTime) override;
