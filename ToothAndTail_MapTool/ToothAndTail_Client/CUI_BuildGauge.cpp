@@ -14,7 +14,7 @@ CUI_BuildGauge::CUI_BuildGauge(CGameWorld & _rGameWorld, CComDepObj* _pOwner, UN
 	SetParent(_pOwner);
 	SetScale(1.f / 4.f);
 
-	m_pUnitSign = new CUI_UnitSign(_rGameWorld, _pOwner->GetCommander(), _eUnitType);
+	m_pUnitSign = new CUI_UnitSign(_rGameWorld, _pOwner, _eUnitType);
 	m_pUnitSign->SetParent(this);
 
 	m_pBuildGaugeFill = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"));
@@ -69,4 +69,9 @@ void CUI_BuildGauge::UpdateGauge(float _fProgress)
 	RECT rcOutputArea = m_pBuildGaugeFill->GetOutputArea();
 	rcOutputArea.top = rcOutputArea.bottom - m_fProgress * m_ciGaugeLength;
 	m_pBuildGaugeFill->SetSyncOutputArea(rcOutputArea);
+}
+
+void CUI_BuildGauge::UpdateRenderColor()
+{
+	m_pUnitSign->UpdateRenderColor();
 }

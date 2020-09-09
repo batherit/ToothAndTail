@@ -23,6 +23,7 @@ CUI_Image::CUI_Image(CGameWorld & _rGameWorld, const TextureInfo * _pTextureInfo
 
 CUI_Image::~CUI_Image()
 {
+	m_pTextureInfo = nullptr;
 }
 
 void CUI_Image::Render(CCamera * _pCamera)

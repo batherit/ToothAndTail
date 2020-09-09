@@ -23,8 +23,10 @@ public:
 	// 외부에서 직접 갱신해주어야 함.
 	void UpdateGauge(float _fCurrentVal, float _fMaxVal);
 	void UpdateGauge(float _fProgress);
+	void UpdateRenderColor();
 
 private:
+	CComDepObj* m_pOwner = nullptr;
 	CUI_UnitSign* m_pUnitSign = nullptr;
 	CUI_Image* m_pBuildGaugeFill = nullptr;
 

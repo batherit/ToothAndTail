@@ -156,11 +156,11 @@ bool CComDepObj::CanAttackTargetEnemy()
 	return fLength <= m_fDetectionRange;
 }
 
-void CComDepObj::TakeDamage(int _iDamageAmount)
+void CComDepObj::TakeDamage(float _fDamageAmount)
 {
-	m_iHP -= _iDamageAmount; 
-	if (m_iHP < 0)
-		m_iHP = 0; 
+	m_fHP -= _fDamageAmount; 
+	if (m_fHP < 0.f)
+		m_fHP = 0.f; 
 	m_pUIUnitHP->DisplayHP();
 }
 

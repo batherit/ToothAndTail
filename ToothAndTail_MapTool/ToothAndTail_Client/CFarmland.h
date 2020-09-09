@@ -4,6 +4,7 @@
 class CCommander;
 class CPig;
 class CCrop;
+class CUI_BuildGauge;
 class CFarmland :
 	public CComDepObj
 {
@@ -31,7 +32,7 @@ public:
 	void GeneratePig(void);
 	bool Cropped(float _fCroppedAmount);
 	void ReleasePig(CPig* _pPig);
-
+	virtual void SetCommander(CCommander* _pCommander, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
 	//void Occupied(CCommander* _pCommander);
 
 private:
@@ -40,5 +41,8 @@ private:
 	vector<CCrop*> m_vecCrops;
 	float m_fCropOffsetY = -7.f;
 	float m_fElapsedTime = 0.f;
+
+	bool m_bIsPigGenerating = false;
+	CUI_BuildGauge* m_pBuildGauge = nullptr;
 };
 

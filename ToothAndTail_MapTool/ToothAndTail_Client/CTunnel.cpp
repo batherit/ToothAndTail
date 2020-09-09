@@ -92,6 +92,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 	m_eUnitType(_eUnitType),
 	m_eSize(_eSize)
 {
+
 	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
@@ -103,6 +104,8 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 
 	switch (_eSize) {
 	case CTunnel::SIZE_SMALL: {
+		SetMaxHP(TUNNEL_SMALL_MAX_HP);
+		SetHP(1.f);
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_SMALL"));
 		SetSize(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT);
 		SetRenderOffsetY(-5.f * BASE_SCALE);
@@ -111,6 +114,8 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 		break;
 	}							  
 	case CTunnel::SIZE_MIDDLE: {
+		SetMaxHP(TUNNEL_MIDDLE_MAX_HP);
+		SetHP(1.f);
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_MIDDLE"));
 		SetSize(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT);
 		SetRenderOffsetXY(1.f * BASE_SCALE, -9.f * BASE_SCALE);
@@ -119,6 +124,8 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 		break;
 	}						   
 	case CTunnel::SIZE_BIG: {
+		SetMaxHP(TUNNEL_BIG_MAX_HP);
+		SetHP(1.f);
 		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_BIG"));
 		SetSize(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT);
 		SetRenderOffsetXY(3.f * BASE_SCALE, -11.f * BASE_SCALE);
@@ -130,32 +137,32 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 
 	switch (m_eUnitType) {
 	case UNIT::TYPE_SQUIRREL:
-		m_fGenTime = SQUIRREL_GEN_TIME;
+		m_fGenTime = SQUIRREL_GEN_SEC;
 		m_iMaxSupplyNum = SQUIRREL_SUPPLY_NUM;
 		m_iUnitCost = SQUIRREL_COST;
 		break;
 	case UNIT::TYPE_LIZARD:
-		m_fGenTime = LIZARD_GEN_TIME;
+		m_fGenTime = LIZARD_GEN_SEC;
 		m_iMaxSupplyNum = LIZARD_SUPPLY_NUM;
 		m_iUnitCost = LIZARD_COST;
 		break;
 	case UNIT::TYPE_MOLE:
-		m_fGenTime = MOLE_GEN_TIME;
+		m_fGenTime = MOLE_GEN_SEC;
 		m_iMaxSupplyNum = MOLE_SUPPLY_NUM;
 		m_iUnitCost = MOLE_COST;
 		break;
 	case UNIT::TYPE_SKUNK:
-		m_fGenTime = SKUNK_GEN_TIME;
+		m_fGenTime = SKUNK_GEN_SEC;
 		m_iMaxSupplyNum = SKUNK_SUPPLY_NUM;
 		m_iUnitCost = SKUNK_COST;
 		break;
 	case UNIT::TYPE_BADGER:
-		m_fGenTime = BADGER_GEN_TIME;
+		m_fGenTime = BADGER_GEN_SEC;
 		m_iMaxSupplyNum = BADGER_SUPPLY_NUM;
 		m_iUnitCost = BADGER_COST;
 		break;
 	case UNIT::TYPE_FOX:
-		m_fGenTime = FOX_GEN_TIME;
+		m_fGenTime = FOX_GEN_SEC;
 		m_iMaxSupplyNum = FOX_SUPPLY_NUM;
 		m_iUnitCost = FOX_COST;
 		break;
@@ -179,7 +186,8 @@ int CTunnel::Update(float _fDeltaTime)
 		{
 		case CTunnel::STATE_BUILDING: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
-				if ((m_fElapsedTime += _fDeltaTime) >= TUNNEL_SMALL_BUILD_SEC) {
+				SetHP(GetHP() + _fDeltaTime * TUNNEL_SMALL_MAX_HP / TUNNEL_SMALL_BUILD_SEC);
+				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 11, 1.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
@@ -187,7 +195,7 @@ int CTunnel::Update(float _fDeltaTime)
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
-					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_SMALL_BUILD_SEC);
+					m_pBuildGauge->UpdateGauge(GetHPRatio());
 				}
 			}
 			break;		
@@ -207,7 +215,8 @@ int CTunnel::Update(float _fDeltaTime)
 		{
 		case CTunnel::STATE_BUILDING: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
-				if ((m_fElapsedTime += _fDeltaTime) >= TUNNEL_MIDDLE_BUILD_SEC) {
+				SetHP(GetHP() + _fDeltaTime * TUNNEL_MIDDLE_MAX_HP / TUNNEL_MIDDLE_BUILD_SEC);
+				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 18, 2.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
@@ -215,7 +224,7 @@ int CTunnel::Update(float _fDeltaTime)
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
-					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_MIDDLE_BUILD_SEC);
+					m_pBuildGauge->UpdateGauge(GetHPRatio());
 				}
 			}
 			break;
@@ -235,7 +244,8 @@ int CTunnel::Update(float _fDeltaTime)
 		{
 		case CTunnel::STATE_BUILDING: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
-				if ((m_fElapsedTime += _fDeltaTime) >= TUNNEL_BIG_BUILD_SEC) {
+				SetHP(GetHP() + _fDeltaTime * TUNNEL_BIG_MAX_HP / TUNNEL_BIG_BUILD_SEC);
+				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 34, 3.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
@@ -243,7 +253,7 @@ int CTunnel::Update(float _fDeltaTime)
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
-					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_BIG_BUILD_SEC);
+					m_pBuildGauge->UpdateGauge(GetHPRatio());
 				}
 			}
 			break;

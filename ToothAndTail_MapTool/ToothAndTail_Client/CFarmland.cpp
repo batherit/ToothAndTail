@@ -7,6 +7,7 @@
 #include "CCommander.h"
 #include "CWindmill.h"
 #include "CWindmillBase.h"
+#include "CUI_BuildGauge.h"
 
 
 CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::E_STATE _eState, CCommander * _pCommander)
@@ -44,6 +45,9 @@ CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::
 		break;
 	}
 	}
+
+	m_pBuildGauge = new CUI_BuildGauge(_rGameWorld, this, UNIT::TYPE_PIG);
+	m_pBuildGauge->SetY(-15.f);
 }
 
 CFarmland::~CFarmland()
@@ -67,18 +71,32 @@ int CFarmland::Update(float _fDeltaTime)
 	case CFarmland::STATE_BUILDING: {
 		// 활성화 애니메이션
 		UpdateAnim(_fDeltaTime);
-		if ((m_fElapsedTime += _fDeltaTime) >= FARMLAND_BUILD_SEC) {
+		m_fElapsedTime += _fDeltaTime;
+		m_pBuildGauge->UpdateGauge(m_fElapsedTime / FARMLAND_BUILD_SEC);
+		if (m_fElapsedTime >= FARMLAND_BUILD_SEC) {
 			GenerateCrops();
 			GeneratePig();
 			m_fElapsedTime = 0.f;
 			AnimInfo stAnimInfo(0, 8, 0, 1, 1.f, 0, false);
 			SetNewAnimInfo(stAnimInfo);
+			m_pBuildGauge->UpdateGauge(1.f);
 			m_eState = CFarmland::STATE_OCCUPIED;
 		}
+
 		break;
 	}
 	case CFarmland::STATE_OCCUPIED: {
 		UpdateAnim(_fDeltaTime);
+		if (m_bIsPigGenerating) {
+			m_fElapsedTime += _fDeltaTime;
+			m_pBuildGauge->UpdateGauge(m_fElapsedTime / PIG_GEN_SEC);
+			if (m_fElapsedTime >= PIG_GEN_SEC) {
+				GeneratePig();
+				m_fElapsedTime = 0.f;
+				m_pBuildGauge->UpdateGauge(1.f);
+				m_bIsPigGenerating = false;
+			}
+		}
 		break;
 	}
 	case CFarmland::STATE_DESTROYED: {
@@ -125,13 +143,15 @@ void CFarmland::LateUpdate(void)
 		// (위에서 걸러지지만,) 점령되고 있는 상태이므로 함수 종료
 		return;
 	case CFarmland::STATE_OCCUPIED:
-		// 이미 돼지가 있다면 함수 종료.
-		if (m_pPig) return;
+		// 이미 돼지가 있거나, 돼지를 생성 중이라면 함수 종료.
+		if (m_pPig || m_bIsPigGenerating) return;
 		// 그 기수가 돼지를 고용할 수 있을 정도의 자본이 있는지?
 		if (GetCommander()->GetMoney() < PIG_COST) return;
 		// 비용을 차감한다.
 		GetCommander()->DecreseMoney(PIG_COST);
-		GeneratePig();
+		// 돼지 생성 상태로 만든다.
+		m_bIsPigGenerating = true;
+		m_fElapsedTime = 0.f;
 		break;
 
 	default:
@@ -141,9 +161,12 @@ void CFarmland::LateUpdate(void)
 
 void CFarmland::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 {
-	_vecRenderList.emplace_back(this);					// 농지를 렌더한다.
+	CObj::RegisterToRenderList(_vecRenderList);					// 농지를 렌더한다.
 	for (auto& pCrop : m_vecCrops) {
-		pCrop->RegisterToRenderList(_vecRenderList);	// 작물을 렌더한다.
+		pCrop->RegisterToRenderList(_vecRenderList);			// 작물을 렌더한다.
+	}
+	if (m_eState == CFarmland::STATE_BUILDING || m_bIsPigGenerating) {
+		m_pBuildGauge->RegisterToRenderList(_vecRenderList);
 	}
 }
 
@@ -160,6 +183,7 @@ void CFarmland::InvalidateObj()
 
 	// 어떤 기수에도 속하지 않은 상태로 만든다.
 	SetCommander(nullptr);
+
 
 	// 돼지를 없앤다.
 	DO_IF_IS_VALID_OBJ(m_pPig) {
@@ -208,6 +232,12 @@ void CFarmland::ReleasePig(CPig * _pPig)
 	if (m_pPig == _pPig) {
 		m_pPig = nullptr;
 	}
+}
+
+void CFarmland::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificationTint)
+{
+	CComDepObj::SetCommander(_pCommander, _clIdentificationTint);
+	m_pBuildGauge->UpdateRenderColor();
 }
 
 //void CFarmland::Occupied(CCommander* _pCommander)

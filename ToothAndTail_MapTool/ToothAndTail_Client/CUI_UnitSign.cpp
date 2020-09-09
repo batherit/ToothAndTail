@@ -4,9 +4,10 @@
 #include "CCommander.h"
 #include "CTextureMgr.h"
 
-CUI_UnitSign::CUI_UnitSign(CGameWorld & _rGameWorld, CCommander* _pCommander, UNIT::E_TYPE _eUnitType, const D3DXVECTOR3 & vPos)
+CUI_UnitSign::CUI_UnitSign(CGameWorld & _rGameWorld, CComDepObj* _pOwner, UNIT::E_TYPE _eUnitType, const D3DXVECTOR3 & vPos)
 	:
-	CObj(_rGameWorld, vPos.x, vPos.y)
+	CObj(_rGameWorld, vPos.x, vPos.y),
+	m_pOwner(_pOwner)
 {
 	m_pUnitSignBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"));
 	m_pUnitSignBack->SetParent(this);
@@ -77,9 +78,7 @@ CUI_UnitSign::CUI_UnitSign(CGameWorld & _rGameWorld, CCommander* _pCommander, UN
 		break;
 	}
 
-	if (_pCommander) {
-		m_pUnitSignTint->SetRenderColor(_pCommander->GetIdentificationTint());
-	}
+	UpdateRenderColor();
 }
 
 CUI_UnitSign::~CUI_UnitSign()
@@ -112,4 +111,11 @@ void CUI_UnitSign::Render(CCamera * _pCamera)
 	m_pUnitSignBack->Render(_pCamera);
 	m_pUnitSign->Render(_pCamera);
 	m_pUnitSignTint->Render(_pCamera);
+}
+
+void CUI_UnitSign::UpdateRenderColor()
+{
+	if (m_pOwner) {
+		m_pUnitSignTint->SetRenderColor(m_pOwner->GetIdentificationTint());
+	}
 }

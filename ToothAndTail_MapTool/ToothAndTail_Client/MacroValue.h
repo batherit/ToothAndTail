@@ -38,6 +38,7 @@
 #define PIG_WIDTH			32
 #define PIG_HEIGHT			32
 #define PIG_SPEED			3.f * BASE_SCALE
+#define PIG_GEN_SEC			5.f
 #define PIG_CROP_SPEED		1.f		// 초당 수확 속도
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
@@ -50,25 +51,28 @@
 // 1) 소형
 #define TUNNEL_SMALL_WIDTH			40
 #define TUNNEL_SMALL_HEIGHT			40
-#define TUNNEL_SMALL_BUILD_SEC		5.f
+#define TUNNEL_SMALL_MAX_HP			70.f
+#define TUNNEL_SMALL_BUILD_SEC		7.f
 #define TUNNEL_SMALL_BUILD_COST		60
 // 2) 중형
 #define TUNNEL_MIDDLE_WIDTH			54
 #define TUNNEL_MIDDLE_HEIGHT		54
-#define TUNNEL_MIDDLE_BUILD_SEC		5.f
+#define TUNNEL_MIDDLE_MAX_HP		100.f
+#define TUNNEL_MIDDLE_BUILD_SEC		10.f
 #define TUNNEL_MIDDLE_BUILD_COST	120
 
 // 3) 대형
 #define TUNNEL_BIG_WIDTH			70
 #define TUNNEL_BIG_HEIGHT			70
-#define TUNNEL_BIG_BUILD_SEC		5.f
+#define TUNNEL_BIG_MAX_HP			130.f
+#define TUNNEL_BIG_BUILD_SEC		13.f
 #define TUNNEL_BIG_BUILD_COST		180
 
 // 유닛 //청솔모(SQUIRREL), 도마뱀(LIZARD), 두더지(MOLE), 스컹크(SKUNK), 오소리(BADGER), 여우(FOX)
 // 1) 청솔모(SQUIRREL, 소형)
 #define SQUIRREL_COST				20
 #define SQUIRREL_SUPPLY_NUM			3
-#define SQUIRREL_GEN_TIME			5.f
+#define SQUIRREL_GEN_SEC			5.f
 #define SQUIRREL_WIDTH				26
 #define SQUIRREL_HEIGHT				26
 #define SQUIRREL_SPEED				50.f * BASE_SCALE
@@ -79,7 +83,7 @@
 // 2) 도마뱀(LIZARD, 소형)
 #define LIZARD_COST				25
 #define LIZARD_SUPPLY_NUM		3
-#define LIZARD_GEN_TIME			5.f
+#define LIZARD_GEN_SEC			5.f
 #define LIZARD_WIDTH			32
 #define LIZARD_HEIGHT			32
 #define LIZARD_SPEED			50.f * BASE_SCALE
@@ -90,7 +94,7 @@
 // 3) 두더지(MOLE, 소형)
 #define MOLE_COST				40
 #define MOLE_SUPPLY_NUM			2
-#define MOLE_GEN_TIME			5.f
+#define MOLE_GEN_SEC			5.f
 #define MOLE_WIDTH				28
 #define MOLE_HEIGHT				28
 #define MOLE_DETECTION_RANGE	120.f * BASE_SCALE
@@ -100,7 +104,7 @@
 // 4) 스컹크(MOLE, 중형)
 #define SKUNK_COST				60
 #define SKUNK_SUPPLY_NUM		2
-#define SKUNK_GEN_TIME			5.f
+#define SKUNK_GEN_SEC			5.f
 #define SKUNK_WIDTH				32
 #define SKUNK_HEIGHT			32
 #define SKUNK_SPEED				50.f * BASE_SCALE
@@ -111,7 +115,7 @@
 // 5) 오소리(BADGER, 대형)
 #define BADGER_COST				120
 #define BADGER_SUPPLY_NUM		2	
-#define BADGER_GEN_TIME			5.f
+#define BADGER_GEN_SEC			5.f
 #define BADGER_WIDTH			52
 #define BADGER_HEIGHT			52
 #define BADGER_SPEED			50.f * BASE_SCALE
@@ -122,7 +126,7 @@
 // 6) 여우(FOX, 대형)
 #define FOX_COST				120
 #define FOX_SUPPLY_NUM			2
-#define FOX_GEN_TIME			5.f
+#define FOX_GEN_SEC			5.f
 #define FOX_WIDTH				72
 #define FOX_HEIGHT				72
 #define FOX_SPEED				50.f * BASE_SCALE

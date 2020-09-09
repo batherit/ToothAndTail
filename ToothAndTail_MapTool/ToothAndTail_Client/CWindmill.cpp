@@ -9,6 +9,7 @@
 #include "CTile.h"
 #include "CFarmland.h"
 #include "CBurst.h"
+#include "CUI_UnitHP.h"
 
 
 //CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander* _pCommander)
@@ -62,6 +63,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	:
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
+	GetUIUnitHP()->SetY(-20.f);
 	SetMinimapSign(MINIMAP::SIGN_WINDMILL);
 	// 이부분 마음에 안들어
 	SetTileSiteInfo(TileSiteInfo(_iLineIndex, 6, 6, 3, 3));
@@ -142,6 +144,7 @@ void CWindmill::Ready(void)
 
 int CWindmill::Update(float _fDeltaTime)
 {
+	GetUIUnitHP()->Update(_fDeltaTime);
 	if (m_pWindmillBase) m_pWindmillBase->Update(_fDeltaTime);
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->Update(_fDeltaTime);
@@ -159,12 +162,13 @@ void CWindmill::LateUpdate(void)
 
 void CWindmill::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 {
-	// TODO : 자신을 그리고 싶으면 _vecRenderList.emplace_back(this);를 추가합니다.
+	// TODO : 자신을 그리고 싶으면 CObj::RegisterToRenderList(_vecRenderList)를 추가합니다.
 	if (m_pGround) m_pGround->RegisterToRenderList(_vecRenderList);
 	if (m_pWindmillBase) m_pWindmillBase->RegisterToRenderList(_vecRenderList);
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->RegisterToRenderList(_vecRenderList);
 	}
+	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }
 
 void CWindmill::Release(void)

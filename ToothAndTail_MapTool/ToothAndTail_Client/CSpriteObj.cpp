@@ -12,6 +12,7 @@ CSpriteObj::CSpriteObj(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _i
 
 CSpriteObj::~CSpriteObj()
 {
+	Release();
 }
 
 void CSpriteObj::Ready(void)
