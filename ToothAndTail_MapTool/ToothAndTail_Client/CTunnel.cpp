@@ -11,78 +11,79 @@
 #include "CSkunk.h"
 #include "CBadger.h"
 #include "CFox.h"
+#include "CUI_BuildGauge.h"
 
-
-CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
-	:
-	m_iID(_iID),
-	CComDepObj(_rGameWorld, _pCommander, _fX, _fY),
-	m_eUnitType(_eUnitType),
-	m_eSize(_eSize)
-	//m_pUnitGenerator(_pUnitGenerator)	// 외부에서 할당받아서 내부에서 해제한다.
-{
-	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
-	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
-	SetRenderLayer(6);
-	SetScaleXY(BASE_SCALE, BASE_SCALE);
-
-	switch (_eSize) {
-	case CTunnel::SIZE_SMALL: {
-		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_SMALL"));
-		SetSize(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT);
-		GenerateIdentificationTintObj(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT, L"TUNNEL_SMALL_TINT");
-		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
-	}
-		break;
-	case CTunnel::SIZE_MIDDLE: {
-		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_MIDDLE"));
-		SetSize(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT);
-		GenerateIdentificationTintObj(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT, L"TUNNEL_MIDDLE_TINT");
-		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
-	}
-		break;
-	case CTunnel::SIZE_BIG: {
-		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_BIG"));
-		SetSize(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT);
-		GenerateIdentificationTintObj(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT, L"TUNNEL_BIG_TINT");
-		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
-	}
-		break;
-	}
-
-	switch (m_eUnitType) {
-	case UNIT::TYPE_SQUIRREL:
-		m_fGenTime = SQUIRREL_GEN_TIME;
-		m_iMaxSupplyNum = SQUIRREL_SUPPLY_NUM;
-		m_iUnitCost = SQUIRREL_COST;
-		break;
-	case UNIT::TYPE_LIZARD:
-		m_fGenTime = LIZARD_GEN_TIME;
-		m_iMaxSupplyNum = LIZARD_SUPPLY_NUM;
-		m_iUnitCost = LIZARD_COST;
-		break;
-	case UNIT::TYPE_MOLE:
-		m_fGenTime = MOLE_GEN_TIME;
-		m_iMaxSupplyNum = MOLE_SUPPLY_NUM;
-		m_iUnitCost = MOLE_COST;
-		break;
-	case UNIT::TYPE_SKUNK:
-		m_fGenTime = SKUNK_GEN_TIME;
-		m_iMaxSupplyNum = SKUNK_SUPPLY_NUM;
-		m_iUnitCost = SKUNK_COST;
-		break;
-	case UNIT::TYPE_BADGER:
-		m_fGenTime = BADGER_GEN_TIME;
-		m_iMaxSupplyNum = BADGER_SUPPLY_NUM;
-		m_iUnitCost = BADGER_COST;
-		break;
-	case UNIT::TYPE_FOX:
-		m_fGenTime = FOX_GEN_TIME;
-		m_iMaxSupplyNum = FOX_SUPPLY_NUM;
-		m_iUnitCost = FOX_COST;
-		break;
-	}
-}
+//
+//CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
+//	:
+//	m_iID(_iID),
+//	CComDepObj(_rGameWorld, _pCommander, _fX, _fY),
+//	m_eUnitType(_eUnitType),
+//	m_eSize(_eSize)
+//	//m_pUnitGenerator(_pUnitGenerator)	// 외부에서 할당받아서 내부에서 해제한다.
+//{
+//	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
+//	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
+//	SetRenderLayer(6);
+//	SetScaleXY(BASE_SCALE, BASE_SCALE);
+//
+//	switch (_eSize) {
+//	case CTunnel::SIZE_SMALL: {
+//		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_SMALL"));
+//		SetSize(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT);
+//		GenerateIdentificationTintObj(TUNNEL_SMALL_WIDTH, TUNNEL_SMALL_HEIGHT, L"TUNNEL_SMALL_TINT");
+//		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+//	}
+//		break;
+//	case CTunnel::SIZE_MIDDLE: {
+//		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_MIDDLE"));
+//		SetSize(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT);
+//		GenerateIdentificationTintObj(TUNNEL_MIDDLE_WIDTH, TUNNEL_MIDDLE_HEIGHT, L"TUNNEL_MIDDLE_TINT");
+//		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+//	}
+//		break;
+//	case CTunnel::SIZE_BIG: {
+//		PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"TUNNEL_BIG"));
+//		SetSize(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT);
+//		GenerateIdentificationTintObj(TUNNEL_BIG_WIDTH, TUNNEL_BIG_HEIGHT, L"TUNNEL_BIG_TINT");
+//		SetNewAnimInfo(AnimInfo(0, 8, 0, 4, 1.f, 1, false));
+//	}
+//		break;
+//	}
+//
+//	switch (m_eUnitType) {
+//	case UNIT::TYPE_SQUIRREL:
+//		m_fGenTime = SQUIRREL_GEN_TIME;
+//		m_iMaxSupplyNum = SQUIRREL_SUPPLY_NUM;
+//		m_iUnitCost = SQUIRREL_COST;
+//		break;
+//	case UNIT::TYPE_LIZARD:
+//		m_fGenTime = LIZARD_GEN_TIME;
+//		m_iMaxSupplyNum = LIZARD_SUPPLY_NUM;
+//		m_iUnitCost = LIZARD_COST;
+//		break;
+//	case UNIT::TYPE_MOLE:
+//		m_fGenTime = MOLE_GEN_TIME;
+//		m_iMaxSupplyNum = MOLE_SUPPLY_NUM;
+//		m_iUnitCost = MOLE_COST;
+//		break;
+//	case UNIT::TYPE_SKUNK:
+//		m_fGenTime = SKUNK_GEN_TIME;
+//		m_iMaxSupplyNum = SKUNK_SUPPLY_NUM;
+//		m_iUnitCost = SKUNK_COST;
+//		break;
+//	case UNIT::TYPE_BADGER:
+//		m_fGenTime = BADGER_GEN_TIME;
+//		m_iMaxSupplyNum = BADGER_SUPPLY_NUM;
+//		m_iUnitCost = BADGER_COST;
+//		break;
+//	case UNIT::TYPE_FOX:
+//		m_fGenTime = FOX_GEN_TIME;
+//		m_iMaxSupplyNum = FOX_SUPPLY_NUM;
+//		m_iUnitCost = FOX_COST;
+//		break;
+//	}
+//}
 
 CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
 	:
@@ -159,6 +160,9 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CT
 		m_iUnitCost = FOX_COST;
 		break;
 	}
+
+	m_pBuildGauge = new CUI_BuildGauge(_rGameWorld, this, m_eUnitType);
+	m_pBuildGauge->SetY(-15.f);
 }
 
 CTunnel::~CTunnel()
@@ -179,9 +183,11 @@ int CTunnel::Update(float _fDeltaTime)
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 11, 1.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
+					m_pBuildGauge->UpdateGauge(1.f);
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
+					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_SMALL_BUILD_SEC);
 				}
 			}
 			break;		
@@ -205,9 +211,11 @@ int CTunnel::Update(float _fDeltaTime)
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 18, 2.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
+					m_pBuildGauge->UpdateGauge(1.f);
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
+					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_MIDDLE_BUILD_SEC);
 				}
 			}
 			break;
@@ -231,9 +239,11 @@ int CTunnel::Update(float _fDeltaTime)
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 34, 3.f, 1, false));
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
+					m_pBuildGauge->UpdateGauge(1.f);
 				}
 				else {
 					// TODO : UI 갱신 해주기 등...
+					m_pBuildGauge->UpdateGauge(m_fElapsedTime, TUNNEL_BIG_BUILD_SEC);
 				}
 			}
 			break;
@@ -297,5 +307,11 @@ int CTunnel::Update(float _fDeltaTime)
 
 void CTunnel::Release(void)
 {
-	//SafelyDeleteObj(m_pUnitGenerator);
+	SafelyDeleteObj(m_pBuildGauge);
+}
+
+void CTunnel::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+{
+	CObj::RegisterToRenderList(_vecRenderList);
+	m_pBuildGauge->RegisterToRenderList(_vecRenderList);
 }

@@ -109,7 +109,7 @@ void CUI_UnitSign::Release(void)
 
 void CUI_UnitSign::Render(CCamera * _pCamera)
 {
-	m_pUnitSignBack->Render(nullptr);
-	m_pUnitSign->Render(nullptr);
-	m_pUnitSignTint->Render(nullptr);
+	m_pUnitSignBack->Render(_pCamera);
+	m_pUnitSign->Render(_pCamera);
+	m_pUnitSignTint->Render(_pCamera);
 }

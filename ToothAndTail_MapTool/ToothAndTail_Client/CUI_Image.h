@@ -41,11 +41,11 @@ public:
 			static_cast<LONG>(m_rcExtractionArea.bottom + (_rcOutputArea.bottom - m_rcOutputArea.bottom) / m_fCorrectionRatioY)
 		};
 		m_rcExtractionArea = rcNewExtractionArea;
+
 		m_rcOutputArea = _rcOutputArea;
 		SetXY(static_cast<float>(_rcOutputArea.left + _rcOutputArea.right) * 0.5f, static_cast<float>(_rcOutputArea.top + _rcOutputArea.bottom) * 0.5f);	
-		SetSize((m_rcOutputArea.right - m_rcOutputArea.left), (m_rcOutputArea.bottom - m_rcOutputArea.top));
+		SetSize((_rcOutputArea.right - _rcOutputArea.left), (_rcOutputArea.bottom - _rcOutputArea.top));
 	}
-	
 	void SetExtractionArea(const RECT& _rcExractionArea) { 
 		m_rcExtractionArea = _rcExractionArea;
 		m_fCorrectionRatioX = static_cast<float>(m_rcOutputArea.right - m_rcOutputArea.left) / (m_rcExtractionArea.right - m_rcExtractionArea.left);
@@ -56,6 +56,20 @@ public:
 		SetExtractionArea(RECT({ _lLeft, _lTop, _lRight, _lBottom }));
 	}
 
+	// 테스트는 안해봤는데 잘될거임 'ㅅ';;
+	void SetSyncExtractionArea(const RECT _rcExtractionArea) {
+		RECT rcNewOutputArea = {
+			static_cast<LONG>(m_rcOutputArea.left + (_rcExtractionArea.left - m_rcExtractionArea.left) * m_fCorrectionRatioX) ,
+			static_cast<LONG>(m_rcOutputArea.top + (_rcExtractionArea.top - m_rcExtractionArea.top) * m_fCorrectionRatioY),
+			static_cast<LONG>(m_rcOutputArea.right + (_rcExtractionArea.right - m_rcExtractionArea.right) * m_fCorrectionRatioX),
+			static_cast<LONG>(m_rcOutputArea.bottom + (_rcExtractionArea.bottom - m_rcExtractionArea.bottom) * m_fCorrectionRatioY)
+		};
+		m_rcOutputArea = rcNewOutputArea;
+		SetXY(static_cast<float>(rcNewOutputArea.left + rcNewOutputArea.right) * 0.5f, static_cast<float>(rcNewOutputArea.top + rcNewOutputArea.bottom) * 0.5f);
+		SetSize((rcNewOutputArea.right - rcNewOutputArea.left), (rcNewOutputArea.bottom - rcNewOutputArea.top));
+
+		m_rcExtractionArea = _rcExtractionArea;
+	}
 	
 
 	void SetTextureInfo(const TextureInfo* _pTextureInfo) { if (_pTextureInfo) m_pTextureInfo = _pTextureInfo; }
