@@ -50,8 +50,10 @@ public:
 		if (0 > m_iTunnelGeneratorIndex)
 			m_iTunnelGeneratorIndex += m_vecTunnelGenerator.size();
 	}
+	int GetTunnelGeneratorIndex() const { return m_iTunnelGeneratorIndex; }
 	void GenerateTunnel();
 	CommandInfo GetCurrentCommandInfo() { return m_tCommandInfo; }
+	vector<CTunnelGenerator*>& GetTunnelGenerators() { return m_vecTunnelGenerator; }
 
 private:
 	void UpdateCommand(float _fDeltaTime);

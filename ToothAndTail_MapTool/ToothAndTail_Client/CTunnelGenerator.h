@@ -10,7 +10,7 @@ public:
 
 public:
 	bool GenerateTunnel(int _iID);
-	UNIT::E_TYPE GetUnitType() { return m_eUnitType; }
+	UNIT::E_TYPE GetUnitType() const { return m_eUnitType; }
 
 protected:
 	CGameWorld& m_rGameWorld;

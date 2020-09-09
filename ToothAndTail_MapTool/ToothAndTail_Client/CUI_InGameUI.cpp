@@ -3,7 +3,9 @@
 #include "CUI_Image.h"
 #include "CTextureMgr.h"
 #include "CUI_Minimap.h"
+#include "CUI_UnitSign.h"
 #include "CCommander.h"
+#include "CTunnelGenerator.h"
 
 
 CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, const D3DXVECTOR3 & _rPos)
@@ -37,10 +39,27 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 	ptPos.y = WINCY - 137.f * 0.7f * 0.5f + 1;
 	m_pRightWoodBack->SetOutputArea(ptPos, 405.f * 0.7f, 137.f * 0.7f);
 
-	
 	// 미니맵
 	m_pMinimap = new CUI_Minimap(_rGameWorld, D3DXVECTOR3(256 >> 1, WINCY -120.f, 0.f));
-	
+
+	// 유닛 표식
+	if (_pCommander) {
+		CUI_UnitSign* pUnitSign = nullptr;
+		vector<CTunnelGenerator*>& rTunnelGenerators = _pCommander->GetTunnelGenerators();
+		int iTunnelGeneratorSize = rTunnelGenerators.size();
+		float fUnitSignGap = static_cast<float>(m_pMiddleWoodBack->GetWidth()) / iTunnelGeneratorSize;
+		float fStartX = m_pMiddleWoodBack->GetOutputArea().left;
+		for (int i = 0; i < iTunnelGeneratorSize; ++i) {
+			pUnitSign = new CUI_UnitSign(_rGameWorld, _pCommander, rTunnelGenerators[i]->GetUnitType(),
+				D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), WINCY - 89.f * 0.7f * 0.5f + 1 - 20, 0.f));
+			m_vecUnitSigns.emplace_back(pUnitSign);
+		}
+		m_pUnitSignArrow = new CUI_Image(_rGameWorld, 
+			CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"));
+		// pogarrows = 806 1438 166 166
+		m_pUnitSignArrow->SetExtractionArea(806, 1438, 806 + 166, 1438 + 166);
+		m_pUnitSignArrow->SetOutputArea(POINT({ -1, -1 }), 100, 100);
+	}
 }
 
 CUI_InGameUI::~CUI_InGameUI()
@@ -63,11 +82,15 @@ void CUI_InGameUI::LateUpdate(void)
 
 void CUI_InGameUI::Release(void)
 {
+	// UI 백그라운드
 	SafelyDeleteObj(m_pLeftWoodBack);
 	SafelyDeleteObj(m_pMiddleWoodBack);
 	SafelyDeleteObj(m_pRightWoodBack);
-
+	// 미니맵
 	SafelyDeleteObj(m_pMinimap);
+	// 유닛 표식
+	SafelyDeleteObjs(m_vecUnitSigns);
+	SafelyDeleteObj(m_pUnitSignArrow);
 }
 
 void CUI_InGameUI::Render(CCamera * _pCamera)
@@ -84,4 +107,18 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 	m_pRightWoodBack->Render(nullptr);
 
 	m_pMinimap->Render();
+
+	if (m_pCommander) {
+		for (int i = 0; i < m_vecUnitSigns.size(); ++i) {
+			m_vecUnitSigns[i]->SetScale(1.f);
+			// 현재 선택된 유닛 표식은 크게 키워준다.
+			if (m_pCommander->GetTunnelGeneratorIndex() == i) {
+				m_vecUnitSigns[i]->SetScale(1.2f);
+				// 현재 선택된 유닛 주변에 화살표 표시를 렌더해준다.
+				m_pUnitSignArrow->SetXY(m_vecUnitSigns[i]->GetXY());
+				m_pUnitSignArrow->Render(nullptr);
+			}
+			m_vecUnitSigns[i]->Render(nullptr);
+		}
+	}
 }

@@ -219,6 +219,7 @@
     <ClInclude Include="CUI_Image.h" />
     <ClInclude Include="CUI_InGameUI.h" />
     <ClInclude Include="CUI_Minimap.h" />
+    <ClInclude Include="CUI_UnitSign.h" />
     <ClInclude Include="CUnitGenerator.h" />
     <ClInclude Include="CWindmill.h" />
     <ClInclude Include="CWindmillBase.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="CUI_Image.cpp" />
     <ClCompile Include="CUI_InGameUI.cpp" />
     <ClCompile Include="CUI_Minimap.cpp" />
+    <ClCompile Include="CUI_UnitSign.cpp" />
     <ClCompile Include="CUnitGenerator.cpp" />
     <ClCompile Include="CWindmill.cpp" />
     <ClCompile Include="CWindmillBase.cpp" />

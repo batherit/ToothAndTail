@@ -5,6 +5,8 @@ class CCommander;
 class CUI_Image;
 class CCamera;
 class CUI_Minimap;
+class CUI_UnitSign;
+
 class CUI_InGameUI :
 	public CObj
 {
@@ -22,10 +24,14 @@ public:
 private:
 	CCommander* m_pCommander = nullptr;	// 어떤 기수의 상태를 나타낼 것인가?
 
+	// 백그라운드 UI
 	CUI_Image* m_pLeftWoodBack = nullptr;
 	CUI_Image* m_pMiddleWoodBack = nullptr;
 	CUI_Image* m_pRightWoodBack = nullptr;
-
+	// 미니맵 UI
 	CUI_Minimap* m_pMinimap = nullptr;
+	// 유닛 표식
+	vector<CUI_UnitSign*> m_vecUnitSigns;
+	CUI_Image* m_pUnitSignArrow = nullptr;
 };
 
