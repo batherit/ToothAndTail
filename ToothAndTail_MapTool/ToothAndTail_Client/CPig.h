@@ -23,7 +23,6 @@ public:
 
 public:
 	CStateMgr<CPig>* GetStateMgr(void) const { return m_pStateMgr; }
-	bool Cropping(float _fDeltaTime);
 	void StartPatrol(void);
 	int UpdatePatrol(float _fDeltaTime);
 

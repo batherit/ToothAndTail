@@ -30,18 +30,21 @@ public:
 	CFarmland::E_STATE GetFarmlandState() const { return m_eState; }
 	void GenerateCrops(void);
 	void GeneratePig(void);
-	bool Cropped(float _fCroppedAmount);
+	int Cropped(void);	// 수확된 량을 반환된다. 즉, 수확된 게 없으면 0을 반환한다.
 	void ReleasePig(CPig* _pPig);
 	virtual void SetCommander(CCommander* _pCommander, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));
 	//void Occupied(CCommander* _pCommander);
 
 private:
 	CFarmland::E_STATE m_eState = STATE_UNOCCUPIED;
+	int m_iCurrentFertility = 0;
+
 	CPig* m_pPig = nullptr;
 	vector<CCrop*> m_vecCrops;
 	float m_fCropOffsetY = -7.f;
 	float m_fElapsedTime = 0.f;
 
+	bool m_bIsCropGenerated = false;
 	bool m_bIsPigGenerating = false;
 	CUI_BuildGauge* m_pBuildGauge = nullptr;
 };

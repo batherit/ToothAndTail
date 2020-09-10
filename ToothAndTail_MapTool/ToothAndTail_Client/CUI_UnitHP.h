@@ -21,6 +21,7 @@ public:
 
 public:
 	void DisplayHP(void);
+	void CloseHP(void);
 
 private:
 	CComDepObj* m_pOwner = nullptr;

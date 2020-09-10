@@ -73,11 +73,6 @@ void CPig::InvalidateObj(void)
 	CComDepObj::InvalidateObj();
 }
 
-bool CPig::Cropping(float _fDeltaTime)
-{
-	return true;
-}
-
 void CPig::StartPatrol(void)
 {
 	m_iLocationIndex = rand() % 4;

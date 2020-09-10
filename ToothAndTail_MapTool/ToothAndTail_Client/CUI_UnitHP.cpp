@@ -70,3 +70,8 @@ void CUI_UnitHP::DisplayHP(void)
 	rcOutputArea.top = rcOutputArea.bottom - m_pOwner->GetHPRatio() * m_ciHPLength;
 	m_pUnitHPFill->SetSyncOutputArea(rcOutputArea);
 }
+
+void CUI_UnitHP::CloseHP(void)
+{
+	m_fElapsedTime = m_cfKeepingTime;
+}

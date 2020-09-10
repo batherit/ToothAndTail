@@ -144,10 +144,22 @@ void CWindmill::Ready(void)
 
 int CWindmill::Update(float _fDeltaTime)
 {
+	if (GetState() == WINDMILL::STATE_DESTROYED) return 0;
+
 	GetUIUnitHP()->Update(_fDeltaTime);
 	if (m_pWindmillBase) m_pWindmillBase->Update(_fDeltaTime);
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->Update(_fDeltaTime);
+	}
+	
+	if (!GetCommander()) return 0;
+	int iTotalCropAmount = 0;
+	if ((m_fCroppingTickTime += _fDeltaTime) >= PIG_CROP_TIME) {
+		for (auto& pFarmland : m_vecFarmlands) {
+			iTotalCropAmount += pFarmland->Cropped();
+		}
+		GetCommander()->IncreaseMoney(iTotalCropAmount);
+		m_fCroppingTickTime = 0.f;
 	}
 
 	return 0;
@@ -182,8 +194,11 @@ void CWindmill::InvalidateObj()
 {
 	// 일종의 무효화처리(무효화된 상태이므로 더이상 무효화하지 마라.)
 	if (GetState() == WINDMILL::STATE_DESTROYED) return;
-	// 자기 자신을 무효화한다.
+	// 자기 자신을 무효화하면 인게임에서 제거되는 것이니 제분소 무효화는 하지 않는다.
 	//CComDepObj::InvalidateObj();
+
+	GetUIUnitHP()->CloseHP();
+
 	SetCommander(nullptr);
 	D3DXVECTOR3 vBurstPos = GetXY();
 	vBurstPos.y -= 35.f * BASE_SCALE;
@@ -196,6 +211,7 @@ void CWindmill::InvalidateObj()
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->InvalidateObj();
 	}
+	m_fCroppingTickTime = 0.f;
 }
 
 void CWindmill::Occupied(CCommander* _pCommander)

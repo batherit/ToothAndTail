@@ -32,11 +32,11 @@ public:
 	//CWindmill::E_STATE GetWindmillState() const { return m_eState; }
 	WINDMILL::E_STATE GetState() const;
 	
-
 private:
 	//CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
 	CSpriteObj* m_pGround = nullptr;
 	vector<CFarmland*> m_vecFarmlands;
+	float m_fCroppingTickTime = 0.f;
 	CWindmillBase* m_pWindmillBase = nullptr;
 };
 
