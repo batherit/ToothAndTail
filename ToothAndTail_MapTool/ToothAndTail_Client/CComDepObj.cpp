@@ -117,6 +117,20 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 	return true;
 }
 
+bool CComDepObj::GoToTarget(float _fDeltaTime)
+{
+	if (CanAttackTargetEnemy()) return false;	// 공격할 수 있는 거리까지 왔으면 false를 반환한다.
+	if (!m_pTargetEnemy) return false;			// 타겟이 없다면 false를 반환한다.
+
+	D3DXVECTOR3 vToTarget = m_pTargetEnemy->GetXY() - GetXY();
+	D3DXVec3Normalize(&vToTarget, &vToTarget);
+	SetToXY(vToTarget);
+	UpdateSpriteDir();
+	MoveByDeltaTime(_fDeltaTime);
+
+	return true;
+}
+
 void CComDepObj::DetectEnemyAround()
 {
 	m_pTargetEnemy = nullptr;
@@ -153,7 +167,7 @@ bool CComDepObj::CanAttackTargetEnemy()
 	float fLength = D3DXVec3Length(&(m_pTargetEnemy->GetXY() - GetXY()));
 
 	// 감지범위 내에 있다면 공격할 수 있다.
-	return fLength <= m_fDetectionRange;
+	return fLength <= m_fAttackRange;
 }
 
 void CComDepObj::TakeDamage(float _fDamageAmount)

@@ -21,6 +21,7 @@ CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTu
 	SetMinimapSign(MINIMAP::SIGN_UNIT);
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(SKUNK_DETECTION_RANGE);
+	SetAttackRange(SKUNK_ATTACK_RANGE);
 
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);

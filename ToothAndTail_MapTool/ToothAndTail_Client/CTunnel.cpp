@@ -195,6 +195,7 @@ int CTunnel::Update(float _fDeltaTime)
 				SetHP(GetHP() + _fDeltaTime * TUNNEL_SMALL_MAX_HP / TUNNEL_SMALL_BUILD_SEC);
 				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 11, 1.f, 1, false));
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
 					m_pBuildGauge->UpdateGauge(1.f);
@@ -210,7 +211,6 @@ int CTunnel::Update(float _fDeltaTime)
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 14, 1, 0.f, 0, false));
 				m_eState = CTunnel::STATE_GENERATE_UNIT;
-				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 			}
 			break;
 		}
@@ -225,6 +225,7 @@ int CTunnel::Update(float _fDeltaTime)
 				SetHP(GetHP() + _fDeltaTime * TUNNEL_MIDDLE_MAX_HP / TUNNEL_MIDDLE_BUILD_SEC);
 				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 18, 2.f, 1, false));
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
 					m_pBuildGauge->UpdateGauge(1.f);
@@ -240,7 +241,6 @@ int CTunnel::Update(float _fDeltaTime)
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 21, 1, 0.f, 0, false));
 				m_eState = CTunnel::STATE_GENERATE_UNIT;
-				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 			}
 			break;
 		}
@@ -255,6 +255,7 @@ int CTunnel::Update(float _fDeltaTime)
 				SetHP(GetHP() + _fDeltaTime * TUNNEL_BIG_MAX_HP / TUNNEL_BIG_BUILD_SEC);
 				if (IsFullHP()) {
 					SetNewAnimInfo(AnimInfo(0, 8, 4, 34, 3.f, 1, false));
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 					m_eState = CTunnel::STATE_COMPLETED;
 					m_fElapsedTime = 0.f;
 					m_pBuildGauge->UpdateGauge(1.f);
@@ -269,8 +270,7 @@ int CTunnel::Update(float _fDeltaTime)
 		case CTunnel::STATE_COMPLETED: {
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 37, 1, 0.f, 0, false));
-				m_eState = CTunnel::STATE_GENERATE_UNIT;
-				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
+				m_eState = CTunnel::STATE_GENERATE_UNIT;	
 			}
 			break;
 		}
@@ -363,7 +363,7 @@ void CTunnel::Release(void)
 
 void CTunnel::InvalidateObj(void)
 {
-	m_pTunnelGenerator->ReleaseTunnel(this);
+	if(m_pTunnelGenerator && m_eState != CTunnel::STATE_BUILDING) m_pTunnelGenerator->ReleaseTunnel(this);
 	for (auto& pUnit : m_listUnits) {
 		pUnit->ReleaseTunnel(this);
 	}

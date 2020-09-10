@@ -31,8 +31,13 @@ int CMoleState_Idle::Update(float _fDeltaTime)
 		// 기수가 아무것도 하지 않는다.
 		m_rOwner.DetectEnemyAround();
 		if (m_rOwner.GetTargetEnemy()) {
-			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
-			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+			if (m_rOwner.CanAttackTargetEnemy()) {
+				// 주변에 적을 감지하였고, 공격 가능 거리에 있으면 공격 상태로 전환한다.
+				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+			}
+			else {
+				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Run(m_rGameWorld, m_rOwner));
+			}
 		}
 		break;
 	case COMMANDER::COMMAND_GATHERING:
@@ -43,6 +48,7 @@ int CMoleState_Idle::Update(float _fDeltaTime)
 			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
 			if (!m_rOwner.IsLocatedAtTargetPoint())
 				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Run(m_rGameWorld, m_rOwner));
+			// 목표 지점에 있다면, 계속 이 상태(Idle)를 유지할 것이다.
 		}
 		break;
 	case COMMANDER::COMMAND_SATURATION:

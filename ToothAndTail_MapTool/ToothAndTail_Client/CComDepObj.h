@@ -37,10 +37,13 @@ public:
 	// 이 함수를 호출하기 이전에 유효한 목표지점을 세팅해두고 있어야 한다.
 	bool IsLocatedAtTargetPoint(void) const;		
 	// 목표 지점으로 이동할 때 쓰인다.
-	bool GoToTargetPoint(float _fDeltaTime);		
+	bool GoToTargetPoint(float _fDeltaTime);	
+	// 목표 대상으로 이동할 때 쓰인다.
+	bool GoToTarget(float _fDeltaTime);
 	// 교전 관련
 	// 1) 감지 범위 세팅하기
 	void SetDetectionRange(float _fDetectionRange) { m_fDetectionRange = _fDetectionRange; }
+	void SetAttackRange(float _fAttackRange) { m_fAttackRange = _fAttackRange; }
 	// 2) 주변 감지된 적 선별(거리순)
 	void DetectEnemyAround();
 	void SetTargetEnemy(CComDepObj* _pTargetEnemy) { m_pTargetEnemy = _pTargetEnemy; }
@@ -71,6 +74,7 @@ private:
 	D3DXVECTOR3 m_vTargetPos;
 
 	float m_fDetectionRange = 100.f;
+	float m_fAttackRange = 100.f;
 	CComDepObj* m_pTargetEnemy = nullptr;
 	float m_fHP = 100.f;
 	float m_fMaxHP = 100.f;

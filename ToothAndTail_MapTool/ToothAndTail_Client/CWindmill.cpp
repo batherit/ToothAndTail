@@ -145,6 +145,9 @@ void CWindmill::Ready(void)
 int CWindmill::Update(float _fDeltaTime)
 {
 	if (GetState() == WINDMILL::STATE_DESTROYED) return 0;
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_G)) {
+		InvalidateObj();
+	}
 
 	GetUIUnitHP()->Update(_fDeltaTime);
 	if (m_pWindmillBase) m_pWindmillBase->Update(_fDeltaTime);
@@ -203,7 +206,7 @@ void CWindmill::InvalidateObj()
 	D3DXVECTOR3 vBurstPos = GetXY();
 	vBurstPos.y -= 35.f * BASE_SCALE;
 	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), vBurstPos, 1.2f, 3.f));
-	// TODO : 점령 과정을 작성한다.
+
 	if (m_pWindmillBase) {
 		m_pWindmillBase->SetCommander(nullptr);
 		m_pWindmillBase->SetWindmillBaseState(WINDMILL::STATE_DESTROYED);

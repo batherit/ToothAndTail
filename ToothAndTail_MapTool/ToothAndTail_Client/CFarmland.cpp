@@ -186,13 +186,17 @@ void CFarmland::InvalidateObj()
 	// 어떤 기수에도 속하지 않은 상태로 만든다.
 	SetCommander(nullptr);
 
-
 	// 돼지를 없앤다.
 	DO_IF_IS_VALID_OBJ(m_pPig) {
 		// 무효화한다.
 		m_pPig->InvalidateObj();
 		m_pPig = nullptr;
 	}
+
+	// 개간 도중 파괴되었으면 걸린 시간을 0으로 초기화해주어야
+	// 새로이 개간할 때 문제가 없다.(== 0부터 시작한다는 뜻)
+	m_fElapsedTime = 0.f;
+	m_bIsPigGenerating = false;
 }
 
 void CFarmland::Release(void)

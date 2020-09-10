@@ -34,6 +34,8 @@ CBullet::CBullet(CGameWorld & _rGameWorld, CComDepObj * _pTarget, UNIT::E_TYPE _
 		break;
 	case UNIT::TYPE_MOLE:
 		// 탄환 설정할 게 없다.
+		SetSpeed(SKUNK_BULLET_SPEED);
+		m_fDamage = SKUNK_BULLET_DAMAGE;
 		break;
 	case UNIT::TYPE_SKUNK:
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"SKUNK_BULLET");

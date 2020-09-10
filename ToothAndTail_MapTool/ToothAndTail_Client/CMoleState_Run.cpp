@@ -32,8 +32,14 @@ int CMoleState_Run::Update(float _fDeltaTime)
 		// 주변에 적이 있는지 확인해본다.
 		m_rOwner.DetectEnemyAround();
 		if (m_rOwner.GetTargetEnemy()) {
-			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
-			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+			if (m_rOwner.CanAttackTargetEnemy()) {
+				// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+			}
+			else {
+				// 주변에 적을 감지했지만, 공격 범위 밖에 있으면 타겟쪽으로 달려간다.
+				m_rOwner.GoToTarget(_fDeltaTime);
+			}
 		}
 		else if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
 			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Idle(m_rGameWorld, m_rOwner));
