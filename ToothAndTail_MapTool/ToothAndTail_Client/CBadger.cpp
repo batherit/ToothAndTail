@@ -5,12 +5,18 @@
 #include "CStateMgr.h"
 #include "CBadgerState_Idle.h"
 #include "CUI_UnitHP.h"
+#include "CGameWorld.h"
+#include "CBurst.h"
+#include "CTunnel.h"
+#include "CTunnelGenerator.h"
 
 CBadger::CBadger(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, BADGER_WIDTH, BADGER_HEIGHT, 0.f, 1.f, BADGER_SPEED, _iID),
-	m_pTunnel(_pTunnel)
+	m_pTunnel(_pTunnel),
+	m_pTunnelGenerator(_pTunnel->GetTunnelGenerator())
 {
+
 	GetUIUnitHP()->SetY(-20.f);
 
 	SetMinimapSign(MINIMAP::SIGN_UNIT);
@@ -49,6 +55,14 @@ void CBadger::LateUpdate()
 void CBadger::Release()
 {
 	SafelyDeleteObj(m_pStateMgr);
+}
+
+void CBadger::InvalidateObj(void)
+{
+	if (m_pTunnel) m_pTunnel->ReleaseUnit(this);
+	if (m_pTunnelGenerator) m_pTunnelGenerator->ReleaseUnit(this);
+	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
+	CComDepObj::InvalidateObj();
 }
 
 void CBadger::RegisterToRenderList(vector<CObj*>& _vecRenderList)

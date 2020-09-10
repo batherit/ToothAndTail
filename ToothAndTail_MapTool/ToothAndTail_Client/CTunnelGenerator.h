@@ -2,6 +2,7 @@
 
 class CGameWorld;
 class CCommander;
+class CTunnel;
 class CTunnelGenerator final
 {
 public:
@@ -11,10 +12,26 @@ public:
 public:
 	bool GenerateTunnel(int _iID);
 	UNIT::E_TYPE GetUnitType() const { return m_eUnitType; }
+	void ReleaseTunnel(CTunnel* _pTunnel);
+	void ReleaseUnit(CComDepObj* _pUnit);
 
-protected:
+public:
+	int GetMaxSupplyNum() const { return m_iMaxSupplyNum; }
+	int GetUnitsNum() const { return m_iUnitsNum; }
+
+	void IncreaseMaxSupplyNum(int _iAmount) { m_iMaxSupplyNum += _iAmount; }
+	void DecreaseMaxSupplyNum(int _iAmount) { 
+		m_iMaxSupplyNum -= _iAmount;
+	}
+	void IncreaseUnitsNum() { ++m_iUnitsNum; }
+	void DecreaseUnitsNum() { --m_iUnitsNum; }
+	
+private:
 	CGameWorld& m_rGameWorld;
 	UNIT::E_TYPE m_eUnitType = UNIT::TYPE_END;
 	CCommander* m_pCommander = nullptr;
+
+	int m_iMaxSupplyNum = 0;
+	int m_iUnitsNum = 0;
 };
 

@@ -4,6 +4,7 @@
 //class CUnitGenerator;
 class CCommander;
 class CUI_BuildGauge;
+class CTunnelGenerator;
 class CTunnel final:
 	public CComDepObj 
 {
@@ -12,19 +13,32 @@ public:
 
 public:
 	//CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander = nullptr, int _iID = -1);
-	CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander = nullptr, int _iID = -1);
+	CTunnel(CGameWorld& _rGameWorld, CTunnelGenerator* _pTunnelGenerator, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander = nullptr, int _iID = -1);
 	virtual ~CTunnel();
 
 	virtual int Update(float _fDeltaTime) override;
+	virtual void LateUpdate() override;
 	virtual void Release(void) override;
+	virtual void InvalidateObj(void) override;
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
-	void DecreaseSupplyNum() { --m_iSupplyNum; if (m_iSupplyNum < 0) m_iSupplyNum = 0; } // 소속된 유닛이 감소시킨다.
+	
+public:
+	// 소속된 유닛이 호출한다.
+	CTunnelGenerator* GetTunnelGenerator() const { return m_pTunnelGenerator; }
+	void ReleaseUnit(CComDepObj* _pUnit) { 
+		m_listUnits.remove(_pUnit);
+	} 
+	int GetMaxSupplyNum() const { return m_iMaxSupplyNum; }
+
 private:
 	enum E_STATE { STATE_BUILDING, STATE_COMPLETED, STATE_GENERATE_UNIT, STATE_END };
 
 private:
 	int m_iID = -1;
-	int m_iSupplyNum = 0;
+	//int m_iSupplyNum = 0;
+	CTunnelGenerator* m_pTunnelGenerator = nullptr;
+
+	list<CComDepObj*> m_listUnits;	// 생성한 유닛들 (땅굴이 파괴되면 유닛 소속 터널을 제거해주기 위함.)
 	UNIT::E_TYPE m_eUnitType = UNIT::TYPE_END;
 	CTunnel::E_SIZE m_eSize = CTunnel::SIZE_SMALL;
 	CTunnel::E_STATE m_eState = CTunnel::STATE_BUILDING;

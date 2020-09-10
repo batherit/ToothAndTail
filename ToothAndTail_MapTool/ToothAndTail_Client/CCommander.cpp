@@ -93,7 +93,8 @@ int CCommander::Update(float _fDeltaTime)
 			else pWindmill = nullptr;
 		}
 
-		if (pWindmill) {
+		if (pWindmill && GetMoney() >= WINDMILL_COST) {
+			DecreseMoney(WINDMILL_COST);
 			pWindmill->Occupied(GetCommander());
 		}
 	}

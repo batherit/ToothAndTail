@@ -275,9 +275,8 @@ int CFarmland::Cropped(void)
 
 void CFarmland::ReleasePig(CPig * _pPig)
 {
-	if (m_pPig == _pPig) {
-		m_pPig = nullptr;
-	}
+	if (m_pPig != _pPig) return;
+	m_pPig = nullptr;
 }
 
 void CFarmland::SetCommander(CCommander * _pCommander, D3DXCOLOR _clIdentificationTint)

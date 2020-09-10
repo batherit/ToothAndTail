@@ -12,6 +12,8 @@
 #include "CBadger.h"
 #include "CFox.h"
 #include "CUI_BuildGauge.h"
+#include "CBurst.h"
+#include "CTunnelGenerator.h"
 
 //
 //CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
@@ -85,14 +87,14 @@
 //	}
 //}
 
-CTunnel::CTunnel(CGameWorld& _rGameWorld, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
+CTunnel::CTunnel(CGameWorld& _rGameWorld, CTunnelGenerator* _pTunnelGenerator, const TileSiteInfo& _rTileSiteInfo, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
 	:
 	m_iID(_iID),
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f),
 	m_eUnitType(_eUnitType),
-	m_eSize(_eSize)
+	m_eSize(_eSize),
+	m_pTunnelGenerator(_pTunnelGenerator)
 {
-
 	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
@@ -179,6 +181,10 @@ CTunnel::~CTunnel()
 
 int CTunnel::Update(float _fDeltaTime)
 {
+	DO_IF_IS_NOT_VALID_OBJ(this) return 1;
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
+		InvalidateObj();
+	}
 	switch (m_eSize)
 	{
 	case CTunnel::SIZE_SMALL: {
@@ -204,6 +210,7 @@ int CTunnel::Update(float _fDeltaTime)
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 14, 1, 0.f, 0, false));
 				m_eState = CTunnel::STATE_GENERATE_UNIT;
+				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 			}
 			break;
 		}
@@ -233,6 +240,7 @@ int CTunnel::Update(float _fDeltaTime)
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 21, 1, 0.f, 0, false));
 				m_eState = CTunnel::STATE_GENERATE_UNIT;
+				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 			}
 			break;
 		}
@@ -262,6 +270,7 @@ int CTunnel::Update(float _fDeltaTime)
 			if (1 == UpdateAnim(_fDeltaTime)) {
 				SetNewAnimInfo(AnimInfo(0, 8, 37, 1, 0.f, 0, false));
 				m_eState = CTunnel::STATE_GENERATE_UNIT;
+				if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseMaxSupplyNum(m_iMaxSupplyNum);
 			}
 			break;
 		}
@@ -272,52 +281,96 @@ int CTunnel::Update(float _fDeltaTime)
 
 
 	if (CTunnel::STATE_GENERATE_UNIT == m_eState) {
-		// 1) 보급 수 이하인지? true
-		// 2) 커멘더의 자본이 충분한지? true
-		// => 생성을 시작한다.
-		// 3) 시간이 다 됐으면, 유닛을 생성한다.
+		
 		if (m_bIsGenerating) {
 			// TODO : 생산하는 과정
 			if ((m_fElapsedTime += _fDeltaTime) >= m_fGenTime) {
 				D3DXVECTOR3 vPos = GetXY();
+				CComDepObj* pUnit = nullptr;
 				switch (m_eUnitType) {
 				case UNIT::TYPE_SQUIRREL:
-					GetGameWorld().GetListObjs().emplace_back(new CSquirrel(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CSquirrel(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				case UNIT::TYPE_LIZARD:
-					GetGameWorld().GetListObjs().emplace_back(new CLizard(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CLizard(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				case UNIT::TYPE_MOLE:
-					GetGameWorld().GetListObjs().emplace_back(new CMole(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CMole(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				case UNIT::TYPE_SKUNK:
-					GetGameWorld().GetListObjs().emplace_back(new CSkunk(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CSkunk(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				case UNIT::TYPE_BADGER:
-					GetGameWorld().GetListObjs().emplace_back(new CBadger(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CBadger(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				case UNIT::TYPE_FOX:
-					GetGameWorld().GetListObjs().emplace_back(new CFox(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID));
+					pUnit = new CFox(GetGameWorld(), GetCommander(), this, vPos.x, vPos.y, m_iID);
+					m_listUnits.emplace_back(pUnit);
+					GetGameWorld().GetListObjs().emplace_back(pUnit);
+					if (m_pTunnelGenerator) m_pTunnelGenerator->IncreaseUnitsNum();
 					break;
 				}
 				m_bIsGenerating = false;
 			}
 			return 0;
 		}
-		if (m_iSupplyNum >= m_iMaxSupplyNum) return 1;
-		if (GetCommander()->GetMoney() < m_iUnitCost) return 1;
-		++m_iSupplyNum;
-		GetCommander()->DecreseMoney(m_iUnitCost);
-		m_bIsGenerating = true;
-		m_fElapsedTime = 0.f;
+		else {
+			// 1) 보급 수 이하인지? true
+			// 2) 커멘더의 자본이 충분한지? true
+			// => 생성을 시작한다.
+			// 3) 시간이 다 됐으면, 유닛을 생성한다.
+			if (m_listUnits.size() >= m_iMaxSupplyNum) return 1;
+			if (GetCommander()->GetMoney() < m_iUnitCost) return 1;
+			//++m_iSupplyNum;
+			GetCommander()->DecreseMoney(m_iUnitCost);
+			m_bIsGenerating = true;
+			m_fElapsedTime = 0.f;
+		}
 	}
 
+	
+
 	return 0;
+}
+
+void CTunnel::LateUpdate()
+{
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
+		InvalidateObj();
+	}*/
 }
 
 void CTunnel::Release(void)
 {
 	SafelyDeleteObj(m_pBuildGauge);
+	m_listUnits.clear();
+}
+
+void CTunnel::InvalidateObj(void)
+{
+	m_pTunnelGenerator->ReleaseTunnel(this);
+	for (auto& pUnit : m_listUnits) {
+		pUnit->ReleaseTunnel(this);
+	}
+	m_listUnits.clear();
+	//SafelyDeleteObjs(m_listUnits);
+	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
+	CComDepObj::InvalidateObj();
 }
 
 void CTunnel::RegisterToRenderList(vector<CObj*>& _vecRenderList)

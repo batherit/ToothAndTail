@@ -3,6 +3,7 @@
 
 class CCommander;
 class CUI_UnitHP;
+class CTunnel;
 class CComDepObj :
 	public CSpriteObj
 {
@@ -20,6 +21,7 @@ public:
 	// 직접 삭제를 진행하지 않고, 무효화 처리하여 프레임워크가 알아서 삭제하도록 함.
 	// 단, GameWorld내 GameObjsList에 한해서 작동한다.
 	virtual void InvalidateObj();
+	virtual void ReleaseTunnel(CTunnel* _pTunnel) {};
 
 public:
 	void GenerateIdentificationTintObj(size_t _iWidth, size_t _iHeight, const wstring& _wstrTintKey, D3DXCOLOR _clIdentificationTint = D3DCOLOR_ARGB(255, 255, 255, 255));

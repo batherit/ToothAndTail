@@ -17,6 +17,7 @@
 #define COMMANDER_DETECTION_RANGE	120.f * BASE_SCALE
 
 // 力盒家
+#define WINDMILL_COST		60
 #define WINDMILL_WIDTH		140
 #define WINDMILL_HEIGHT		140
 // 力盒家 磐后
@@ -45,9 +46,9 @@
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
 #define PIG_DETECTION_RANGE	120.f * BASE_SCALE
-#define PIG_BULLET_DAMAGE	0 //5
+#define PIG_BULLET_DAMAGE	5 //5
 #define PIG_BULLET_SPEED	250.f * BASE_SCALE
-#define PIG_ATTACK_DELAY		1.f		
+#define PIG_ATTACK_DELAY	1.f		
 
 // 顶奔
 // 1) 家屈

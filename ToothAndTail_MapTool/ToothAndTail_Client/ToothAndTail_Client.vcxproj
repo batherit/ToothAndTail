@@ -222,7 +222,6 @@
     <ClInclude Include="CUI_Minimap.h" />
     <ClInclude Include="CUI_UnitHP.h" />
     <ClInclude Include="CUI_UnitSign.h" />
-    <ClInclude Include="CUnitGenerator.h" />
     <ClInclude Include="CWindmill.h" />
     <ClInclude Include="CWindmillBase.h" />
     <ClInclude Include="fmod.h" />
@@ -315,7 +314,6 @@
     <ClCompile Include="CUI_Minimap.cpp" />
     <ClCompile Include="CUI_UnitHP.cpp" />
     <ClCompile Include="CUI_UnitSign.cpp" />
-    <ClCompile Include="CUnitGenerator.cpp" />
     <ClCompile Include="CWindmill.cpp" />
     <ClCompile Include="CWindmillBase.cpp" />
     <ClCompile Include="Function.cpp" />

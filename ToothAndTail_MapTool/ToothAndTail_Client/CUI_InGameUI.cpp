@@ -108,17 +108,31 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 
 	m_pMinimap->Render();
 
+	swprintf_s(szBuf, L"%d/%d", 0, 0);
+	D3DXVECTOR3 vPos;
+	CTunnelGenerator* pTunnelGenerator = nullptr;
 	if (m_pCommander) {
 		for (int i = 0; i < m_vecUnitSigns.size(); ++i) {
 			m_vecUnitSigns[i]->SetScale(1.f);
 			// 현재 선택된 유닛 표식은 크게 키워준다.
+			vPos = m_vecUnitSigns[i]->GetXY();
 			if (m_pCommander->GetTunnelGeneratorIndex() == i) {
 				m_vecUnitSigns[i]->SetScale(1.2f);
 				// 현재 선택된 유닛 주변에 화살표 표시를 렌더해준다.
-				m_pUnitSignArrow->SetXY(m_vecUnitSigns[i]->GetXY());
+				m_pUnitSignArrow->SetXY(vPos);
 				m_pUnitSignArrow->Render(nullptr);
 			}
+			// 유닛 표식 표시
 			m_vecUnitSigns[i]->Render(nullptr);
+
+			// 보급 수 표시
+			
+			vPos.x -= 20.f;
+			vPos.y += 20.f;
+			pTunnelGenerator = m_pCommander->GetTunnelGenerators()[i];
+			swprintf_s(szBuf, L"%d/%d", pTunnelGenerator->GetUnitsNum(), pTunnelGenerator->GetMaxSupplyNum());
+			CGraphicDevice::GetInstance()->RenderText(szBuf, vPos, 0.35f);
+
 		}
 	}
 }

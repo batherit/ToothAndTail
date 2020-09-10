@@ -60,7 +60,7 @@ private:
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	UINT m_iMoney = 0U;// MAX_MONEY;
+	UINT m_iMoney = MAX_MONEY;
 	vector<CTunnelGenerator*> m_vecTunnelGenerator;
 	int m_iTunnelGeneratorIndex = 0;
 
