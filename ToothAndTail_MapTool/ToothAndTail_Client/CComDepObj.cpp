@@ -6,6 +6,7 @@
 #include "CMapLoader.h"
 #include "CUI_UnitHP.h"
 #include "CWindmill.h"
+#include "CTile.h"
 
 
 
@@ -123,9 +124,24 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 		vResistanceDir += vToTarget;
 	}
 
+	if (m_pCollidedWindmill) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
+		vResistanceDir += (vToTarget + GetToXY()) * 5.5f;
+
+
+	}
+	else {
+		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
+			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
+			//vResistanceDir += (vToTarget + GetToXY()) * 4.5f;
+			vMainDir += (GetToXY() + vToTarget) * 5.f;
+			pBlockingTile->PushOutOfTile(this);
+		}
+	}
+
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
-		vResistanceDir /= m_vecCollidedUnits.size();
+		vResistanceDir /= (m_vecCollidedUnits.size());
 	}
 	// 타겟 벡터를 구한다.
 	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
@@ -159,9 +175,24 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 		vResistanceDir += vToTarget;
 	}
 
+	if (m_pCollidedWindmill) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
+		vResistanceDir += (vToTarget + GetToXY()) * 5.5f;
+
+
+	}
+	else {
+		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
+			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
+			//vResistanceDir += (vToTarget + GetToXY()) * 4.5f;
+			vMainDir += (GetToXY() + vToTarget) * 5.f;
+			pBlockingTile->PushOutOfTile(this);
+		}
+	}
+
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
-		vResistanceDir /= m_vecCollidedUnits.size();
+		vResistanceDir /= (m_vecCollidedUnits.size());
 	}
 	// 타겟 벡터를 구한다.
 	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
@@ -229,7 +260,11 @@ void CComDepObj::DetectUnitsAround()
 	}
 
 	if (pWindmill) return;
-
+	for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {
+		if (!IsCollided(pBlockingTile->GetXY(), TILE_RADIUS, GetXY(), GetCollisionRadius()))
+			continue;
+		m_vecCollidedBlockingTiles.emplace_back(pBlockingTile);
+	}
 	// TODO : 충돌된 블로킹 타일을 검출한다.
 }
 
@@ -240,6 +275,18 @@ void CComDepObj::AdjustPosition(float _fDeltaTime, float _fSmooth)
 	for (auto& pCollidedUnit : m_vecCollidedUnits) {
 		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
 		vMainDir += vToTarget;
+	}
+	if (m_pCollidedWindmill) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
+		vMainDir += vToTarget;
+	}
+	else {
+		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
+			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
+			//vMainDir += vToTarget;
+			vMainDir += (GetToXY() + vToTarget) * 5.f;
+			pBlockingTile->PushOutOfTile(this);
+		}
 	}
 	D3DXVec3Normalize(&vMainDir, &vMainDir);
 	SetToXY(vMainDir);

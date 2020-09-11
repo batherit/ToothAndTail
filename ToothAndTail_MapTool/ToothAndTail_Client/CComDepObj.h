@@ -83,11 +83,9 @@ private:
 	float m_fCollisionRadius = UNIT_RADIUS;
 	CComDepObj* m_pTargetEnemy = nullptr;
 	vector<CComDepObj*> m_vecCollidedUnits;
-	CWindmill* m_pCollidedWindmill = nullptr;
 	vector<CTile*> m_vecCollidedBlockingTiles;
-
-
-
+	CWindmill* m_pCollidedWindmill = nullptr;
+	
 	float m_fHP = 100.f;
 	float m_fMaxHP = 100.f;
 	CUI_UnitHP* m_pUIUnitHP = nullptr;

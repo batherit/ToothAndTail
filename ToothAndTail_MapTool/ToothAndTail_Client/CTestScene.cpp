@@ -104,8 +104,8 @@ int CTestScene::Update(float _fDeltaTime)
 	for (auto& pTile : m_rGameWorld.GetMapLoader()->GetTiles()) {
 		pTile->Update(_fDeltaTime);
 	}
-	for (auto& rObj : m_rGameWorld.GetListObjs()) {
-		rObj->Update(_fDeltaTime);
+	for (auto& pObj : m_rGameWorld.GetListObjs()) {
+		pObj->Update(_fDeltaTime);
 	}
 	return 0;
 }
@@ -113,20 +113,29 @@ int CTestScene::Update(float _fDeltaTime)
 void CTestScene::LateUpdate(void)
 {
 	for (int i = 0; i < 2; ++i) {
-		m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
-		CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
-		pTile->RegisterObjOnTile(m_pCommander[i]);
-		for (auto& pBlockingTile : m_rGameWorld.GetMapLoader()->GetBlockingTiles()) {
-			pBlockingTile->PushOutOfTile(m_pCommander[i]);
-		}
+		//m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
+		//CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
+		//pTile->RegisterObjOnTile(m_pCommander[i]);
+		//for (auto& pBlockingTile : m_rGameWorld.GetMapLoader()->GetBlockingTiles()) {
+		//	pBlockingTile->PushOutOfTile(m_pCommander[i]);
+		//}
+		
 	}
 
-	for (auto& rObj : m_rGameWorld.GetListObjs()) {
-		rObj->LateUpdate();
+	CComDepObj* pComDepObj = nullptr;
+	for (auto& pObj : m_rGameWorld.GetListObjs()) {
+		pComDepObj = dynamic_cast<CComDepObj*>(pObj);
+		if (!pComDepObj) continue;
+		m_rGameWorld.GetMapLoader()->PushObjectInMap(pComDepObj);
+	}
+	
+
+	for (auto& pObj : m_rGameWorld.GetListObjs()) {
+		pObj->LateUpdate();
 	}
 
-	for (auto& rObj : m_rGameWorld.GetListObjs()) {
-		rObj->CollectGarbageObjs();
+	for (auto& pObj : m_rGameWorld.GetListObjs()) {
+		pObj->CollectGarbageObjs();
 	}
 
 	CollectGarbageObjs(m_rGameWorld.GetListObjs());

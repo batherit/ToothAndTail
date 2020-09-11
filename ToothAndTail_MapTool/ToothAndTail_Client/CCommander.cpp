@@ -8,6 +8,8 @@
 #include "CGameWorld.h"
 #include "CWindmill.h"
 #include "CUI_UnitHP.h"
+#include "CTile.h"
+#include "CMapLoader.h"
 
 
 
@@ -105,40 +107,18 @@ int CCommander::Update(float _fDeltaTime)
 void CCommander::LateUpdate(void)
 {
 	if (m_bIsAI) return;
-
-	
-
 	m_pStateMgr->LateUpdate();
+
+	for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {
+		pBlockingTile->PushOutOfTile(this);
+	}
 }
 
 void CCommander::Release(void)
 {
-	//SafelyDeleteObj(m_pCommanderSprite);
-	//SafelyDeleteObj(m_pIdentificationTintSprite);
 	SafelyDeleteObj(m_pStateMgr);
 	SafelyDeleteObjs(m_vecTunnelGenerator);
 }
-
-//void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)
-//{
-//	//if (m_pCommanderSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
-//	//if (m_pIdentificationTintSprite) m_pCommanderSprite->RegisterToRenderList(_vecRenderList);
-//}
-//
-//void CCommander::SetNewAnimInfo(const AnimInfo & _stAnimInfo)
-//{
-//	return m_pCommanderSprite->SetNewAnimInfo(_stAnimInfo);
-//}
-//
-//int CCommander::UpdateAnim(float _fDeltaTime)
-//{
-//	return m_pCommanderSprite->UpdateAnim(_fDeltaTime);
-//}
-//
-//D3DCOLOR CCommander::GetIdentificationTint(void) const
-//{
-//	return m_pCommanderSprite->GetIdentificationTint();
-//}
 
 bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 {

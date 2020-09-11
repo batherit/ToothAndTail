@@ -34,7 +34,8 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
 		}
-		else if(!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
+		else if(!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 적을 감지하지 못했고, 목표 지점에 도착하지 못했다면 이동을 수행한다.
+			// 이동 false => 목표지점에 도착했다
 			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
 		}
 
@@ -44,6 +45,11 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 			// 명령에 해당하는 병력은 새로운 목표지점을 세팅한다.
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 		}
+		else if (m_rOwner.GetTargetEnemy()) {
+			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
+		}
+		// 목표 지점까지 달리기를 수행한다.
 		if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
 			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
 		}
@@ -57,31 +63,21 @@ int CSquirrelState_Run::Update(float _fDeltaTime)
 				// 공격 타겟은 기수가 선정한 타겟이다.
 				m_rOwner.SetTargetPos(tCommandInfo.pTarget->GetXY());
 				m_rOwner.SetTargetEnemy(tCommandInfo.pTarget);
-				if (m_rOwner.CanAttackTargetEnemy()) {
-					// 적을 공격할 수 있는 상황이라면, 바로 공격한다.
-					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
-				}
-				else {
-					// 적을 공격할 수 없는 거리에 있다면 적이 있는 곳으로 달려간다.
-					m_rOwner.GoToTargetPoint(_fDeltaTime);
-				}
 			}
 			ELSE{
 				if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
 					// 명령에 해당하는 병력은 새로운 목표지점을 세팅한다.
 					m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 				}
-				if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
-				}
 			}
 		}
-		else {
-			if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
+		if (m_rOwner.CanAttackTargetEnemy()) {
+			// 적을 공격할 수 있는 상황이라면, 바로 공격한다.
+			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));
+		}
+		else if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) {
 				m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Idle(m_rGameWorld, m_rOwner));
-			}
 		}
-
 		break;
 	}
 

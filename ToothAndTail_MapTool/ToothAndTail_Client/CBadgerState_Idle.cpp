@@ -26,24 +26,27 @@ void CBadgerState_Idle::OnLoaded(void)
 int CBadgerState_Idle::Update(float _fDeltaTime)
 {
 	CommandInfo tCommandInfo = m_rOwner.GetCommander()->GetCurrentCommandInfo();
+	m_rOwner.DetectUnitsAround();
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
-		// 기수가 아무것도 하지 않는다.
-		m_rOwner.DetectUnitsAround();
+		// 위치 조정(펼쳐진다.)
+		m_rOwner.AdjustPosition(_fDeltaTime);
 		if (m_rOwner.GetTargetEnemy()) {
 			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 			m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Attack(m_rGameWorld, m_rOwner));
 		}
 		break;
 	case COMMANDER::COMMAND_GATHERING:
-		// 집결.
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
+			// 해당 부대에게 명령이 내려졌다면,
+			// 새 타겟 포인트를 세팅
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
-
-			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
+			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다. 목표 지점에 있다면 그자리에 있게 된다.
 			if (!m_rOwner.IsLocatedAtTargetPoint())
 				m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Run(m_rGameWorld, m_rOwner));
 		}
+		else m_rOwner.AdjustPosition(_fDeltaTime);
+
 		break;
 	case COMMANDER::COMMAND_SATURATION:
 		// 집중공격.
@@ -69,6 +72,8 @@ int CBadgerState_Idle::Update(float _fDeltaTime)
 			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
 			if (!m_rOwner.IsLocatedAtTargetPoint())
 				m_rOwner.GetStateMgr()->SetNextState(new CBadgerState_Run(m_rGameWorld, m_rOwner));
+			//else
+
 			}
 		}
 
