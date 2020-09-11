@@ -5,6 +5,7 @@
 #include "CGameWorld.h"
 #include "CMapLoader.h"
 #include "CUI_UnitHP.h"
+#include "CWindmill.h"
 
 
 
@@ -15,6 +16,8 @@ CComDepObj::CComDepObj(CGameWorld & _rGameWorld, CCommander* _pCommander, float 
 	m_iID(_iID),
 	m_pUIUnitHP(new CUI_UnitHP(_rGameWorld, this))
 {
+	m_vecCollidedUnits.reserve(100);
+	m_vecCollidedBlockingTiles.reserve(10);
 }
 
 CComDepObj::~CComDepObj()
@@ -47,6 +50,10 @@ void CComDepObj::Release(void)
 {
 	SafelyDeleteObj(m_pIdentificationTintSprite);
 	SafelyDeleteObj(m_pUIUnitHP);
+	m_vecCollidedUnits.clear();
+	m_vecCollidedUnits.shrink_to_fit();
+	m_vecCollidedBlockingTiles.clear();
+	m_vecCollidedBlockingTiles.shrink_to_fit();
 }
 
 void CComDepObj::InvalidateObj()
@@ -107,10 +114,23 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 {
 	if (IsLocatedAtTargetPoint()) return false;
 
-	// 아마 레이븐 알고리즘이 적용될 곳,,, 지금은 단순히 목표 지점으로 이동만 하는 코드
-	D3DXVECTOR3 vToTarget = m_vTargetPos - GetXY();
-	D3DXVec3Normalize(&vToTarget, &vToTarget);
-	SetToXY(vToTarget);
+	D3DXVECTOR3 vMainDir(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
+	for (auto& pCollidedUnit : m_vecCollidedUnits) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
+		vMainDir += vToTarget;
+	}
+
+	if (!m_vecCollidedUnits.empty()) {
+		vMainDir /= m_vecCollidedUnits.size();
+	}
+	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
+
+	vMainDir += vToTarget;
+	D3DXVec3Normalize(&vMainDir, &vMainDir);
+
+
+	SetToXY(vMainDir);
 	UpdateSpriteDir();
 	MoveByDeltaTime(_fDeltaTime);
 
@@ -122,42 +142,87 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 	if (CanAttackTargetEnemy()) return false;	// 공격할 수 있는 거리까지 왔으면 false를 반환한다.
 	if (!m_pTargetEnemy) return false;			// 타겟이 없다면 false를 반환한다.
 
-	D3DXVECTOR3 vToTarget = m_pTargetEnemy->GetXY() - GetXY();
-	D3DXVec3Normalize(&vToTarget, &vToTarget);
-	SetToXY(vToTarget);
+	D3DXVECTOR3 vMainDir = m_pTargetEnemy->GetXY() - GetXY();
+	D3DXVec3Normalize(&vMainDir, &vMainDir);
+
+	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
+	for (auto& pCollidedUnit : m_vecCollidedUnits) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
+		vMainDir += vToTarget;
+	}
+	D3DXVec3Normalize(&vMainDir, &vMainDir);
+	SetToXY(vMainDir);
 	UpdateSpriteDir();
 	MoveByDeltaTime(_fDeltaTime);
 
 	return true;
 }
 
-void CComDepObj::DetectEnemyAround()
+void CComDepObj::DetectUnitsAround()
 {
 	m_pTargetEnemy = nullptr;
+	m_vecCollidedUnits.clear();
+	m_pCollidedWindmill = nullptr;
+	m_vecCollidedBlockingTiles.clear();
 	
-	CComDepObj* pTargetEnemy = nullptr;
-	CCommander* pTargetCommander = nullptr;
+	CComDepObj* pUnit= nullptr;
+	CCommander* pCommander = nullptr;
+	CWindmill* pWindmill = nullptr;
 	float fMinLength = 987654321.f * BASE_SCALE;
 	float fLength = 0.f;
 	for (auto& pObj : GetGameWorld().GetListObjs()) {
-		pTargetEnemy = dynamic_cast<CComDepObj*>(pObj);
-		DO_IF_IS_NOT_VALID_OBJ(pTargetEnemy) continue;
+		pUnit = dynamic_cast<CComDepObj*>(pObj);
+		DO_IF_IS_NOT_VALID_OBJ(pUnit) continue;
 		
-		pTargetCommander = pTargetEnemy->GetCommander();
-		// 1) 타겟 커멘더가 유효한 상태이다.
-		// 2) 타겟 커멘더는 자신의 커멘더와 다르다. => 적이다.
-		// 3) 적은 커멘더가 아니다. => 기수가 아닌 일반 유닛이다.
-		if (pTargetCommander && pTargetCommander != GetCommander() && pTargetCommander != pTargetEnemy) {
-			// 커멘더가 해당 객체의 커멘더와 다르면 적으로 간주 가능하다.
-			fLength = D3DXVec3Length(&(pTargetEnemy->GetXY() - GetXY()));
-			if (fLength <= m_fDetectionRange && fLength < fMinLength) {
-				// 감지 범위에 존재하며,
-				// 자기로부터 가장 가까이에 있는 적을 타겟 적으로 삼는다.
+		fLength = D3DXVec3Length(&(pUnit->GetXY() - GetXY()));
+		if (fLength <= m_fDetectionRange && fLength < fMinLength) {
+			// 감지 범위에 존재하며, 자기로부터 가장 가까이에 있는 적을 타겟 적으로 삼는다.
+			
+			// 1) 타겟 커멘더가 유효한 상태이다.
+			// 2) 타겟 커멘더는 자신의 커멘더와 다르다. => 적이다.
+			// 3) 적은 커멘더가 아니다. => 기수가 아닌 일반 유닛이다. // 커멘더는 공격 대상이 되지 못한다.
+			// => 적이다.
+			pCommander = pUnit->GetCommander();
+			if (pCommander && pCommander != GetCommander() && pCommander != pUnit) {
+				// 커멘더가 해당 객체의 커멘더와 다르면 적으로 간주 가능하다.
 				fMinLength = fLength;
-				m_pTargetEnemy = pTargetEnemy;
+				m_pTargetEnemy = pUnit;
+			}
+
+			pWindmill = dynamic_cast<CWindmill*>(pUnit);
+			if (!m_pCollidedWindmill && pWindmill) {
+				// 유닛이 제분소였다면,
+				if (!IsCollided(pWindmill->GetXY(), pWindmill->GetCollisionRadius(), GetXY(), GetCollisionRadius()))
+					continue;
+				m_pCollidedWindmill = pWindmill;
+			}
+			else {
+				// 그냥 일반 유닛이었다면,
+				if (!IsCollided(pUnit->GetXY(), pUnit->GetCollisionRadius(), GetXY(), GetCollisionRadius()))
+					continue;
+				m_vecCollidedUnits.emplace_back(pUnit);
 			}
 		}
 	}
+
+	if (pWindmill) return;
+
+	// TODO : 충돌된 블로킹 타일을 검출한다.
+}
+
+void CComDepObj::AdjustPosition(float _fDeltaTime)
+{
+	D3DXVECTOR3 vMainDir(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
+	for (auto& pCollidedUnit : m_vecCollidedUnits) {
+		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
+		vMainDir += vToTarget;
+	}
+	D3DXVec3Normalize(&vMainDir, &vMainDir);
+	SetToXY(vMainDir);
+	SetSpeed(5.f * BASE_SCALE * m_vecCollidedUnits.size());
+	//UpdateSpriteDir();1
+	MoveByDeltaTime(_fDeltaTime);
 }
 
 bool CComDepObj::CanAttackTargetEnemy()

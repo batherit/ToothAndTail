@@ -29,7 +29,9 @@ int CSquirrelState_Idle::Update(float _fDeltaTime)
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		// 기수가 아무것도 하지 않는다.
-		m_rOwner.DetectEnemyAround();
+		m_rOwner.DetectUnitsAround();
+		// 위치 조정
+		m_rOwner.AdjustPosition(_fDeltaTime);
 		if (m_rOwner.GetTargetEnemy()) {
 			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 			m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Attack(m_rGameWorld, m_rOwner));

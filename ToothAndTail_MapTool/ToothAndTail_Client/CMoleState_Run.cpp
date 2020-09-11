@@ -30,7 +30,7 @@ int CMoleState_Run::Update(float _fDeltaTime)
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		// 주변에 적이 있는지 확인해본다.
-		m_rOwner.DetectEnemyAround();
+		m_rOwner.DetectUnitsAround();
 		if (m_rOwner.GetTargetEnemy()) {
 			if (m_rOwner.CanAttackTargetEnemy()) {
 				// 주변에 적을 감지했다면, 공격 상태로 전환한다.

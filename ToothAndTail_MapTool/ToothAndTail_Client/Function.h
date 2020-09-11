@@ -9,6 +9,7 @@ POINT GetClientCursorPoint(const HWND& _hWND);
 bool IsCollided(const RECT& _rRect1, const RECT& _rRect2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint);
+bool IsCollided(const D3DXVECTOR3& vPos1, float _fRadius1, const D3DXVECTOR3& vPos2, float _fRadius2);
 bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint);
 bool IsPointInRect(const RECT& _rRect, const D3DXVECTOR3& _rPoint);
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect);

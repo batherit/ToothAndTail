@@ -24,7 +24,7 @@ void CPigState_Cropping::OnLoaded(void)
 
 int CPigState_Cropping::Update(float _fDeltaTime)
 {
-	m_rOwner.DetectEnemyAround();
+	m_rOwner.DetectUnitsAround();
 	if (m_rOwner.GetTargetEnemy()) {
 		// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 		m_rOwner.GetStateMgr()->SetNextState(new CPigState_Attack(m_rGameWorld, m_rOwner));

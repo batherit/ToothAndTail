@@ -4,6 +4,8 @@
 class CCommander;
 class CUI_UnitHP;
 class CTunnel;
+class CWindmill;
+class CTile;
 class CComDepObj :
 	public CSpriteObj
 {
@@ -45,7 +47,8 @@ public:
 	void SetDetectionRange(float _fDetectionRange) { m_fDetectionRange = _fDetectionRange; }
 	void SetAttackRange(float _fAttackRange) { m_fAttackRange = _fAttackRange; }
 	// 2) 주변 감지된 적 선별(거리순)
-	void DetectEnemyAround();
+	void DetectUnitsAround();
+	void AdjustPosition(float _fDeltaTime);
 	void SetTargetEnemy(CComDepObj* _pTargetEnemy) { m_pTargetEnemy = _pTargetEnemy; }
 	CComDepObj* GetTargetEnemy() const { return m_pTargetEnemy; }
 	bool CanAttackTargetEnemy();
@@ -66,6 +69,8 @@ protected:
 	float GetMaxHP() const { return m_fMaxHP; }
 	CUI_UnitHP* GetUIUnitHP() const { return m_pUIUnitHP; }
 	bool IsFullHP() const { return m_fHP >= m_fMaxHP; }
+	void SetCollisionRadius(float _fCollisionRadius) { m_fCollisionRadius = _fCollisionRadius; }
+	float GetCollisionRadius(void) const { return m_fCollisionRadius; }
 
 private:
 	int m_iID = -1;
@@ -75,7 +80,14 @@ private:
 
 	float m_fDetectionRange = 100.f;
 	float m_fAttackRange = 100.f;
+	float m_fCollisionRadius = UNIT_RADIUS;
 	CComDepObj* m_pTargetEnemy = nullptr;
+	vector<CComDepObj*> m_vecCollidedUnits;
+	CWindmill* m_pCollidedWindmill = nullptr;
+	vector<CTile*> m_vecCollidedBlockingTiles;
+
+
+
 	float m_fHP = 100.f;
 	float m_fMaxHP = 100.f;
 	CUI_UnitHP* m_pUIUnitHP = nullptr;

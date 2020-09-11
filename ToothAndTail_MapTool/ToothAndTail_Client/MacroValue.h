@@ -7,6 +7,7 @@
 #define MAP_HEIGHT			2048
 
 // 타일
+#define TILE_RADISU			20.f * BASE_SCALE
 #define TILE_WIDTH			42
 #define TILE_HEIGHT			28
 
@@ -20,6 +21,7 @@
 #define WINDMILL_COST		60
 #define WINDMILL_WIDTH		140
 #define WINDMILL_HEIGHT		140
+#define WINDMILL_RADIUS		40.f * BASE_SCALE
 // 제분소 터빈
 #define TURBINE_WIDTH		140
 #define TURBINE_HEIGHT		140
@@ -71,6 +73,7 @@
 #define TUNNEL_BIG_BUILD_SEC		13.f
 #define TUNNEL_BIG_BUILD_COST		180
 
+#define UNIT_RADIUS					8.f * BASE_SCALE
 // 유닛 //청솔모(SQUIRREL), 도마뱀(LIZARD), 두더지(MOLE), 스컹크(SKUNK), 오소리(BADGER), 여우(FOX)
 // 1) 청솔모(SQUIRREL, 소형)
 #define SQUIRREL_COST				20

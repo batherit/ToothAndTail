@@ -96,7 +96,7 @@ int CLizardState_Attack::Update(float _fDeltaTime)
 		else {
 			if (1 == m_rOwner.UpdateAnim(_fDeltaTime)) {
 				// 총알 발사 애니메이션이 끝나면 새로운 적을 탐색한다.
-				m_rOwner.DetectEnemyAround();
+				m_rOwner.DetectUnitsAround();
 				if (m_rOwner.GetTargetEnemy()) {
 					// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 					m_rOwner.GetStateMgr()->SetNextState(new CLizardState_Attack(m_rGameWorld, m_rOwner));

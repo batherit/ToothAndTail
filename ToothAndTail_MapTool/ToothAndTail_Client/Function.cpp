@@ -33,6 +33,12 @@ bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint) {
 	return IntersectRect(&_rCollidedPoint, &(_pObj1->GetRect()), &(_pObj2->GetRect()));
 }
 
+bool IsCollided(const D3DXVECTOR3 & vPos1, float _fRadius1, const D3DXVECTOR3 & vPos2, float _fRadius2)
+{
+	float fLength = D3DXVec3Length(&(vPos1 - vPos2));
+	return fLength <= _fRadius1 + _fRadius2;
+}
+
 bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint)
 {
 	return (_rRect.left <= _rPoint.x && _rPoint.x <= _rRect.right) && (_rRect.top <= _rPoint.y && _rPoint.y <= _rRect.bottom);

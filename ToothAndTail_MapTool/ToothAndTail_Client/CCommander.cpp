@@ -228,7 +228,7 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 		tNewCommandInfo.iUnitID = -1;
 		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
 			// 적을 탐색하고, 적을 발견했다면 이 적을 집중 공격하라
-			DetectEnemyAround();
+			DetectUnitsAround();
 			if (GetTargetEnemy()) {
 				tNewCommandInfo.eCommand = COMMANDER::COMMAND_SATURATION;
 				tNewCommandInfo.pTarget = GetTargetEnemy();
@@ -247,7 +247,7 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
 		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
 			// 적을 탐색하고, 적을 발견했다면 이 적을 집중 공격하라
-			DetectEnemyAround();
+			DetectUnitsAround();
 			if (GetTargetEnemy()) {
 				tNewCommandInfo.eCommand = COMMANDER::COMMAND_SATURATION;
 				tNewCommandInfo.pTarget = GetTargetEnemy();

@@ -64,6 +64,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
 	GetUIUnitHP()->SetY(-20.f);
+	SetCollisionRadius(WINDMILL_RADIUS);
 	SetMinimapSign(MINIMAP::SIGN_WINDMILL);
 	// 이부분 마음에 안들어
 	SetTileSiteInfo(TileSiteInfo(_iLineIndex, 6, 6, 3, 3));
