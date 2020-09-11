@@ -38,13 +38,17 @@ int CSquirrelState_Idle::Update(float _fDeltaTime)
 		}
 		break;
 	case COMMANDER::COMMAND_GATHERING:
-		// 집결.
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
-
+			
 			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
 			if(!m_rOwner.IsLocatedAtTargetPoint())
 				m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
+		}
+		else {
+			m_rOwner.DetectUnitsAround();
+			// 위치 조정
+			m_rOwner.AdjustPosition(_fDeltaTime);
 		}
 		break;
 	case COMMANDER::COMMAND_SATURATION:
@@ -71,7 +75,14 @@ int CSquirrelState_Idle::Update(float _fDeltaTime)
 				// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
 				if (!m_rOwner.IsLocatedAtTargetPoint())
 					m_rOwner.GetStateMgr()->SetNextState(new CSquirrelState_Run(m_rGameWorld, m_rOwner));
+				//else
+					
 			}
+		}
+		else {
+			m_rOwner.DetectUnitsAround();
+			// 위치 조정
+			m_rOwner.AdjustPosition(_fDeltaTime);
 		}
 		
 		break;

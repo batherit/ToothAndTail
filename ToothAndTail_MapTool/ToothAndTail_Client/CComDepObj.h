@@ -48,7 +48,7 @@ public:
 	void SetAttackRange(float _fAttackRange) { m_fAttackRange = _fAttackRange; }
 	// 2) 주변 감지된 적 선별(거리순)
 	void DetectUnitsAround();
-	void AdjustPosition(float _fDeltaTime);
+	void AdjustPosition(float _fDeltaTime, float _fSmooth = 7.f);
 	void SetTargetEnemy(CComDepObj* _pTargetEnemy) { m_pTargetEnemy = _pTargetEnemy; }
 	CComDepObj* GetTargetEnemy() const { return m_pTargetEnemy; }
 	bool CanAttackTargetEnemy();

@@ -21,6 +21,7 @@ CLizard::CLizard(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _p
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(LIZARD_DETECTION_RANGE);
 	SetAttackRange(LIZARD_ATTACK_RANGE);
+	SetMaxSpeed(LIZARD_SPEED);
 
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);

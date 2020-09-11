@@ -22,6 +22,7 @@ CMole::CMole(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunn
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(MOLE_DETECTION_RANGE);
 	SetAttackRange(MOLE_ATTACK_RANGE);
+	SetMaxSpeed(MOLE_SPEED);
 
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);

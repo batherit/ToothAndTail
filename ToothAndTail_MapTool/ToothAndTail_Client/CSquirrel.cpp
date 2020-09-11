@@ -21,6 +21,7 @@ CSquirrel::CSquirrel(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(SQUIRREL_DETECTION_RANGE);
 	SetAttackRange(SQUIRREL_ATTACK_RANGE);
+	SetMaxSpeed(SQUIRREL_SPEED);
 
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);

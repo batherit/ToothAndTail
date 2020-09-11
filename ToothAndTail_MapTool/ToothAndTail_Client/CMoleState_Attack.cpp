@@ -29,8 +29,10 @@ int CMoleState_Attack::Update(float _fDeltaTime)
 {
 	// 기수 명령 해석
 	CommandInfo tCommandInfo = m_rOwner.GetCommander()->GetCurrentCommandInfo();
+	m_rOwner.DetectUnitsAround();
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
+		m_rOwner.AdjustPosition(_fDeltaTime, 0.4f);
 		break;
 	case COMMANDER::COMMAND_GATHERING:
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
@@ -96,7 +98,7 @@ int CMoleState_Attack::Update(float _fDeltaTime)
 			else {
 				if (1 == m_rOwner.UpdateAnim(_fDeltaTime)) {
 					// 총알 발사 애니메이션이 끝나면 새로운 적을 탐색한다.
-					m_rOwner.DetectUnitsAround();
+					//m_rOwner.DetectUnitsAround();
 					if (m_rOwner.GetTargetEnemy()) {
 						// 주변에 적을 감지했다면, 공격 상태로 전환한다.
 						m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));

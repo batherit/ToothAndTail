@@ -22,6 +22,7 @@ CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel
 	SetTargetPos(D3DXVECTOR3(_fX, _fY, 0.f));
 	SetDetectionRange(FOX_DETECTION_RANGE);
 	SetAttackRange(FOX_ATTACK_RANGE);
+	SetMaxSpeed(FOX_SPEED);
 
 	SetRenderLayer(10);
 	SetScale(BASE_SCALE);

@@ -115,22 +115,30 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 	if (IsLocatedAtTargetPoint()) return false;
 
 	D3DXVECTOR3 vMainDir(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vResistanceDir(0.f, 0.f, 0.f);
 	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
+	// 저항 속도를 구한다.
 	for (auto& pCollidedUnit : m_vecCollidedUnits) {
 		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
-		vMainDir += vToTarget;
+		vResistanceDir += vToTarget;
 	}
 
+	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
-		vMainDir /= m_vecCollidedUnits.size();
+		vResistanceDir /= m_vecCollidedUnits.size();
 	}
+	// 타겟 벡터를 구한다.
 	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
-
-	vMainDir += vToTarget;
+	// 타겟 벡터에 저항 속도를 더한다.
+	vMainDir = vToTarget + vResistanceDir;
+	// 최종 방향을 구한다.
 	D3DXVec3Normalize(&vMainDir, &vMainDir);
-
+	// 속력을 측정한다.
+	float fT = D3DXVec3Dot(&GetToXY(), &vMainDir) * 0.5f + 0.5f;
+	SetSpeed(GetMaxSpeed() * fT);
 
 	SetToXY(vMainDir);
+	
 	UpdateSpriteDir();
 	MoveByDeltaTime(_fDeltaTime);
 
@@ -142,15 +150,30 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 	if (CanAttackTargetEnemy()) return false;	// 공격할 수 있는 거리까지 왔으면 false를 반환한다.
 	if (!m_pTargetEnemy) return false;			// 타겟이 없다면 false를 반환한다.
 
-	D3DXVECTOR3 vMainDir = m_pTargetEnemy->GetXY() - GetXY();
-	D3DXVec3Normalize(&vMainDir, &vMainDir);
-
+	D3DXVECTOR3 vMainDir(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vResistanceDir(0.f, 0.f, 0.f);
 	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
+	// 저항 속도를 구한다.
 	for (auto& pCollidedUnit : m_vecCollidedUnits) {
 		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
-		vMainDir += vToTarget;
+		vResistanceDir += vToTarget;
 	}
+
+	// 겹침이 많을수록 저항이 줄어든다.
+	if (!m_vecCollidedUnits.empty()) {
+		vResistanceDir /= m_vecCollidedUnits.size();
+	}
+	// 타겟 벡터를 구한다.
+	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
+	// 타겟 벡터에 저항 속도를 더한다.
+	vMainDir = vToTarget + vResistanceDir;
+	// 최종 방향을 구한다.
 	D3DXVec3Normalize(&vMainDir, &vMainDir);
+	// 속력을 측정한다.
+	float fT = D3DXVec3Dot(&GetToXY(), &vMainDir) * 0.5f + 0.5f;
+	SetSpeed(GetMaxSpeed() * fT);
+	
+
 	SetToXY(vMainDir);
 	UpdateSpriteDir();
 	MoveByDeltaTime(_fDeltaTime);
@@ -210,7 +233,7 @@ void CComDepObj::DetectUnitsAround()
 	// TODO : 충돌된 블로킹 타일을 검출한다.
 }
 
-void CComDepObj::AdjustPosition(float _fDeltaTime)
+void CComDepObj::AdjustPosition(float _fDeltaTime, float _fSmooth)
 {
 	D3DXVECTOR3 vMainDir(0.f, 0.f, 0.f);
 	D3DXVECTOR3 vToTarget(0.f, 0.f, 0.f);
@@ -220,7 +243,7 @@ void CComDepObj::AdjustPosition(float _fDeltaTime)
 	}
 	D3DXVec3Normalize(&vMainDir, &vMainDir);
 	SetToXY(vMainDir);
-	SetSpeed(5.f * BASE_SCALE * m_vecCollidedUnits.size());
+	SetSpeed(_fSmooth * BASE_SCALE * m_vecCollidedUnits.size());
 	//UpdateSpriteDir();1
 	MoveByDeltaTime(_fDeltaTime);
 }

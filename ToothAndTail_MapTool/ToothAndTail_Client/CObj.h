@@ -74,7 +74,8 @@ public:
 	void SetToY(float _fToY) { m_vDir.y = _fToY; }
 	void SetToXY(float _fToX, float _fToY) { SetToX(_fToX); SetToY(_fToY); D3DXVec3Normalize(&m_vDir, &m_vDir); }
 	void SetToXY(D3DXVECTOR3 _vDir) { m_vDir = _vDir; D3DXVec3Normalize(&m_vDir, &m_vDir); }
-	void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
+	void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; Clamp(&m_fSpeed, -m_fMaxSpeed, m_fMaxSpeed); }
+	void SetMaxSpeed(float _fMaxSpeed) { m_fMaxSpeed = _fMaxSpeed; }
 	void SetRect(RECT _rcRect) {
 		SetWidth(_rcRect.right - _rcRect.left);
 		SetHeight(_rcRect.bottom - _rcRect.top);
@@ -112,6 +113,7 @@ public:
 	float GetToY(void) const { return m_vDir.y; }
 	D3DXVECTOR3 GetToXY(void) const { return D3DXVECTOR3(GetToX(), GetToY(), 0.f); }
 	float GetSpeed(void) const { return m_fSpeed; }
+	float GetMaxSpeed(void) const { return m_fMaxSpeed; }
 	virtual float GetFloor() const { return GetBottom(); }
 
 	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
@@ -155,6 +157,7 @@ protected:
 	D3DXVECTOR3 m_vDir = { 1.f, 0.f, 0.f };
 
 	//OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;
+	float m_fMaxSpeed = 987654321.f;
 	float m_fSpeed = 0.f;
 	size_t m_iWidth = 0;
 	size_t m_iHeight = 0;
