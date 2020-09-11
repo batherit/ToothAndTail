@@ -27,6 +27,7 @@ int CMoleState_Run::Update(float _fDeltaTime)
 {
 	// 커멘더의 명령을 확인한다.
 	CommandInfo tCommandInfo = m_rOwner.GetCommander()->GetCurrentCommandInfo();
+	m_rOwner.DetectUnitsAround();
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		// 주변에 적이 있는지 확인해본다.
@@ -51,6 +52,12 @@ int CMoleState_Run::Update(float _fDeltaTime)
 			// 명령에 해당하는 병력은 새로운 목표지점을 세팅한다.
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 		}
+		else if (m_rOwner.GetTargetEnemy()) {
+			if (m_rOwner.CanAttackTargetEnemy()) {
+				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+			}
+		}
+		// 목표 지점까지 달리기를 수행한다.
 		if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
 			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Idle(m_rGameWorld, m_rOwner));
 		}
@@ -64,25 +71,22 @@ int CMoleState_Run::Update(float _fDeltaTime)
 				// 공격 타겟은 기수가 선정한 타겟이다.
 				m_rOwner.SetTargetPos(tCommandInfo.pTarget->GetXY());
 				m_rOwner.SetTargetEnemy(tCommandInfo.pTarget);
-				if (m_rOwner.CanAttackTargetEnemy()) {
-					// 적을 공격할 수 있는 상황이라면, 바로 공격한다.
-					m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
-				}
-				else {
-					// 적을 공격할 수 없는 거리에 있다면 적이 있는 곳으로 달려간다.
-					m_rOwner.GoToTargetPoint(_fDeltaTime);
-				}
 			}
 			ELSE{
 				if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
 					// 명령에 해당하는 병력은 새로운 목표지점을 세팅한다.
 					m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 				}
-				if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
-					m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Idle(m_rGameWorld, m_rOwner));
-				}
 			}
 		}
+		if (m_rOwner.CanAttackTargetEnemy()) {
+			// 적을 공격할 수 있는 상황이라면, 바로 공격한다.
+			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Attack(m_rGameWorld, m_rOwner));
+		}
+		else if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) {
+			m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Idle(m_rGameWorld, m_rOwner));
+		}
+		break;
 
 		break;
 	}
