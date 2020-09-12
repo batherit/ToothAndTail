@@ -117,14 +117,21 @@ public:
 	virtual float GetFloor() const { return GetBottom(); }
 
 	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
-		D3DXVECTOR3 vLeftTop(m_vPos.x /*+ m_vRenderOffset.x*/ - (m_iWidth >> 1) * fabs(GetScaleX()), m_vPos.y /*+ m_vRenderOffset.y*/ - (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
-		D3DXVECTOR3 vRightBottom(m_vPos.x /*+ m_vRenderOffset.x*/ + (m_iWidth >> 1)* fabs(GetScaleX()), m_vPos.y /*+ m_vRenderOffset.y*/ + (m_iHeight >> 1)* fabs(GetScaleY()), 0.f);
+		D3DXVECTOR3 vLeftTop(m_vPos.x /*+ m_vRenderOffset.x*/ - (m_iWidth >> 1) * GetScaleX(), m_vPos.y /*+ m_vRenderOffset.y*/ - (m_iHeight >> 1)* GetScaleY(), 0.f);
+		D3DXVECTOR3 vRightBottom(m_vPos.x /*+ m_vRenderOffset.x*/ + (m_iWidth >> 1) * GetScaleX(), m_vPos.y /*+ m_vRenderOffset.y*/ + (m_iHeight >> 1)* GetScaleY(), 0.f);
 
 		switch (_eCoordType) {
 		case CObj::COORD_TYPE_WORLD:
 			D3DXVec3TransformCoord(&vLeftTop, &vLeftTop, &GetParentMatrix(CObj::COORD_TYPE_WORLD));
 			D3DXVec3TransformCoord(&vRightBottom, &vRightBottom, &GetParentMatrix(CObj::COORD_TYPE_WORLD));
 			break;
+		}
+
+		if (vLeftTop.x > vRightBottom.x) {
+			swap(vLeftTop.x, vRightBottom.x);
+		}
+		if (vLeftTop.y > vRightBottom.y) {
+			swap(vLeftTop.y, vRightBottom.y);
 		}
 		
 		return RECT({ static_cast<LONG>(vLeftTop.x + m_vRenderOffset.x), static_cast<LONG>(vLeftTop.y + m_vRenderOffset.y),

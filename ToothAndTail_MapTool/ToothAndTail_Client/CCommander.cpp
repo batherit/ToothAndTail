@@ -10,14 +10,14 @@
 #include "CUI_UnitHP.h"
 #include "CTile.h"
 #include "CMapLoader.h"
+#include "CPathGenerator.h"
 
 
 
 CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
 	:
 	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
-	m_eCommanderType(_eCommanderType)/*,
-	m_clIdentificationTint_ARGB(_clIdentificationTint_ARGB)*/
+	m_eCommanderType(_eCommanderType)
 {
 	//GetUIUnitHP()->SetY(-35.f);
 
@@ -50,6 +50,8 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
+
+
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
 
 	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_SQUIRREL, this));
@@ -73,9 +75,9 @@ int CCommander::Update(float _fDeltaTime)
 {
 	//GetUIUnitHP()->Update(_fDeltaTime);
 
-	if (m_bIsAI) return 1;
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
+
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) DesignatePrevUnit();
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) DesignateNextUnit();
@@ -106,7 +108,7 @@ int CCommander::Update(float _fDeltaTime)
 
 void CCommander::LateUpdate(void)
 {
-	if (m_bIsAI) return;
+	//if (m_bIsAI) return;
 	m_pStateMgr->LateUpdate();
 
 	for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {

@@ -177,6 +177,9 @@
     <Filter Include="소스 파일\97.FMOD">
       <UniqueIdentifier>{197b0c85-9474-4780-abdb-33e2afa1622e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\2.Generator\PathGenerator">
+      <UniqueIdentifier>{652e7413-2599-46f9-b76b-9fc368184cf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -449,6 +452,9 @@
     <ClInclude Include="CSoundMgr.h">
       <Filter>소스 파일\2.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CPathGenerator.h">
+      <Filter>소스 파일\2.Generator\PathGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -690,6 +696,9 @@
     </ClCompile>
     <ClCompile Include="CSoundMgr.cpp">
       <Filter>소스 파일\2.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathGenerator.cpp">
+      <Filter>소스 파일\2.Generator\PathGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

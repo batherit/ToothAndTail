@@ -96,7 +96,7 @@ CTile * CMapLoader::GetTile(D3DXVECTOR3 _vPos) const
 
 CTile * CMapLoader::GetTile(int _iRow, int _iCol) const
 {
-	if (0 > _iRow || _iRow >= m_ciMapRow || 0 > _iCol || _iCol >= m_ciMapCol) return nullptr;
+	if (!IsTileInRange(_iRow, _iCol)) return nullptr;
 	return GetTile(_iRow * m_ciMapCol + _iCol);
 }
 
@@ -209,8 +209,8 @@ POINT CMapLoader::GetRowColIndex(int _iLineIndex) const
 
 	if (!IsTileInRange(_iLineIndex)) return ptIndexes;
 
-	ptIndexes.x = _iLineIndex % m_ciMapCol;
-	ptIndexes.y = _iLineIndex / m_ciMapCol;
+	ptIndexes.x = _iLineIndex % m_ciMapCol;	// Col
+	ptIndexes.y = _iLineIndex / m_ciMapCol;	// Row
 
 	return ptIndexes;
 }

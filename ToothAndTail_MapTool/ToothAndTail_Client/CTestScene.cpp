@@ -42,6 +42,7 @@ void CTestScene::ResetScene(void)
 	// 2) 기수 및 제분소 렌더레이어 테스트
 	m_pCommander[0] = new CCommander(m_rGameWorld, 0.f, 200.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
 	m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[0]); // 좀 고쳐야 된다.
+	//m_rGameWorld.GetMainCamera()->SetXY(871.f,3395.f);
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[0]);
 	CWindmill* pWindmill = new CWindmill(m_rGameWorld, 288, m_pCommander[0]);
 	D3DXVECTOR3 pNewPos = pWindmill->GetXY();
@@ -52,14 +53,13 @@ void CTestScene::ResetScene(void)
 	// 인게임 UI 생성
 	m_pInGameUI = new CUI_InGameUI(m_rGameWorld, m_pCommander[0]);
 
-	m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
-	m_pCommander[1]->SetAI(true);
+	/*m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
 	pWindmill = new CWindmill(m_rGameWorld, 323, m_pCommander[1]);
 	pNewPos = pWindmill->GetXY();
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE;
 	m_pCommander[1]->SetXY(pNewPos);
-	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);*/
 
 	// 점령되지 않은 제분소
 	pWindmill = new CWindmill(m_rGameWorld, 813, nullptr);

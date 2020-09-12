@@ -25,7 +25,11 @@ public:
 	}
 	int GetLineIndex() const { return m_iLineIndex; }
 
+	void SetParentTileIndex(int _iParentTileIndex) { m_iParentTileIndex = _iParentTileIndex; }
+	int GetParentTileIndex(void) const { return m_iParentTileIndex; }
+
 private:
+	int m_iParentTileIndex = -1;
 	const int m_iLineIndex = -1;
 	CObj* m_pDetectedObj = nullptr;
 	TILE::E_TYPE m_eTileType = TILE::TYPE_NORMAL;
