@@ -33,10 +33,10 @@ int CComState_Running_WaveFlag::Update(float _fDeltaTime)
 	float fNewToY = 0.f;
 	CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
-	if (m_rOwner.IsMoveKeyPressed(fNewToX, fNewToY)) {
+	if (m_rOwner.IsMoving(fNewToX, fNewToY)) {
 		m_rOwner.SetToXY(fNewToX, fNewToY);
 		m_rOwner.MoveByDeltaTime(_fDeltaTime);
-		if (m_rOwner.IsBuildKeyPressed())
+		if (m_rOwner.IsBuilding())
 			m_rOwner.GetStateMgr()->SetNextState(new CComState_Running_Build(m_rGameWorld, m_rOwner));
 		else if (!m_rOwner.IsFlagKeyPressed(eFlagType)) 
 			m_rOwner.GetStateMgr()->SetNextState(new CComState_Running_Jump(m_rGameWorld, m_rOwner));

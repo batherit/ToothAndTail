@@ -25,7 +25,7 @@ bool CPathGenerator::GeneratePath(const D3DXVECTOR3 & _vStartPos, const D3DXVECT
 	m_iStartLineIndex = pMapLoader->GetLineIndex(_vStartPos);
 	m_iGoalLineIndex = pMapLoader->GetLineIndex(_vGoalPos);
 	// 잘못된 시작/끝 지점이 들어온 경우, false를 반환 why. 맵 범위 밖
-	if (m_iStartLineIndex < 0 || m_iGoalLineIndex) return false;
+	if (m_iStartLineIndex < 0 || m_iGoalLineIndex < 0) return false;
 	// 시작과 끝 지점이 같은 경우, false를 반환 why. 이미 도착한 지점
 	if (m_iStartLineIndex == m_iGoalLineIndex) return false;
 	// 끝 지점이 블로킹 타일일 경우, false를 반환 why. 막혀있는 지점
@@ -100,6 +100,9 @@ bool CPathGenerator::FindPath(int _iStartLineIndex, int _iGoalLineIndex)
 			if (!pTile) 
 				continue;	// 유효하지 않은 타일이면 다음 타일을 진행한다.
 			
+			if (pTile->GetTileType() == TILE::TYPE_BLOCKING)
+				continue;
+
 			if (pTile->GetLineIndex() == _iGoalLineIndex) {
 				pTile->SetParentTileIndex(_iStartLineIndex);
 				return true;	// 목표 지점에 도달했으면, true를 반환한다.

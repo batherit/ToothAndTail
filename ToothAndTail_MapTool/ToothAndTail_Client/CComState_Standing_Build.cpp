@@ -31,7 +31,7 @@ int CComState_Standing_Build::Update(float _fDeltaTime)
 	float fNewToY = 0.f;
 	CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
-	if (m_rOwner.IsMoveKeyPressed(fNewToX, fNewToY)) {
+	if (m_rOwner.IsMoving(fNewToX, fNewToY)) {
 		m_rOwner.SetToXY(fNewToX, fNewToY);
 		m_rOwner.MoveByDeltaTime(_fDeltaTime);
 		m_rOwner.GetStateMgr()->SetNextState(new CComState_Run(m_rGameWorld, m_rOwner));

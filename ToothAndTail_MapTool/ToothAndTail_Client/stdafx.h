@@ -26,6 +26,7 @@
 #include <string>
 #include <list>
 #include <vector>
+#include <queue>
 #include <map>
 #include <algorithm>
 #include <functional>
@@ -46,6 +47,7 @@ using namespace std;
 #include "CObj.h"
 #include "CSpriteObj.h"
 #include "CUI_Button.h"
+#include "CPathGenerator.h"
 
 #include <io.h>
 #include "fmod.h"

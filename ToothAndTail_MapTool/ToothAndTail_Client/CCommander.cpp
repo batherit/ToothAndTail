@@ -19,8 +19,6 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
 	m_eCommanderType(_eCommanderType)
 {
-	//GetUIUnitHP()->SetY(-35.f);
-
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
@@ -50,8 +48,6 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	GenerateIdentificationTintObj(COMMANDER_WIDTH, COMMANDER_HEIGHT, wstrCommander + L"_TINT", _clIdentificationTint_ARGB);
 
 	m_pStateMgr = new CStateMgr<CCommander>(GetGameWorld(), *this);
-
-
 	m_pStateMgr->SetNextState(new CComState_Idle(GetGameWorld(), *this));
 
 	m_vecTunnelGenerator.emplace_back(new CTunnelGenerator(GetGameWorld(), UNIT::TYPE_SQUIRREL, this));
@@ -108,7 +104,6 @@ int CCommander::Update(float _fDeltaTime)
 
 void CCommander::LateUpdate(void)
 {
-	//if (m_bIsAI) return;
 	m_pStateMgr->LateUpdate();
 
 	for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {
@@ -122,7 +117,7 @@ void CCommander::Release(void)
 	SafelyDeleteObjs(m_vecTunnelGenerator);
 }
 
-bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
+bool CCommander::IsMoving(float & _fToX, float & _fToY)
 {
 	_fToX = 0.f;
 	_fToY = 0.f;
@@ -159,7 +154,7 @@ bool CCommander::IsMoveKeyPressed(float & _fToX, float & _fToY)
 	return true;
 }
 
-bool CCommander::IsBuildKeyPressed(void) const
+bool CCommander::IsBuilding(void) const
 {
 	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
 }
@@ -177,7 +172,7 @@ bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
 	return _eFlagType != CCommander::FLAG_TYPE_NONE;
 }
 
-bool CCommander::IsSpaceKeyPressed() const
+bool CCommander::IsOccupying() const
 {
 	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
 }

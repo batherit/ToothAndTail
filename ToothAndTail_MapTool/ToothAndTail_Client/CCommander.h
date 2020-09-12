@@ -34,10 +34,10 @@ public:
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }
 	//D3DCOLOR GetIdentificationTint(void) const;
 	CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
-	bool IsMoveKeyPressed(float & _fToX, float & _fToY);
-	bool IsBuildKeyPressed(void) const;
+	virtual bool IsMoving(float & _fToX, float & _fToY);		// AI측에서 재정의
+	virtual bool IsBuilding() const;							// AI측에서 재정의
+	virtual bool IsOccupying() const;							// AI측에서 재정의
 	bool IsFlagKeyPressed(CCommander::E_FLAG_TYPE& _eFlagType) const;
-	bool IsSpaceKeyPressed() const;
 
 	UINT GetMoney() const { return m_iMoney; }
 	void DecreseMoney(UINT _iAmount) { m_iMoney -= _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }

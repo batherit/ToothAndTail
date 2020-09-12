@@ -180,6 +180,12 @@
     <Filter Include="소스 파일\2.Generator\PathGenerator">
       <UniqueIdentifier>{652e7413-2599-46f9-b76b-9fc368184cf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\SpriteObj\ComDepObj\CommanderAI">
+      <UniqueIdentifier>{385753f9-90cd-415a-8b2e-7be9e1e94966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.State\CommanderAI">
+      <UniqueIdentifier>{95a73d17-2e29-4d3c-9a91-f955ff664566}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -455,6 +461,15 @@
     <ClInclude Include="CPathGenerator.h">
       <Filter>소스 파일\2.Generator\PathGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="CCommanderAI.h">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\CommanderAI</Filter>
+    </ClInclude>
+    <ClInclude Include="CAI_ComState_Idle.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClInclude>
+    <ClInclude Include="CAI_ComState_Run.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -699,6 +714,15 @@
     </ClCompile>
     <ClCompile Include="CPathGenerator.cpp">
       <Filter>소스 파일\2.Generator\PathGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="CCommanderAI.cpp">
+      <Filter>소스 파일\1.CObj\SpriteObj\ComDepObj\CommanderAI</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Idle.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Run.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

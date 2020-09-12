@@ -2,6 +2,7 @@
 #include "CTestScene.h"
 #include "CGameWorld.h"
 #include "CCommander.h"
+#include "CCommanderAI.h"
 #include "CWindmill.h"
 #include "CFarmland.h"
 #include "CTunnel.h"
@@ -53,9 +54,12 @@ void CTestScene::ResetScene(void)
 	// 인게임 UI 생성
 	m_pInGameUI = new CUI_InGameUI(m_rGameWorld, m_pCommander[0]);
 
-	/*m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
+	m_pCommander[1] = new CCommanderAI(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
+	pNewPos.x += TILE_WIDTH * BASE_SCALE;
+	m_pCommander[1]->SetXY(pNewPos);
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
-	pWindmill = new CWindmill(m_rGameWorld, 323, m_pCommander[1]);
+	
+	/*pWindmill = new CWindmill(m_rGameWorld, 323, m_pCommander[1]);
 	pNewPos = pWindmill->GetXY();
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE;
 	m_pCommander[1]->SetXY(pNewPos);

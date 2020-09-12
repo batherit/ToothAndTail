@@ -68,18 +68,34 @@ bool CMapLoader::IsTileInRange(int iLineIndex) const
 	return true;
 }
 
-bool CMapLoader::IsEmptyLot(const D3DXVECTOR3 & _vPos, int _iRow, int _iCol, int _iPivotRow, int _iPivotCol)
+bool CMapLoader::IsEmptyLot(const D3DXVECTOR3 & _vPos, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol)
 {
 	POINT ptTileRowCol = GetRowColIndex(_vPos);
 	if (ptTileRowCol.x < 0 || ptTileRowCol.y < 0) return false;
 
 	CTile* pTile = nullptr;
-	for (int i = 0 - _iPivotRow; i < _iRow - _iPivotRow; ++i) {
-		for (int j = 0 - _iPivotCol; j < _iCol - _iPivotCol; ++j) {
+	for (int i = 0 - _iPivotRow; i < _iCoveredRow - _iPivotRow; ++i) {
+		for (int j = 0 - _iPivotCol; j < _iCoveredCol - _iPivotCol; ++j) {
 			pTile = GetTile(ptTileRowCol.y + i, ptTileRowCol.x + j);
 			if (!pTile) return false;
 			if (pTile->GetTileType() == TILE::TYPE_BLOCKING ||
 				pTile->GetTileType() == TILE::TYPE_NO) return false;
+		}
+	}
+
+	return true;
+}
+
+bool CMapLoader::IsEmptyLot(const POINT & ptRowColIndexes, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol)
+{
+	if (ptRowColIndexes.x < 0 || ptRowColIndexes.y < 0) return false;
+
+	CTile* pTile = nullptr;
+	for (int i = 0 - _iPivotRow; i < _iCoveredRow - _iPivotRow; ++i) {
+		for (int j = 0 - _iPivotCol; j < _iCoveredCol - _iPivotCol; ++j) {
+			pTile = GetTile(ptRowColIndexes.y + i, ptRowColIndexes.x + j);
+			if (!pTile) return false;
+			if (pTile->GetTileType() == TILE::TYPE_BLOCKING) return false;
 		}
 	}
 

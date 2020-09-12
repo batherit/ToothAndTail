@@ -20,7 +20,8 @@ public:
 
 	bool IsTileInRange(int iRow, int iCol) const;
 	bool IsTileInRange(int iLineIndex) const;
-	bool IsEmptyLot(const D3DXVECTOR3& _vPos, int _iRow, int _iCol, int _iPivotI, int _iPivotJ);
+	bool IsEmptyLot(const D3DXVECTOR3& _vPos, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol);
+	bool IsEmptyLot(const POINT& ptRowColIndexes, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol);
 
 	CUI_Image* GetMapImage() const { return m_pMapImage; }
 	const vector<CTile*>& GetTiles() { return m_vecTiles; }

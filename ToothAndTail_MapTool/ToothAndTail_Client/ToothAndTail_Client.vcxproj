@@ -151,10 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAI_ComState_Idle.h" />
+    <ClInclude Include="CAI_ComState_Run.h" />
     <ClInclude Include="CBadger.h" />
     <ClInclude Include="CBadgerState_Attack.h" />
     <ClInclude Include="CBadgerState_Idle.h" />
     <ClInclude Include="CBadgerState_Run.h" />
+    <ClInclude Include="CCommanderAI.h" />
     <ClInclude Include="CPathGenerator.h" />
     <ClInclude Include="CUI_BuildGauge.h" />
     <ClInclude Include="CBullet.h" />
@@ -244,10 +247,13 @@
     <ClInclude Include="CUI_Gauge.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAI_ComState_Idle.cpp" />
+    <ClCompile Include="CAI_ComState_Run.cpp" />
     <ClCompile Include="CBadger.cpp" />
     <ClCompile Include="CBadgerState_Attack.cpp" />
     <ClCompile Include="CBadgerState_Idle.cpp" />
     <ClCompile Include="CBadgerState_Run.cpp" />
+    <ClCompile Include="CCommanderAI.cpp" />
     <ClCompile Include="CPathGenerator.cpp" />
     <ClCompile Include="CUI_BuildGauge.cpp" />
     <ClCompile Include="CBullet.cpp" />
