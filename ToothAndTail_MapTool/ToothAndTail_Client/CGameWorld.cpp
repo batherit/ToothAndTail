@@ -53,9 +53,10 @@ void CGameWorld::EndRender(void)
 	m_pGraphicDevice->EndRender();
 }
 
-void CGameWorld::RenderListObjs(CCamera* _pCamera, bool (*funcComp)(CObj* obj1, CObj* obj2))
+void CGameWorld::RenderListObjs(CCamera* _pCamera, bool _bListClear, bool (*funcComp)(CObj* obj1, CObj* obj2))
 {
-	m_vecRenderObjs_Main.clear();
+	if(_bListClear)
+		m_vecRenderObjs_Main.clear();
 	for (auto& pObj : GetListObjs()) {
 		pObj->RegisterToRenderList(m_vecRenderObjs_Main);
 	}

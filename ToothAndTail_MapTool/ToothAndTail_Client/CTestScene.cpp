@@ -154,7 +154,13 @@ void CTestScene::Render(CCamera * _pCamera)
 	m_rGameWorld.GetMapLoader()->RenderMap(_pCamera);
 	m_rGameWorld.GetMapLoader()->RenderTile(_pCamera);
 
-	m_rGameWorld.RenderListObjs(_pCamera, [](CObj* pObj1, CObj* pObj2) {
+	auto& rRenderList = m_rGameWorld.GetRenderList();
+	rRenderList.clear();
+	for (auto& pDeco : m_rGameWorld.GetMapLoader()->GetDecos()) {
+		rRenderList.emplace_back(pDeco);
+	}
+
+	m_rGameWorld.RenderListObjs(_pCamera, false, [](CObj* pObj1, CObj* pObj2) {
 		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) return true;
 		else if (pObj1->GetRenderLayer() > pObj2->GetRenderLayer()) return false;
 

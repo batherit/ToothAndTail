@@ -34,10 +34,10 @@ int CFoxState_Attack::Update(float _fDeltaTime)
 	case COMMANDER::COMMAND_NOTHING:
 		// 하던 공격을 마저한다.
 		//m_fTickTime = 0.f;
-		m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
+		//m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
 		break;
 	case COMMANDER::COMMAND_GATHERING:
-		m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
+		//m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
 			m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
 			if (!m_rOwner.IsLocatedAtTargetPoint())
@@ -48,7 +48,7 @@ int CFoxState_Attack::Update(float _fDeltaTime)
 
 		break;
 	case COMMANDER::COMMAND_SATURATION:
-		m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
+		//m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
 		// 집중공격.
 		if (-1 == tCommandInfo.iUnitID || m_rOwner.GetID() == tCommandInfo.iUnitID) {
 			// 기수가 선정한 타겟이 유효한가?

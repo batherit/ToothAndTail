@@ -183,6 +183,7 @@ void CMapLoader::LoadDecos(HANDLE & _hfIn)
 	for (int i = 0; i < iDecosSize; ++i) {
 		pDeco = new CDeco(m_rGameWorld);
 		pDeco->LoadInfo(_hfIn);
+		pDeco->SetRenderLayer(10);
 		m_vecDecos.emplace_back(pDeco);
 	}
 }
