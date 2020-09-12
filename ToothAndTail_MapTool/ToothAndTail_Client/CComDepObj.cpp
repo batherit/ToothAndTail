@@ -195,7 +195,7 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 		vResistanceDir /= (m_vecCollidedUnits.size());
 	}
 	// 타겟 벡터를 구한다.
-	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
+	D3DXVec3Normalize(&vToTarget, &(m_pTargetEnemy->GetXY() - GetXY()));
 	// 타겟 벡터에 저항 속도를 더한다.
 	vMainDir = vToTarget + vResistanceDir;
 	// 최종 방향을 구한다.

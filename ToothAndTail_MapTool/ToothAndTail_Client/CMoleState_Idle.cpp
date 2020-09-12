@@ -73,11 +73,9 @@ int CMoleState_Idle::Update(float _fDeltaTime)
 				// 유효하지 않은 타겟이면 COMMANDER::COMMAND_GATHERING과 같다.
 				// 기수가 선정한 타겟이 유효하지 않다면, 기수 위치를 목표 지점으로 삼는다.
 					m_rOwner.SetTargetPos(tCommandInfo.vTargetPos);
-			// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
-			if (!m_rOwner.IsLocatedAtTargetPoint())
-				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Run(m_rGameWorld, m_rOwner));
-			//else
-
+				// 목표 지점에 위치해있지 않다면 달리기 상태로 변경한다.
+				if (!m_rOwner.IsLocatedAtTargetPoint())
+					m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Run(m_rGameWorld, m_rOwner));
 			}
 		}
 
