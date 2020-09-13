@@ -36,7 +36,7 @@ public:
 	//CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
 	virtual bool IsMoving(float & _fToX, float & _fToY);		// AI측에서 재정의
 	virtual bool IsActivating() const;							// AI측에서 재정의
-	virtual bool IsWavingFlag(/*CCommander::E_FLAG_TYPE& _eFlagType*/) const;
+	virtual bool IsWavingFlag(/*CCommander::E_FLAG_TYPE& _eFlagType*/) const;// AI측에서 재정의
 
 	UINT GetMoney() const { return m_iMoney; }
 	void DecreseMoney(UINT _iAmount) { m_iMoney -= _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }

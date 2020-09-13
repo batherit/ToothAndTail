@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CAI_ComState_Idle.h"
 #include "CAI_ComState_Run.h"
+#include "CAI_ComState_Standing_Build.h"
 #include "CCommanderAI.h"
 #include "CStateMgr.h"
 #include "CWindmill.h"
@@ -35,7 +36,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 				// 플레이어 제분소로 병력을 이동시킨다.
 				int iIndex = rand() % vecWindmills.size();
 				vGoalPos = vecWindmills[iIndex]->GetXY();
-				vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+				vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 				if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 					// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
 					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
@@ -50,7 +51,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 				// 자신의 제분소를 향해 달린다.
 				int iIndex = rand() % vecWindmills.size();
 				vGoalPos = vecWindmills[iIndex]->GetXY();
-				vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+				vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 				if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 				}
@@ -62,7 +63,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 					// 점령할 제분소를 향해 달린다.
 					int iIndex = rand() % vecWindmills.size();
 					vGoalPos = vecWindmills[iIndex]->GetXY();
-					vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+					vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 					if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 					}
@@ -74,7 +75,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 						// 선택한 제분소를 향해 달린다.
 						int iIndex = rand() % vecWindmills.size();
 						vGoalPos = vecWindmills[iIndex]->GetXY();
-						vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+						vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 						if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 							m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 						}
@@ -103,6 +104,9 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 					if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 					}
+					/*else {
+						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_Build(m_rGameWorld, m_rOwner));
+					}*/
 				}
 				else {
 					if (vecWindmills[iIndex]->DetectEmptyLot(vGoalPos)) {
@@ -110,6 +114,9 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 						if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 							m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 						}
+						/*else {
+							m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_Build(m_rGameWorld, m_rOwner));
+						}*/
 					}
 					else {
 						// TODO1_3 : 점령할 공터가 없다면, 아무 제분소 주변을 간다.
@@ -118,7 +125,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 							// 선택한 제분소를 향해 달린다.
 							int iIndex = rand() % vecWindmills.size();
 							vGoalPos = vecWindmills[iIndex]->GetXY();
-							vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+							vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 							if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 								m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 							}
@@ -133,7 +140,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 					// 점령할 제분소를 향해 달린다.
 					int iIndex = rand() % vecWindmills.size();
 					vGoalPos = vecWindmills[iIndex]->GetXY();
-					vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+					vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 					if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 					}
@@ -145,7 +152,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 						// 선택한 제분소를 향해 달린다.
 						int iIndex = rand() % vecWindmills.size();
 						vGoalPos = vecWindmills[iIndex]->GetXY();
-						vGoalPos.x += TILE_WIDTH * BASE_SCALE;	// 위치 보정
+						vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 						if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 							m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
 						}

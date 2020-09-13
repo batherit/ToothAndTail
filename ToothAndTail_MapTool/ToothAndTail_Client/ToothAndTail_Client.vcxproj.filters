@@ -470,6 +470,9 @@
     <ClInclude Include="CAI_ComState_Run.h">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
+    <ClInclude Include="CAI_ComState_Standing_Build.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -722,6 +725,9 @@
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
     <ClCompile Include="CAI_ComState_Run.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Standing_Build.cpp">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -172,6 +172,7 @@ vector<CWindmill*>& CCommanderAI::ExtractWindmills(WINDMILL::E_OWN_TYPE _eOwnTyp
 bool CCommanderAI::GeneratePathToGoal(const D3DXVECTOR3 & _vGoalPos, CWindmill* _pTargetWindmill)
 {
 	if (m_pPathGenerator->GeneratePath(GetXY(), _vGoalPos)) {
+		// 객체가 어떤 제분소를 기준으로 패스를 작성했는지 알려고 할 때,
 		m_pTargetWindmill = _pTargetWindmill;
 		return true;
 	}
@@ -205,12 +206,12 @@ bool CCommanderAI::IsMoving(float & _fToX, float & _fToY)
 	return !m_pPathGenerator->GetPath().empty();
 }
 
-bool CCommanderAI::IsBuilding() const
+bool CCommanderAI::IsActivating() const
 {
-	return false;
+	return m_bIsActivating;
 }
 
-bool CCommanderAI::IsOccupying() const
+bool CCommanderAI::IsWavingFlag() const
 {
 	return false;
 }

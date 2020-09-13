@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CAI_ComState_Run.h"
 #include "CAI_ComState_Idle.h"
+#include "CAI_ComState_Standing_Build.h"
 #include "CCommanderAI.h"
 #include "CStateMgr.h"
 
@@ -25,8 +26,11 @@ int CAI_ComState_Run::Update(float _fDeltaTime)
 {
 	//CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
-	if(!m_rOwner.MoveAlongPath(_fDeltaTime))
-		 m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+	if (!m_rOwner.MoveAlongPath(_fDeltaTime)) {
+		//m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_Build(m_rGameWorld, m_rOwner));
+	}
+		 
 	
 	m_rOwner.UpdateAnim(_fDeltaTime);
 

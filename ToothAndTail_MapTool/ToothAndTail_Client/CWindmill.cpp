@@ -188,7 +188,7 @@ void CWindmill::LateUpdate(void)
 			&& pCommander->GetMoney() >= WINDMILL_COST
 			&& IsPointInTile(pCommander->GetXY(), GetXY(), TILE_WIDTH * BASE_SCALE * 4.0f, TILE_HEIGHT * BASE_SCALE * 4.f)) {
 			pCommander->DecreseMoney(WINDMILL_COST);
-			Occupied(GetCommander());
+			Occupied(pCommander);
 			break;
 		}
 	}
