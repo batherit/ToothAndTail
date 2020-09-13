@@ -31,9 +31,13 @@ public:
 	//void SetWindmillState(CWindmill::E_STATE _eState) { m_eState = _eState; }
 	//CWindmill::E_STATE GetWindmillState() const { return m_eState; }
 	WINDMILL::E_STATE GetState() const;
+	vector<CFarmland*>& GetFarmlands() { return m_vecFarmlands; }
+	bool DetectEmptyLot(D3DXVECTOR3& _rEmptyLotPos);
+	
 	
 private:
 	//CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
+	
 	CSpriteObj* m_pGround = nullptr;
 	vector<CFarmland*> m_vecFarmlands;
 	float m_fCroppingTickTime = 0.f;

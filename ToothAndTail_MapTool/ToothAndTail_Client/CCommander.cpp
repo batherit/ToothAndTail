@@ -16,8 +16,8 @@
 
 CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
 	:
-	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
-	m_eCommanderType(_eCommanderType)
+	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED)/*,
+	m_eCommanderType(_eCommanderType)*/
 {
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
@@ -80,25 +80,6 @@ int CCommander::Update(float _fDeltaTime)
 
 	UpdateCommand(_fDeltaTime);
 
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
-		// 점령되지 않은 제분소를 찾는다.
-		CWindmill* pWindmill = nullptr;
-		for (auto& pObj : GetGameWorld().GetListObjs()) {
-			pWindmill = dynamic_cast<CWindmill*>(pObj);
-			// 제분소 중앙은 2*2 타일을 점령하고 있기 때문에 2를 곱하고 0.5배만큼의 오프셋을 두었다.
-			if (pWindmill && (pWindmill->GetState() == WINDMILL::STATE_UNOCCUPIED || pWindmill->GetState() == WINDMILL::STATE_DESTROYED)
-				&& IsPointInTile(GetXY(), pWindmill->GetXY(), TILE_WIDTH * BASE_SCALE * 2.5f, TILE_HEIGHT * BASE_SCALE * 2.5f)) {
-				break;
-			}
-			else pWindmill = nullptr;
-		}
-
-		if (pWindmill && GetMoney() >= WINDMILL_COST) {
-			DecreseMoney(WINDMILL_COST);
-			pWindmill->Occupied(GetCommander());
-		}
-	}
-
 	return 0;
 }
 
@@ -154,14 +135,14 @@ bool CCommander::IsMoving(float & _fToX, float & _fToY)
 	return true;
 }
 
-bool CCommander::IsBuilding(void) const
+bool CCommander::IsActivating() const
 {
 	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
 }
 
-bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
+bool CCommander::IsWavingFlag(/*CCommander::E_FLAG_TYPE & _eFlagType*/) const
 {
-	_eFlagType = CCommander::FLAG_TYPE_NONE;
+	/*_eFlagType = CCommander::FLAG_TYPE_NONE;
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON))
 		_eFlagType = CCommander::FLAG_TYPE_UNIT;
@@ -169,12 +150,15 @@ bool CCommander::IsFlagKeyPressed(CCommander::E_FLAG_TYPE & _eFlagType) const
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON))
 		_eFlagType = CCommander::FLAG_TYPE_MILITARY;
 
-	return _eFlagType != CCommander::FLAG_TYPE_NONE;
-}
+	return _eFlagType != CCommander::FLAG_TYPE_NONE;*/
 
-bool CCommander::IsOccupying() const
-{
-	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON))
+		return true;
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON))
+		return true;
+
+	return false;
 }
 
 void CCommander::GenerateTunnel()
@@ -183,6 +167,24 @@ void CCommander::GenerateTunnel()
 
 	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
 	// m_iTunnelGeneratorIndex를 ID로 삼는다.
+}
+
+int CCommander::GetTotalUnitsNum() const
+{
+	int iTotalUnitsNum = 0;
+	for (auto& pTunnelGenerator : m_vecTunnelGenerator) {
+		iTotalUnitsNum += pTunnelGenerator->GetUnitsNum();
+	}
+	return iTotalUnitsNum;
+}
+
+int CCommander::GetTotalTunnelsNum() const
+{
+	int iTotalTunnelsNum = 0;
+	for (auto* pTunnelGenerator : m_vecTunnelGenerator) {
+		iTotalTunnelsNum += pTunnelGenerator->GetTunnelsNum();
+	}
+	return iTotalTunnelsNum;
 }
 
 void CCommander::UpdateCommand(float _fDeltaTime)

@@ -35,6 +35,8 @@ bool CPathGenerator::GeneratePath(const D3DXVECTOR3 & _vStartPos, const D3DXVECT
 	// 길 생성을 시도한다. 길이 막히면 false를 반환한다.
 	if (FindPath(m_iStartLineIndex, m_iGoalLineIndex)) {
 		MakePath(m_iStartLineIndex, m_iGoalLineIndex);
+		// 목표지점은 보정해준다.
+		m_listPath.emplace_back(_vGoalPos);
 		return true;
 	}
 	return false;
@@ -101,7 +103,7 @@ bool CPathGenerator::FindPath(int _iStartLineIndex, int _iGoalLineIndex)
 				continue;	// 유효하지 않은 타일이면 다음 타일을 진행한다.
 			
 			if (pTile->GetTileType() == TILE::TYPE_BLOCKING)
-				continue;
+				continue;	// 갈 수 없는 타일이면 다음 타일을 진행한다.
 
 			if (pTile->GetLineIndex() == _iGoalLineIndex) {
 				pTile->SetParentTileIndex(_iStartLineIndex);
@@ -142,7 +144,10 @@ bool CPathGenerator::FindPath(int _iStartLineIndex, int _iGoalLineIndex)
 void CPathGenerator::MakePath(int _iStartLineIndex, int _iGoalLineIndex)
 {
 	auto& rTiles = m_rGameWorld.GetMapLoader()->GetTiles();
-	m_listPath.emplace_back(rTiles[_iGoalLineIndex]);
+	m_listPath.emplace_back(rTiles[_iGoalLineIndex]->GetXY());
+	//D3DXVECTOR3 vPos = rTiles[_iGoalLineIndex]->GetXY();
+	//vPos.x -= (TILE_WIDTH >> 1) * BASE_SCALE;
+	//m_listPath.emplace_back(vPos);
 	int iParentLineIndex = rTiles[_iGoalLineIndex]->GetParentTileIndex();
 
 	while (true)
@@ -151,7 +156,7 @@ void CPathGenerator::MakePath(int _iStartLineIndex, int _iGoalLineIndex)
 			break;
 
 		// 앞쪽에 노드를 추가한다.
-		m_listPath.emplace_front(rTiles[iParentLineIndex]);
+		m_listPath.emplace_front(rTiles[iParentLineIndex]->GetXY());
 		iParentLineIndex = rTiles[iParentLineIndex]->GetParentTileIndex();
 	}
 }

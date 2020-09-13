@@ -23,7 +23,7 @@ void CAI_ComState_Run::OnLoaded(void)
 
 int CAI_ComState_Run::Update(float _fDeltaTime)
 {
-	CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
+	//CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
 	if(!m_rOwner.MoveAlongPath(_fDeltaTime))
 		 m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));

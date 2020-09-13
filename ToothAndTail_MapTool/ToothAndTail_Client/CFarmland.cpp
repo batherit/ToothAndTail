@@ -125,7 +125,7 @@ void CFarmland::LateUpdate(void)
 	// 점령 기수가 존재하는지?
 	if (!GetCommander()) return;
 	// 점령 기수가 구매의사가 있는지?
-	if (!GetCommander()->IsOccupying()) return;
+	if (!GetCommander()->IsActivating()) return;
 	// 이 농장 부지에 기수가 들어왔는지?
 	if (!IsPointInTile(GetCommander()->GetXY(), GetXY(), 2.f * TILE_WIDTH * BASE_SCALE, 2.f * TILE_HEIGHT * BASE_SCALE)) return;
 	

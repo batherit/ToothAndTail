@@ -5,6 +5,7 @@
 class CGameWorld;
 class CPathGenerator;
 class CTile;
+class CWindmill;
 class CCommanderAI :
 	public CCommander
 {
@@ -19,18 +20,29 @@ public:
 	virtual void Release(void) override;
 
 public:
-	bool DetectPlaceToGo();
-	bool DetectPlaceToGoAroundWindmill(D3DXVECTOR3& _rGoalPos, const CWindmill* _pWindmill);
-	bool MoveAlongPath(float _fDeltaTime);
 	CStateMgr<CCommanderAI>* GetStateMgr(void) const { return m_pStateMgr; }
 	virtual bool IsMoving(float & _fToX, float & _fToY);		// AI측에서 재정의
 	virtual bool IsBuilding() const;							// AI측에서 재정의
 	virtual bool IsOccupying() const;
 
+public:
+	//bool DetectPlaceToGo();
+	//bool DetectEmptyLotToGoAroundWindmill(D3DXVECTOR3& _rGoalPos, const CWindmill* _pWindmill);
+	vector<CWindmill*>& ExtractWindmills(WINDMILL::E_OWN_TYPE _eOwnType);
+	bool GeneratePathToGoal(const D3DXVECTOR3 & _vGoalPos, CWindmill* _pTargetWindmill);
+	bool MoveAlongPath(float _fDeltaTime);
+	//void SetTargetWindmill(CWindmill* _pTargetWindmill) { m_pTargetWindmill = _pTargetWindmill; }
+	CWindmill* GetTargetWindmill() const { return m_pTargetWindmill; }
+
 private:
-	int m_iOldWindmillIndex = -1;
+	bool DetectWindmills();
+
+private:
+	//WINDMILL::E_OWN_TYPE _eOwnType = WINDMILL::TYPE_OWN;
+	//CWindmill* m_pDetectedWindmill = nullptr;
+	CWindmill* m_pTargetWindmill = nullptr;
+	vector<CWindmill*> m_vecExtractedWindmills;
 	vector<CWindmill*> m_vecWindmills;
-	list<CTile*> m_listPath;
 	CStateMgr<CCommanderAI>* m_pStateMgr = nullptr;
 	CPathGenerator* m_pPathGenerator = nullptr;
 };

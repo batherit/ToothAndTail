@@ -17,6 +17,7 @@ CCommanderAI::CCommanderAI(CGameWorld & _rGameWorld, float _fX, float _fY, CComm
 	m_pStateMgr->SetNextState(new CAI_ComState_Idle(GetGameWorld(), *this));
 	m_pPathGenerator = new CPathGenerator(_rGameWorld);
 	m_vecWindmills.reserve(10);
+	m_vecExtractedWindmills.reserve(10);
 }
 
 CCommanderAI::~CCommanderAI()
@@ -39,10 +40,6 @@ int CCommanderAI::Update(float _fDeltaTime)
 void CCommanderAI::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
-
-	//for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {
-	//	pBlockingTile->PushOutOfTile(this);
-	//}
 }
 
 void CCommanderAI::Release(void)
@@ -51,103 +48,148 @@ void CCommanderAI::Release(void)
 	SafelyDeleteObj(m_pPathGenerator);
 	m_vecWindmills.clear();
 	m_vecWindmills.shrink_to_fit();
-	m_listPath.clear();
 }
+
+//CWindmill * CCommanderAI::ExtractWindmill(WINDMILL::E_OWN_TYPE _eOwnType)
+//{
+//	
+//}
 
 // 갈 곳을 찾는 함수(AI에 있어 굉장히 중요한 함수이다. 'ㅅ'!!)
-bool CCommanderAI::DetectPlaceToGo()
+//bool CCommanderAI::DetectPlaceToGo()
+//{
+//	// 1) 일단 제분소를 찾는다. 게임월드 상에 제분소가 있다면, 단 한 번 갱신된다. // 전제 : 제분소는 시스템 상 파괴되지 않는다.
+//	if (m_vecWindmills.empty() && !DetectWindmills()) return false;
+//
+//	// 방문할 기준 제분소를 찾는다.
+//	CWindmill* pWindmill;
+//	int iIndex = -1;
+//	do {
+//		iIndex = rand() % m_vecWindmills.size();
+//		pWindmill = m_vecWindmills[iIndex];
+//	} while (m_pDetectedWindmill == pWindmill);
+//	//m_iOldWindmillIndex = iIndex;
+//	m_pDetectedWindmill = pWindmill;
+//
+//	// 제분소를 중심으로 방문할 위치를 선정한다. (블로킹 타일이 없는 공터)
+//	D3DXVECTOR3 vGoalPos;
+//	if (!DetectEmptyLotToGoAroundWindmill(vGoalPos, pWindmill)) return false;
+//
+//	// 현재위치에서 선정한 위치로의 경로를 생성한다.
+//	m_pPathGenerator->GeneratePath(GetXY(), vGoalPos);
+//	if (m_pPathGenerator->GetPath().empty()) return false;
+//
+//	return true;
+//}
+
+//bool CCommanderAI::DetectEmptyLotToGoAroundWindmill(D3DXVECTOR3 & _rGoalPos, const CWindmill* _pWindmill)
+//{
+//	// 너비 우선 탐색으로 점점 확대해가면서 갈 곳을 찾아본다.
+//	bool bVisited[100][100] = { false, };
+//	queue<POINT> qVisited;	// 방문한 노드를 집어넣는다.
+//	D3DXVECTOR3 vStartPos = _pWindmill->GetXY();
+//	vStartPos.x += (TILE_WIDTH >> 1) * BASE_SCALE;
+//	CMapLoader* pMapLoader = GetGameWorld().GetMapLoader();
+//	POINT ptRowColIndexes = pMapLoader->GetRowColIndex(vStartPos);
+//	qVisited.push(ptRowColIndexes);
+//	bVisited[ptRowColIndexes.y][ptRowColIndexes.x] = true;
+//
+//	POINT ptHere;
+//	POINT ptThere;
+//	CTile* pTile = nullptr;
+//	while (!qVisited.empty()) {
+//		ptHere = qVisited.front();
+//		qVisited.pop();
+//		for (int i = -1; i <= 1; ++i) {
+//			for (int j = -1; j <= 1; ++j) {
+//				if (0 == i && 0 == j) continue; // 자기 자신을 가리키므로 다음을 진행한다.
+//				ptThere.y = ptHere.y + i;
+//				ptThere.x = ptHere.x + j;
+//				if (pMapLoader->IsEmptyLot(ptThere, 2, 2, 1, 1)) {
+//					//공터라면, 이것을 목표 지점으로 둔다.
+//					pTile = pMapLoader->GetTile(ptThere.y, ptThere.x);
+//					_rGoalPos = pTile->GetXY();
+//					return true;
+//				}
+//
+//				// 공터를 찾지 못했다면, 이곳을 방문한 곳으로 처리하고
+//				// 다음 노드를 살펴본다.
+//				if (!bVisited[ptThere.y][ptThere.x]) {
+//					qVisited.push(ptThere);
+//					bVisited[ptThere.y][ptThere.x] = true;
+//				}
+//			}
+//		}
+//	}
+//
+//	_rGoalPos = D3DXVECTOR3(0.f, 0.f, 0.f);
+//	return false;
+//}
+
+vector<CWindmill*>& CCommanderAI::ExtractWindmills(WINDMILL::E_OWN_TYPE _eOwnType)
 {
-	// 1) 일단 제분소를 찾는다. 게임월드 상에 제분소가 있다면, 단 한 번 갱신된다. // 전제 : 제분소는 시스템 상 파괴되지 않는다.
-	CWindmill* pWindmill = nullptr;
-	if (m_vecWindmills.empty()) {
-		// 게임월드 상에 존재하는 제분소를 모두 찾는다.
-		for (auto& pObj : GetGameWorld().GetListObjs()) {
-			pWindmill = dynamic_cast<CWindmill*>(pObj);
-			if (pWindmill) {
-				m_vecWindmills.emplace_back(pWindmill);
+	m_vecExtractedWindmills.clear();
+	if (m_vecWindmills.empty() && !DetectWindmills()) return m_vecExtractedWindmills;
+
+	CCommander* pCommander = nullptr;
+	for (auto& pWindmill : m_vecWindmills) {
+		pCommander = pWindmill->GetCommander();
+		switch (_eOwnType)
+		{
+		case WINDMILL::TYPE_UNOCCUPIED:
+			// 점령되지 않은 제분소 추출
+			if (!pCommander)
+				m_vecExtractedWindmills.emplace_back(pWindmill);
+			break;
+		case WINDMILL::TYPE_PLAYER:
+			// 플레이어 제분소 추출
+			if (pCommander && !dynamic_cast<CCommanderAI*>(pCommander))
+				m_vecExtractedWindmills.emplace_back(pWindmill);
+			break;
+		case WINDMILL::TYPE_OWN:
+			// 자신의 제분소 추출
+			if (pCommander == this) {
+				m_vecExtractedWindmills.emplace_back(pWindmill);
 			}
+			break;
+			// 자신 이외의 제분소 추출
+		case WINDMILL::TYPE_OTHER:
+			if (!pCommander && pCommander != this) {
+				m_vecExtractedWindmills.emplace_back(pWindmill);
+			}
+			break;
+		case WINDMILL::TYPE_RANDOM:
+			// 아무 제분소를 추출
+			m_vecExtractedWindmills.emplace_back(pWindmill);
+		default:
+			break;
 		}
 	}
 
-	// 게임 월드에 제분소가 없다면 함수 종료.
-	if (m_vecWindmills.empty()) return false;
-
-	// 방문할 기준 제분소를 찾는다.
-	int iIndex = -1;
-	do {
-		iIndex = rand() % m_vecWindmills.size();
-		pWindmill = m_vecWindmills[iIndex];
-	} while (m_iOldWindmillIndex == iIndex);
-	m_iOldWindmillIndex = iIndex;
-
-	// 제분소를 중심으로 방문할 위치를 선정한다. (블로킹 타일이 없는 공터)
-	D3DXVECTOR3 vGoalPos;
-	if (!DetectPlaceToGoAroundWindmill(vGoalPos, pWindmill)) return false;
-
-	// 현재위치에서 선정한 위치로의 경로를 생성한다.
-	m_pPathGenerator->GeneratePath(GetXY(), vGoalPos);
-	if (m_pPathGenerator->GetPath().empty()) return false;
-	m_listPath.clear();
-	m_listPath = m_pPathGenerator->GetPath();
-
-	return true;
+	return m_vecExtractedWindmills;
 }
 
-bool CCommanderAI::DetectPlaceToGoAroundWindmill(D3DXVECTOR3 & _rGoalPos, const CWindmill* _pWindmill)
+bool CCommanderAI::GeneratePathToGoal(const D3DXVECTOR3 & _vGoalPos, CWindmill* _pTargetWindmill)
 {
-	// 너비 우선 탐색으로 점점 확대해가면서 갈 곳을 찾아본다.
-	bool bVisited[100][100] = { false, };
-	queue<POINT> qVisited;	// 방문한 노드를 집어넣는다.
-	D3DXVECTOR3 vStartPos = _pWindmill->GetXY();
-	vStartPos.x += (TILE_WIDTH >> 1) * BASE_SCALE;
-	CMapLoader* pMapLoader = GetGameWorld().GetMapLoader();
-	POINT ptRowColIndexes = pMapLoader->GetRowColIndex(vStartPos);
-	qVisited.push(ptRowColIndexes);
-	bVisited[ptRowColIndexes.y][ptRowColIndexes.x] = true;
-
-	POINT ptHere;
-	POINT ptThere;
-	CTile* pTile = nullptr;
-	while (!qVisited.empty()) {
-		ptHere = qVisited.front();
-		qVisited.pop();
-		for (int i = -1; i <= 1; ++i) {
-			for (int j = -1; j <= 1; ++j) {
-				if (0 == i && 0 == j) continue; // 자기 자신을 가리키므로 다음을 진행한다.
-				ptThere.y = ptHere.y + i;
-				ptThere.x = ptHere.x + j;
-				if (pMapLoader->IsEmptyLot(ptThere, 2, 2, 1, 1)) {
-					//공터라면, 이것을 목표 지점으로 둔다.
-					pTile = pMapLoader->GetTile(ptThere.y, ptThere.x);
-					_rGoalPos = pTile->GetXY();
-					return true;
-				}
-
-				// 공터를 찾지 못했다면, 이곳을 방문한 곳으로 처리하고
-				// 다음 노드를 살펴본다.
-				if (!bVisited[ptThere.y][ptThere.x]) {
-					qVisited.push(ptThere);
-					bVisited[ptThere.y][ptThere.x] = true;
-				}
-			}
-		}
+	if (m_pPathGenerator->GeneratePath(GetXY(), _vGoalPos)) {
+		m_pTargetWindmill = _pTargetWindmill;
+		return true;
 	}
-
-	_rGoalPos = D3DXVECTOR3(0.f, 0.f, 0.f);
 	return false;
 }
 
 bool CCommanderAI::MoveAlongPath(float _fDeltaTime)
 {
-	if (m_listPath.empty()) return false;
+	auto& rPath = m_pPathGenerator->GetPath();
+	if (rPath.empty()) return false;
 	//m_listPath.back()->SetColor(D3DCOLOR_ARGB(255, 0, 0, 255));
-	D3DXVECTOR3 vDir = m_listPath.front()->GetXY() - GetXY();
+	D3DXVECTOR3 vDir = rPath.front() - GetXY();
 
-	float fDist = D3DXVec3Length(&vDir);
+	float fLength = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
-	if (5.f > fDist)
+	if ((TILE_HEIGHT >> 1) * BASE_SCALE > fLength)
 	{
-		m_listPath.pop_front();
+		rPath.pop_front();
 	}
 
 	SetToXY(vDir);
@@ -160,7 +202,7 @@ bool CCommanderAI::MoveAlongPath(float _fDeltaTime)
 bool CCommanderAI::IsMoving(float & _fToX, float & _fToY)
 {
 	// 경로가 비어있지 않다면, 이동하고 있는 중이다.
-	return !m_listPath.empty();
+	return !m_pPathGenerator->GetPath().empty();
 }
 
 bool CCommanderAI::IsBuilding() const
@@ -171,4 +213,19 @@ bool CCommanderAI::IsBuilding() const
 bool CCommanderAI::IsOccupying() const
 {
 	return false;
+}
+
+bool CCommanderAI::DetectWindmills()
+{
+	CWindmill* pWindmill = nullptr;
+	m_vecWindmills.clear();
+	// 게임월드 상에 존재하는 제분소를 모두 찾는다.
+	for (auto& pObj : GetGameWorld().GetListObjs()) {
+		pWindmill = dynamic_cast<CWindmill*>(pObj);
+		if (pWindmill) {
+			m_vecWindmills.emplace_back(pWindmill);
+		}
+	}
+
+	return !m_vecWindmills.empty();
 }

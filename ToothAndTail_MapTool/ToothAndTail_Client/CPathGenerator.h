@@ -1,6 +1,6 @@
 #pragma once
 
-class CTile;
+//class CTile;
 class CGameWorld;
 class CPathGenerator final
 {
@@ -10,7 +10,7 @@ public:
 public:
 	bool GeneratePath(const D3DXVECTOR3& _vStartPos, const D3DXVECTOR3& _vGoalPos);
 	bool GeneratePath(const int& _iStartLineIndex, const int& _iGoalLineIndex);
-	list<CTile*>& GetPath() { return m_listPath; }
+	list<D3DXVECTOR3>& GetPath() { return m_listPath; }
 	void Release();
 
 private:
@@ -26,6 +26,6 @@ private:
 	int m_iGoalLineIndex = -1;
 	list<int> m_listOpens;
 	list<int> m_listCloses;
-	list<CTile*> m_listPath;
+	list<D3DXVECTOR3> m_listPath;
 };
 

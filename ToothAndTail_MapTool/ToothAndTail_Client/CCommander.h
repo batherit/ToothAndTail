@@ -12,7 +12,7 @@ class CCommander :
 public:
 	enum E_COM_TYPE { COM_TYPE_COMMONER, COM_TYPE_CAPITALIST, COM_TYPE_MILITARY, COM_TYPE_CLERGY, COM_TYPE_END };
 	// 깃을 흔들고 있지 않은 상태, 부대 제어, 병력 제어
-	enum E_FLAG_TYPE { FLAG_TYPE_NONE, FLAG_TYPE_UNIT, FLAG_TYPE_MILITARY, FLAG_TYPE_END };	
+	//enum E_FLAG_TYPE { FLAG_TYPE_NONE, FLAG_TYPE_UNIT, FLAG_TYPE_MILITARY, FLAG_TYPE_END };	
 
 public:
 	CCommander(CGameWorld& _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType = COM_TYPE_END, D3DCOLOR _clIdentificationTint_ARGB = D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -33,11 +33,10 @@ public:
 public:
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }
 	//D3DCOLOR GetIdentificationTint(void) const;
-	CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
+	//CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
 	virtual bool IsMoving(float & _fToX, float & _fToY);		// AI측에서 재정의
-	virtual bool IsBuilding() const;							// AI측에서 재정의
-	virtual bool IsOccupying() const;							// AI측에서 재정의
-	bool IsFlagKeyPressed(CCommander::E_FLAG_TYPE& _eFlagType) const;
+	virtual bool IsActivating() const;							// AI측에서 재정의
+	virtual bool IsWavingFlag(/*CCommander::E_FLAG_TYPE& _eFlagType*/) const;
 
 	UINT GetMoney() const { return m_iMoney; }
 	void DecreseMoney(UINT _iAmount) { m_iMoney -= _iAmount; Clamp(&m_iMoney, MIN_MONEY, MAX_MONEY); }
@@ -54,6 +53,8 @@ public:
 	void GenerateTunnel();
 	CommandInfo GetCurrentCommandInfo() { return m_tCommandInfo; }
 	vector<CTunnelGenerator*>& GetTunnelGenerators() { return m_vecTunnelGenerator; }
+	int GetTotalUnitsNum() const;
+	int GetTotalTunnelsNum() const;
 
 protected:
 	void UpdateCommand(float _fDeltaTime);
@@ -61,7 +62,7 @@ protected:
 protected:
 	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CommandInfo m_tCommandInfo;
-	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
+	//CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
 	UINT m_iMoney = MAX_MONEY;
 	vector<CTunnelGenerator*> m_vecTunnelGenerator;
 	int m_iTunnelGeneratorIndex = 0;

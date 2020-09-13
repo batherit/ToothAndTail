@@ -20,6 +20,8 @@ namespace COMMANDER {
 }
 
 namespace WINDMILL {
+	// 플레이어의 것, 자신 소유의 것, 다른 플레이어의 것, 점령되지 않은 것 // 것 == 제분소
+	enum E_OWN_TYPE { TYPE_PLAYER, TYPE_OWN, TYPE_OTHER, TYPE_UNOCCUPIED, TYPE_RANDOM, TYPE_END };
 	enum E_STATE { STATE_UNOCCUPIED, STATE_BUILDING, STATE_OCCUPIED, STATE_DESTROYED, STATE_END };
 }
 

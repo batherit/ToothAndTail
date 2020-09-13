@@ -28,7 +28,7 @@ int CComState_Running_Jump::Update(float _fDeltaTime)
 {
 	float fNewToX = 0.f;
 	float fNewToY = 0.f;
-	CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
+	//CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
 	if (m_rOwner.IsMoving(fNewToX, fNewToY)) {
 		m_rOwner.SetToXY(fNewToX, fNewToY);
@@ -41,7 +41,7 @@ int CComState_Running_Jump::Update(float _fDeltaTime)
 			m_rOwner.GetStateMgr()->SetNextState(new CComState_Idle(m_rGameWorld, m_rOwner));
 	}
 
-	if (!m_bIsBuilded && m_rOwner.IsBuilding()) {
+	if (!m_bIsBuilded && m_rOwner.IsActivating()) {
 		// TODO : 땅굴 설치 로직을 작성합니다.
 		m_bIsBuilded = true;
 	}

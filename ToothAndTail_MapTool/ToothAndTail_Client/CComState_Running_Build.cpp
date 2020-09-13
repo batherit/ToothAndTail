@@ -32,13 +32,13 @@ int CComState_Running_Build::Update(float _fDeltaTime)
 {
 	float fNewToX = 0.f;
 	float fNewToY = 0.f;
-	CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
+	//CCommander::E_FLAG_TYPE eFlagType = CCommander::FLAG_TYPE_NONE;
 
 	if (m_rOwner.IsMoving(fNewToX, fNewToY)) {
 		m_rOwner.SetToXY(fNewToX, fNewToY);
 		m_rOwner.MoveByDeltaTime(_fDeltaTime);
 		if (!m_rOwner.IsAnimPlaying()) {
-			if (m_rOwner.IsFlagKeyPressed(eFlagType)) 
+			if (m_rOwner.IsWavingFlag(/*eFlagType*/)) 
 				m_rOwner.GetStateMgr()->SetNextState(new CComState_Running_WaveFlag(m_rGameWorld, m_rOwner));
 			else 
 				m_rOwner.GetStateMgr()->SetNextState(new CComState_Run(m_rGameWorld, m_rOwner));

@@ -174,6 +174,24 @@ void CWindmill::LateUpdate(void)
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->LateUpdate();
 	}
+
+	// 이 제분소가 점령되었거나, 점령중인지?
+	if (GetState() != WINDMILL::STATE_UNOCCUPIED && GetState() != WINDMILL::STATE_DESTROYED) return;
+
+	// 제분소 주변에 기수가 있는지를 확인한다.
+	CCommander* pCommander = nullptr;
+	for (auto& pObj : GetGameWorld().GetListObjs()) {
+		pCommander = dynamic_cast<CCommander*>(pObj);
+		// 제분소 중앙은 2*2 타일을 점령하고 있기 때문에 2를 곱하고 0.5배만큼의 오프셋을 두었다.
+		if (pCommander 
+			&& pCommander->IsActivating() 
+			&& pCommander->GetMoney() >= WINDMILL_COST
+			&& IsPointInTile(pCommander->GetXY(), GetXY(), TILE_WIDTH * BASE_SCALE * 4.0f, TILE_HEIGHT * BASE_SCALE * 4.f)) {
+			pCommander->DecreseMoney(WINDMILL_COST);
+			Occupied(GetCommander());
+			break;
+		}
+	}
 }
 
 void CWindmill::RegisterToRenderList(vector<CObj*>& _vecRenderList)
@@ -236,6 +254,56 @@ void CWindmill::Occupied(CCommander* _pCommander)
 WINDMILL::E_STATE CWindmill::GetState() const
 {
 	return m_pWindmillBase->GetState();
+}
+
+bool CWindmill::DetectEmptyLot(D3DXVECTOR3 & _rEmptyLotPos)
+{
+	// 너비 우선 탐색으로 점점 확대해가면서 갈 곳을 찾아본다.
+	bool bVisited[100][100] = { false, };
+	queue<POINT> qVisited;	// 방문한 노드를 집어넣는다.
+	D3DXVECTOR3 vStartPos = GetXY();
+	vStartPos.x += (TILE_WIDTH >> 1) * BASE_SCALE;
+	CMapLoader* pMapLoader = GetGameWorld().GetMapLoader();
+	POINT ptRowColIndexes = pMapLoader->GetRowColIndex(vStartPos);
+	qVisited.push(ptRowColIndexes);
+	bVisited[ptRowColIndexes.y][ptRowColIndexes.x] = true;
+
+	POINT ptHere;
+	POINT ptThere;
+	CTile* pTile = nullptr;
+	int iSignI = 1;
+	int iSignJ = 1;
+	while (!qVisited.empty()) {
+		ptHere = qVisited.front();
+		qVisited.pop();
+		iSignI = (rand() % 2 == 0 ? 1 : -1);
+		iSignJ = (rand() % 2 == 0 ? 1 : -1);
+		for (int i = -iSignI; i != 2 * iSignI; i += iSignI) {
+			for (int j = -iSignJ; j != 2 * iSignJ; j += iSignJ) {
+				if (0 == i && 0 == j) continue; // 자기 자신을 가리키므로 다음을 진행한다.
+				ptThere.y = ptHere.y + i;
+				ptThere.x = ptHere.x + j;
+				if (pMapLoader->IsEmptyLot(ptThere, 2, 2, 1, 1)) {
+					//공터라면, 이것을 목표 지점으로 둔다.
+					pTile = pMapLoader->GetTile(ptThere.y, ptThere.x);
+					_rEmptyLotPos = pTile->GetXY();
+					// x값 조정
+					_rEmptyLotPos.x -= (TILE_WIDTH >> 1) * BASE_SCALE;
+					return true;
+				}
+
+				// 공터를 찾지 못했다면, 이곳을 방문한 곳으로 처리하고
+				// 다음 노드를 살펴본다.
+				if (!bVisited[ptThere.y][ptThere.x]) {
+					qVisited.push(ptThere);
+					bVisited[ptThere.y][ptThere.x] = true;
+				}
+			}
+		}
+	}
+
+	_rEmptyLotPos = D3DXVECTOR3(0.f, 0.f, 0.f);
+	return false;
 }
 
 //void CWindmill::CollectGarbageObjs()

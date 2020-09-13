@@ -95,7 +95,8 @@ bool CMapLoader::IsEmptyLot(const POINT & ptRowColIndexes, int _iCoveredRow, int
 		for (int j = 0 - _iPivotCol; j < _iCoveredCol - _iPivotCol; ++j) {
 			pTile = GetTile(ptRowColIndexes.y + i, ptRowColIndexes.x + j);
 			if (!pTile) return false;
-			if (pTile->GetTileType() == TILE::TYPE_BLOCKING) return false;
+			if (pTile->GetTileType() == TILE::TYPE_BLOCKING ||
+				pTile->GetTileType() == TILE::TYPE_NO) return false;
 		}
 	}
 
