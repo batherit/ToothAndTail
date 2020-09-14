@@ -20,6 +20,7 @@ public:
 
 	bool IsTileInRange(int iRow, int iCol) const;
 	bool IsTileInRange(int iLineIndex) const;
+	bool IsTileInRange(POINT ptRowCol) const;
 	bool IsEmptyLot(const D3DXVECTOR3& _vPos, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol);
 	bool IsEmptyLot(const POINT& ptRowColIndexes, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol);
 

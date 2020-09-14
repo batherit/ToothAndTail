@@ -276,13 +276,16 @@ bool CWindmill::DetectEmptyLot(D3DXVECTOR3 & _rEmptyLotPos)
 	while (!qVisited.empty()) {
 		ptHere = qVisited.front();
 		qVisited.pop();
-		iSignI = (rand() % 2 == 0 ? 1 : -1);
-		iSignJ = (rand() % 2 == 0 ? 1 : -1);
+		iSignI = ((rand() % 2 == 0) ? 1 : -1);
+		iSignJ = ((rand() % 2 == 0) ? 1 : -1);
 		for (int i = -iSignI; i != 2 * iSignI; i += iSignI) {
 			for (int j = -iSignJ; j != 2 * iSignJ; j += iSignJ) {
 				if (0 == i && 0 == j) continue; // 자기 자신을 가리키므로 다음을 진행한다.
 				ptThere.y = ptHere.y + i;
 				ptThere.x = ptHere.x + j;
+				if (!pMapLoader->IsTileInRange(ptThere))
+					continue;
+
 				if (pMapLoader->IsEmptyLot(ptThere, 2, 2, 1, 1)) {
 					//공터라면, 이것을 목표 지점으로 둔다.
 					pTile = pMapLoader->GetTile(ptThere.y, ptThere.x);
@@ -291,7 +294,6 @@ bool CWindmill::DetectEmptyLot(D3DXVECTOR3 & _rEmptyLotPos)
 					_rEmptyLotPos.x -= (TILE_WIDTH >> 1) * BASE_SCALE;
 					return true;
 				}
-
 				// 공터를 찾지 못했다면, 이곳을 방문한 곳으로 처리하고
 				// 다음 노드를 살펴본다.
 				if (!bVisited[ptThere.y][ptThere.x]) {

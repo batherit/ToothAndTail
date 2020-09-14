@@ -213,9 +213,9 @@ void CMapEditor::LoadInfo()
 	CFileDialog Dlg(TRUE, L"dat", L"MapData.dat", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"Data File(*.dat) | *.dat||", m_pForm);
 	TCHAR szCurPath[MAX_PATH] = L"";
 	TCHAR szDataPath[MAX_PATH] = L"";
-	GetCurrentDirectory(MAX_PATH, szCurPath);
-	PathRemoveFileSpec(szCurPath);
-	PathCombine(szDataPath, szCurPath, L"Data");
+	GetCurrentDirectory(MAX_PATH, szCurPath);		// 현재 경로 얻기
+	PathRemoveFileSpec(szCurPath);					// 맨마지막 경로 자르기
+	PathCombine(szDataPath, szCurPath, L"Data");	// 역슬래쉬 넣어줌.
 	Dlg.m_ofn.lpstrInitialDir = szDataPath;
 	if (IDOK == Dlg.DoModal())
 	{

@@ -17,8 +17,5 @@ public:
 
 private:
 	virtual void LoadResources();
-
-private:
-	CCamera* m_pCamera = nullptr;
 };
 

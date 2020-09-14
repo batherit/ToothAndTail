@@ -188,7 +188,7 @@ bool CCommanderAI::MoveAlongPath(float _fDeltaTime)
 
 	float fLength = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
-	if ((TILE_HEIGHT >> 1) * BASE_SCALE > fLength)
+	if ((TILE_HEIGHT >> 1) * BASE_SCALE * 0.5f > fLength)
 	{
 		rPath.pop_front();
 	}

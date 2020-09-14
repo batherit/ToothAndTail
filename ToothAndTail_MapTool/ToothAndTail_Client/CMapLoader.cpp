@@ -68,6 +68,11 @@ bool CMapLoader::IsTileInRange(int iLineIndex) const
 	return true;
 }
 
+bool CMapLoader::IsTileInRange(POINT ptRowCol) const
+{
+	return IsTileInRange(ptRowCol.y, ptRowCol.x);
+}
+
 bool CMapLoader::IsEmptyLot(const D3DXVECTOR3 & _vPos, int _iCoveredRow, int _iCoveredCol, int _iPivotRow, int _iPivotCol)
 {
 	POINT ptTileRowCol = GetRowColIndex(_vPos);

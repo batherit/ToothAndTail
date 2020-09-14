@@ -160,7 +160,11 @@
 #define STOP_RANGE	10.f * BASE_SCALE
 
 // AI
-#define AI_ATTACK_UNITS_NUM		15	// 병력이 15가 되면 공격하러 간다.
+#define AI_ATTACK_UNITS_NUM		1000	// 병력이 15가 되면 공격하러 간다.
 #define AI_BUILD_MIN_COST		60	// 자본이 60이 되면 농장, 땅굴 중 하나를 설치
 // 자본이 60이상인데 자기 자신의 제분소가 없다면, 다른 제분소를 점령한다.
 // 점령할 제분소마저 없다면, 그냥 왔다갔다 한다.//
+
+// Camera
+#define PRIVATE_CAMERA_SPEED	35.f
+#define PRIVATE_CAMERA_RANGE	20.f

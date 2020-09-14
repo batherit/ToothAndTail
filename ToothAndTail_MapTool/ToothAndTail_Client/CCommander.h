@@ -29,6 +29,7 @@ public:
 	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
 	//virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
 	//virtual int UpdateAnim(float _fDeltaTime) override;
+	virtual void MoveByDeltaTime(float _fDeltaTime);
 
 public:
 	CStateMgr<CCommander>* GetStateMgr(void) const { return m_pStateMgr; }

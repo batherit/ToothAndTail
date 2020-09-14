@@ -11,6 +11,7 @@
 #include "CTile.h"
 #include "CMapLoader.h"
 #include "CPathGenerator.h"
+#include "CCamera.h"
 
 
 
@@ -74,7 +75,6 @@ int CCommander::Update(float _fDeltaTime)
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
-
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) DesignatePrevUnit();
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) DesignateNextUnit();
 
@@ -96,6 +96,20 @@ void CCommander::Release(void)
 {
 	SafelyDeleteObj(m_pStateMgr);
 	SafelyDeleteObjs(m_vecTunnelGenerator);
+}
+
+void CCommander::MoveByDeltaTime(float _fDeltaTime)
+{
+	CObj::MoveByDeltaTime(_fDeltaTime);
+	if (m_pPrivateCamera) {
+		m_pPrivateCamera->SetRenderOffsetXY((m_pPrivateCamera->GetRenderOffsetXY() + GetToXY() * PRIVATE_CAMERA_SPEED * _fDeltaTime));
+		float fLength = D3DXVec3Length(&(m_pPrivateCamera->GetRenderOffsetXY()));
+		if (fLength >= PRIVATE_CAMERA_RANGE * BASE_SCALE) {
+			D3DXVECTOR3 vDir = m_pPrivateCamera->GetRenderOffsetXY();
+			D3DXVec3Normalize(&vDir, &vDir);
+			m_pPrivateCamera->SetRenderOffsetXY(vDir * PRIVATE_CAMERA_RANGE * BASE_SCALE);
+		}		
+	}
 }
 
 bool CCommander::IsMoving(float & _fToX, float & _fToY)

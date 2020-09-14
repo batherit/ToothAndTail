@@ -8,9 +8,6 @@ CCamera::CCamera(CGameWorld& _rGameWorld, CObj* _pOwner /*= nullptr*/, float _fX
 	CObj(_rGameWorld, _fX, _fY, 0, 0, 0.f)
 {
 	if (_pOwner) {
-		/*m_pOwner = _pOwner;
-		SetX(m_pOwner->GetX());
-		SetY(m_pOwner->GetY());*/
 		SetParent(_pOwner);
 	}
 	else {
@@ -47,10 +44,6 @@ int CCamera::Update(float _fDeltaTime)
 		}
 	}
 
-	/*if (m_pOwner) {
-		SetX(m_pOwner->GetX() + m_fShakeOffsetX);
-		SetY(m_pOwner->GetY() + m_fShakeOffsetY);
-	}*/
 	return 0;
 }
 
@@ -94,8 +87,8 @@ RECT CCamera::GetScreenRect(RECT& _rRectW)
 D3DXVECTOR3 CCamera::GetScreenPoint(const D3DXVECTOR3& _vPointW)
 {
 	D3DXVECTOR3 vPointS;
-	vPointS.x = (_vPointW.x - GetX())* m_fZoomMultiple + (WINCX >> 1);
-	vPointS.y = (_vPointW.y - GetY())* m_fZoomMultiple + (WINCY >> 1);
+	vPointS.x = (_vPointW.x - (GetX() + GetRenderOffsetX()))* m_fZoomMultiple + (WINCX >> 1);
+	vPointS.y = (_vPointW.y - (GetY() + GetRenderOffsetY()))* m_fZoomMultiple + (WINCY >> 1);
 	vPointS.z = 0.f;
 
 	return vPointS;
@@ -104,8 +97,8 @@ D3DXVECTOR3 CCamera::GetScreenPoint(const D3DXVECTOR3& _vPointW)
 D3DXVECTOR3 CCamera::GetWorldPoint(const D3DXVECTOR3& _vPointS)
 {
 	D3DXVECTOR3 vPointW;
-	vPointW.x = (_vPointS.x - (WINCX >> 1)) / m_fZoomMultiple + GetX();
-	vPointW.y = (_vPointS.y - (WINCY >> 1)) / m_fZoomMultiple + GetY();
+	vPointW.x = (_vPointS.x - (WINCX >> 1)) / m_fZoomMultiple + GetX() + GetRenderOffsetX();
+	vPointW.y = (_vPointS.y - (WINCY >> 1)) / m_fZoomMultiple + GetY() + GetRenderOffsetY();
 	vPointW.z = 0.f;
 
 	return vPointW;

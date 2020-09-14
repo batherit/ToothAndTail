@@ -27,10 +27,10 @@ LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
 		if (zDelta > 0) {
-			m_pCamera->ZoomIn(0.05f);
+			if(GetMainCamera()) GetMainCamera()->ZoomIn(0.05f);
 		}
 		else {
-			m_pCamera->ZoomOut(0.05f);
+			if (GetMainCamera()) GetMainCamera()->ZoomOut(0.05f);
 		}
 		break;
 	}
@@ -46,8 +46,6 @@ void CTAT_World::Ready(void)
 	//GetSceneManager()->SetNextScene(new CTestScene(*this));		// 초기씬 세팅
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	GetSceneManager()->RequestSceneInit();
-	m_pCamera = new CCamera(*this, nullptr, 0.f, 0.f);
-	SetMainCamera(m_pCamera);		//.. 메인 카메라 세팅
 }
 
 void CTAT_World::Update(void)
@@ -55,13 +53,13 @@ void CTAT_World::Update(void)
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
 
 	GetSceneManager()->Update(fDeltaTime);
-	GetMainCamera()->Update(fDeltaTime);
+	if(GetMainCamera()) GetMainCamera()->Update(fDeltaTime);
 }
 
 void CTAT_World::LateUpdate(void)
 {
 	GetSceneManager()->LateUpdate();
-	GetMainCamera()->LateUpdate();
+	if (GetMainCamera()) GetMainCamera()->LateUpdate();
 }
 
 void CTAT_World::Render(void)
@@ -76,7 +74,6 @@ void CTAT_World::Release(void)
 	CKeyMgr::DestroyInstance();
 	CTextureMgr::DestroyInstance();
 	CSoundMgr::DestroyInstance();
-	SafelyDeleteObj(m_pCamera);
 }
 
 void CTAT_World::LoadResources(void)

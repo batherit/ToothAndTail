@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CObj.h"
-
+#include "CCamera.h"
 
 
 CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t _iWidth /*= 10*/, size_t _iHeight /*= 10*/, float _fToX, float _fToY, float _fSpeed /*= 0.f*/)
@@ -20,6 +20,7 @@ CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t
 
 CObj::~CObj()
 {
+	SafelyDeleteObj(m_pPrivateCamera);
 }
 
 void CObj::Render(HDC & _hdc, CCamera * _pCamera)

@@ -39,7 +39,7 @@ public:
 
 public:
 	void MoveTo(float _fDeltaX, float _fDeltaY) { m_vPos.x += _fDeltaX; m_vPos.y += _fDeltaY; /*if (m_pCollider) m_pCollider->LateUpdate();*/}
-	void MoveByDeltaTime(float _fDeltaTime) { m_vPos.x += (m_vDir.x * m_fSpeed * _fDeltaTime); m_vPos.y += (m_vDir.y * m_fSpeed * _fDeltaTime); if (m_pCollider) m_pCollider->LateUpdate();}
+	virtual void MoveByDeltaTime(float _fDeltaTime) { m_vPos.x += (m_vDir.x * m_fSpeed * _fDeltaTime); m_vPos.y += (m_vDir.y * m_fSpeed * _fDeltaTime); if (m_pCollider) m_pCollider->LateUpdate();}
 	void RotateZ(float _fDeltaDegree) {
 		D3DXMATRIX matRotZ;
 		D3DXMatrixRotationZ(&matRotZ, D3DXToRadian(_fDeltaDegree));
@@ -48,6 +48,11 @@ public:
 
 	// Set
 	void SetParent(CObj* _pParent) { m_pParent = _pParent; }
+	CCamera* SetPrivateCamera(CCamera* _pPrivateCamera) { 
+		CCamera* pOldCamera = m_pPrivateCamera;
+		m_pPrivateCamera = _pPrivateCamera;
+		return pOldCamera;
+	}
 	void SetValid(bool _bIsValid) { m_bIsValid = _bIsValid; }
 	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 	//void SetModelType(OBJ::E_MODEL_TYPE _eModelType) { m_eModelType = _eModelType; }
@@ -84,6 +89,7 @@ public:
 	}
 	
 	// Get
+	CCamera* GetPrivateCamera() const { return m_pPrivateCamera; }
 	bool IsValid(void) const { return m_bIsValid; }
 	bool IsVisible(void) const { return m_bIsVisible; }
 	//OBJ::E_MODEL_TYPE GetModelType(void) const { return m_eModelType; }
@@ -151,6 +157,7 @@ public:
 	
 protected:
 	CObj* m_pParent = nullptr;
+	CCamera* m_pPrivateCamera = nullptr;
 
 	bool m_bIsValid = true;
 	bool m_bIsVisible = true;
