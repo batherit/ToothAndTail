@@ -43,13 +43,13 @@ void CTestScene::ResetScene(void)
 	// 2) 기수 및 제분소 렌더레이어 테스트
 	// 플레이어 제분소
 	m_pCommander[0] = new CCommander(m_rGameWorld, 0.f, 200.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0));
-	m_pCommander[0]->SetPrivateCamera(new CCamera(m_rGameWorld, m_pCommander[0]));
 	m_rGameWorld.SetMainCamera(m_pCommander[0]->GetPrivateCamera());
 	//m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[0]); // 좀 고쳐야 된다.
 	
 															  //m_rGameWorld.GetMainCamera()->SetXY(871.f,3395.f);
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[0]);
 	CWindmill* pWindmill = new CWindmill(m_rGameWorld, 288, m_pCommander[0]);
+	//m_rGameWorld.SetMainCamera(pWindmill->GetPrivateCamera());
 	D3DXVECTOR3 pNewPos = pWindmill->GetXY();
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE ;
 	m_pCommander[0]->SetXY(pNewPos);

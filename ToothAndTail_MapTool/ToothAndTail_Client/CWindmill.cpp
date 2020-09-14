@@ -10,6 +10,7 @@
 #include "CFarmland.h"
 #include "CBurst.h"
 #include "CUI_UnitHP.h"
+#include "CCamera.h"
 
 
 //CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander* _pCommander)
@@ -63,6 +64,8 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	:
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
+	SetPrivateCamera(new CCamera(_rGameWorld, this));
+	GetPrivateCamera()->SetZoomMultiple(0.6f);
 	GetUIUnitHP()->SetY(-20.f);
 	SetCollisionRadius(WINDMILL_RADIUS);
 	SetMinimapSign(MINIMAP::SIGN_WINDMILL);

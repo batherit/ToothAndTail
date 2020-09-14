@@ -20,6 +20,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED)/*,
 	m_eCommanderType(_eCommanderType)*/
 {
+	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
