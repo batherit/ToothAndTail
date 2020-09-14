@@ -9,6 +9,7 @@
 #include "CBurst.h"
 #include "CTunnel.h"
 #include "CTunnelGenerator.h"
+#include "CParticle_Blood.h"
 
 CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
@@ -70,4 +71,11 @@ void CSkunk::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 {
 	CObj::RegisterToRenderList(_vecRenderList);
 	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
+}
+
+void CSkunk::TakeDamage(float _fDamageAmount)
+{
+	D3DXVECTOR3 vPos = GetXY();
+	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 45.f));
+	CComDepObj::TakeDamage(_fDamageAmount);
 }

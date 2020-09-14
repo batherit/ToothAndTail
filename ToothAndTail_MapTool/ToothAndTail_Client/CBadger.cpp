@@ -9,6 +9,7 @@
 #include "CBurst.h"
 #include "CTunnel.h"
 #include "CTunnelGenerator.h"
+#include "CParticle_Blood.h"
 
 CBadger::CBadger(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel, float _fX, float _fY, int _iID)
 	:
@@ -71,4 +72,11 @@ void CBadger::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 {
 	CObj::RegisterToRenderList(_vecRenderList);
 	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
+}
+
+void CBadger::TakeDamage(float _fDamageAmount)
+{
+	D3DXVECTOR3 vPos = GetXY();
+	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 70.f));
+	CComDepObj::TakeDamage(_fDamageAmount);
 }

@@ -159,6 +159,7 @@
     <ClInclude Include="CBadgerState_Idle.h" />
     <ClInclude Include="CBadgerState_Run.h" />
     <ClInclude Include="CCommanderAI.h" />
+    <ClInclude Include="CParticle_Blood.h" />
     <ClInclude Include="CPathGenerator.h" />
     <ClInclude Include="CUI_BuildGauge.h" />
     <ClInclude Include="CBullet.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="CBadgerState_Idle.cpp" />
     <ClCompile Include="CBadgerState_Run.cpp" />
     <ClCompile Include="CCommanderAI.cpp" />
+    <ClCompile Include="CParticle_Blood.cpp" />
     <ClCompile Include="CPathGenerator.cpp" />
     <ClCompile Include="CUI_BuildGauge.cpp" />
     <ClCompile Include="CBullet.cpp" />

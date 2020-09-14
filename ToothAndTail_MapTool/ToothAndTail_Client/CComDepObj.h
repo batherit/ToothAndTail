@@ -53,7 +53,7 @@ public:
 	CComDepObj* GetTargetEnemy() const { return m_pTargetEnemy; }
 	bool CanAttackTargetEnemy();
 	bool IsDead() const { return m_fHP <= 0.f; }
-	void TakeDamage(float _fDamageAmount);
+	virtual void TakeDamage(float _fDamageAmount);
 	void UpdateSpriteDir(void);
 	void SetMinimapSign(MINIMAP::E_SIGN _eMinimapSign) { m_eMinimapSign = _eMinimapSign; }
 	MINIMAP::E_SIGN GetMinimapSign() const { return m_eMinimapSign; }

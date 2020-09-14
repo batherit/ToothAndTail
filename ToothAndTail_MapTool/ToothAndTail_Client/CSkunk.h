@@ -22,7 +22,7 @@ public:
 		m_pTunnel = nullptr;
 	}
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
-
+	virtual void TakeDamage(float _fDamageAmount) override;
 public:
 	CStateMgr<CSkunk>* GetStateMgr(void) const { return m_pStateMgr; }
 

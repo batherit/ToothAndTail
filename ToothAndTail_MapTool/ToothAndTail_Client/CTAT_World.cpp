@@ -222,4 +222,7 @@ void CTAT_World::LoadResources(void)
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/Map1.png", L"MINIMAP"))) return;
 	// 2) 미니맵 표식
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Map/Map/unit.png", L"MINIMAP_SIGN"))) return;
+	
+	// 피파티클
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Particle/particle.png", L"PARTICLE"))) return;
 }

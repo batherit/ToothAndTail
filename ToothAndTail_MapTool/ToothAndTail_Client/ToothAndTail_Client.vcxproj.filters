@@ -186,6 +186,9 @@
     <Filter Include="소스 파일\1.State\CommanderAI">
       <UniqueIdentifier>{95a73d17-2e29-4d3c-9a91-f955ff664566}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\Particle">
+      <UniqueIdentifier>{a0c9b3e6-8d0c-435c-b365-a7c73610173f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -473,6 +476,7 @@
     <ClInclude Include="CAI_ComState_Standing_Build.h">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
+    <ClInclude Include="CParticle_Blood.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -729,6 +733,9 @@
     </ClCompile>
     <ClCompile Include="CAI_ComState_Standing_Build.cpp">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticle_Blood.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

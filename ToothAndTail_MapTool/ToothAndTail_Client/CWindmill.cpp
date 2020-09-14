@@ -223,8 +223,8 @@ void CWindmill::InvalidateObj()
 	// 자기 자신을 무효화하면 인게임에서 제거되는 것이니 제분소 무효화는 하지 않는다.
 	//CComDepObj::InvalidateObj();
 
-	GetPrivateCamera()->Shake(0.5f, 10.f, 100);
-	dynamic_cast<CTAT_World&>(GetGameWorld()).SetAnotherCameraTemporarily(GetPrivateCamera(), 1.5f);
+	GetPrivateCamera()->Shake(0.6f, 10.f, 100);
+	dynamic_cast<CTAT_World&>(GetGameWorld()).SetAnotherCameraTemporarily(GetPrivateCamera(), 2.0f);
 
 	GetUIUnitHP()->CloseHP();
 
