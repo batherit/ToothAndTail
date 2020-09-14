@@ -52,8 +52,18 @@ void CTAT_World::Update(void)
 {
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
 
-	GetSceneManager()->Update(fDeltaTime);
-	if(GetMainCamera()) GetMainCamera()->Update(fDeltaTime);
+	if (m_bIsCameraEventOccurring) {
+		m_pAnotherCamera->Update(fDeltaTime);
+		if ((m_fCameraKeepTime -= fDeltaTime) < 0.f) {
+			m_bIsCameraEventOccurring = false;
+		}
+		GetSceneManager()->Update(fDeltaTime * 0.4f);
+	}
+	else {
+		GetSceneManager()->Update(fDeltaTime);
+		if(GetMainCamera()) GetMainCamera()->Update(fDeltaTime);
+	}
+	
 }
 
 void CTAT_World::LateUpdate(void)
@@ -65,7 +75,10 @@ void CTAT_World::LateUpdate(void)
 void CTAT_World::Render(void)
 {
 	StartRender();
-	GetSceneManager()->Render(GetMainCamera());
+	if (m_bIsCameraEventOccurring)
+		GetSceneManager()->Render(m_pAnotherCamera);
+	else
+		GetSceneManager()->Render(GetMainCamera());
 	EndRender();
 }
 
@@ -74,6 +87,15 @@ void CTAT_World::Release(void)
 	CKeyMgr::DestroyInstance();
 	CTextureMgr::DestroyInstance();
 	CSoundMgr::DestroyInstance();
+}
+
+void CTAT_World::SetAnotherCameraTemporarily(CCamera * _pAnotherCamera, float _fKeepTime)
+{
+	if (!_pAnotherCamera) return;
+
+	m_bIsCameraEventOccurring = true;
+	m_pAnotherCamera = _pAnotherCamera;
+	m_fCameraKeepTime = _fKeepTime;
 }
 
 void CTAT_World::LoadResources(void)

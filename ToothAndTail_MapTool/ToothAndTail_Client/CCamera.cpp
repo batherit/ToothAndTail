@@ -87,8 +87,8 @@ RECT CCamera::GetScreenRect(RECT& _rRectW)
 D3DXVECTOR3 CCamera::GetScreenPoint(const D3DXVECTOR3& _vPointW)
 {
 	D3DXVECTOR3 vPointS;
-	vPointS.x = (_vPointW.x - (GetX() + GetRenderOffsetX()))* m_fZoomMultiple + (WINCX >> 1);
-	vPointS.y = (_vPointW.y - (GetY() + GetRenderOffsetY()))* m_fZoomMultiple + (WINCY >> 1);
+	vPointS.x = (_vPointW.x - (GetX() + GetRenderOffsetX() + m_fShakeOffsetX))* m_fZoomMultiple + (WINCX >> 1);
+	vPointS.y = (_vPointW.y - (GetY() + GetRenderOffsetY() + m_fShakeOffsetY))* m_fZoomMultiple + (WINCY >> 1);
 	vPointS.z = 0.f;
 
 	return vPointS;
@@ -97,8 +97,8 @@ D3DXVECTOR3 CCamera::GetScreenPoint(const D3DXVECTOR3& _vPointW)
 D3DXVECTOR3 CCamera::GetWorldPoint(const D3DXVECTOR3& _vPointS)
 {
 	D3DXVECTOR3 vPointW;
-	vPointW.x = (_vPointS.x - (WINCX >> 1)) / m_fZoomMultiple + GetX() + GetRenderOffsetX();
-	vPointW.y = (_vPointS.y - (WINCY >> 1)) / m_fZoomMultiple + GetY() + GetRenderOffsetY();
+	vPointW.x = (_vPointS.x - (WINCX >> 1)) / m_fZoomMultiple + GetX() + GetRenderOffsetX() + m_fShakeOffsetX;
+	vPointW.y = (_vPointS.y - (WINCY >> 1)) / m_fZoomMultiple + GetY() + GetRenderOffsetY() + m_fShakeOffsetY;
 	vPointW.z = 0.f;
 
 	return vPointW;

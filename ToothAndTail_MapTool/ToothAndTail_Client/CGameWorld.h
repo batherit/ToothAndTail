@@ -49,13 +49,15 @@ public:
 
 private:
 	virtual void LoadResources() = 0;
+	float m_fAnotherCameraKeepTime = 0.f;
+	CTimer* m_pTimer_Main			= nullptr;
 
 private:
 	CGraphicDevice* m_pGraphicDevice = nullptr;
 
-	CMapLoader* m_pMapLoader_Main = nullptr;
+	CMapLoader* m_pMapLoader_Main	= nullptr;
 	CCamera* m_pCamera_Main			= nullptr;
-	CTimer* m_pTimer_Main			= nullptr;
+	
 	CSpace* m_pViewSpace_Main		= nullptr;
 	CSceneMgr* m_pSceneManager_Main	= nullptr;
 	list<CObj*> m_listObjs_Main;

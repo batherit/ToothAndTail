@@ -66,4 +66,3 @@ void CGameWorld::RenderListObjs(CCamera* _pCamera, bool _bListClear, bool (*func
 		pObj->Render(_pCamera);
 	}
 }
-

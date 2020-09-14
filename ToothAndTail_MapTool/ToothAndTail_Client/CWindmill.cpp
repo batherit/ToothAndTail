@@ -11,6 +11,7 @@
 #include "CBurst.h"
 #include "CUI_UnitHP.h"
 #include "CCamera.h"
+#include "CTAT_World.h"
 
 
 //CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander* _pCommander)
@@ -221,6 +222,9 @@ void CWindmill::InvalidateObj()
 	if (GetState() == WINDMILL::STATE_DESTROYED) return;
 	// 자기 자신을 무효화하면 인게임에서 제거되는 것이니 제분소 무효화는 하지 않는다.
 	//CComDepObj::InvalidateObj();
+
+	GetPrivateCamera()->Shake(0.5f, 10.f, 100);
+	dynamic_cast<CTAT_World&>(GetGameWorld()).SetAnotherCameraTemporarily(GetPrivateCamera(), 1.5f);
 
 	GetUIUnitHP()->CloseHP();
 
