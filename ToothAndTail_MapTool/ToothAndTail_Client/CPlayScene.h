@@ -5,12 +5,12 @@ class CSpriteObj;
 class CCommander;
 class CMapLoader;
 class CUI_InGameUI;
-class CTestScene :
+class CPlayScene :
 	public CScene
 {
 public:
-	CTestScene(CGameWorld& _rGameWorld);
-	virtual ~CTestScene();
+	CPlayScene(CGameWorld& _rGameWorld);
+	virtual ~CPlayScene();
 
 	// CScene을(를) 통해 상속됨
 	virtual void ResetScene(void) override;

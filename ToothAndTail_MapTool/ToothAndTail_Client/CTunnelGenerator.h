@@ -30,6 +30,8 @@ public:
 	}
 	void IncreaseUnitsNum() { ++m_iUnitsNum; }
 	void DecreaseUnitsNum() { --m_iUnitsNum; }
+
+	void PlaySoundForGathering();
 	
 private:
 	CGameWorld& m_rGameWorld;

@@ -5,7 +5,7 @@
 #include "CTextureMgr.h"
 #include "CGameWorld.h"
 #include "CSceneMgr.h"
-#include "CTestScene.h"
+#include "CPlayScene.h"
 
 CTitleScene::CTitleScene(CGameWorld & _rGameWorld)
 	:
@@ -112,7 +112,7 @@ void CTitleScene::ClickStartButton(void *)
 {
 	// TODO : 플레이 씬으로 넘어간다.
 	CSoundMgr::GetInstance()->StopSound(CSoundMgr::BGM);
-	m_rGameWorld.GetSceneManager()->SetNextScene(new CTestScene(m_rGameWorld));
+	m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld));
 }
 
 void CTitleScene::HoveredOnExitButton(void *)

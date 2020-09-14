@@ -2,6 +2,7 @@
 #include "CBullet.h"
 #include "CTextureMgr.h"
 #include "CComDepObj.h"
+#include "CGameWorld.h"
 
 CBullet::CBullet(CGameWorld & _rGameWorld, CComDepObj * _pTarget, UNIT::E_TYPE _eUnitType, D3DXVECTOR3 _vStartPos)
 	:
@@ -21,36 +22,50 @@ CBullet::CBullet(CGameWorld & _rGameWorld, CComDepObj * _pTarget, UNIT::E_TYPE _
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"PIG_BULLET");
 		SetSpeed(PIG_BULLET_SPEED);
 		m_fDamage = PIG_BULLET_DAMAGE;
+		if(IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Squirrel_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_SQUIRREL:	
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"SQUIRREL_BULLET");
 		SetSpeed(SQUIRREL_BULLET_SPEED);
 		m_fDamage = SQUIRREL_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Squirrel_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_LIZARD:
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"LIZARD_BULLET");
 		SetSpeed(LIZARD_BULLET_SPEED);
 		m_fDamage = LIZARD_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Lizard_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_MOLE:
 		// 탄환 설정할 게 없다.
 		SetSpeed(MOLE_BULLET_SPEED);
 		m_fDamage = MOLE_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Mole_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_SKUNK:
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"SKUNK_BULLET");
 		SetSpeed(SKUNK_BULLET_SPEED);
 		m_fDamage = SKUNK_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Skunk_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_BADGER:
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"BADGER_BULLET");
 		SetSpeed(BADGER_BULLET_SPEED);
 		m_fDamage = BADGER_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Badger_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	case UNIT::TYPE_FOX:
 		pTextureInfo = CTextureMgr::GetInstance()->GetTextureInfo(L"FOX_BULLET");
 		SetSpeed(FOX_BULLET_SPEED);
 		m_fDamage = FOX_BULLET_DAMAGE;
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Unit_Fox_Attack.wav", CSoundMgr::EFFECT);
 		break;
 	}
 

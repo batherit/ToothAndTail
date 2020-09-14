@@ -241,6 +241,9 @@ void CWindmill::InvalidateObj()
 		pFarmland->InvalidateObj();
 	}
 	m_fCroppingTickTime = 0.f;
+
+	if (!IsObjInCamera(this, GetGameWorld().GetMainCamera())) return;
+	CSoundMgr::GetInstance()->PlaySound(L"Destroy_HQ.wav", CSoundMgr::PLAYER);
 }
 
 void CWindmill::Occupied(CCommander* _pCommander)

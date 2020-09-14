@@ -216,6 +216,9 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 		tNewCommandInfo.iUnitID = -1;
 		//tNewCommandInfo.bIgnoreEnemy = false;
 		m_fElapsedTime = _fDeltaTime;
+
+		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			CSoundMgr::GetInstance()->PlaySound(L"Order.wav", CSoundMgr::PLAYER);
 	}
 	else if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON)) {
 		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
@@ -233,6 +236,8 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 	else if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
 		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
+		if(IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+			m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->PlaySoundForGathering();
 		m_fElapsedTime = _fDeltaTime;
 	}
 	else if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON)) {

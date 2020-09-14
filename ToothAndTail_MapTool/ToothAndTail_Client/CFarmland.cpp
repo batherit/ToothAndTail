@@ -137,6 +137,8 @@ void CFarmland::LateUpdate(void)
 		if (GetCommander()->GetMoney() < FARMLAND_COST) return;
 		// 농장 건설 비용을 차감한다.
 		GetCommander()->DecreseMoney(FARMLAND_COST);
+		if(IsObjInCamera(this, GetGameWorld().GetMainCamera())) 
+			CSoundMgr::GetInstance()->PlaySound(L"Build_Farm.wav", CSoundMgr::PLAYER);
 		// 농장 개간 애니메이션을 세팅한다.
 		SetNewAnimInfo(AnimInfo(0, 8, 2, 8, 0.8f, 0, false));
 		m_eState = CFarmland::STATE_BUILDING;

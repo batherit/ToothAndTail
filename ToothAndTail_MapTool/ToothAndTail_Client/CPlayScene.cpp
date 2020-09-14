@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "CTestScene.h"
+#include "CPlayScene.h"
 #include "CGameWorld.h"
 #include "CCommander.h"
 #include "CCommanderAI.h"
@@ -14,19 +14,20 @@
 #include "CUI_InGameUI.h"
 
 
-CTestScene::CTestScene(CGameWorld & _rGameWorld)
+CPlayScene::CPlayScene(CGameWorld & _rGameWorld)
 	:
 	CScene(_rGameWorld)
 {
 	ResetScene();
+	CSoundMgr::GetInstance()->PlayBGM(TEXT("Background.wav"));
 }
 
-CTestScene::~CTestScene()
+CPlayScene::~CPlayScene()
 {
 	Release();
 }
 
-void CTestScene::ResetScene(void)
+void CPlayScene::ResetScene(void)
 {
 	Release();
 
@@ -106,7 +107,7 @@ void CTestScene::ResetScene(void)
 	//m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, 300.f, 300.f, CTunnel::SIZE_BIG, nullptr, m_pCommander));
 }
 
-int CTestScene::Update(float _fDeltaTime)
+int CPlayScene::Update(float _fDeltaTime)
 {
 	for (auto& pTile : m_rGameWorld.GetMapLoader()->GetTiles()) {
 		pTile->Update(_fDeltaTime);
@@ -117,7 +118,7 @@ int CTestScene::Update(float _fDeltaTime)
 	return 0;
 }
 
-void CTestScene::LateUpdate(void)
+void CPlayScene::LateUpdate(void)
 {
 	for (int i = 0; i < 2; ++i) {
 		//m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
@@ -148,7 +149,7 @@ void CTestScene::LateUpdate(void)
 	CollectGarbageObjs(m_rGameWorld.GetListObjs());
 }
 
-void CTestScene::Release(void)
+void CPlayScene::Release(void)
 {
 	CMapLoader* pOldMapLoader = m_rGameWorld.SetMapLoader(nullptr);
 	SafelyDeleteObj(pOldMapLoader);
@@ -156,7 +157,7 @@ void CTestScene::Release(void)
 	SafelyDeleteObj(m_pInGameUI);
 }
 
-void CTestScene::Render(CCamera * _pCamera)
+void CPlayScene::Render(CCamera * _pCamera)
 {
 	m_rGameWorld.GetMapLoader()->RenderMap(_pCamera);
 	m_rGameWorld.GetMapLoader()->RenderTile(_pCamera);

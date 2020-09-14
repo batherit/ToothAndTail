@@ -126,3 +126,27 @@ void CTunnelGenerator::ReleaseUnit(CComDepObj * _pUnit)
 {
 	DecreaseUnitsNum();
 }
+
+void CTunnelGenerator::PlaySoundForGathering()
+{	
+	switch (m_eUnitType) {
+	case UNIT::TYPE_SQUIRREL:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Squirrel.wav", CSoundMgr::PLAYER);
+		break;
+	case UNIT::TYPE_LIZARD:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Lizard.wav", CSoundMgr::PLAYER);
+		break;
+	case UNIT::TYPE_MOLE:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Mole.wav", CSoundMgr::PLAYER);
+		break;
+	case UNIT::TYPE_SKUNK:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Skunk.wav", CSoundMgr::PLAYER);
+		break;
+	case UNIT::TYPE_BADGER:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Badger.wav", CSoundMgr::PLAYER);
+		break;
+	case UNIT::TYPE_FOX:
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Fox.wav", CSoundMgr::PLAYER);
+		break;
+	}
+}

@@ -51,9 +51,6 @@
     <Filter Include="소스 파일\1.Scene">
       <UniqueIdentifier>{39f65d8e-db8e-451b-83d2-4fbd2e49b216}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\1.Scene\TestScene">
-      <UniqueIdentifier>{a6e37c75-44e1-4118-872a-ea2f17f8e53b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\1.State">
       <UniqueIdentifier>{e6aafcd0-1fd3-4bd6-8752-2496fe6038db}</UniqueIdentifier>
     </Filter>
@@ -189,6 +186,9 @@
     <Filter Include="소스 파일\1.CObj\Particle">
       <UniqueIdentifier>{a0c9b3e6-8d0c-435c-b365-a7c73610173f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.Scene\PlayScene">
+      <UniqueIdentifier>{a6e37c75-44e1-4118-872a-ea2f17f8e53b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -250,9 +250,6 @@
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>소스 파일\1.Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CTestScene.h">
-      <Filter>소스 파일\1.Scene\TestScene</Filter>
     </ClInclude>
     <ClInclude Include="MacroValue.h">
       <Filter>소스 파일\98.Helper</Filter>
@@ -477,6 +474,9 @@
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
     <ClInclude Include="CParticle_Blood.h" />
+    <ClInclude Include="CPlayScene.h">
+      <Filter>소스 파일\1.Scene\PlayScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -529,9 +529,6 @@
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>소스 파일\1.Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CTestScene.cpp">
-      <Filter>소스 파일\1.Scene\TestScene</Filter>
     </ClCompile>
     <ClCompile Include="CSpriteObj.cpp">
       <Filter>소스 파일\1.CObj\SpriteObj</Filter>
@@ -736,6 +733,9 @@
     </ClCompile>
     <ClCompile Include="CParticle_Blood.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayScene.cpp">
+      <Filter>소스 파일\1.Scene\PlayScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

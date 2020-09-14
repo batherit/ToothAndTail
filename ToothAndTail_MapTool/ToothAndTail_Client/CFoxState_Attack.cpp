@@ -23,6 +23,8 @@ void CFoxState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 16, 1, 0.f, 0, false));
 	m_rOwner.SetSpeed(0.f);
+	if (IsObjInCamera(&m_rOwner, m_rGameWorld.GetMainCamera()))
+		CSoundMgr::GetInstance()->PlaySound(L"Unit_Fox_Reload.wav", CSoundMgr::EFFECT);
 }
 
 int CFoxState_Attack::Update(float _fDeltaTime)

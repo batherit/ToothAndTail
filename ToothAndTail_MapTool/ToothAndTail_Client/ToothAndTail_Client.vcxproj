@@ -214,7 +214,7 @@
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTAT_World.h" />
-    <ClInclude Include="CTestScene.h" />
+    <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureMgr.h" />
     <ClInclude Include="CTile.h" />
@@ -312,7 +312,7 @@
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTAT_World.cpp" />
-    <ClCompile Include="CTestScene.cpp" />
+    <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureMgr.cpp" />
     <ClCompile Include="CTile.cpp" />

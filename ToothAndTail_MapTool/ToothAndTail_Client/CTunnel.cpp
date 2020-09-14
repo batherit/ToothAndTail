@@ -172,6 +172,9 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, CTunnelGenerator* _pTunnelGenerator, c
 
 	m_pBuildGauge = new CUI_BuildGauge(_rGameWorld, this, m_eUnitType);
 	m_pBuildGauge->SetY(-15.f);
+
+	if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
+		CSoundMgr::GetInstance()->PlaySound(L"Build_UnitFactory.wav", CSoundMgr::PLAYER);
 }
 
 CTunnel::~CTunnel()
@@ -371,6 +374,21 @@ void CTunnel::InvalidateObj(void)
 	//SafelyDeleteObjs(m_listUnits);
 	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
 	CComDepObj::InvalidateObj();
+
+	// 파괴 사운드 처리
+	if (!IsObjInCamera(this, GetGameWorld().GetMainCamera())) return;
+		
+	switch (m_eSize) {
+	case CTunnel::SIZE_SMALL:
+		CSoundMgr::GetInstance()->PlaySound(L"Destroy_Small.wav", CSoundMgr::PLAYER);
+		break;
+	case CTunnel::SIZE_MIDDLE:
+		CSoundMgr::GetInstance()->PlaySound(L"Destroy_Mid.wav", CSoundMgr::PLAYER);
+		break;
+	case CTunnel::SIZE_BIG:
+		CSoundMgr::GetInstance()->PlaySound(L"Destroy_Big.wav", CSoundMgr::PLAYER);
+		break;
+	}
 }
 
 void CTunnel::RegisterToRenderList(vector<CObj*>& _vecRenderList)

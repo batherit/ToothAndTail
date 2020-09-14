@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CTAT_World.h"
 #include "CSceneMgr.h"
-#include "CTestScene.h"
 #include "CTitleScene.h"
 #include "CTextureMgr.h"
 #include "CTimer.h"

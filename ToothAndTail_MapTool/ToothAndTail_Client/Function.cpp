@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Function.h"
+#include "CCamera.h"
 
 // 해당 HWND에 대한 커서 포인터 얻기
 POINT GetClientCursorPoint(const HWND& _hWND)
@@ -47,6 +48,26 @@ bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint)
 bool IsPointInRect(const RECT & _rRect, const D3DXVECTOR3 & _rPoint)
 {
 	return (_rRect.left <= _rPoint.x && _rPoint.x <= _rRect.right) && (_rRect.top <= _rPoint.y && _rPoint.y <= _rRect.bottom);
+}
+
+bool IsObjInCamera(const CObj * _pObj, CCamera * _pCamera)
+{
+	RECT rcObjRect = _pObj->GetRect();
+	D3DXVECTOR3 vViewLeftTopW = D3DXVECTOR3(0.f, 0.f, 0.f);
+	D3DXVECTOR3 vViewRightBottomW = D3DXVECTOR3(static_cast<float>(WINCX), static_cast<float>(WINCY), 0.f);
+	if (_pCamera) {
+		vViewLeftTopW = _pCamera->GetWorldPoint(vViewLeftTopW);
+		vViewRightBottomW = _pCamera->GetWorldPoint(vViewRightBottomW);
+	}
+
+	RECT rcViewRect = {
+		static_cast<LONG>(vViewLeftTopW.x),
+		static_cast<LONG>(vViewLeftTopW.y),
+		static_cast<LONG>(vViewRightBottomW.x),
+		static_cast<LONG>(vViewRightBottomW.y)
+	};
+	
+	return IsCollided(rcViewRect, rcObjRect);
 }
 
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect)
