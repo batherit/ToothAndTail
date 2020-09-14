@@ -129,6 +129,8 @@ void CTunnelGenerator::ReleaseUnit(CComDepObj * _pUnit)
 
 void CTunnelGenerator::PlaySoundForGathering()
 {	
+	if (GetUnitsNum() <= 0) return;
+
 	switch (m_eUnitType) {
 	case UNIT::TYPE_SQUIRREL:
 		CSoundMgr::GetInstance()->PlaySound(L"Unit_Squirrel.wav", CSoundMgr::PLAYER);

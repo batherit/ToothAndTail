@@ -121,7 +121,7 @@ void CGraphicDevice::ReleaseGraphicDevice()
 
 void CGraphicDevice::BeginRender(void)
 {
-	m_pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255, 0, 0, 255), 0.f, 0);
+	m_pDevice->Clear(0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255, 0, 0, 0), 0.f, 0);
 	m_pDevice->BeginScene();
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
 }

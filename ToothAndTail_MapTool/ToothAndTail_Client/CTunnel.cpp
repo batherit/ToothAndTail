@@ -284,7 +284,7 @@ int CTunnel::Update(float _fDeltaTime)
 
 
 	if (CTunnel::STATE_GENERATE_UNIT == m_eState) {
-		
+		m_pBuildGauge->UpdateGauge(GetHPRatio());
 		if (m_bIsGenerating) {
 			// TODO : 생산하는 과정
 			if ((m_fElapsedTime += _fDeltaTime) >= m_fGenTime) {

@@ -21,7 +21,7 @@ public:
 	virtual void Release(void) override;
 	virtual void InvalidateObj(void) override;
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
-	
+
 public:
 	// 소속된 유닛이 호출한다.
 	CTunnelGenerator* GetTunnelGenerator() const { return m_pTunnelGenerator; }

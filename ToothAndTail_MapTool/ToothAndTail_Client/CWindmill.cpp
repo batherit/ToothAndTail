@@ -193,6 +193,7 @@ void CWindmill::LateUpdate(void)
 			&& IsPointInTile(pCommander->GetXY(), GetXY(), TILE_WIDTH * BASE_SCALE * 4.0f, TILE_HEIGHT * BASE_SCALE * 4.f)) {
 			pCommander->DecreseMoney(WINDMILL_COST);
 			Occupied(pCommander);
+			SetHP(GetMaxHP());
 			break;
 		}
 	}
@@ -242,7 +243,7 @@ void CWindmill::InvalidateObj()
 	}
 	m_fCroppingTickTime = 0.f;
 
-	if (!IsObjInCamera(this, GetGameWorld().GetMainCamera())) return;
+	//if (!IsObjInCamera(this, GetGameWorld().GetMainCamera())) return;
 	CSoundMgr::GetInstance()->PlaySound(L"Destroy_HQ.wav", CSoundMgr::PLAYER);
 }
 
@@ -259,6 +260,7 @@ void CWindmill::Occupied(CCommander* _pCommander)
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->SetCommander(_pCommander);
 	}
+	SetHP(GetMaxHP());
 }
 
 WINDMILL::E_STATE CWindmill::GetState() const
