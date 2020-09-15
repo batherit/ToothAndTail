@@ -2,6 +2,7 @@
 #include "CAI_ComState_Idle.h"
 #include "CAI_ComState_Run.h"
 #include "CAI_ComState_Standing_Build.h"
+#include "CAI_ComState_Running_Gathering.h"
 #include "CCommanderAI.h"
 #include "CStateMgr.h"
 #include "CWindmill.h"
@@ -29,6 +30,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 	D3DXVECTOR3 vGoalPos;
 
 	if (m_rOwner.GetTotalUnitsNum() >= AI_ATTACK_UNITS_NUM) {
+		// 병력이 충분한 경우
 		if (m_rOwner.GetTargetWindmill() && (&m_rOwner == m_rOwner.GetTargetWindmill()->GetCommander())) {
 			// 자신의 제분소에서 가만히 있는 상태인 경우,
 			auto& vecWindmills = m_rOwner.ExtractWindmills(WINDMILL::TYPE_PLAYER);	// 플레이어 제분소를 찾는다.
@@ -39,7 +41,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 				vGoalPos.x += TILE_WIDTH * BASE_SCALE * 1.1f;	// 위치 보정
 				if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
 					// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
-					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Run(m_rGameWorld, m_rOwner));
+					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_Gathering(m_rGameWorld, m_rOwner));
 				}
 			}
 			// 플레이어 제분소가 없다면 가만히 있는다. => 게임오버

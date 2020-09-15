@@ -23,6 +23,7 @@ void CFoxState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 16, 1, 0.f, 0, false));
 	m_rOwner.SetSpeed(0.f);
+	m_fAttackDelayOffset = GetNumberMinBetweenMax(0.f, 0.8f);
 	if (IsObjInCamera(&m_rOwner, m_rGameWorld.GetMainCamera()))
 		CSoundMgr::GetInstance()->PlaySound(L"Unit_Fox_Reload.wav", CSoundMgr::EFFECT);
 }
@@ -84,7 +85,7 @@ int CFoxState_Attack::Update(float _fDeltaTime)
 
 		if (!m_bIsShooting) {
 			// 1.0초 대기후 탄환을 발사한다.
-			if ((m_fElapsedTime += _fDeltaTime) >= FOX_ATTACK_DELAY) {
+			if ((m_fElapsedTime += _fDeltaTime) >= FOX_ATTACK_DELAY + m_fAttackDelayOffset) {
 				// 총알 생성
 				m_rGameWorld.GetListObjs().emplace_back(new CBullet(m_rGameWorld, pTargetEnemy, UNIT::TYPE_FOX, m_rOwner.GetXY()));
 				// 발사 애니메이션을 진행한다.

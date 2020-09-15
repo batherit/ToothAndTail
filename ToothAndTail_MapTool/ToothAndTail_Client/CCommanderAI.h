@@ -25,6 +25,7 @@ public:
 	virtual bool IsActivating() const;							// AI측에서 재정의
 	void SetActivating(bool _bIsActivating) { m_bIsActivating = _bIsActivating; }
 	virtual bool IsWavingFlag(/*CCommander::E_FLAG_TYPE& _eFlagType*/) const;// AI측에서 재정의
+	void SetWavingFlag(bool _bIsWavingFlag) { m_bIsWavingFlag = _bIsWavingFlag; }
 
 public:
 	//bool DetectPlaceToGo();
@@ -43,6 +44,7 @@ private:
 	//CWindmill* m_pDetectedWindmill = nullptr;
 
 	bool m_bIsActivating = false;
+	bool m_bIsWavingFlag = false;
 	CWindmill* m_pTargetWindmill = nullptr;
 	vector<CWindmill*> m_vecExtractedWindmills;
 	vector<CWindmill*> m_vecWindmills;

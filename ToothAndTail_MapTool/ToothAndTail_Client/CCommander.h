@@ -52,16 +52,16 @@ public:
 	}
 	int GetTunnelGeneratorIndex() const { return m_iTunnelGeneratorIndex; }
 	void GenerateTunnel();
-	CommandInfo GetCurrentCommandInfo() { return m_tCommandInfo; }
+	CommandInfo& GetCurrentCommandInfo() { return m_tCommandInfo; }
+	void SetCommandInfo(const CommandInfo& _rCommandInfo) { m_tCommandInfo = _rCommandInfo; }
 	vector<CTunnelGenerator*>& GetTunnelGenerators() { return m_vecTunnelGenerator; }
 	int GetTotalUnitsNum() const;
 	int GetTotalTunnelsNum() const;
 
-protected:
+private:
 	void UpdateCommand(float _fDeltaTime);
 
 protected:
-	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 	CommandInfo m_tCommandInfo;
 	//CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
 	UINT m_iMoney = MAX_MONEY;
@@ -69,5 +69,8 @@ protected:
 	int m_iTunnelGeneratorIndex = 0;
 
 	float m_fElapsedTime = 0.f;
+
+private:
+	CStateMgr<CCommander>* m_pStateMgr = nullptr;
 };
 

@@ -254,5 +254,6 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 			m_fElapsedTime = 0.2f;
 		}
 	}
-	m_tCommandInfo = tNewCommandInfo;
+
+	SetCommandInfo(tNewCommandInfo);
 }

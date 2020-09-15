@@ -23,6 +23,7 @@ void CBadgerState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 14, 1, 0.f, 0, false));
 	m_rOwner.SetSpeed(0.f);
+	m_fAttackDelayOffset = GetNumberMinBetweenMax(0.f, 0.2f);
 }
 
 int CBadgerState_Attack::Update(float _fDeltaTime)

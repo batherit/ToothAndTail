@@ -18,6 +18,6 @@ public:
 private:
 	bool m_bIsShooting = false;
 	float m_fElapsedTime = 0.f;
-	//float m_fTickTime = 0.f;
+	float m_fAttackDelayOffset = 0.f;
 };
 

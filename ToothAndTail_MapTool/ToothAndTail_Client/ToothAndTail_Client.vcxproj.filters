@@ -473,9 +473,14 @@
     <ClInclude Include="CAI_ComState_Standing_Build.h">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
-    <ClInclude Include="CParticle_Blood.h" />
     <ClInclude Include="CPlayScene.h">
       <Filter>소스 파일\1.Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticle_Blood.h">
+      <Filter>소스 파일\1.CObj\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CAI_ComState_Running_Gathering.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -731,11 +736,14 @@
     <ClCompile Include="CAI_ComState_Standing_Build.cpp">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
-    <ClCompile Include="CParticle_Blood.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CPlayScene.cpp">
       <Filter>소스 파일\1.Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticle_Blood.cpp">
+      <Filter>소스 파일\1.CObj\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Running_Gathering.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -31,10 +31,7 @@ int CAI_ComState_Run::Update(float _fDeltaTime)
 		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_Build(m_rGameWorld, m_rOwner));
 	}
 		 
-	
-	m_rOwner.UpdateAnim(_fDeltaTime);
-
-	return 0;
+	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 
 void CAI_ComState_Run::LateUpdate(void)
