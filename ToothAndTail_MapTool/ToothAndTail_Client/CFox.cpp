@@ -17,6 +17,7 @@ CFox::CFox(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunnel
 	m_pTunnel(_pTunnel),
 	m_pTunnelGenerator(_pTunnel->GetTunnelGenerator())
 {
+	InitHP(FOX_MAX_HP);
 	GetUIUnitHP()->SetY(-20.f);
 
 	SetMinimapSign(MINIMAP::SIGN_UNIT);

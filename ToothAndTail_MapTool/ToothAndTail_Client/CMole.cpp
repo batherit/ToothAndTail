@@ -17,6 +17,7 @@ CMole::CMole(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTunn
 	m_pTunnel(_pTunnel),
 	m_pTunnelGenerator(_pTunnel->GetTunnelGenerator())
 {
+	InitHP(MOLE_MAX_HP);
 	GetUIUnitHP()->SetY(-20.f);
 
 	SetMinimapSign(MINIMAP::SIGN_UNIT);

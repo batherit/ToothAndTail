@@ -21,6 +21,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_eCommanderType(_eCommanderType)*/
 {
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
+	GetPrivateCamera()->SetY(-15.f);
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);

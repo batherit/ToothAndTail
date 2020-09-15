@@ -17,6 +17,7 @@ CSkunk::CSkunk(CGameWorld & _rGameWorld, CCommander * _pCommander, CTunnel* _pTu
 	m_pTunnel(_pTunnel),
 	m_pTunnelGenerator(_pTunnel->GetTunnelGenerator())
 {
+	InitHP(SKUNK_MAX_HP);
 	GetUIUnitHP()->SetY(-20.f);
 
 	SetMinimapSign(MINIMAP::SIGN_UNIT);

@@ -17,30 +17,42 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 	m_pLeftWoodBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"), D3DXVECTOR3());
 	m_pLeftWoodBack->SetParent(this);
 	//0 424 613 188
-	m_pLeftWoodBack->SetExtractionArea(0, 424, 0 + 613, 424 + 188);
+	//m_pLeftWoodBack->SetExtractionArea(0, 424, 0 + 613, 424 + 188);
+	// 515 742 411 92
+	m_pLeftWoodBack->SetExtractionArea(515, 742, 515 + 411, 742 + 92);
 	POINT ptPos;
-	ptPos.x = 613.f * 0.7f * 0.5f;
-	ptPos.y = WINCY - 188.f * 0.7f * 0.5f + 1;
-	m_pLeftWoodBack->SetOutputArea(ptPos, 613.f * 0.7f, 188.f * 0.7f);
+	//ptPos.x = 613.f * 0.7f * 0.5f;
+	// ptPos.y = WINCY - 188.f * 0.7f * 0.5f + 1;
+	ptPos.x = (411.f - 240.f)  * 1.1f * 0.5f;
+	ptPos.y = 92.f * 1.1f * 0.5f + 1;
+	//m_pLeftWoodBack->SetOutputArea(ptPos, 613.f * 0.7f, 188.f * 0.7f);
+	m_pLeftWoodBack->SetOutputArea(ptPos, 411.f * 1.1f, 92.f * 1.1f);
+	//m_pLeftWoodBack->SetScale(1.7f);
 
 	m_pMiddleWoodBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"), D3DXVECTOR3());
 	m_pMiddleWoodBack->SetParent(this);
 	//0 334 727 89
 	m_pMiddleWoodBack->SetExtractionArea(0, 334, 727, 334 + 89);
-	ptPos.x = (WINCX >> 1) + 80.f;
-	ptPos.y = WINCY - 89.f * 0.7f * 0.5f + 1;
+	//ptPos.x = (WINCX >> 1) + 80.f;
+	//ptPos.y = WINCY - 89.f * 0.7f * 0.5f + 1;
+	ptPos.x = (WINCX >> 1);
+	ptPos.y = 70.f * 0.7f * 0.5f + 1;
 	m_pMiddleWoodBack->SetOutputArea(ptPos, 727.f * 0.7f, 89.f * 0.7f);
+	m_pMiddleWoodBack->SetScaleY(-1.f);
 
 	m_pRightWoodBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"), D3DXVECTOR3());
 	m_pRightWoodBack->SetParent(this);
 	//614 424 405 137
 	m_pRightWoodBack->SetExtractionArea(614, 424, 614 + 405, 424 + 137);
-	ptPos.x = WINCX - 405.f * 0.7f * 0.5f + 1;
-	ptPos.y = WINCY - 137.f * 0.7f * 0.5f + 1;
-	m_pRightWoodBack->SetOutputArea(ptPos, 405.f * 0.7f, 137.f * 0.7f);
+	ptPos.x = WINCX - 405.f * 0.75f * 0.5f + 1;
+	//ptPos.y = WINCY - 137.f * 0.7f * 0.5f + 1;
+	ptPos.y = 135.f * 0.7f * 0.5f + 1;
+	m_pRightWoodBack->SetOutputArea(ptPos, 405.f * 0.75f, 137.f * 0.7f);
+	m_pRightWoodBack->SetScaleY(-1.f);
 
 	// 미니맵
-	m_pMinimap = new CUI_Minimap(_rGameWorld, D3DXVECTOR3(256 >> 1, WINCY -120.f, 0.f));
+	//m_pMinimap = new CUI_Minimap(_rGameWorld, D3DXVECTOR3(256 >> 1, WINCY -120.f, 0.f));
+	m_pMinimap = new CUI_Minimap(_rGameWorld, D3DXVECTOR3(WINCX - (256 >> 1), 100.f, 0.f));
 
 	// 유닛 표식
 	if (_pCommander) {
@@ -51,7 +63,7 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 		float fStartX = m_pMiddleWoodBack->GetOutputArea().left;
 		for (int i = 0; i < iTunnelGeneratorSize; ++i) {
 			pUnitSign = new CUI_UnitSign(_rGameWorld, _pCommander, rTunnelGenerators[i]->GetUnitType(),
-				D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), WINCY - 89.f * 0.7f * 0.5f + 1 - 20, 0.f));
+				D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), /*WINCY - 89.f*/ 230.f * 0.7f * 0.5f + 1 - 20, 0.f));
 			m_vecUnitSigns.emplace_back(pUnitSign);
 		}
 		m_pUnitSignArrow = new CUI_Image(_rGameWorld, 
@@ -97,11 +109,13 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 {
 	m_pLeftWoodBack->Render(nullptr);
 	
+	// 자본 표시
 	TCHAR szBuf[64] = L"NULL";
 	if (m_pCommander) {
 		swprintf_s(szBuf, L"%d", m_pCommander->GetMoney());	
 	}
-	CGraphicDevice::GetInstance()->RenderText(szBuf, D3DXVECTOR3(260.f, WINCY - 70.f, 0.f));
+	//CGraphicDevice::GetInstance()->RenderText(szBuf, D3DXVECTOR3(260.f, WINCY - 70.f, 0.f));
+	CGraphicDevice::GetInstance()->RenderText(szBuf, D3DXVECTOR3(140.f,  5.f, 0.f));
 
 	m_pMiddleWoodBack->Render(nullptr);
 	m_pRightWoodBack->Render(nullptr);
@@ -128,7 +142,8 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 			// 보급 수 표시
 			
 			vPos.x -= 20.f;
-			vPos.y += 20.f;
+			//vPos.y += 20.f;
+			vPos.y -= 60.f;
 			pTunnelGenerator = m_pCommander->GetTunnelGenerators()[i];
 			swprintf_s(szBuf, L"%d/%d", pTunnelGenerator->GetUnitsNum(), pTunnelGenerator->GetMaxSupplyNum());
 			CGraphicDevice::GetInstance()->RenderText(szBuf, vPos, 0.35f);

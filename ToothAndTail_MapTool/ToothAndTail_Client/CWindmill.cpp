@@ -113,6 +113,7 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 				m_vecFarmlands.emplace_back(pFarmland);
 			}
 		}
+		InitHP(WINDMILL_MAX_HP);
 	}
 	else {
 		m_pWindmillBase = new CWindmillBase(_rGameWorld, 0.f, -45.f, WINDMILL::STATE_UNOCCUPIED, _pCommander);
@@ -260,7 +261,7 @@ void CWindmill::Occupied(CCommander* _pCommander)
 	for (auto& pFarmland : m_vecFarmlands) {
 		pFarmland->SetCommander(_pCommander);
 	}
-	SetHP(GetMaxHP());
+	InitHP(WINDMILL_MAX_HP);
 }
 
 WINDMILL::E_STATE CWindmill::GetState() const
