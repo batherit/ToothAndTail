@@ -9,6 +9,7 @@ CWindmillBase::CWindmillBase(CGameWorld & _rGameWorld, float _fX, float _fY, WIN
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, WINDMILL_WIDTH, WINDMILL_HEIGHT),
 	m_eState(_eState)
 {
+	//SetShadow(true);
 	SetRenderLayer(10);
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_BASE"));
 	GenerateIdentificationTintObj(WINDMILL_WIDTH, WINDMILL_HEIGHT, L"WINDMILL_BASE_TINT");

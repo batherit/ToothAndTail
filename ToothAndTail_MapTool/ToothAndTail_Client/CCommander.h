@@ -63,7 +63,7 @@ private:
 
 protected:
 	CommandInfo m_tCommandInfo;
-	//CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
+	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
 	UINT m_iMoney = MAX_MONEY;
 	vector<CTunnelGenerator*> m_vecTunnelGenerator;
 	int m_iTunnelGeneratorIndex = 0;

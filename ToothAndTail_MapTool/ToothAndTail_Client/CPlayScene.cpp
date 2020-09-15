@@ -20,11 +20,13 @@ CPlayScene::CPlayScene(CGameWorld & _rGameWorld)
 {
 	ResetScene();
 	CSoundMgr::GetInstance()->PlayBGM(TEXT("Background.wav"));
+	ShowCursor(false);
 }
 
 CPlayScene::~CPlayScene()
 {
 	Release();
+	ShowCursor(true);
 }
 
 void CPlayScene::ResetScene(void)
@@ -50,7 +52,6 @@ void CPlayScene::ResetScene(void)
 															  //m_rGameWorld.GetMainCamera()->SetXY(871.f,3395.f);
 	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[0]);
 	CWindmill* pWindmill = new CWindmill(m_rGameWorld, 288, m_pCommander[0]);
-	//m_rGameWorld.SetMainCamera(pWindmill->GetPrivateCamera());
 	D3DXVECTOR3 pNewPos = pWindmill->GetXY();
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE ;
 	m_pCommander[0]->SetXY(pNewPos);
@@ -72,39 +73,24 @@ void CPlayScene::ResetScene(void)
 	// 점령되지 않은 제분소
 	pWindmill = new CWindmill(m_rGameWorld, 813, nullptr);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
-	
-	//m_pCommander[1] = new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0));
-	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[1]); // 좀 고쳐야 된다.
-	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[1]);
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 323, m_pCommander[1]));
-	//
-	//m_pCommander[2] = new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0));
-	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[2]); // 좀 고쳐야 된다.
-	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[2]);
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1933, m_pCommander[2]));
 
-	//m_pCommander[3] = new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255));
-	////m_rGameWorld.GetMainCamera()->SetParent(m_pCommander[3]); // 좀 고쳐야 된다.
-	//m_rGameWorld.GetListObjs().emplace_back(m_pCommander[3]);
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 1968, m_pCommander[3]));
-	
-	
-	
-	
-	
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, CWindmill::STATE_BUILDING, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CWindmill(m_rGameWorld, 0.f, 0.f, m_pCommander));
 
-	// 3) 농장 테스트
-	//m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, 72.f * BASE_SCALE, 0.f, CFarmland::STATE_UNOCCUPIED, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, 0.f, 48.f * BASE_SCALE, CFarmland::STATE_BUILDING, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, -72.f * BASE_SCALE, 0.f, CFarmland::STATE_OCCUPIED, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CFarmland(m_rGameWorld, (-72.f + 36.f) * BASE_SCALE, 24.f* BASE_SCALE, CFarmland::STATE_DESTROYED, m_pCommander));
+	m_pCommander[2] = new CCommanderAI(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0));
+	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[2]);
+	pWindmill = new CWindmill(m_rGameWorld, 1933, m_pCommander[2]);
+	pNewPos = pWindmill->GetXY();
+	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE;
+	m_pCommander[2]->SetXY(pNewPos);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 
-	// 4) 땅굴 테스트
-	//m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, -300.f, 300.f, CTunnel::SIZE_SMALL, nullptr, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, 0.f, 300.f, CTunnel::SIZE_MIDDLE, nullptr, m_pCommander));
-	//m_rGameWorld.GetListObjs().emplace_back(new CTunnel(m_rGameWorld, 300.f, 300.f, CTunnel::SIZE_BIG, nullptr, m_pCommander));
+	m_pCommander[3] = new CCommanderAI(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255));
+	m_rGameWorld.GetListObjs().emplace_back(m_pCommander[3]);
+	pWindmill = new CWindmill(m_rGameWorld, 1968, m_pCommander[3]);
+	pNewPos = pWindmill->GetXY();
+	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE;
+	m_pCommander[3]->SetXY(pNewPos);
+	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
+	
 }
 
 int CPlayScene::Update(float _fDeltaTime)

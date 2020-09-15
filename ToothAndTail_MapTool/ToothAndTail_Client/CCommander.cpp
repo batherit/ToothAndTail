@@ -17,9 +17,10 @@
 
 CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
 	:
-	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED)/*,
-	m_eCommanderType(_eCommanderType)*/
+	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
+	m_eCommanderType(_eCommanderType)
 {
+	SetDetectionRange(COMMANDER_DETECTION_RANGE);
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetY(-15.f);
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
@@ -72,8 +73,6 @@ void CCommander::Ready(void)
 
 int CCommander::Update(float _fDeltaTime)
 {
-	//GetUIUnitHP()->Update(_fDeltaTime);
-
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 

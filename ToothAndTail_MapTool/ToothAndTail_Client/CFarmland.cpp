@@ -8,6 +8,7 @@
 #include "CWindmill.h"
 #include "CWindmillBase.h"
 #include "CUI_BuildGauge.h"
+#include "CUI_FloatingText.h"
 
 
 CFarmland::CFarmland(CGameWorld & _rGameWorld, float _fX, float _fY, CFarmland::E_STATE _eState, CCommander * _pCommander)
@@ -251,12 +252,7 @@ int CFarmland::Cropped(void)
 		// 비옥도가 0이 되었다는 것은 더이상 농장 기능을 못한다는 것이다.
 		// 남아있는 작물들을 모두 없앤다.
 		SafelyDeleteObjs(m_vecCrops);
-		// 돼지가 있다면 없앤다.
-		DO_IF_IS_VALID_OBJ(m_pPig) {
-			// 무효화한다.
-			m_pPig->InvalidateObj();
-			m_pPig = nullptr;
-		}
+		
 		// 파괴된 농장 스프라이트를 세팅한다.
 		AnimInfo stAnimInfo(0, 8, 11, 1, 1.f, 0, false);
 		SetNewAnimInfo(stAnimInfo);
@@ -265,6 +261,19 @@ int CFarmland::Cropped(void)
 		m_eState = CFarmland::STATE_DESTROYED;
 
 		// 작물은 수확했으므로 1반환
+		TCHAR szBuf[16] = L"";
+		swprintf_s(szBuf, L"+%d", PIG_CROP_AMOUNT - m_iCurrentFertility);
+		D3DXVECTOR3 vPos = m_pPig->GetXY();
+		vPos.y -= 20.f;
+		GetGameWorld().GetListObjs().emplace_back(new CUI_FloatingText(GetGameWorld(), vPos.x, vPos.y, szBuf));
+		
+		// 돼지가 있다면 없앤다.
+		DO_IF_IS_VALID_OBJ(m_pPig) {
+			// 무효화한다.
+			m_pPig->InvalidateObj();
+			m_pPig = nullptr;
+		}
+
 		return PIG_CROP_AMOUNT - m_iCurrentFertility;
 	}
 
@@ -276,6 +285,12 @@ int CFarmland::Cropped(void)
 		iIndexToRemove = rand() % m_vecCrops.size();
 		m_vecCrops.erase(m_vecCrops.begin() + iIndexToRemove);
 	}
+
+	TCHAR szBuf[16] = L"";
+	swprintf_s(szBuf, L"+%d", PIG_CROP_AMOUNT);
+	D3DXVECTOR3 vPos = m_pPig->GetXY();
+	vPos.y -= 20.f;
+	GetGameWorld().GetListObjs().emplace_back(new CUI_FloatingText(GetGameWorld(), vPos.x, vPos.y, szBuf));
 	return PIG_CROP_AMOUNT;
 }
 

@@ -13,8 +13,5 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void OnExited(void) override;
-
-private:
-	bool m_bSwitch = false;
 };
 

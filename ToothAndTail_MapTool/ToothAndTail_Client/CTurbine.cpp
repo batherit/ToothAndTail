@@ -10,6 +10,7 @@ CTurbine::CTurbine(CGameWorld & _rGameWorld, float _fX, float _fY, CTurbine::E_S
 	CComDepObj(_rGameWorld, _pCommander, _fX, _fY, TURBINE_WIDTH, TURBINE_HEIGHT),
 	m_eState(_eState)
 {
+	//SetShadow(true);
 	SetRenderLayer(15);
 	PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"WINDMILL_TURBINE"));
 
