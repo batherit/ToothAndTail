@@ -2,15 +2,15 @@
 #include "CParticle_Blood.h"
 #include "CTextureMgr.h"
 
-CParticle_Blood::CParticle_Blood(CGameWorld & _rGameWorld, float _fX, float _fY)
+CParticle_Blood::CParticle_Blood(CGameWorld & _rGameWorld, float _fX, float _fY, int _iConcentration)
 	:
 	CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"PARTICLE"), D3DXVECTOR3(_fX + GetNumberMinBetweenMax(-30.f, 30.f), _fY + GetNumberMinBetweenMax(-10.f, 10.f), 0.f))
 {
 	SetRenderLayer(1);
-	m_fLifeTime = GetNumberMinBetweenMax(15.f, 22.f);
-	SetScaleX(GetNumberMinBetweenMax(1.5f, 2.f));
+	m_fLifeTime = GetNumberMinBetweenMax(20.f, 30.f);
+	SetScaleX(GetNumberMinBetweenMax(1.5f, 2.5f));
 	SetScaleY(GetNumberMinBetweenMax(1.f, 1.5f));
-	SetRenderColor(D3DCOLOR_ARGB(GetNumberMinBetweenMax(20, 90), GetNumberMinBetweenMax(50, 120), 0, 0));
+	SetRenderColor(D3DCOLOR_ARGB(GetNumberMinBetweenMax(50 + _iConcentration, 100 + _iConcentration), GetNumberMinBetweenMax(50, 120), 0, 0));
 }
 
 CParticle_Blood::~CParticle_Blood()

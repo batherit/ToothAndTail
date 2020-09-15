@@ -124,20 +124,19 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 		vResistanceDir += vToTarget;
 	}
 
-	if (m_pCollidedWindmill) {
-		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
-		vResistanceDir += (vToTarget + GetToXY()) * 5.5f;
+	//if (m_pCollidedWindmill) {
+	//	D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
+	//	vResistanceDir += (vToTarget + GetToXY())/* * 5.5f*/;
 
 
-	}
-	else {
+	//}
+	//else {
 		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
 			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
-			//vResistanceDir += (vToTarget + GetToXY()) * 4.5f;
-			vMainDir += (GetToXY() + vToTarget) * 5.f;
+			vResistanceDir += (vToTarget + GetToXY()) /** 4.5f*/;
 			pBlockingTile->PushOutOfTile(this);
 		}
-	}
+	//}
 
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
@@ -175,20 +174,19 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 		vResistanceDir += vToTarget;
 	}
 
-	if (m_pCollidedWindmill) {
-		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
-		vResistanceDir += (vToTarget + GetToXY()) * 5.5f;
+	//if (m_pCollidedWindmill) {
+	//	D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
+	//	vResistanceDir += (vToTarget + GetToXY())/* * 5.5f*/;
 
 
-	}
-	else {
+	//}
+	//else {
 		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
 			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
-			//vResistanceDir += (vToTarget + GetToXY()) * 4.5f;
-			vMainDir += (GetToXY() + vToTarget) * 5.f;
+			vResistanceDir += (vToTarget + GetToXY()) /** 4.5f*/;
 			pBlockingTile->PushOutOfTile(this);
 		}
-	}
+	//}
 
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
@@ -259,7 +257,7 @@ void CComDepObj::DetectUnitsAround()
 		}
 	}
 
-	if (pWindmill) return;
+	//if (pWindmill) return;
 	for (auto& pBlockingTile : GetGameWorld().GetMapLoader()->GetBlockingTiles()) {
 		if (!IsCollided(pBlockingTile->GetXY(), TILE_RADIUS, GetXY(), GetCollisionRadius()))
 			continue;
@@ -276,18 +274,17 @@ void CComDepObj::AdjustPosition(float _fDeltaTime, float _fSmooth)
 		D3DXVec3Normalize(&vToTarget, &(GetXY() - pCollidedUnit->GetXY()));
 		vMainDir += vToTarget;
 	}
-	if (m_pCollidedWindmill) {
+	/*if (m_pCollidedWindmill) {
 		D3DXVec3Normalize(&vToTarget, &(GetXY() - m_pCollidedWindmill->GetXY()));
 		vMainDir += vToTarget;
 	}
-	else {
+	else {*/
 		for (auto& pBlockingTile : m_vecCollidedBlockingTiles) {
 			D3DXVec3Normalize(&vToTarget, &(GetXY() - pBlockingTile->GetXY()));
-			//vMainDir += vToTarget;
 			vMainDir += (GetToXY() + vToTarget) * 5.f;
 			pBlockingTile->PushOutOfTile(this);
 		}
-	}
+	//}
 	D3DXVec3Normalize(&vMainDir, &vMainDir);
 	SetToXY(vMainDir);
 	SetSpeed(_fSmooth * BASE_SCALE * m_vecCollidedUnits.size());

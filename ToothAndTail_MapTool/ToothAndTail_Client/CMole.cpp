@@ -78,6 +78,6 @@ void CMole::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 void CMole::TakeDamage(float _fDamageAmount)
 {
 	D3DXVECTOR3 vPos = GetXY();
-	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 30.f));
+	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 30.f, _fDamageAmount));
 	CComDepObj::TakeDamage(_fDamageAmount);
 }

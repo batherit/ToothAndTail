@@ -4,7 +4,7 @@ class CParticle_Blood :
 	public CUI_Image
 {
 public:
-	CParticle_Blood(CGameWorld& _rGameWorld, float _fX, float _fY);
+	CParticle_Blood(CGameWorld& _rGameWorld, float _fX, float _fY, int _iConcentration);
 	virtual ~CParticle_Blood();
 
 public:
