@@ -14,5 +14,9 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void OnExited(void) override;
+
+private:
+	float m_fKeepTime = 0.f;
+	float m_fElapsedTime = 0.f;
 };
 

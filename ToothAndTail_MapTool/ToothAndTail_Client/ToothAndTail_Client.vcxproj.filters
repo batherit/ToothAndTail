@@ -473,9 +473,6 @@
     <ClInclude Include="CAI_ComState_Run.h">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
-    <ClInclude Include="CAI_ComState_Standing_Build.h">
-      <Filter>소스 파일\1.State\CommanderAI</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayScene.h">
       <Filter>소스 파일\1.Scene\PlayScene</Filter>
     </ClInclude>
@@ -490,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="CUI_FloatingText.h">
       <Filter>소스 파일\1.CObj\UI\FloatingText</Filter>
+    </ClInclude>
+    <ClInclude Include="CAI_ComState_Standing_Action.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -742,9 +742,6 @@
     <ClCompile Include="CAI_ComState_Run.cpp">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
-    <ClCompile Include="CAI_ComState_Standing_Build.cpp">
-      <Filter>소스 파일\1.State\CommanderAI</Filter>
-    </ClCompile>
     <ClCompile Include="CPlayScene.cpp">
       <Filter>소스 파일\1.Scene\PlayScene</Filter>
     </ClCompile>
@@ -759,6 +756,9 @@
     </ClCompile>
     <ClCompile Include="CUI_FloatingText.cpp">
       <Filter>소스 파일\1.CObj\UI\FloatingText</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Standing_Action.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
