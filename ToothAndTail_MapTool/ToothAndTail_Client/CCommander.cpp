@@ -23,6 +23,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	SetDetectionRange(COMMANDER_DETECTION_RANGE);
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetY(-15.f);
+	GetPrivateCamera()->SetZoomMultiple(1.3f);
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);

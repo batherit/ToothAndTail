@@ -34,7 +34,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 		// 병력이 충분한 경우
 		if (m_rOwner.GetTargetWindmill() && (&m_rOwner == m_rOwner.GetTargetWindmill()->GetCommander())) {
 			// 자신의 제분소에서 가만히 있는 상태인 경우,
-			auto& vecWindmills = m_rOwner.ExtractWindmills(WINDMILL::TYPE_PLAYER);	// 플레이어 제분소를 찾는다.
+			auto& vecWindmills = m_rOwner.ExtractWindmills(WINDMILL::TYPE_OTHER);	// 플레이어 제분소를 찾는다.
 			if (!vecWindmills.empty()) {
 				// 플레이어 제분소로 병력을 이동시킨다.
 				int iIndex = rand() % vecWindmills.size();

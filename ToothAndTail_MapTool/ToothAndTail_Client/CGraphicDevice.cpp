@@ -68,7 +68,7 @@ HRESULT CGraphicDevice::GenerateGraphicDevice()
 
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;		// 백버퍼 교체 방식
 	d3dpp.hDeviceWindow = g_hWND;					// 메인 윈도우 세팅
-	d3dpp.Windowed = TRUE;							// 윈도우창 모드인지? => MFC는 전체화면 지원 x
+	d3dpp.Windowed = FALSE;							// 윈도우창 모드인지? => MFC는 전체화면 지원 x
 	d3dpp.EnableAutoDepthStencil = TRUE;			// 뎁스스텐실을 사용할 것인지?
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;	// 뎁스스텐실 원소 포멧
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;	// 전체화면시 리프레쉬 주사율

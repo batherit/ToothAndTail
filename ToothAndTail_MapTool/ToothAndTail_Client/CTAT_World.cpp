@@ -19,7 +19,8 @@ CTAT_World::~CTAT_World()
 
 LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	switch (nMessageID)
+	// ¡‹ ∞Ì¡§
+	/*switch (nMessageID)
 	{
 	case WM_MOUSEWHEEL:
 	{
@@ -33,7 +34,7 @@ LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 		}
 		break;
 	}
-	}
+	}*/
 
 	return 0;
 }

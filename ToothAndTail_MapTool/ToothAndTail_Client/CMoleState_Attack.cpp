@@ -34,8 +34,6 @@ int CMoleState_Attack::Update(float _fDeltaTime)
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		// 하던 공격을 마저한다.
-		//m_fTickTime = 0.f;
-		//m_rOwner.AdjustPosition(_fDeltaTime, GetNumberMinBetweenMax(0.f, 1.f));
 		if (m_rOwner.GetTargetEnemy()) {
 			if (!m_rOwner.CanAttackTargetEnemy()) {
 				m_rOwner.GetStateMgr()->SetNextState(new CMoleState_Run(m_rGameWorld, m_rOwner));

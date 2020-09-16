@@ -32,8 +32,13 @@ int CSkunkState_Idle::Update(float _fDeltaTime)
 		// 위치 조정(펼쳐진다.)
 		m_rOwner.AdjustPosition(_fDeltaTime);
 		if (m_rOwner.GetTargetEnemy()) {
-			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
-			m_rOwner.GetStateMgr()->SetNextState(new CSkunkState_Attack(m_rGameWorld, m_rOwner));
+			if (m_rOwner.CanAttackTargetEnemy()) {
+				// 주변에 적을 감지하였고, 공격 가능 거리에 있으면 공격 상태로 전환한다.
+				m_rOwner.GetStateMgr()->SetNextState(new CSkunkState_Attack(m_rGameWorld, m_rOwner));
+			}
+			else {
+				m_rOwner.GetStateMgr()->SetNextState(new CSkunkState_Run(m_rGameWorld, m_rOwner));
+			}
 		}
 		break;
 	case COMMANDER::COMMAND_GATHERING:

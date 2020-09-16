@@ -31,11 +31,16 @@ int CLizardState_Run::Update(float _fDeltaTime)
 	switch (tCommandInfo.eCommand) {
 	case COMMANDER::COMMAND_NOTHING:
 		if (m_rOwner.GetTargetEnemy()) {
-			// 주변에 적을 감지했다면, 공격 상태로 전환한다.
-			m_rOwner.GetStateMgr()->SetNextState(new CLizardState_Attack(m_rGameWorld, m_rOwner));
+			if (m_rOwner.CanAttackTargetEnemy()) {
+				// 주변에 적을 감지했다면, 공격 상태로 전환한다.
+				m_rOwner.GetStateMgr()->SetNextState(new CLizardState_Attack(m_rGameWorld, m_rOwner));
+			}
+			else {
+				// 주변에 적을 감지했지만, 공격 범위 밖에 있으면 타겟쪽으로 달려간다.
+				m_rOwner.GoToTarget(_fDeltaTime);
+			}
 		}
-		else if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 적을 감지하지 못했고, 목표 지점에 도착하지 못했다면 이동을 수행한다.
-			// 이동 false => 목표지점에 도착했다
+		else if (!m_rOwner.GoToTargetPoint(_fDeltaTime)) { // 이동에 실패하다 => 목표지점에 도착했다, 갈 곳이 없다.
 			m_rOwner.GetStateMgr()->SetNextState(new CLizardState_Idle(m_rGameWorld, m_rOwner));
 		}
 
