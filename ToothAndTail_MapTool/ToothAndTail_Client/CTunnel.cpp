@@ -95,6 +95,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, CTunnelGenerator* _pTunnelGenerator, c
 	m_eSize(_eSize),
 	m_pTunnelGenerator(_pTunnelGenerator)
 {
+	if(m_pTunnelGenerator) m_pTunnelGenerator->IncreaseTunnelNum();
 	SetMinimapSign(MINIMAP::SIGN_TUNNEL);
 	// 자식들은 각자의 빌딩 애니메이션 정보를 세팅한다.
 	SetRenderLayer(6);
@@ -180,6 +181,7 @@ CTunnel::CTunnel(CGameWorld& _rGameWorld, CTunnelGenerator* _pTunnelGenerator, c
 CTunnel::~CTunnel()
 {
 	Release();
+	if (m_pTunnelGenerator) m_pTunnelGenerator->DecreaseTunnelNum();
 }
 
 int CTunnel::Update(float _fDeltaTime)

@@ -5,6 +5,7 @@ template<typename T> class CStateMgr;
 class CComDepObj;
 class CTunnelGenerator;
 class CPathGanerator;
+class CUI_BalloonTalk;
 
 class CCommander :
 	public CComDepObj
@@ -23,10 +24,7 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
-	/*virtual void Render(CCamera* _pCamera) override {
-		CComDepObj::Render(_pCamera);
-	}*/
-	//virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
+	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList) override; 
 	//virtual void SetNewAnimInfo(const AnimInfo & _stAnimInfo) override;
 	//virtual int UpdateAnim(float _fDeltaTime) override;
 	virtual void MoveByDeltaTime(float _fDeltaTime);
@@ -51,20 +49,28 @@ public:
 			m_iTunnelGeneratorIndex += m_vecTunnelGenerator.size();
 	}
 	int GetTunnelGeneratorIndex() const { return m_iTunnelGeneratorIndex; }
-	void GenerateTunnel();
+	bool GenerateTunnel();
 	CommandInfo& GetCurrentCommandInfo() { return m_tCommandInfo; }
 	void SetCommandInfo(const CommandInfo& _rCommandInfo) { m_tCommandInfo = _rCommandInfo; }
 	vector<CTunnelGenerator*>& GetTunnelGenerators() { return m_vecTunnelGenerator; }
 	int GetTotalUnitsNum() const;
 	int GetTotalTunnelsNum() const;
+	
 
 private:
 	void UpdateCommand(float _fDeltaTime);
 
 protected:
+	bool DetectWindmills();
+	vector<CWindmill*>& GetMyWindmills();
+
+protected:
 	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
 	UINT m_iMoney = MAX_MONEY;
+	CUI_BalloonTalk* m_pBalloonTalkUI = nullptr;
+	vector<CWindmill*> m_vecWindmills;
+	vector<CWindmill*> m_vecMyWindmills;
 	vector<CTunnelGenerator*> m_vecTunnelGenerator;
 	int m_iTunnelGeneratorIndex = 0;
 

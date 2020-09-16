@@ -8,6 +8,7 @@
 #include "CWindmill.h"
 #include "CPathGenerator.h"
 #include "CCamera.h"
+#include "CTunnelGenerator.h"
 
 
 CCommanderAI::CCommanderAI(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander::E_COM_TYPE _eCommanderType, D3DCOLOR _clIdentificationTint_ARGB)
@@ -34,6 +35,14 @@ void CCommanderAI::Ready(void)
 
 int CCommanderAI::Update(float _fDeltaTime)
 {
+	// 재공격 주기는 기본 30초.
+	if (!m_bIsPossibleInvade) {
+		if ((m_fElapsedTime += _fDeltaTime) >= AI_REATTACK_DELAY) {
+			m_bIsPossibleInvade = true;
+			m_fElapsedTime = 0.f;
+		}
+	}
+
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -57,7 +66,8 @@ void CCommanderAI::Release(void)
 vector<CWindmill*>& CCommanderAI::ExtractWindmills(WINDMILL::E_OWN_TYPE _eOwnType)
 {
 	m_vecExtractedWindmills.clear();
-	if (m_vecWindmills.empty() && !DetectWindmills()) return m_vecExtractedWindmills;
+	if (m_vecWindmills.empty() && !DetectWindmills()) 
+		return m_vecExtractedWindmills;
 
 	CCommander* pCommander = nullptr;
 	for (auto& pWindmill : m_vecWindmills) {
@@ -128,6 +138,28 @@ bool CCommanderAI::MoveAlongPath(float _fDeltaTime)
 	return true;
 }
 
+void CCommanderAI::AdjustTunnelGeneratorIndex(void)
+{
+	int iTunnelGeneratorSize = m_vecTunnelGenerator.size();
+	auto& vecMyWindmills = GetMyWindmills();
+
+	int iTunnelsNumPerUnit = (vecMyWindmills.size() * ALLOWABLE_TUNNEL_NUM_PER_WINDMILL) / iTunnelGeneratorSize;
+
+	int iIndex = -1;
+	for (int i = 0; i < iTunnelGeneratorSize; ++i) {
+		if (m_vecTunnelGenerator[i]->GetTunnelsNum() < iTunnelsNumPerUnit) {
+			iIndex = i;
+			break;
+		}
+	}
+
+	if (iIndex == -1 && iTunnelGeneratorSize > 0) {
+		iIndex = rand() % iTunnelGeneratorSize;
+	}
+
+	m_iTunnelGeneratorIndex = iIndex;
+}
+
 bool CCommanderAI::IsMoving(float & _fToX, float & _fToY)
 {
 	// 경로가 비어있지 않다면, 이동하고 있는 중이다.
@@ -142,19 +174,4 @@ bool CCommanderAI::IsActivating() const
 bool CCommanderAI::IsWavingFlag() const
 {
 	return false;
-}
-
-bool CCommanderAI::DetectWindmills()
-{
-	CWindmill* pWindmill = nullptr;
-	m_vecWindmills.clear();
-	// 게임월드 상에 존재하는 제분소를 모두 찾는다.
-	for (auto& pObj : GetGameWorld().GetListObjs()) {
-		pWindmill = dynamic_cast<CWindmill*>(pObj);
-		if (pWindmill) {
-			m_vecWindmills.emplace_back(pWindmill);
-		}
-	}
-
-	return !m_vecWindmills.empty();
 }

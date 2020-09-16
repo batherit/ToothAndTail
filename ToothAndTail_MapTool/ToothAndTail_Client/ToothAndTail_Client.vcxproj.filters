@@ -192,6 +192,9 @@
     <Filter Include="소스 파일\1.CObj\UI\FloatingText">
       <UniqueIdentifier>{7153686b-7189-46fa-800a-314b4a66ddf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\BalloonTalk">
+      <UniqueIdentifier>{f9823f04-90b2-40dc-a4b2-d42728c6a30d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -491,6 +494,9 @@
     <ClInclude Include="CAI_ComState_Standing_Action.h">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_BalloonTalk.h">
+      <Filter>소스 파일\1.CObj\UI\BalloonTalk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -759,6 +765,9 @@
     </ClCompile>
     <ClCompile Include="CAI_ComState_Standing_Action.cpp">
       <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_BalloonTalk.cpp">
+      <Filter>소스 파일\1.CObj\UI\BalloonTalk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -163,6 +163,7 @@
     <ClInclude Include="CCommanderAI.h" />
     <ClInclude Include="CParticle_Blood.h" />
     <ClInclude Include="CPathGenerator.h" />
+    <ClInclude Include="CUI_BalloonTalk.h" />
     <ClInclude Include="CUI_BuildGauge.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CBurst.h" />
@@ -264,6 +265,7 @@
     <ClCompile Include="CCommanderAI.cpp" />
     <ClCompile Include="CParticle_Blood.cpp" />
     <ClCompile Include="CPathGenerator.cpp" />
+    <ClCompile Include="CUI_BalloonTalk.cpp" />
     <ClCompile Include="CUI_BuildGauge.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CBurst.cpp" />

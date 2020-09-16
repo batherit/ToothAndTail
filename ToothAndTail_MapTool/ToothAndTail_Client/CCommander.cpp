@@ -12,6 +12,7 @@
 #include "CMapLoader.h"
 #include "CPathGenerator.h"
 #include "CCamera.h"
+#include "CUI_BalloonTalk.h"
 
 
 
@@ -20,6 +21,10 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	CComDepObj(_rGameWorld, this, _fX, _fY, COMMANDER_WIDTH, COMMANDER_HEIGHT, 1.f, 0.f, COMMANDER_SPEED),
 	m_eCommanderType(_eCommanderType)
 {
+	m_pBalloonTalkUI = new CUI_BalloonTalk(_rGameWorld, this);
+	m_vecMyWindmills.reserve(10);
+	m_vecWindmills.reserve(10);
+
 	SetDetectionRange(COMMANDER_DETECTION_RANGE);
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetY(-15.f);
@@ -74,6 +79,8 @@ void CCommander::Ready(void)
 
 int CCommander::Update(float _fDeltaTime)
 {
+	m_pBalloonTalkUI->Update(_fDeltaTime);
+
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
@@ -98,6 +105,17 @@ void CCommander::Release(void)
 {
 	SafelyDeleteObj(m_pStateMgr);
 	SafelyDeleteObjs(m_vecTunnelGenerator);
+	SafelyDeleteObj(m_pBalloonTalkUI);
+	m_vecWindmills.clear();
+	m_vecWindmills.shrink_to_fit();
+	m_vecMyWindmills.clear();
+	m_vecMyWindmills.shrink_to_fit();
+}
+
+void CCommander::RegisterToRenderList(vector<CObj*>& _vecRenderList)
+{
+	CObj::RegisterToRenderList(_vecRenderList);
+	m_pBalloonTalkUI->RegisterToRenderList(_vecRenderList);
 }
 
 void CCommander::MoveByDeltaTime(float _fDeltaTime)
@@ -177,11 +195,17 @@ bool CCommander::IsWavingFlag(/*CCommander::E_FLAG_TYPE & _eFlagType*/) const
 	return false;
 }
 
-void CCommander::GenerateTunnel()
+bool CCommander::GenerateTunnel()
 {
-	if (m_vecTunnelGenerator.empty()) return;
+	if (m_vecTunnelGenerator.empty() || GetTotalTunnelsNum() >= GetMyWindmills().size() * ALLOWABLE_TUNNEL_NUM_PER_WINDMILL) {
+		if (m_pBalloonTalkUI) {
+			m_pBalloonTalkUI->SetText(-150.f, -120.f, L"더 이상 땅굴을 설치할 수 없구만,,@ㅁ@!!");
+		}
+		return false;
+	}
+		
 
-	m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
+	return m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
 	// m_iTunnelGeneratorIndex를 ID로 삼는다.
 }
 
@@ -201,6 +225,39 @@ int CCommander::GetTotalTunnelsNum() const
 		iTotalTunnelsNum += pTunnelGenerator->GetTunnelsNum();
 	}
 	return iTotalTunnelsNum;
+}
+
+bool CCommander::DetectWindmills()
+{
+	CWindmill* pWindmill = nullptr;
+	m_vecWindmills.clear();
+	// 게임월드 상에 존재하는 제분소를 모두 찾는다.
+	for (auto& pObj : GetGameWorld().GetListObjs()) {
+		pWindmill = dynamic_cast<CWindmill*>(pObj);
+		if (pWindmill) {
+			m_vecWindmills.emplace_back(pWindmill);
+		}
+	}
+
+	return !m_vecWindmills.empty();
+}
+
+vector<CWindmill*>& CCommander::GetMyWindmills()
+{
+	m_vecMyWindmills.clear();
+	
+	if (m_vecWindmills.empty() && !DetectWindmills())
+		return m_vecMyWindmills;
+
+	CCommander* pCommander = nullptr;
+	for (auto& pWindmill : m_vecWindmills) {
+		pCommander = pWindmill->GetCommander();
+		if (pCommander == this) {
+			m_vecMyWindmills.emplace_back(pWindmill);
+		}
+	}
+
+	return m_vecMyWindmills;
 }
 
 void CCommander::UpdateCommand(float _fDeltaTime)

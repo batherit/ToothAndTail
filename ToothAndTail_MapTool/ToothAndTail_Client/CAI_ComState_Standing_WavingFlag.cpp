@@ -53,5 +53,7 @@ void CAI_ComState_Standing_WavingFlag::LateUpdate(void)
 
 void CAI_ComState_Standing_WavingFlag::OnExited(void)
 {
+	// 일정 시간 공격불가
+	m_rOwner.SetPossibleInvade(false);
 	m_rOwner.SetCommandInfo(CommandInfo());	// 더미 커맨드 인포 세팅
 }

@@ -114,7 +114,7 @@ bool CTunnelGenerator::GenerateTunnel(int _iID)
 		break;
 	}
 
-	return false;
+	return true;
 }
 
 void CTunnelGenerator::ReleaseTunnel(CTunnel * _pTunnel)

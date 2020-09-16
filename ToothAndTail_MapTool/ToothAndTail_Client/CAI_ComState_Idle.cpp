@@ -30,8 +30,8 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 {
 	D3DXVECTOR3 vGoalPos;
 
-	if (m_rOwner.GetTotalUnitsNum() >= AI_ATTACK_UNITS_NUM) {
-		// 병력이 충분한 경우
+	if (m_rOwner.GetTotalUnitsNum() >= AI_ATTACK_UNITS_NUM && m_rOwner.IsPossibleInvade()) {
+		// 병력이 충분하고, 공격 가능한 상태라면,
 		if (m_rOwner.GetTargetWindmill() && (&m_rOwner == m_rOwner.GetTargetWindmill()->GetCommander())) {
 			// 자신의 제분소에서 가만히 있는 상태인 경우,
 			auto& vecWindmills = m_rOwner.ExtractWindmills(WINDMILL::TYPE_OTHER);	// 플레이어 제분소를 찾는다.
@@ -87,7 +87,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 	}
 	else{
 		if (m_rOwner.GetMoney() >= AI_BUILD_MIN_COST) {
-			// 병력은 없지만 자본은 충분한 경우,
+			// 병력은 없거나 공격 상황이 되지 여건치 않지만, 자본은 충분한 경우,
 			auto& vecWindmills = m_rOwner.ExtractWindmills(WINDMILL::TYPE_OWN);
 			if (!vecWindmills.empty()) {
 				// 자기 제분소를 찾고, 제분소 주변 점령할 농장을 찾아 점령(Active)한다. 
@@ -99,7 +99,6 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 						break;
 					}
 				}
-
 				if (pFarmlandToOccupy) {
 					vGoalPos = pFarmlandToOccupy->GetXY();
 					if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {

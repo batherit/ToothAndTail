@@ -20,6 +20,7 @@ void CAI_ComState_Standing_Action::OnLoaded(void)
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetSpeed(0);
 	m_rOwner.SetActivating(true);
+	m_rOwner.AdjustTunnelGeneratorIndex();
 	m_rOwner.GenerateTunnel();
 }
 

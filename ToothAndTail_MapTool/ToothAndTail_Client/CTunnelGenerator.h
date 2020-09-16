@@ -22,12 +22,16 @@ public:
 
 	void IncreaseMaxSupplyNum(int _iAmount) { 
 		m_iMaxSupplyNum += _iAmount; 
-		++m_iTunnelsNum;
+		//++m_iTunnelsNum;
 	}
 	void DecreaseMaxSupplyNum(int _iAmount) { 
 		m_iMaxSupplyNum -= _iAmount;
-		--m_iTunnelsNum;
+		//--m_iTunnelsNum;
 	}
+
+	void IncreaseTunnelNum() { ++m_iTunnelsNum; }
+	void DecreaseTunnelNum() { --m_iTunnelsNum; }
+
 	void IncreaseUnitsNum() { ++m_iUnitsNum; }
 	void DecreaseUnitsNum() { --m_iUnitsNum; }
 
