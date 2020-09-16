@@ -28,7 +28,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	SetDetectionRange(COMMANDER_DETECTION_RANGE);
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetY(-15.f);
-	GetPrivateCamera()->SetZoomMultiple(1.3f);
+	GetPrivateCamera()->SetZoomMultiple(1.1f);
 	SetMinimapSign(MINIMAP::SIGN_COMMANDER);
 
 	SetScaleXY(BASE_SCALE, BASE_SCALE);
@@ -174,18 +174,13 @@ bool CCommander::IsActivating() const
 	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE);
 }
 
+bool CCommander::IsSelling() const
+{
+	return CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LSHIFT);
+}
+
 bool CCommander::IsWavingFlag(/*CCommander::E_FLAG_TYPE & _eFlagType*/) const
 {
-	/*_eFlagType = CCommander::FLAG_TYPE_NONE;
-
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON))
-		_eFlagType = CCommander::FLAG_TYPE_UNIT;
-
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON))
-		_eFlagType = CCommander::FLAG_TYPE_MILITARY;
-
-	return _eFlagType != CCommander::FLAG_TYPE_NONE;*/
-
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON) || CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON))
 		return true;
 
@@ -197,16 +192,11 @@ bool CCommander::IsWavingFlag(/*CCommander::E_FLAG_TYPE & _eFlagType*/) const
 
 bool CCommander::GenerateTunnel()
 {
-	if (m_vecTunnelGenerator.empty() || GetTotalTunnelsNum() >= GetMyWindmills().size() * ALLOWABLE_TUNNEL_NUM_PER_WINDMILL) {
-		if (m_pBalloonTalkUI) {
-			m_pBalloonTalkUI->SetText(-150.f, -120.f, L"더 이상 땅굴을 설치할 수 없구만,,@ㅁ@!!");
-		}
+	if (m_vecTunnelGenerator.empty() || GetTotalTunnelsNum() >= GetInstallableTunnelNum()) {
 		return false;
 	}
 		
-
 	return m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GenerateTunnel(m_iTunnelGeneratorIndex);
-	// m_iTunnelGeneratorIndex를 ID로 삼는다.
 }
 
 int CCommander::GetTotalUnitsNum() const
@@ -225,6 +215,30 @@ int CCommander::GetTotalTunnelsNum() const
 		iTotalTunnelsNum += pTunnelGenerator->GetTunnelsNum();
 	}
 	return iTotalTunnelsNum;
+}
+
+int CCommander::GetSelectedUnitsNum() const
+{
+	return m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GetUnitsNum();
+}
+
+void CCommander::ShoutOut(float _fOffsetX, float _fOffsetY, const wstring & _wstrText)
+{
+	if (m_pBalloonTalkUI) m_pBalloonTalkUI->SetText(_fOffsetX, _fOffsetY, _wstrText);
+}
+
+int CCommander::GetInstallableTunnelNum() 
+{
+	auto& vecMyWindmills = GetMyWindmills();
+
+	int iOccupiedMyWindmillsNum = 0;
+	for (auto& pWindmill : vecMyWindmills) {
+		if (pWindmill->GetState() == WINDMILL::STATE_OCCUPIED) {
+			++iOccupiedMyWindmillsNum;
+		}
+	}
+
+	return iOccupiedMyWindmillsNum * ALLOWABLE_TUNNEL_NUM_PER_WINDMILL;
 }
 
 bool CCommander::DetectWindmills()
@@ -274,17 +288,20 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 		tNewCommandInfo.iUnitID = -1;
 		//tNewCommandInfo.bIgnoreEnemy = false;
 		m_fElapsedTime = _fDeltaTime;
-
 		if (IsObjInCamera(this, GetGameWorld().GetMainCamera()))
 			CSoundMgr::GetInstance()->PlaySound(L"Order.wav", CSoundMgr::PLAYER);
 	}
 	else if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON)) {
 		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
 		tNewCommandInfo.iUnitID = -1;
+		//if(GetTotalUnitsNum() > 0)
+		//	m_pBalloonTalkUI->SetText(-50.f, -120.f, L"모이시오, 제군들!!");
 		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
 			// 적을 탐색하고, 적을 발견했다면 이 적을 집중 공격하라
 			DetectUnitsAround();
 			if (GetTargetEnemy()) {
+				//if (GetTotalUnitsNum() > 0)
+				//	m_pBalloonTalkUI->SetText(-50.f, -120.f, L"집중 공격!!");
 				tNewCommandInfo.eCommand = COMMANDER::COMMAND_SATURATION;
 				tNewCommandInfo.pTarget = GetTargetEnemy();
 			}
@@ -294,6 +311,7 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 	else if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
 		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
+		
 		if(IsObjInCamera(this, GetGameWorld().GetMainCamera()))
 			m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->PlaySoundForGathering();
 		m_fElapsedTime = _fDeltaTime;
@@ -302,6 +320,8 @@ void CCommander::UpdateCommand(float _fDeltaTime)
 		// Index는 LBUTTON을 누르고 있는 도중에 변할 수 있기 때문에 매번 갱신한다.
 		tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
 		tNewCommandInfo.iUnitID = m_iTunnelGeneratorIndex;
+		//if (m_vecTunnelGenerator[m_iTunnelGeneratorIndex]->GetUnitsNum() > 0)
+		//	m_pBalloonTalkUI->SetText(-50.f, -120.f, L"부대 집결하라!!");
 		if ((m_fElapsedTime += _fDeltaTime) >= 0.2f) {
 			// 적을 탐색하고, 적을 발견했다면 이 적을 집중 공격하라
 			DetectUnitsAround();

@@ -14,5 +14,12 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void OnExited(void) override;
+
+private:
+	wstring m_wstrTroopGathering[3];
+	wstring m_wstrArmyGathering[3];
+	wstring m_wstrSaturation[3];
+	COMMANDER::E_COMMAND m_eCommand = COMMANDER::COMMAND_NOTHING;
+	float m_fShoutOutTime = 0.f;
 };
 

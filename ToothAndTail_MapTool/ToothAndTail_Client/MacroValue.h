@@ -23,7 +23,7 @@
 #define WINDMILL_HEIGHT		140
 #define WINDMILL_MAX_HP		200.f
 #define WINDMILL_RADIUS		42.f * BASE_SCALE
-#define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	6//18
+#define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	12
 
 // 제분소 터빈
 #define TURBINE_WIDTH		140
@@ -35,7 +35,7 @@
 #define FARMLAND_COST			60
 #define FARMLAND_WIDTH			80
 #define FARMLAND_HEIGHT			54
-#define FARMLAND_FERTILITY		270	// 활성화된 농장의 초기 토지력(CROP 하나당 30.f의 지력이라 표현.)
+#define FARMLAND_FERTILITY		360	// 활성화된 농장의 초기 토지력(CROP 하나당 40.f의 지력이라 표현.)
 #define FARMLAND_BUILD_SEC		5.f	// 농장을 활성화하는데 걸리는 시간초
 // 작물
 #define CROP_WIDTH		24

@@ -35,6 +35,7 @@ public:
 	//CCommander::E_COM_TYPE GetCommanderType(void) const { return m_eCommanderType; }
 	virtual bool IsMoving(float & _fToX, float & _fToY);		// AI측에서 재정의
 	virtual bool IsActivating() const;							// AI측에서 재정의
+	virtual bool IsSelling() const;
 	virtual bool IsWavingFlag(/*CCommander::E_FLAG_TYPE& _eFlagType*/) const;// AI측에서 재정의
 
 	UINT GetMoney() const { return m_iMoney; }
@@ -55,7 +56,9 @@ public:
 	vector<CTunnelGenerator*>& GetTunnelGenerators() { return m_vecTunnelGenerator; }
 	int GetTotalUnitsNum() const;
 	int GetTotalTunnelsNum() const;
-	
+	int GetSelectedUnitsNum() const;
+	void ShoutOut(float _fOffsetX, float _fOffsetY, const wstring& _wstrText);
+	int GetInstallableTunnelNum();
 
 private:
 	void UpdateCommand(float _fDeltaTime);

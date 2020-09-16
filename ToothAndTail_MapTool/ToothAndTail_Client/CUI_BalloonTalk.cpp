@@ -51,7 +51,7 @@ void CUI_BalloonTalk::Render(CCamera * _pCamera)
 	vPos.y = matScreen._42;
 	vPos.z = matScreen._43;
 
-	CGraphicDevice::GetInstance()->RenderText(m_wstrText, vPos, 0.5f, D3DCOLOR_ARGB(255, 230, 230, 230));
+	CGraphicDevice::GetInstance()->RenderText(m_wstrText, vPos, 0.4f, D3DCOLOR_ARGB(255, 230, 230, 230));
 }
 
 void CUI_BalloonTalk::Ready(void)

@@ -11,6 +11,9 @@ CComState_Standing_Build::CComState_Standing_Build(CGameWorld & _rGameWorld, CCo
 	:
 	CState(_rGameWorld, _rOwner)
 {
+	m_wstrBuildText[0] = L"더 이상 땅굴을 설치할 수 없구만,,@ㅁ@!!";
+	m_wstrBuildText[1] = L"제분소 당 12개의 땅굴을 설치할 수 있어,,,!!";
+	m_wstrBuildText[2] = L"쥐들의 욕심은 끝이 없고,,,";
 }
 
 CComState_Standing_Build::~CComState_Standing_Build()
@@ -22,7 +25,10 @@ void CComState_Standing_Build::OnLoaded(void)
 	AnimInfo stAnimInfo(0, 8, 20, 2, 0.15f, 1, false);
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetSpeed(0);
-	m_rOwner.GenerateTunnel();
+	if (!m_rOwner.GenerateTunnel()) {
+		if (m_rOwner.GetTotalTunnelsNum() >= m_rOwner.GetInstallableTunnelNum())
+			m_rOwner.ShoutOut(-150.f, -120.f, m_wstrBuildText[rand() % 3]);
+	}
 }
 
 int CComState_Standing_Build::Update(float _fDeltaTime)

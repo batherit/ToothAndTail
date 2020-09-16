@@ -14,6 +14,7 @@
 #include "CUI_BuildGauge.h"
 #include "CBurst.h"
 #include "CTunnelGenerator.h"
+#include "CUI_FloatingText.h"
 
 //
 //CTunnel::CTunnel(CGameWorld& _rGameWorld, float _fX, float _fY, CTunnel::E_SIZE _eSize, UNIT::E_TYPE _eUnitType, CCommander* _pCommander, int _iID)
@@ -355,9 +356,39 @@ int CTunnel::Update(float _fDeltaTime)
 
 void CTunnel::LateUpdate()
 {
-	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
-		InvalidateObj();
-	}*/
+	DO_IF_IS_NOT_VALID_OBJ(this) return;
+	// 점령 기수가 존재하는지?
+	if (!GetCommander()) return;
+	// 점령 기수가 구매의사가 있는지?
+	if (!GetCommander()->IsSelling()) return;
+	// 이 땅굴 부지에 기수가 들어왔는지?
+	if (!IsPointInTile(GetCommander()->GetXY(), GetXY(), 2.f * TILE_WIDTH * BASE_SCALE, 2.f * TILE_HEIGHT * BASE_SCALE)) return;
+
+
+	TCHAR szBuf[16] = L"";
+	D3DXVECTOR3 vPos = GetCommander()->GetXY();
+	vPos.y -= 20.f;
+	// 땅굴을 팔고 사이즈에 따라 돈을 얻는다.
+	switch (m_eSize) {
+	case CTunnel::SIZE_SMALL:
+		swprintf_s(szBuf, L"+%d", TUNNEL_SMALL_BUILD_COST);
+		GetGameWorld().GetListObjs().emplace_back(new CUI_FloatingText(GetGameWorld(), vPos.x, vPos.y, szBuf));
+		GetCommander()->IncreaseMoney(TUNNEL_SMALL_BUILD_COST);
+		break;
+	case CTunnel::SIZE_MIDDLE:
+		swprintf_s(szBuf, L"+%d", TUNNEL_MIDDLE_BUILD_COST);
+		GetGameWorld().GetListObjs().emplace_back(new CUI_FloatingText(GetGameWorld(), vPos.x, vPos.y, szBuf));
+		GetCommander()->IncreaseMoney(TUNNEL_MIDDLE_BUILD_COST);
+		break;
+	case CTunnel::SIZE_BIG:
+		swprintf_s(szBuf, L"+%d", TUNNEL_BIG_BUILD_COST);
+		GetGameWorld().GetListObjs().emplace_back(new CUI_FloatingText(GetGameWorld(), vPos.x, vPos.y, szBuf));
+		GetCommander()->IncreaseMoney(TUNNEL_BIG_BUILD_COST);
+		break;
+	}
+
+	// 무효화 진행
+	InvalidateObj();
 }
 
 void CTunnel::Release(void)
