@@ -19,6 +19,7 @@ CComDepObj::CComDepObj(CGameWorld & _rGameWorld, CCommander* _pCommander, float 
 {
 	m_vecCollidedUnits.reserve(100);
 	m_vecCollidedBlockingTiles.reserve(10);
+	m_fAttackRangeOffset = GetNumberMinBetweenMax(0.f, 10.f * BASE_SCALE);
 }
 
 CComDepObj::~CComDepObj()
@@ -299,7 +300,7 @@ bool CComDepObj::CanAttackTargetEnemy()
 	float fLength = D3DXVec3Length(&(m_pTargetEnemy->GetXY() - GetXY()));
 
 	// 감지범위 내에 있다면 공격할 수 있다.
-	return fLength <= m_fAttackRange;
+	return fLength <= m_fAttackRange + m_fAttackRangeOffset;
 }
 
 void CComDepObj::TakeDamage(float _fDamageAmount)

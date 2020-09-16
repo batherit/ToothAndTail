@@ -80,6 +80,7 @@ private:
 
 	float m_fDetectionRange = 100.f;
 	float m_fAttackRange = 100.f;
+	float m_fAttackRangeOffset = 0.f;
 	float m_fCollisionRadius = UNIT_RADIUS;
 	CComDepObj* m_pTargetEnemy = nullptr;
 	vector<CComDepObj*> m_vecCollidedUnits;
