@@ -55,6 +55,9 @@ void CPlayScene::ResetScene(void)
 	D3DXVECTOR3 pNewPos = pWindmill->GetXY();
 	pNewPos.y += TILE_HEIGHT * 4 * BASE_SCALE ;
 	m_pCommander[0]->SetXY(pNewPos);
+
+	// m_pCommander[0]를 게임월드의 플레이어로 설정함.
+	m_rGameWorld.SetPlayer(m_pCommander[0]);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 
 	// 인게임 UI 생성
@@ -106,16 +109,6 @@ int CPlayScene::Update(float _fDeltaTime)
 
 void CPlayScene::LateUpdate(void)
 {
-	for (int i = 0; i < 2; ++i) {
-		//m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pCommander[i]);
-		//CTile* pTile = m_rGameWorld.GetMapLoader()->GetTile(m_pCommander[i]->GetXY());
-		//pTile->RegisterObjOnTile(m_pCommander[i]);
-		//for (auto& pBlockingTile : m_rGameWorld.GetMapLoader()->GetBlockingTiles()) {
-		//	pBlockingTile->PushOutOfTile(m_pCommander[i]);
-		//}
-		
-	}
-
 	CComDepObj* pComDepObj = nullptr;
 	for (auto& pObj : m_rGameWorld.GetListObjs()) {
 		pComDepObj = dynamic_cast<CComDepObj*>(pObj);
@@ -141,6 +134,8 @@ void CPlayScene::Release(void)
 	SafelyDeleteObj(pOldMapLoader);
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
 	SafelyDeleteObj(m_pInGameUI);
+	m_rGameWorld.SetPlayer(nullptr);
+	m_rGameWorld.SetMainCamera(nullptr);
 }
 
 void CPlayScene::Render(CCamera * _pCamera)

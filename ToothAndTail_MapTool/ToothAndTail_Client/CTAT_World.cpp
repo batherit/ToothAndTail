@@ -5,6 +5,8 @@
 #include "CTextureMgr.h"
 #include "CTimer.h"
 #include "CCamera.h"
+#include "CWindmill.h"
+#include "CCommanderAI.h"
 
 
 CTAT_World::CTAT_World()
@@ -79,6 +81,14 @@ void CTAT_World::Render(void)
 		GetSceneManager()->Render(m_pAnotherCamera);
 	else
 		GetSceneManager()->Render(GetMainCamera());
+
+	if (m_eGameResult == CTAT_World::RESULT_WIN) {
+		CGraphicDevice::GetInstance()->RenderText(L"Victory!", D3DXVECTOR3(WINCX >> 2 , (WINCY >> 1) + 100.f, 0.f), 4.f, D3DCOLOR_ARGB(220, 0, 0, 200));
+	}
+	else if(m_eGameResult == CTAT_World::RESULT_LOSE) {
+		CGraphicDevice::GetInstance()->RenderText(L"Defeat..", D3DXVECTOR3(WINCX >> 2, (WINCY >> 1) + 100.f, 0.f), 4.f, D3DCOLOR_ARGB(220, 200, 0, 0));
+	}
+
 	EndRender();
 }
 
@@ -96,6 +106,42 @@ void CTAT_World::SetAnotherCameraTemporarily(CCamera * _pAnotherCamera, float _f
 	m_bIsCameraEventOccurring = true;
 	m_pAnotherCamera = _pAnotherCamera;
 	m_fCameraKeepTime = _fKeepTime;
+}
+
+void CTAT_World::JudgetResult()
+{
+	// 승패가 결정났다면,
+	if (CTAT_World::RESULT_YET != m_eGameResult) return;
+
+	bool bIsAIAlive = false;
+	bool bIsPlayerAlive = false;
+	CWindmill* pWindmill = nullptr;
+	for (auto& pObj : GetListObjs()) {
+		pWindmill = dynamic_cast<CWindmill*>(pObj);
+		if (pWindmill) {
+			// 적 AI 제분소가 하나라도 남아있으면 승리한 것이 아님.
+			if (dynamic_cast<CCommanderAI*>(pWindmill->GetCommander())) {
+				bIsAIAlive = true;
+			}
+			if (pWindmill->GetCommander() == GetPlayer()) {
+				bIsPlayerAlive = true;
+			}
+		}
+	}
+	
+	if (!bIsAIAlive) {
+		m_eGameResult = CTAT_World::RESULT_WIN;
+		CSoundMgr::GetInstance()->PlaySound(L"Victory.wav", CSoundMgr::UI);
+
+		return;
+	}
+		
+
+	if (bIsAIAlive == false) {
+		// 패배
+		m_eGameResult = CTAT_World::RESULT_LOSE;
+		return;
+	}
 }
 
 void CTAT_World::LoadResources(void)

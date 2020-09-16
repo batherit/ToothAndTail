@@ -30,6 +30,7 @@ CGameWorld::~CGameWorld()
 	m_vecRenderObjs_Main.clear();
 	m_vecRenderObjs_Main.shrink_to_fit();
 	m_pGraphicDevice->DestroyInstance();
+	m_pPlayer_Main = nullptr;
 	m_pCamera_Main = nullptr;
 }
 

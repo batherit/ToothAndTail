@@ -46,6 +46,9 @@ public:
 	vector<CObj*>& GetVecRenderObjs(void) { return m_vecRenderObjs_Main; }
 	void RenderListObjs(CCamera* _pCamera, bool _bListClear = true, bool(*funcComp)(CObj* obj1, CObj* obj2) = [](CObj*, CObj*) { return false; });
 	vector<CObj*>& GetRenderList() { return m_vecRenderObjs_Main; }
+	virtual void JudgetResult() {};
+	void SetPlayer(CObj* _pPlayer) { m_pPlayer_Main = _pPlayer; }
+	CObj* GetPlayer() const { return m_pPlayer_Main; }
 
 private:
 	virtual void LoadResources() = 0;
@@ -53,6 +56,7 @@ private:
 	CTimer* m_pTimer_Main			= nullptr;
 
 private:
+	CObj* m_pPlayer_Main = nullptr;
 	CGraphicDevice* m_pGraphicDevice = nullptr;
 
 	CMapLoader* m_pMapLoader_Main	= nullptr;

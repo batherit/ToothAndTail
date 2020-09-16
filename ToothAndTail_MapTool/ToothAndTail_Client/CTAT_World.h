@@ -18,6 +18,10 @@ public:
 
 public:
 	void SetAnotherCameraTemporarily(CCamera* _pAnotherCamera, float _fKeepTime);
+	virtual void JudgetResult() override;
+
+private:
+	enum E_RESULT { RESULT_WIN, RESULT_LOSE, RESULT_YET, RESULT_END };
 
 private:
 	virtual void LoadResources();
@@ -27,5 +31,6 @@ private:
 	bool m_bIsCameraEventOccurring = false;
 	CCamera* m_pAnotherCamera = nullptr;
 	float m_fCameraKeepTime = 0.f;
+	CTAT_World::E_RESULT m_eGameResult = CTAT_World::RESULT_YET;
 };
 

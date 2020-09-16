@@ -254,6 +254,8 @@ void CWindmill::InvalidateObj()
 	m_bIsAttackedRecently = false;
 	m_fAttackedTickTime = 0.f;
 
+	GetGameWorld().JudgetResult();
+
 	CSoundMgr::GetInstance()->PlaySound(L"Destroy_HQ.wav", CSoundMgr::PLAYER);
 }
 
