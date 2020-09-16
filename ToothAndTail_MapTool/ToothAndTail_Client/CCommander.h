@@ -59,13 +59,14 @@ public:
 	int GetSelectedUnitsNum() const;
 	void ShoutOut(float _fOffsetX, float _fOffsetY, const wstring& _wstrText);
 	int GetInstallableTunnelNum();
+	vector<CWindmill*>& GetMyWindmills();
 
 private:
 	void UpdateCommand(float _fDeltaTime);
 
 protected:
 	bool DetectWindmills();
-	vector<CWindmill*>& GetMyWindmills();
+	
 
 protected:
 	CommandInfo m_tCommandInfo;

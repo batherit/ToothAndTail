@@ -171,6 +171,13 @@ int CWindmill::Update(float _fDeltaTime)
 		m_fCroppingTickTime = 0.f;
 	}
 
+	if (m_bIsAttackedRecently) {
+		if ((m_fAttackedTickTime -= _fDeltaTime) <= 0.f) {
+			m_bIsAttackedRecently = false;
+			m_fAttackedTickTime = 0.f;
+		}
+	}
+
 	return 0;
 }
 
@@ -244,7 +251,9 @@ void CWindmill::InvalidateObj()
 	}
 	m_fCroppingTickTime = 0.f;
 
-	//if (!IsObjInCamera(this, GetGameWorld().GetMainCamera())) return;
+	m_bIsAttackedRecently = false;
+	m_fAttackedTickTime = 0.f;
+
 	CSoundMgr::GetInstance()->PlaySound(L"Destroy_HQ.wav", CSoundMgr::PLAYER);
 }
 
@@ -262,6 +271,13 @@ void CWindmill::Occupied(CCommander* _pCommander)
 		pFarmland->SetCommander(_pCommander);
 	}
 	InitHP(WINDMILL_MAX_HP);
+}
+
+void CWindmill::TakeDamage(float _fDamageAmount)
+{
+	CComDepObj::TakeDamage(_fDamageAmount);
+	m_bIsAttackedRecently = true;
+	m_fAttackedTickTime = WINDMILL_ATTACKED_KEEP_TIME;
 }
 
 WINDMILL::E_STATE CWindmill::GetState() const

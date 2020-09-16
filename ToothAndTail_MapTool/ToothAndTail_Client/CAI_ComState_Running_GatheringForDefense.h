@@ -1,13 +1,12 @@
 #pragma once
 #include "CState.h"
-
 class CCommanderAI;
-class CAI_ComState_Standing_WavingFlag :
+class CAI_ComState_Running_GatheringForDefense :
 	public CState<CCommanderAI>
 {
 public:
-	CAI_ComState_Standing_WavingFlag(CGameWorld& _rGameWorld, CCommanderAI& _rOwner);
-	virtual ~CAI_ComState_Standing_WavingFlag();
+	CAI_ComState_Running_GatheringForDefense(CGameWorld& _rGameWorld, CCommanderAI& _rOwner);
+	virtual ~CAI_ComState_Running_GatheringForDefense();
 
 	// CState을(를) 통해 상속됨
 	virtual void OnLoaded(void) override;
@@ -16,8 +15,6 @@ public:
 	virtual void OnExited(void) override;
 
 private:
-	float m_fKeepTime = 0.f;
-	float m_fElapsedTime = 0.f;
 	bool m_bIsGathering = true;
 	float m_fTickTime = 0.f;
 };

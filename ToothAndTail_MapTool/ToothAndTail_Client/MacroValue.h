@@ -23,6 +23,7 @@
 #define WINDMILL_HEIGHT		140
 #define WINDMILL_MAX_HP		200.f
 #define WINDMILL_RADIUS		42.f * BASE_SCALE
+#define WINDMILL_ATTACKED_KEEP_TIME		1.f
 #define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	12
 
 // 제분소 터빈
@@ -47,7 +48,7 @@
 #define PIG_MAX_HP			50.f
 #define PIG_SPEED			3.f * BASE_SCALE
 #define PIG_GEN_SEC			5.f
-#define PIG_CROP_TIME		0.9f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
+#define PIG_CROP_TIME		0.8f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
 #define PIG_CROP_AMOUNT		1	
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
@@ -173,7 +174,7 @@
 #define AI_BUILD_MIN_COST		60	// 자본이 60이 되면 농장, 땅굴 중 하나를 설치
 // 자본이 60이상인데 자기 자신의 제분소가 없다면, 다른 제분소를 점령한다.
 // 점령할 제분소마저 없다면, 그냥 왔다갔다 한다.//
-#define AI_REATTACK_DELAY		30.f
+#define AI_REATTACK_DELAY		50.f	// 50초마다 공격하러 감.
 
 // Camera
 #define PRIVATE_CAMERA_SPEED	35.f

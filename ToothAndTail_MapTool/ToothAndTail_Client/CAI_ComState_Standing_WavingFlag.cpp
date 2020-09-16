@@ -20,7 +20,7 @@ void CAI_ComState_Standing_WavingFlag::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	AnimInfo stAnimInfo(0, 8, 10, 10, 1.f, 0, false); // 무한 애님 테스트
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
-	m_fKeepTime = GetNumberMinBetweenMax(3.f, 5.f);
+	m_fKeepTime = GetNumberMinBetweenMax(4.f, 5.f);
 }
 
 int CAI_ComState_Standing_WavingFlag::Update(float _fDeltaTime)
@@ -42,6 +42,29 @@ int CAI_ComState_Standing_WavingFlag::Update(float _fDeltaTime)
 
 	if (m_fElapsedTime >= m_fKeepTime) {
 		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+	}
+
+	if ((m_fTickTime += _fDeltaTime) >= 1.0f) {
+		if (m_bIsGathering) {
+			// 서서 깃발 흔드는 애니메이션
+			AnimInfo stAnimInfo(0, 8, 10, 10, 1.f, 0, false); // 무한 애님 테스트
+			m_rOwner.SetNewAnimInfo(stAnimInfo);
+
+			CommandInfo tNewCommandInfo;
+			tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
+			tNewCommandInfo.iUnitID = -1;
+			tNewCommandInfo.vTargetPos = m_rOwner.GetXY();
+			m_rOwner.SetCommandInfo(tNewCommandInfo);
+			m_bIsGathering = false;
+		}
+		else {
+			// 아이들 애니메이션
+			AnimInfo stAnimInfo(0, 8, 0, 10, 1.f, 0, false); // 무한 애님 테스트
+			m_rOwner.SetNewAnimInfo(stAnimInfo);
+			m_rOwner.SetCommandInfo(CommandInfo());
+			m_bIsGathering = true;
+		}
+		m_fTickTime = 0.f;
 	}
 
 	return m_rOwner.UpdateAnim(_fDeltaTime);

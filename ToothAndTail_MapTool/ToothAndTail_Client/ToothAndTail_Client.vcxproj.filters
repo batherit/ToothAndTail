@@ -497,6 +497,9 @@
     <ClInclude Include="CUI_BalloonTalk.h">
       <Filter>소스 파일\1.CObj\UI\BalloonTalk</Filter>
     </ClInclude>
+    <ClInclude Include="CAI_ComState_Running_GatheringForDefense.h">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -768,6 +771,9 @@
     </ClCompile>
     <ClCompile Include="CUI_BalloonTalk.cpp">
       <Filter>소스 파일\1.CObj\UI\BalloonTalk</Filter>
+    </ClCompile>
+    <ClCompile Include="CAI_ComState_Running_GatheringForDefense.cpp">
+      <Filter>소스 파일\1.State\CommanderAI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

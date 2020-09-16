@@ -24,6 +24,7 @@ public:
 	virtual void Release(void);
 	virtual void InvalidateObj() override;
 	void Occupied(CCommander* _pCommander);
+	virtual void TakeDamage(float _fDamageAmount) override;
 	//virtual void CollectGarbageObjs();
 	//vector<CFarmland*>& GetFarmlands() { return m_vecFarmlands; }
 
@@ -33,7 +34,7 @@ public:
 	WINDMILL::E_STATE GetState() const;
 	vector<CFarmland*>& GetFarmlands() { return m_vecFarmlands; }
 	bool DetectEmptyLot(D3DXVECTOR3& _rEmptyLotPos);
-	
+	bool IsAttackedRecently() const { return m_bIsAttackedRecently; }
 	
 private:
 	//CWindmill::E_STATE m_eState = STATE_UNOCCUPIED;
@@ -42,5 +43,8 @@ private:
 	vector<CFarmland*> m_vecFarmlands;
 	float m_fCroppingTickTime = 0.f;
 	CWindmillBase* m_pWindmillBase = nullptr;
+
+	bool m_bIsAttackedRecently = false;
+	float m_fAttackedTickTime = 0.f;
 };
 

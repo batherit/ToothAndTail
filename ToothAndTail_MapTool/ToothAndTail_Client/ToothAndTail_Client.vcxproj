@@ -154,6 +154,7 @@
     <ClInclude Include="CAI_ComState_Idle.h" />
     <ClInclude Include="CAI_ComState_Run.h" />
     <ClInclude Include="CAI_ComState_Running_Gathering.h" />
+    <ClInclude Include="CAI_ComState_Running_GatheringForDefense.h" />
     <ClInclude Include="CAI_ComState_Standing_Action.h" />
     <ClInclude Include="CAI_ComState_Standing_WavingFlag.h" />
     <ClInclude Include="CBadger.h" />
@@ -256,6 +257,7 @@
     <ClCompile Include="CAI_ComState_Idle.cpp" />
     <ClCompile Include="CAI_ComState_Run.cpp" />
     <ClCompile Include="CAI_ComState_Running_Gathering.cpp" />
+    <ClCompile Include="CAI_ComState_Running_GatheringForDefense.cpp" />
     <ClCompile Include="CAI_ComState_Standing_Action.cpp" />
     <ClCompile Include="CAI_ComState_Standing_WavingFlag.cpp" />
     <ClCompile Include="CBadger.cpp" />

@@ -1,23 +1,21 @@
 #include "stdafx.h"
-#include "CAI_ComState_Running_Gathering.h"
 #include "CAI_ComState_Running_GatheringForDefense.h"
 #include "CAI_ComState_Standing_WavingFlag.h"
 #include "CAI_ComState_Idle.h"
 #include "CCommanderAI.h"
 #include "CStateMgr.h"
-#include "CWindmill.h"
 
-CAI_ComState_Running_Gathering::CAI_ComState_Running_Gathering(CGameWorld & _rGameWorld, CCommanderAI & _rOwner)
+CAI_ComState_Running_GatheringForDefense::CAI_ComState_Running_GatheringForDefense(CGameWorld & _rGameWorld, CCommanderAI & _rOwner)
 	:
 	CState(_rGameWorld, _rOwner)
 {
 }
 
-CAI_ComState_Running_Gathering::~CAI_ComState_Running_Gathering()
+CAI_ComState_Running_GatheringForDefense::~CAI_ComState_Running_GatheringForDefense()
 {
 }
 
-void CAI_ComState_Running_Gathering::OnLoaded(void)
+void CAI_ComState_Running_GatheringForDefense::OnLoaded(void)
 {
 	AnimInfo stAnimInfo(0, 8, 32, 10, 1.f, 0, false);
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
@@ -33,29 +31,8 @@ void CAI_ComState_Running_Gathering::OnLoaded(void)
 	m_fTickTime = 0.f;
 }
 
-int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
+int CAI_ComState_Running_GatheringForDefense::Update(float _fDeltaTime)
 {
-	auto& vecMyWindmills = m_rOwner.GetMyWindmills();
-
-	if (vecMyWindmills.empty()) return 1;
-
-	D3DXVECTOR3 vGoalPos;
-	for (auto& pMyWindmill : vecMyWindmills) {
-		if (pMyWindmill->IsAttackedRecently()) {
-			// 플레이어 제분소로 병력을 이동시킨다.
-			vGoalPos = pMyWindmill->GetXY();
-			vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
-			if (m_rOwner.GeneratePathToGoal(vGoalPos, pMyWindmill)) {
-				// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
-				m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
-			}
-			else {
-				m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_WavingFlag(m_rGameWorld, m_rOwner));
-			}
-			return 0;
-		}
-	}
-
 	m_rOwner.GetCurrentCommandInfo().vTargetPos = m_rOwner.GetXY();
 
 	if ((m_fTickTime += _fDeltaTime) >= 0.8f) {
@@ -86,11 +63,11 @@ int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
 	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 
-void CAI_ComState_Running_Gathering::LateUpdate(void)
+void CAI_ComState_Running_GatheringForDefense::LateUpdate(void)
 {
 }
 
-void CAI_ComState_Running_Gathering::OnExited(void)
+void CAI_ComState_Running_GatheringForDefense::OnExited(void)
 {
 	m_rOwner.SetCommandInfo(CommandInfo());	// 더미 커맨드 인포 세팅
 }
