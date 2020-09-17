@@ -65,8 +65,10 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 	:
 	CComDepObj(_rGameWorld, _pCommander, 0.f, 0.f, WINDMILL_WIDTH, WINDMILL_HEIGHT)
 {
+
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetZoomMultiple(0.6f);
+	InitHP(WINDMILL_MAX_HP);
 	GetUIUnitHP()->SetY(-20.f);
 	SetCollisionRadius(WINDMILL_RADIUS);
 	SetMinimapSign(MINIMAP::SIGN_WINDMILL);
@@ -113,7 +115,6 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 				m_vecFarmlands.emplace_back(pFarmland);
 			}
 		}
-		InitHP(WINDMILL_MAX_HP);
 	}
 	else {
 		m_pWindmillBase = new CWindmillBase(_rGameWorld, 0.f, -45.f, WINDMILL::STATE_UNOCCUPIED, _pCommander);

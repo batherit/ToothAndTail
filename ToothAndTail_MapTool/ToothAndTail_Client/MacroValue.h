@@ -21,7 +21,7 @@
 #define WINDMILL_COST		60
 #define WINDMILL_WIDTH		140
 #define WINDMILL_HEIGHT		140
-#define WINDMILL_MAX_HP		200.f
+#define WINDMILL_MAX_HP		300.f
 #define WINDMILL_RADIUS		42.f * BASE_SCALE
 #define WINDMILL_ATTACKED_KEEP_TIME		1.f
 #define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	12
@@ -36,7 +36,7 @@
 #define FARMLAND_COST			60
 #define FARMLAND_WIDTH			80
 #define FARMLAND_HEIGHT			54
-#define FARMLAND_FERTILITY		360	// 활성화된 농장의 초기 토지력(CROP 하나당 40.f의 지력이라 표현.)
+#define FARMLAND_FERTILITY		540	// 활성화된 농장의 초기 토지력(CROP 하나당 40.f의 지력이라 표현.)
 #define FARMLAND_BUILD_SEC		5.f	// 농장을 활성화하는데 걸리는 시간초
 // 작물
 #define CROP_WIDTH		24
@@ -48,7 +48,7 @@
 #define PIG_MAX_HP			50.f
 #define PIG_SPEED			3.f * BASE_SCALE
 #define PIG_GEN_SEC			5.f
-#define PIG_CROP_TIME		0.8f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
+#define PIG_CROP_TIME		0.7f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
 #define PIG_CROP_AMOUNT		1	
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
@@ -69,13 +69,13 @@
 #define TUNNEL_MIDDLE_HEIGHT		54
 #define TUNNEL_MIDDLE_MAX_HP		100.f
 #define TUNNEL_MIDDLE_BUILD_SEC		10.f
-#define TUNNEL_MIDDLE_BUILD_COST	120
+#define TUNNEL_MIDDLE_BUILD_COST	85
 // 3) 대형
 #define TUNNEL_BIG_WIDTH			70
 #define TUNNEL_BIG_HEIGHT			70
 #define TUNNEL_BIG_MAX_HP			130.f
 #define TUNNEL_BIG_BUILD_SEC		13.f
-#define TUNNEL_BIG_BUILD_COST		180
+#define TUNNEL_BIG_BUILD_COST		100
 
 #define UNIT_RADIUS					9.f * BASE_SCALE
 // 유닛 //청솔모(SQUIRREL), 도마뱀(LIZARD), 두더지(MOLE), 스컹크(SKUNK), 오소리(BADGER), 여우(FOX)
@@ -95,7 +95,7 @@
 // 2) 도마뱀(LIZARD, 소형)
 #define LIZARD_COST				25
 #define LIZARD_SUPPLY_NUM		3
-#define LIZARD_GEN_SEC			5.f
+#define LIZARD_GEN_SEC			7.f
 #define LIZARD_WIDTH			32
 #define LIZARD_HEIGHT			32
 #define LIZARD_MAX_HP			40.f
@@ -108,7 +108,7 @@
 // 3) 두더지(MOLE, 소형)
 #define MOLE_COST				40
 #define MOLE_SUPPLY_NUM			2
-#define MOLE_GEN_SEC			5.f
+#define MOLE_GEN_SEC			8.f
 #define MOLE_WIDTH				28
 #define MOLE_HEIGHT				28
 #define MOLE_MAX_HP				50.f
@@ -119,9 +119,9 @@
 #define MOLE_BULLET_SPEED		300.f * BASE_SCALE
 #define MOLE_ATTACK_DELAY		0.6f	
 // 4) 스컹크(MOLE, 중형)
-#define SKUNK_COST				60
+#define SKUNK_COST				50
 #define SKUNK_SUPPLY_NUM		2
-#define SKUNK_GEN_SEC			5.f
+#define SKUNK_GEN_SEC			9.f
 #define SKUNK_WIDTH				32
 #define SKUNK_HEIGHT			32
 #define SKUNK_MAX_HP			60.f
@@ -132,9 +132,9 @@
 #define SKUNK_BULLET_SPEED		250.f * BASE_SCALE
 #define SKUNK_ATTACK_DELAY		1.f	
 // 5) 오소리(BADGER, 대형)
-#define BADGER_COST				120
+#define BADGER_COST				70
 #define BADGER_SUPPLY_NUM		2	
-#define BADGER_GEN_SEC			5.f
+#define BADGER_GEN_SEC			10.f
 #define BADGER_WIDTH			52
 #define BADGER_HEIGHT			52
 #define BADGER_MAX_HP			80.f
@@ -145,9 +145,9 @@
 #define BADGER_BULLET_SPEED		250.f * BASE_SCALE
 #define BADGER_ATTACK_DELAY		0.05f	
 // 6) 여우(FOX, 대형)
-#define FOX_COST				120
+#define FOX_COST				70
 #define FOX_SUPPLY_NUM			2
-#define FOX_GEN_SEC				5.f
+#define FOX_GEN_SEC				10.f
 #define FOX_WIDTH				72
 #define FOX_HEIGHT				72
 #define FOX_MAX_HP				70.f

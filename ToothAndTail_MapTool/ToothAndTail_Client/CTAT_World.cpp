@@ -83,10 +83,10 @@ void CTAT_World::Render(void)
 		GetSceneManager()->Render(GetMainCamera());
 
 	if (m_eGameResult == CTAT_World::RESULT_WIN) {
-		CGraphicDevice::GetInstance()->RenderText(L"Victory!", D3DXVECTOR3(WINCX >> 2 , (WINCY >> 1) + 100.f, 0.f), 4.f, D3DCOLOR_ARGB(220, 0, 0, 200));
+		CGraphicDevice::GetInstance()->RenderText(L"Victory!", D3DXVECTOR3((WINCX >> 2) + 50.f , (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 0, 0, 200));
 	}
 	else if(m_eGameResult == CTAT_World::RESULT_LOSE) {
-		CGraphicDevice::GetInstance()->RenderText(L"Defeat..", D3DXVECTOR3(WINCX >> 2, (WINCY >> 1) + 100.f, 0.f), 4.f, D3DCOLOR_ARGB(220, 200, 0, 0));
+		CGraphicDevice::GetInstance()->RenderText(L"Defeat..", D3DXVECTOR3((WINCX >> 2) + 50.f, (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 200, 0, 0));
 	}
 
 	EndRender();

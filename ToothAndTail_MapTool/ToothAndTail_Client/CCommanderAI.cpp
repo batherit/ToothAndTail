@@ -15,8 +15,6 @@ CCommanderAI::CCommanderAI(CGameWorld & _rGameWorld, float _fX, float _fY, CComm
 	:
 	CCommander(_rGameWorld, _fX, _fY, _eCommanderType, _clIdentificationTint_ARGB)
 {
-	SetPrivateCamera(new CCamera(_rGameWorld, this));
-	GetPrivateCamera()->SetZoomMultiple(1.1f);
 	m_pStateMgr = new CStateMgr<CCommanderAI>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CAI_ComState_Idle(GetGameWorld(), *this));
 	m_pPathGenerator = new CPathGenerator(_rGameWorld);

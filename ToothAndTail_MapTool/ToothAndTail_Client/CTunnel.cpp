@@ -188,9 +188,9 @@ CTunnel::~CTunnel()
 int CTunnel::Update(float _fDeltaTime)
 {
 	DO_IF_IS_NOT_VALID_OBJ(this) return 1;
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
 		InvalidateObj();
-	}
+	}*/
 	switch (m_eSize)
 	{
 	case CTunnel::SIZE_SMALL: {

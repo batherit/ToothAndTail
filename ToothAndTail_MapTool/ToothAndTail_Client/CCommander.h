@@ -71,7 +71,7 @@ protected:
 protected:
 	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	UINT m_iMoney = MAX_MONEY;
+	UINT m_iMoney = 0;
 	CUI_BalloonTalk* m_pBalloonTalkUI = nullptr;
 	vector<CWindmill*> m_vecWindmills;
 	vector<CWindmill*> m_vecMyWindmills;
