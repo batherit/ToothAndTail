@@ -86,7 +86,9 @@ int CCommander::Update(float _fDeltaTime)
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) DesignatePrevUnit();
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) DesignateNextUnit();
-
+	
+	if(g_bIsCheating)
+		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) IncreaseMoney(100);
 	UpdateCommand(_fDeltaTime);
 
 	return 0;

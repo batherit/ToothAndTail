@@ -13,6 +13,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 HWND g_hWND;
+bool g_bIsCheating = false;
 CGameWorld* g_GameWorld;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
@@ -27,7 +28,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(42757);
+	//_CrtSetBreakAlloc(41895);
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);

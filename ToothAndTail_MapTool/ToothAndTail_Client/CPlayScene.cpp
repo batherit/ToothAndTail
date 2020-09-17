@@ -174,6 +174,13 @@ void CPlayScene::Render(CCamera * _pCamera)
 
 	m_pInGameUI->Render(_pCamera);
 	m_pFadeInOutUI->Render(nullptr);
+
+	if (g_bIsCheating) {
+		CGraphicDevice::GetInstance()->RenderText(
+			L"치트 사용 중", D3DXVECTOR3(20.f, 100.f, 0.f), 0.6f, D3DCOLOR_ARGB(150, 0, 0, 200));
+		CGraphicDevice::GetInstance()->RenderText(
+			L"무적(기본)\n자본 증가(P)", D3DXVECTOR3(20.f, 160.f, 0.f), 0.5f, D3DCOLOR_ARGB(150, 200, 0, 0));
+	}
 }
 
 LRESULT CPlayScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -213,6 +220,9 @@ LRESULT CPlayScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 			if (!m_pObserver || !m_bIsObserverMode) break;
 			m_pObserver->SetZoomMultiple(OBSERVER_MIN_ZOOM_MULTIPLE);
 			m_pObserver->SetXY((MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE);
+		case VK_CONTROL:
+			ToggleBoolean(g_bIsCheating);
+			break;
 		default:
 			break;
 		}

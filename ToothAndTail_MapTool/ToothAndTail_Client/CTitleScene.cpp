@@ -85,6 +85,8 @@ void CTitleScene::Render(CCamera * _pCamera)
 	vTextPos += D3DXVECTOR3(-115.f, -40.f, 0.f);
 	CGraphicDevice::GetInstance()->RenderText(L"게임 종료", vTextPos, 0.9f);
 
+	CGraphicDevice::GetInstance()->RenderText(L"110C 심정환", D3DXVECTOR3(WINCX - 250.f, WINCY - 50.f, 0.f), 0.6f);
+
 	m_pFadeInOutUI->Render(nullptr);
 }
 

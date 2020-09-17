@@ -305,6 +305,13 @@ bool CComDepObj::CanAttackTargetEnemy()
 
 void CComDepObj::TakeDamage(float _fDamageAmount)
 {
+	if (g_bIsCheating) {
+		if (GetCommander() == GetGameWorld().GetPlayer()) {
+			m_fHP = m_fMaxHP;
+			m_pUIUnitHP->DisplayHP();
+			return;
+		}
+	}
 	m_fHP -= _fDamageAmount; 
 	if (m_fHP < 0.f)
 		m_fHP = 0.f; 
