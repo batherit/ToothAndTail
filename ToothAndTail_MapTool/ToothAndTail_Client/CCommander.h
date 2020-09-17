@@ -67,11 +67,10 @@ private:
 protected:
 	bool DetectWindmills();
 	
-
 protected:
 	CommandInfo m_tCommandInfo;
 	CCommander::E_COM_TYPE m_eCommanderType = CCommander::COM_TYPE_END;
-	UINT m_iMoney = 0;
+	UINT m_iMoney = 200;
 	CUI_BalloonTalk* m_pBalloonTalkUI = nullptr;
 	vector<CWindmill*> m_vecWindmills;
 	vector<CWindmill*> m_vecMyWindmills;

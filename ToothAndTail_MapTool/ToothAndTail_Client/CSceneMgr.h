@@ -19,6 +19,7 @@ public:
 	void Render(CCamera* _pCamera);
 	void Release(void);
 	CScene* GetCurScene(void) const { return m_pCurScene; }
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 
 private:
 	CGameWorld& m_rGameWorld;

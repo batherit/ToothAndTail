@@ -12,6 +12,7 @@
 #include "CTile.h"
 #include "CDeco.h"
 #include "CUI_InGameUI.h"
+#include "CObserver.h"
 
 
 CPlayScene::CPlayScene(CGameWorld & _rGameWorld)
@@ -33,15 +34,12 @@ void CPlayScene::ResetScene(void)
 {
 	Release();
 
+	// 맵 생성
 	CMapLoader* pOldMapLoder = m_rGameWorld.SetMapLoader(new CMapLoader(m_rGameWorld, L"../Data/MapData.dat"));
 	SafelyDeleteObj(pOldMapLoder);
 
-	// 1) 기수 테스트
-	/*m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -200.f, 0.f, CCommander::COM_TYPE_MILITARY, D3DCOLOR_ARGB(255, 0, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, -100.f, 0.f, CCommander::COM_TYPE_CAPITALIST, D3DCOLOR_ARGB(255, 0, 0, 255)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 0.f, 0.f, CCommander::COM_TYPE_CLERGY, D3DCOLOR_ARGB(255, 255, 255, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CCommander(m_rGameWorld, 100.f, 0.f, CCommander::COM_TYPE_COMMONER, D3DCOLOR_ARGB(255, 255, 0, 0)));
-	m_rGameWorld.GetListObjs().emplace_back(new CTurbine(m_rGameWorld, 0.f, 0.f, nullptr));*/
+	// 옵저버 생성
+	m_pObserver = new CObserver(m_rGameWorld);
 
 	// 2) 기수 및 제분소 렌더레이어 테스트
 	// 플레이어 제분소
@@ -98,6 +96,10 @@ void CPlayScene::ResetScene(void)
 
 int CPlayScene::Update(float _fDeltaTime)
 {
+	if (m_bIsObserverMode) {
+		m_pObserver->Update(_fDeltaTime);
+	}
+
 	for (auto& pTile : m_rGameWorld.GetMapLoader()->GetTiles()) {
 		pTile->Update(_fDeltaTime);
 	}
@@ -132,6 +134,7 @@ void CPlayScene::Release(void)
 {
 	CMapLoader* pOldMapLoader = m_rGameWorld.SetMapLoader(nullptr);
 	SafelyDeleteObj(pOldMapLoader);
+	SafelyDeleteObj(m_pObserver);
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
 	SafelyDeleteObj(m_pInGameUI);
 	m_rGameWorld.SetPlayer(nullptr);
@@ -157,4 +160,71 @@ void CPlayScene::Render(CCamera * _pCamera)
 	});
 
 	m_pInGameUI->Render(_pCamera);
+}
+
+LRESULT CPlayScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	switch (nMessageID)
+	{
+	case WM_KEYDOWN:
+		switch (wParam)
+		{	
+		case VK_NUMPAD0:
+			m_bIsObserverMode = false;
+			m_rGameWorld.SetMainCamera(m_pCommander[0]->GetPrivateCamera());
+			break;
+		case VK_NUMPAD1:
+			m_bIsObserverMode = false;
+			m_rGameWorld.SetMainCamera(m_pCommander[1]->GetPrivateCamera());
+			break;
+		case VK_NUMPAD2:
+			m_bIsObserverMode = false;
+			m_rGameWorld.SetMainCamera(m_pCommander[2]->GetPrivateCamera());
+			break;
+		case VK_NUMPAD3:
+			m_bIsObserverMode = false;
+			m_rGameWorld.SetMainCamera(m_pCommander[3]->GetPrivateCamera());
+			break;
+		case VK_NUMPAD4:
+			if (!m_pObserver) break;
+			m_bIsObserverMode = true;
+			m_rGameWorld.SetMainCamera(m_pObserver->GetObserverCamera());
+			m_pObserver->SetZoomMultiple(OBSERVER_MIN_ZOOM_MULTIPLE);
+			break;
+		case VK_NUMPAD5:
+			if (!m_pObserver || !m_bIsObserverMode) break;
+			m_pObserver->SetZoomMultiple(OBSERVER_MIN_ZOOM_MULTIPLE);
+			m_pObserver->SetXY((MAP_WIDTH >> 1) * BASE_SCALE, (MAP_HEIGHT >> 1) * BASE_SCALE);
+		default:
+			break;
+		}
+		break;
+	case WM_MOUSEWHEEL:
+	{
+		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		if (zDelta > 0) {
+			if (m_bIsObserverMode && m_pObserver) {
+				if (m_pObserver->GetZoomMultiple() > OBSERVER_MIN_ZOOM_MULTIPLE) {
+					m_pObserver->ZoomIn(0.05f);
+					if (m_pObserver->GetZoomMultiple() <= OBSERVER_MIN_ZOOM_MULTIPLE) {
+						m_pObserver->SetZoomMultiple(OBSERVER_MIN_ZOOM_MULTIPLE);
+					}
+				}
+			}
+		}
+		else {
+			if (m_bIsObserverMode && m_pObserver) {
+				if (m_pObserver->GetZoomMultiple() < OBSERVER_MAX_ZOOM_MULTIPLE) {
+					m_pObserver->ZoomOut(0.05f);
+					if (m_pObserver->GetZoomMultiple() >= OBSERVER_MAX_ZOOM_MULTIPLE) {
+						m_pObserver->SetZoomMultiple(OBSERVER_MAX_ZOOM_MULTIPLE);
+					}
+				}
+			}
+		}
+		break;
+	}
+	}
+
+	return 0;
 }

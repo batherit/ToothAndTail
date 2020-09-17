@@ -20,8 +20,8 @@ public:
 	virtual void Release(void);
 
 public:
-	void ZoomIn(float _fDeltaTime);
-	void ZoomOut(float _fDeltaTime);
+	void ZoomIn(float _fDeltaZoom);
+	void ZoomOut(float _fDeltaZoom);
 	float GetZoomMultiple(void) const { return m_fZoomMultiple; }
 	void SetZoomMultiple(float _fZoomMultiple) { m_fZoomMultiple = _fZoomMultiple; }
 	void Shake(float _fShakeKeepTime, float _fSakeRadius, int _iShakeNum);

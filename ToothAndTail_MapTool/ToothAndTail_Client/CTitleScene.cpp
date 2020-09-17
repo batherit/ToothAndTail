@@ -93,6 +93,11 @@ void CTitleScene::Release(void)
 	SafelyDeleteObj(m_pExitButton);
 }
 
+LRESULT CTitleScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
+}
+
 void CTitleScene::HoveredOnStartButton(void *)
 {
 	// 시작 버튼 온

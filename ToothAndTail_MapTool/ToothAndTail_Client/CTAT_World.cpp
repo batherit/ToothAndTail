@@ -38,6 +38,8 @@ LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 	}
 	}*/
 
+	GetSceneManager()->OnProcessingWindowMessage(hWnd, nMessageID, wParam, lParam);
+
 	return 0;
 }
 
@@ -137,7 +139,7 @@ void CTAT_World::JudgetResult()
 	}
 		
 
-	if (bIsAIAlive == false) {
+	if (bIsPlayerAlive == false) {
 		// ÆÐ¹è
 		m_eGameResult = CTAT_World::RESULT_LOSE;
 		return;

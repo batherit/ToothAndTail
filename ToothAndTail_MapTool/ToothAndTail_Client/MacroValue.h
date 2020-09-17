@@ -6,6 +6,11 @@
 #define MAP_WIDTH			2048
 #define MAP_HEIGHT			2048
 
+// 옵저버
+#define OBSERVER_SPEED		1000.f * BASE_SCALE
+#define OBSERVER_MIN_ZOOM_MULTIPLE		0.3f
+#define OBSERVER_MAX_ZOOM_MULTIPLE		1.5f
+
 // 타일
 #define TILE_RADIUS			21.f * BASE_SCALE
 #define TILE_WIDTH			42
@@ -177,5 +182,5 @@
 #define AI_REATTACK_DELAY		50.f	// 50초마다 공격하러 감.
 
 // Camera
-#define PRIVATE_CAMERA_SPEED	35.f
+#define PRIVATE_CAMERA_SPEED	14.f * BASE_SCALE
 #define PRIVATE_CAMERA_RANGE	20.f

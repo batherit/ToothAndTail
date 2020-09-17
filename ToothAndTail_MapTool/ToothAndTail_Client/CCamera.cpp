@@ -47,14 +47,14 @@ int CCamera::Update(float _fDeltaTime)
 	return 0;
 }
 
-void CCamera::ZoomIn(float _fDeltaTime)
+void CCamera::ZoomIn(float _fDeltaZoom)
 {
-	Clamp(&(m_fZoomMultiple -= (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+	Clamp(&(m_fZoomMultiple -= (m_cfZoomSpeed * _fDeltaZoom)), m_cfMaxZoomOut, m_cfMaxZoomIn);
 }
 
-void CCamera::ZoomOut(float _fDeltaTime)
+void CCamera::ZoomOut(float _fDeltaZoom)
 {
-	Clamp(&(m_fZoomMultiple += (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+	Clamp(&(m_fZoomMultiple += (m_cfZoomSpeed * _fDeltaZoom)), m_cfMaxZoomOut, m_cfMaxZoomIn);
 }
 
 void CCamera::Shake(float _fShakeKeepTime, float _fSakeRadius, int _iShakeNum)

@@ -17,6 +17,7 @@ public:
 	virtual void Render(HDC& _hdc, CCamera* _pCamera) {};
 	virtual void Render(CCamera* _pCamera) {};
 	virtual void Release(void) = 0;
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) = 0;
 
 	virtual list<CObj*>* GetHitEffects() { return nullptr; }
 	virtual list<CObj*>* GetSpawners() { return nullptr; }

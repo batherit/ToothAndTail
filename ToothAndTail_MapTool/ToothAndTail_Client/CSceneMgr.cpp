@@ -72,3 +72,9 @@ void CSceneMgr::Release(void)
 	SafelyDeleteObj(m_pNextScene);
 	m_bIsConfirmed = true;
 }
+
+LRESULT CSceneMgr::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	if (!m_pCurScene) return 0;
+	return m_pCurScene->OnProcessingWindowMessage(hWnd, nMessageID, wParam, lParam);
+}

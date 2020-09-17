@@ -5,6 +5,7 @@ class CSpriteObj;
 class CCommander;
 class CMapLoader;
 class CUI_InGameUI;
+class CObserver;
 class CPlayScene :
 	public CScene
 {
@@ -18,10 +19,13 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) override;
 
 private:
 	//CSpriteObj* m_pMap = nullptr;
 	CCommander* m_pCommander[4] = { nullptr, };
 	CUI_InGameUI* m_pInGameUI = nullptr;
+	CObserver* m_pObserver = nullptr;
+	bool m_bIsObserverMode = false;
 };
 

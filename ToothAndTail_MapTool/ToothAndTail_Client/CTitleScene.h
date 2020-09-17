@@ -18,6 +18,7 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Render(CCamera* _pCamera) override;
 	virtual void Release(void) override;
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 
 private:
 	// button event
