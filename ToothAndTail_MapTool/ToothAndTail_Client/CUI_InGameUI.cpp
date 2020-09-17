@@ -140,7 +140,6 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 			m_vecUnitSigns[i]->Render(nullptr);
 
 			// 보급 수 표시
-			
 			vPos.x -= 20.f;
 			//vPos.y += 20.f;
 			vPos.y -= 60.f;
@@ -150,4 +149,24 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 
 		}
 	}
+}
+
+void CUI_InGameUI::ChangeCommander(CCommander * _pCommander)
+{
+	if (!_pCommander) return;
+
+	SafelyDeleteObjs(m_vecUnitSigns);
+
+	CUI_UnitSign* pUnitSign = nullptr;
+	vector<CTunnelGenerator*>& rTunnelGenerators = _pCommander->GetTunnelGenerators();
+	int iTunnelGeneratorSize = rTunnelGenerators.size();
+	float fUnitSignGap = static_cast<float>(m_pMiddleWoodBack->GetWidth()) / iTunnelGeneratorSize;
+	float fStartX = m_pMiddleWoodBack->GetOutputArea().left;
+	for (int i = 0; i < iTunnelGeneratorSize; ++i) {
+		pUnitSign = new CUI_UnitSign(GetGameWorld(), _pCommander, rTunnelGenerators[i]->GetUnitType(),
+			D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), /*WINCY - 89.f*/ 230.f * 0.7f * 0.5f + 1 - 20, 0.f));
+		m_vecUnitSigns.emplace_back(pUnitSign);
+	}
+
+	m_pCommander = _pCommander;
 }

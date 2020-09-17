@@ -35,9 +35,13 @@ void CAI_ComState_Running_Gathering::OnLoaded(void)
 
 int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
 {
-	auto& vecMyWindmills = m_rOwner.GetMyWindmills();
+	m_rOwner.UpdateAnim(_fDeltaTime);
 
-	if (vecMyWindmills.empty()) return 1;
+	auto& vecMyWindmills = m_rOwner.GetMyWindmills();
+	if (vecMyWindmills.empty()) {
+		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+		return 1;
+	}
 
 	D3DXVECTOR3 vGoalPos;
 	for (auto& pMyWindmill : vecMyWindmills) {
@@ -83,7 +87,7 @@ int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
 		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_WavingFlag(m_rGameWorld, m_rOwner));
 	}
 
-	return m_rOwner.UpdateAnim(_fDeltaTime);
+	return 0;
 }
 
 void CAI_ComState_Running_Gathering::LateUpdate(void)

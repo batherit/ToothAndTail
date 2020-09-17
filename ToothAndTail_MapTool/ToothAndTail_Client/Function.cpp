@@ -146,6 +146,12 @@ float GetNumberMinBetweenMax(float _fMin, float _fMax) {
 	return _fMin * (1.f - fT) + _fMax * fT;
 }
 
+void ToggleBoolean(bool & _bValue)
+{
+	if (_bValue) _bValue = false;
+	else _bValue = true;
+}
+
 
 
 // °¡ÁßÄ¡

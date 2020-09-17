@@ -228,6 +228,7 @@
     <ClInclude Include="CTunnel.h" />
     <ClInclude Include="CTunnelGenerator.h" />
     <ClInclude Include="CTurbine.h" />
+    <ClInclude Include="CUI_FadeInOut.h" />
     <ClInclude Include="CUI_FloatingText.h" />
     <ClInclude Include="CUI_Image.h" />
     <ClInclude Include="CUI_InGameUI.h" />
@@ -332,6 +333,7 @@
     <ClCompile Include="CTunnel.cpp" />
     <ClCompile Include="CTunnelGenerator.cpp" />
     <ClCompile Include="CTurbine.cpp" />
+    <ClCompile Include="CUI_FadeInOut.cpp" />
     <ClCompile Include="CUI_FloatingText.cpp" />
     <ClCompile Include="CUI_Image.cpp" />
     <ClCompile Include="CUI_InGameUI.cpp" />

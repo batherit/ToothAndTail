@@ -21,6 +21,9 @@ public:
 	virtual void Release(void) override;
 	virtual void Render(CCamera* _pCamera) override;
 
+public:
+	void ChangeCommander(CCommander* _pCommander);
+
 private:
 	CCommander* m_pCommander = nullptr;	// 어떤 기수의 상태를 나타낼 것인가?
 

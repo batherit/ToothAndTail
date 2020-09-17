@@ -3,6 +3,7 @@
 
 template<typename T> class CUI_Button;
 class CUI_Image;
+class CUI_FadeInOut;
 
 class CTitleScene :
 	public CScene
@@ -43,5 +44,7 @@ private:
 	CUI_Image* m_pExitButtonOff = nullptr;
 	CUI_Image* m_pExitButtonImage = nullptr;
 	CUI_Button<CTitleScene>* m_pExitButton = nullptr;
+
+	CUI_FadeInOut* m_pFadeInOutUI = nullptr;
 };
 

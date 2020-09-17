@@ -153,9 +153,9 @@ void CWindmill::Ready(void)
 int CWindmill::Update(float _fDeltaTime)
 {
 	if (GetState() == WINDMILL::STATE_DESTROYED) return 0;
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_G)) {
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_G)) {
 		InvalidateObj();
-	}
+	}*/
 
 	GetUIUnitHP()->Update(_fDeltaTime);
 	if (m_pWindmillBase) m_pWindmillBase->Update(_fDeltaTime);

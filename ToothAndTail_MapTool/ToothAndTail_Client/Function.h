@@ -20,6 +20,7 @@ bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollide
 float GetRandomFloat(void);
 int GetNumberMinBetweenMax(int _iMin, int _iMax);
 float GetNumberMinBetweenMax(float _fMin, float _fMax);
+void ToggleBoolean(bool& _bValue);
 
 // °¡ÁßÄ¡
 float GetWeightByDegree(float _fDegree);

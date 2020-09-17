@@ -6,6 +6,7 @@
 #include "CGameWorld.h"
 #include "CSceneMgr.h"
 #include "CPlayScene.h"
+#include "CUI_FadeInOut.h"
 
 CTitleScene::CTitleScene(CGameWorld & _rGameWorld)
 	:
@@ -34,6 +35,8 @@ CTitleScene::CTitleScene(CGameWorld & _rGameWorld)
 	m_pExitButton->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_HOVERED, &CTitleScene::HoveredOnExitButton, nullptr);
 	m_pExitButton->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_UNHOVERED, &CTitleScene::UnhoveredOnExitButton, nullptr);
 	CSoundMgr::GetInstance()->PlayBGM(L"Title.wav");
+
+	m_pFadeInOutUI = new CUI_FadeInOut(_rGameWorld);
 }
 
 CTitleScene::~CTitleScene()
@@ -49,7 +52,10 @@ int CTitleScene::Update(float _fDeltaTime)
 {
 	m_pStartButton->Update(_fDeltaTime);
 	m_pExitButton->Update(_fDeltaTime);
-
+	if (1 == m_pFadeInOutUI->Update(_fDeltaTime)) {
+		CSoundMgr::GetInstance()->StopSound(CSoundMgr::BGM);
+		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld));
+	}
 	return 0;
 }
 
@@ -78,6 +84,8 @@ void CTitleScene::Render(CCamera * _pCamera)
 	vTextPos = m_pExitButton->GetXY();
 	vTextPos += D3DXVECTOR3(-115.f, -40.f, 0.f);
 	CGraphicDevice::GetInstance()->RenderText(L"게임 종료", vTextPos, 0.9f);
+
+	m_pFadeInOutUI->Render(nullptr);
 }
 
 void CTitleScene::Release(void)
@@ -91,6 +99,7 @@ void CTitleScene::Release(void)
 	SafelyDeleteObj(m_pExitButtonOff);
 	SafelyDeleteObj(m_pExitButtonImage);
 	SafelyDeleteObj(m_pExitButton);
+	SafelyDeleteObj(m_pFadeInOutUI);
 }
 
 LRESULT CTitleScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -116,8 +125,10 @@ void CTitleScene::UnhoveredOnStartButton(void *)
 void CTitleScene::ClickStartButton(void *)
 {
 	// TODO : 플레이 씬으로 넘어간다.
-	CSoundMgr::GetInstance()->StopSound(CSoundMgr::BGM);
-	m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld));
+	//CSoundMgr::GetInstance()->StopSound(CSoundMgr::BGM);
+	//m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld));
+	m_pFadeInOutUI->StartFadeInOut(1.2f, false);
+	CSoundMgr::GetInstance()->PlaySound(L"Menu_Select.wav", CSoundMgr::UI);
 }
 
 void CTitleScene::HoveredOnExitButton(void *)

@@ -12,7 +12,9 @@
 #include "CTile.h"
 #include "CDeco.h"
 #include "CUI_InGameUI.h"
+#include "CUI_FadeInOut.h"
 #include "CObserver.h"
+
 
 
 CPlayScene::CPlayScene(CGameWorld & _rGameWorld)
@@ -92,10 +94,17 @@ void CPlayScene::ResetScene(void)
 	m_pCommander[3]->SetXY(pNewPos);
 	m_rGameWorld.GetListObjs().emplace_back(pWindmill);
 	
+	// 페이드인/아웃 효과
+	m_pFadeInOutUI = new CUI_FadeInOut(m_rGameWorld);
+	m_pFadeInOutUI->StartFadeInOut(1.2f, true);
 }
 
 int CPlayScene::Update(float _fDeltaTime)
 {
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_TAB)) {
+		ToggleBoolean(m_bIsTilesRenderring);
+	}
+
 	if (m_bIsObserverMode) {
 		m_pObserver->Update(_fDeltaTime);
 	}
@@ -106,6 +115,8 @@ int CPlayScene::Update(float _fDeltaTime)
 	for (auto& pObj : m_rGameWorld.GetListObjs()) {
 		pObj->Update(_fDeltaTime);
 	}
+
+	m_pFadeInOutUI->Update(_fDeltaTime);
 	return 0;
 }
 
@@ -118,6 +129,7 @@ void CPlayScene::LateUpdate(void)
 		m_rGameWorld.GetMapLoader()->PushObjectInMap(pComDepObj);
 	}
 	
+	m_rGameWorld.GetMapLoader()->PushObjectInMap(m_pObserver);
 
 	for (auto& pObj : m_rGameWorld.GetListObjs()) {
 		pObj->LateUpdate();
@@ -137,6 +149,7 @@ void CPlayScene::Release(void)
 	SafelyDeleteObj(m_pObserver);
 	SafelyDeleteObjs(m_rGameWorld.GetListObjs());
 	SafelyDeleteObj(m_pInGameUI);
+	SafelyDeleteObj(m_pFadeInOutUI);
 	m_rGameWorld.SetPlayer(nullptr);
 	m_rGameWorld.SetMainCamera(nullptr);
 }
@@ -144,7 +157,7 @@ void CPlayScene::Release(void)
 void CPlayScene::Render(CCamera * _pCamera)
 {
 	m_rGameWorld.GetMapLoader()->RenderMap(_pCamera);
-	m_rGameWorld.GetMapLoader()->RenderTile(_pCamera);
+	if(m_bIsTilesRenderring) m_rGameWorld.GetMapLoader()->RenderTile(_pCamera);
 
 	auto& rRenderList = m_rGameWorld.GetRenderList();
 	rRenderList.clear();
@@ -160,6 +173,7 @@ void CPlayScene::Render(CCamera * _pCamera)
 	});
 
 	m_pInGameUI->Render(_pCamera);
+	m_pFadeInOutUI->Render(nullptr);
 }
 
 LRESULT CPlayScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -172,18 +186,22 @@ LRESULT CPlayScene::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 		case VK_NUMPAD0:
 			m_bIsObserverMode = false;
 			m_rGameWorld.SetMainCamera(m_pCommander[0]->GetPrivateCamera());
+			m_pInGameUI->ChangeCommander(m_pCommander[0]);
 			break;
 		case VK_NUMPAD1:
 			m_bIsObserverMode = false;
 			m_rGameWorld.SetMainCamera(m_pCommander[1]->GetPrivateCamera());
+			m_pInGameUI->ChangeCommander(m_pCommander[1]);
 			break;
 		case VK_NUMPAD2:
 			m_bIsObserverMode = false;
 			m_rGameWorld.SetMainCamera(m_pCommander[2]->GetPrivateCamera());
+			m_pInGameUI->ChangeCommander(m_pCommander[2]);
 			break;
 		case VK_NUMPAD3:
 			m_bIsObserverMode = false;
 			m_rGameWorld.SetMainCamera(m_pCommander[3]->GetPrivateCamera());
+			m_pInGameUI->ChangeCommander(m_pCommander[3]);
 			break;
 		case VK_NUMPAD4:
 			if (!m_pObserver) break;

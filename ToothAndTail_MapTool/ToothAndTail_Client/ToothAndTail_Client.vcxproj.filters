@@ -198,6 +198,9 @@
     <Filter Include="소스 파일\1.CObj\Observer">
       <UniqueIdentifier>{1990c44f-89b1-4c17-ba87-1aba22e49bf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1.CObj\UI\FadeInOut">
+      <UniqueIdentifier>{d0b28fed-782b-4457-a6a9-9016e1902905}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h">
@@ -506,6 +509,9 @@
     <ClInclude Include="CObserver.h">
       <Filter>소스 파일\1.CObj\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_FadeInOut.h">
+      <Filter>소스 파일\1.CObj\UI\FadeInOut</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp">
@@ -783,6 +789,9 @@
     </ClCompile>
     <ClCompile Include="CObserver.cpp">
       <Filter>소스 파일\1.CObj\Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_FadeInOut.cpp">
+      <Filter>소스 파일\1.CObj\UI\FadeInOut</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

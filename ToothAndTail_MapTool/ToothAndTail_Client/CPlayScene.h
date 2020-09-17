@@ -5,7 +5,9 @@ class CSpriteObj;
 class CCommander;
 class CMapLoader;
 class CUI_InGameUI;
+class CUI_FadeInOut;
 class CObserver;
+
 class CPlayScene :
 	public CScene
 {
@@ -27,5 +29,8 @@ private:
 	CUI_InGameUI* m_pInGameUI = nullptr;
 	CObserver* m_pObserver = nullptr;
 	bool m_bIsObserverMode = false;
+	bool m_bIsTilesRenderring = true;
+
+	CUI_FadeInOut* m_pFadeInOutUI = nullptr;
 };
 

@@ -273,4 +273,7 @@ void CTAT_World::LoadResources(void)
 	
 	// 피파티클
 	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/Particle/particle.png", L"PARTICLE"))) return;
+
+	// 레이어
+	if (FAILED(CTextureMgr::GetInstance()->InsertTexture(CTextureMgr::TYPE_SINGLE, L"../Texture/UI/layer.png", L"LAYER"))) return;
 }

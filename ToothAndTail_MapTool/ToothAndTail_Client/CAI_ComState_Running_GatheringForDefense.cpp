@@ -33,6 +33,14 @@ void CAI_ComState_Running_GatheringForDefense::OnLoaded(void)
 
 int CAI_ComState_Running_GatheringForDefense::Update(float _fDeltaTime)
 {
+	m_rOwner.UpdateAnim(_fDeltaTime);
+
+	auto& vecMyWindmills = m_rOwner.GetMyWindmills();
+	if (vecMyWindmills.empty()) {
+		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+		return 1;
+	}
+
 	m_rOwner.GetCurrentCommandInfo().vTargetPos = m_rOwner.GetXY();
 
 	if ((m_fTickTime += _fDeltaTime) >= 0.8f) {
@@ -60,7 +68,7 @@ int CAI_ComState_Running_GatheringForDefense::Update(float _fDeltaTime)
 		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_WavingFlag(m_rGameWorld, m_rOwner));
 	}
 
-	return m_rOwner.UpdateAnim(_fDeltaTime);
+	return 0;
 }
 
 void CAI_ComState_Running_GatheringForDefense::LateUpdate(void)

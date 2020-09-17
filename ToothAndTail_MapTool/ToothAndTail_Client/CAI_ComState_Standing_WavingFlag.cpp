@@ -25,6 +25,14 @@ void CAI_ComState_Standing_WavingFlag::OnLoaded(void)
 
 int CAI_ComState_Standing_WavingFlag::Update(float _fDeltaTime)
 {
+	m_rOwner.UpdateAnim(_fDeltaTime);
+
+	auto& vecMyWindmills = m_rOwner.GetMyWindmills();
+	if (vecMyWindmills.empty()) {
+		m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Idle(m_rGameWorld, m_rOwner));
+		return 1;
+	}
+
 	// 주변 유닛들을 검색
 	CommandInfo tNewCommandInfo;
 	tNewCommandInfo.vTargetPos = m_rOwner.GetXY();
@@ -67,7 +75,7 @@ int CAI_ComState_Standing_WavingFlag::Update(float _fDeltaTime)
 		m_fTickTime = 0.f;
 	}
 
-	return m_rOwner.UpdateAnim(_fDeltaTime);
+	return 0;
 }
 
 void CAI_ComState_Standing_WavingFlag::LateUpdate(void)
