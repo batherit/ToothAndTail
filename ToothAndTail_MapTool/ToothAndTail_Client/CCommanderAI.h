@@ -35,6 +35,8 @@ public:
 	PATH::E_PURPOSE GetPathPurpose() { return m_ePathPurpose; }
 	bool MoveAlongPath(float _fDeltaTime);
 	CWindmill* GetTargetWindmill() const { return m_pTargetWindmill; }
+	void SetWindmillToAttack(CWindmill* _pWindmillToAttack) { m_pWindmillToAttack = _pWindmillToAttack; }
+	CWindmill* GetWindmillToAttack() const { return m_pWindmillToAttack; }
 	void SetPossibleInvade(bool _bIsPossibleInvade) { m_bIsPossibleInvade = _bIsPossibleInvade; }
 	bool IsPossibleInvade() const { return m_bIsPossibleInvade; }
 	void AdjustTunnelGeneratorIndex(void);
@@ -43,6 +45,7 @@ private:
 	bool m_bIsActivating = false;
 	bool m_bIsWavingFlag = false;
 	CWindmill* m_pTargetWindmill = nullptr;
+	CWindmill* m_pWindmillToAttack = nullptr;
 	vector<CWindmill*> m_vecExtractedWindmills;
 	CStateMgr<CCommanderAI>* m_pStateMgr = nullptr;
 	PATH::E_PURPOSE m_ePathPurpose = PATH::PURPOSE_WANDERING;

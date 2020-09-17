@@ -20,11 +20,13 @@ public:
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
 	virtual void InvalidateObj(void) override;
+	virtual void TakeDamage(float _fDamageAmount) override;
 
 public:
 	CStateMgr<CPig>* GetStateMgr(void) const { return m_pStateMgr; }
 	void StartPatrol(void);
 	int UpdatePatrol(float _fDeltaTime);
+	bool IsAttackedRecently() const { return m_bIsAttackedRecently; }
 
 private:
 	const D3DXVECTOR3 m_cvLocationsToPatrol[4] = {
@@ -36,5 +38,8 @@ private:
 	int m_iLocationIndex = 0;
 	CStateMgr<CPig>* m_pStateMgr = nullptr;
 	CFarmland* m_pFarmland = nullptr;
+
+	bool m_bIsAttackedRecently = false;
+	float m_fAttackedTickTime = 0.f;
 };
 

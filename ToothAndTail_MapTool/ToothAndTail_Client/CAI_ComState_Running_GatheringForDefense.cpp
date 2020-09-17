@@ -28,6 +28,7 @@ void CAI_ComState_Running_GatheringForDefense::OnLoaded(void)
 	tNewCommandInfo.vTargetPos = m_rOwner.GetXY();
 	m_rOwner.SetCommandInfo(tNewCommandInfo);
 	m_bIsGathering = true;
+	m_fRepeatTime = 1.f;
 	m_fTickTime = 0.f;
 }
 
@@ -43,8 +44,17 @@ int CAI_ComState_Running_GatheringForDefense::Update(float _fDeltaTime)
 
 	m_rOwner.GetCurrentCommandInfo().vTargetPos = m_rOwner.GetXY();
 
-	if ((m_fTickTime += _fDeltaTime) >= 0.8f) {
+	if ((m_fTickTime += _fDeltaTime) >= m_fRepeatTime) {
 		if (m_bIsGathering) {
+			// ±×³É ´Þ¸®±â
+			AnimInfo stAnimInfo(0, 8, 22, 10, 1.0f, 0, false);
+			m_rOwner.SetNewAnimInfo(stAnimInfo);
+			m_rOwner.SetCommandInfo(CommandInfo());
+			m_fRepeatTime = 3.f;
+			m_bIsGathering = false;
+		}
+		else {
+			// ´Þ¸®¸é¼­ ±ê¹ß Èçµô±â
 			AnimInfo stAnimInfo(0, 8, 32, 10, 1.f, 0, false);
 			m_rOwner.SetNewAnimInfo(stAnimInfo);
 
@@ -52,13 +62,9 @@ int CAI_ComState_Running_GatheringForDefense::Update(float _fDeltaTime)
 			tNewCommandInfo.eCommand = COMMANDER::COMMAND_GATHERING;
 			tNewCommandInfo.iUnitID = -1;
 			tNewCommandInfo.vTargetPos = m_rOwner.GetXY();
+			m_fRepeatTime = 1.f;
 			m_rOwner.SetCommandInfo(tNewCommandInfo);
-			m_bIsGathering = false;
-		}
-		else {
-			AnimInfo stAnimInfo(0, 8, 22, 10, 1.0f, 0, false);
-			m_rOwner.SetNewAnimInfo(stAnimInfo);
-			m_rOwner.SetCommandInfo(CommandInfo());
+			
 			m_bIsGathering = true;
 		}
 		m_fTickTime = 0.f;

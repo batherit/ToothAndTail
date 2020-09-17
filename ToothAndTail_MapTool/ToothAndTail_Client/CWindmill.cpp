@@ -281,7 +281,7 @@ void CWindmill::TakeDamage(float _fDamageAmount)
 {
 	CComDepObj::TakeDamage(_fDamageAmount);
 	m_bIsAttackedRecently = true;
-	m_fAttackedTickTime = WINDMILL_ATTACKED_KEEP_TIME;
+	m_fAttackedTickTime = ATTACKED_KEEP_TIME;
 }
 
 WINDMILL::E_STATE CWindmill::GetState() const

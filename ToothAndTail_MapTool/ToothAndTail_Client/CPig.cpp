@@ -46,6 +46,13 @@ int CPig::Update(float _fDeltaTime)
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	m_pStateMgr->Update(_fDeltaTime);
 
+	if (m_bIsAttackedRecently) {
+		if ((m_fAttackedTickTime -= _fDeltaTime) <= 0.f) {
+			m_bIsAttackedRecently = false;
+			m_fAttackedTickTime = 0.f;
+		}
+	}
+
 	return 0;
 }
 
@@ -71,7 +78,16 @@ void CPig::InvalidateObj(void)
 {
 	GetGameWorld().GetListObjs().emplace_back(new CBurst(GetGameWorld(), GetXY()));
 	m_pFarmland->ReleasePig(this);
+	m_bIsAttackedRecently = false;
+	m_fAttackedTickTime = 0.f;
 	CComDepObj::InvalidateObj();
+}
+
+void CPig::TakeDamage(float _fDamageAmount)
+{
+	CComDepObj::TakeDamage(_fDamageAmount);
+	m_bIsAttackedRecently = true;
+	m_fAttackedTickTime = ATTACKED_KEEP_TIME;
 }
 
 void CPig::StartPatrol(void)

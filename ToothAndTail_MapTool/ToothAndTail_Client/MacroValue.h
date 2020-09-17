@@ -26,9 +26,9 @@
 #define WINDMILL_COST		60
 #define WINDMILL_WIDTH		140
 #define WINDMILL_HEIGHT		140
-#define WINDMILL_MAX_HP		300.f
+#define WINDMILL_MAX_HP		500.f
 #define WINDMILL_RADIUS		42.f * BASE_SCALE
-#define WINDMILL_ATTACKED_KEEP_TIME		1.f
+#define ATTACKED_KEEP_TIME		1.f
 #define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	12
 
 // 제분소 터빈
@@ -74,13 +74,13 @@
 #define TUNNEL_MIDDLE_HEIGHT		54
 #define TUNNEL_MIDDLE_MAX_HP		100.f
 #define TUNNEL_MIDDLE_BUILD_SEC		10.f
-#define TUNNEL_MIDDLE_BUILD_COST	85
+#define TUNNEL_MIDDLE_BUILD_COST	70
 // 3) 대형
 #define TUNNEL_BIG_WIDTH			70
 #define TUNNEL_BIG_HEIGHT			70
 #define TUNNEL_BIG_MAX_HP			130.f
 #define TUNNEL_BIG_BUILD_SEC		13.f
-#define TUNNEL_BIG_BUILD_COST		100
+#define TUNNEL_BIG_BUILD_COST		80
 
 #define UNIT_RADIUS					9.f * BASE_SCALE
 // 유닛 //청솔모(SQUIRREL), 도마뱀(LIZARD), 두더지(MOLE), 스컹크(SKUNK), 오소리(BADGER), 여우(FOX)
@@ -91,7 +91,7 @@
 #define SQUIRREL_WIDTH				26
 #define SQUIRREL_HEIGHT				26
 #define SQUIRREL_MAX_HP				25.f
-#define SQUIRREL_SPEED				50.f * BASE_SCALE
+#define SQUIRREL_SPEED				60.f * BASE_SCALE
 #define SQUIRREL_DETECTION_RANGE	90.f * BASE_SCALE
 #define SQUIRREL_ATTACK_RANGE		70.f * BASE_SCALE
 #define SQUIRREL_BULLET_DAMAGE		5
@@ -103,7 +103,7 @@
 #define LIZARD_GEN_SEC			7.f
 #define LIZARD_WIDTH			32
 #define LIZARD_HEIGHT			32
-#define LIZARD_MAX_HP			40.f
+#define LIZARD_MAX_HP			35.f
 #define LIZARD_SPEED			50.f * BASE_SCALE
 #define LIZARD_DETECTION_RANGE	100.f * BASE_SCALE
 #define LIZARD_ATTACK_RANGE		80.f * BASE_SCALE
@@ -111,12 +111,12 @@
 #define LIZARD_BULLET_SPEED		250.f * BASE_SCALE
 #define LIZARD_ATTACK_DELAY		1.f	
 // 3) 두더지(MOLE, 소형)
-#define MOLE_COST				40
+#define MOLE_COST				30
 #define MOLE_SUPPLY_NUM			2
 #define MOLE_GEN_SEC			8.f
 #define MOLE_WIDTH				28
 #define MOLE_HEIGHT				28
-#define MOLE_MAX_HP				50.f
+#define MOLE_MAX_HP				45.f
 #define MOLE_DETECTION_RANGE	90.f * BASE_SCALE
 #define MOLE_ATTACK_RANGE		35.f * BASE_SCALE
 #define MOLE_SPEED				50.f * BASE_SCALE
@@ -124,7 +124,7 @@
 #define MOLE_BULLET_SPEED		300.f * BASE_SCALE
 #define MOLE_ATTACK_DELAY		0.6f	
 // 4) 스컹크(MOLE, 중형)
-#define SKUNK_COST				50
+#define SKUNK_COST				35
 #define SKUNK_SUPPLY_NUM		2
 #define SKUNK_GEN_SEC			9.f
 #define SKUNK_WIDTH				32
@@ -133,30 +133,30 @@
 #define SKUNK_SPEED				50.f * BASE_SCALE
 #define SKUNK_DETECTION_RANGE	130.f * BASE_SCALE
 #define SKUNK_ATTACK_RANGE		100.f * BASE_SCALE
-#define SKUNK_BULLET_DAMAGE		12
+#define SKUNK_BULLET_DAMAGE		15
 #define SKUNK_BULLET_SPEED		250.f * BASE_SCALE
 #define SKUNK_ATTACK_DELAY		1.f	
 // 5) 오소리(BADGER, 대형)
-#define BADGER_COST				70
+#define BADGER_COST				50
 #define BADGER_SUPPLY_NUM		2	
 #define BADGER_GEN_SEC			10.f
 #define BADGER_WIDTH			52
 #define BADGER_HEIGHT			52
 #define BADGER_MAX_HP			90.f
-#define BADGER_SPEED			50.f * BASE_SCALE
+#define BADGER_SPEED			40.f * BASE_SCALE
 #define BADGER_DETECTION_RANGE	150.f * BASE_SCALE
 #define BADGER_ATTACK_RANGE		100.f * BASE_SCALE
 #define BADGER_BULLET_DAMAGE	10
 #define BADGER_BULLET_SPEED		250.f * BASE_SCALE
 #define BADGER_ATTACK_DELAY		0.05f	
 // 6) 여우(FOX, 대형)
-#define FOX_COST				70
+#define FOX_COST				50
 #define FOX_SUPPLY_NUM			2
 #define FOX_GEN_SEC				10.f
 #define FOX_WIDTH				72
 #define FOX_HEIGHT				72
 #define FOX_MAX_HP				90.f
-#define FOX_SPEED				50.f * BASE_SCALE
+#define FOX_SPEED				40.f * BASE_SCALE
 #define FOX_DETECTION_RANGE		150.f * BASE_SCALE	
 #define FOX_ATTACK_RANGE		130.f * BASE_SCALE
 #define FOX_BULLET_DAMAGE		40
@@ -179,7 +179,7 @@
 #define AI_BUILD_MIN_COST		60	// 자본이 60이 되면 농장, 땅굴 중 하나를 설치
 // 자본이 60이상인데 자기 자신의 제분소가 없다면, 다른 제분소를 점령한다.
 // 점령할 제분소마저 없다면, 그냥 왔다갔다 한다.//
-#define AI_REATTACK_DELAY		50.f	// 50초마다 공격하러 감.
+#define AI_REATTACK_DELAY		40.f	// 50초마다 공격하러 감.
 
 // Camera
 #define PRIVATE_CAMERA_SPEED	14.f * BASE_SCALE

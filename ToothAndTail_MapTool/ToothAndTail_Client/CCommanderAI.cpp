@@ -145,8 +145,8 @@ void CCommanderAI::AdjustTunnelGeneratorIndex(void)
 
 	int iIndex = -1;
 	for (int i = 0; i < iTunnelGeneratorSize; ++i) {
-		if (m_vecTunnelGenerator[i]->GetTunnelsNum() < iTunnelsNumPerUnit) {
-			iIndex = i;
+		if (m_vecTunnelGenerator[(m_iTunnelGeneratorIndex + i) % iTunnelGeneratorSize]->GetTunnelsNum() < iTunnelsNumPerUnit) {
+			iIndex = (m_iTunnelGeneratorIndex + i) % iTunnelGeneratorSize;
 			break;
 		}
 	}

@@ -9,6 +9,7 @@
 #include "CStateMgr.h"
 #include "CWindmill.h"
 #include "CFarmland.h"
+#include "CPig.h"
 
 CAI_ComState_Idle::CAI_ComState_Idle(CGameWorld & _rGameWorld, CCommanderAI & _rOwner)
 	:
@@ -43,13 +44,31 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 			vGoalPos = pMyWindmill->GetXY();
 			vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
 			if (m_rOwner.GeneratePathToGoal(vGoalPos, pMyWindmill)) {
-				// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
+				// 제분소를 공격하러 가는 것이 아니므로 nullptr로 설정.
+				m_rOwner.SetWindmillToAttack(nullptr);
 				m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
 			}
 			else {
 				m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_WavingFlag(m_rGameWorld, m_rOwner));
 			}
 			return 0;
+		}
+		else {
+			CPig* pPig = nullptr;
+			for (auto& pFarmland : pMyWindmill->GetFarmlands()) {
+				pPig = pFarmland->GetPig();
+				if (pPig && pPig->IsAttackedRecently()) {
+					if (m_rOwner.GeneratePathToGoal(pFarmland->GetXY(), pMyWindmill)) {
+						// 제분소를 공격하러 가는 것이 아니므로 nullptr로 설정.
+						m_rOwner.SetWindmillToAttack(nullptr);
+						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
+					}
+					else {
+						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Standing_WavingFlag(m_rGameWorld, m_rOwner));
+					}
+					return 0;
+				}
+			}
 		}
 	}
 
@@ -64,7 +83,9 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 				vGoalPos = vecWindmills[iIndex]->GetXY();
 				vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
 				if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
-					// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
+					// 공격 타겟이 되는 제분소를 저장해둔다.
+					m_rOwner.SetWindmillToAttack(vecWindmills[iIndex]);
+					// 달리면서 병력 모으는 상태로 설정한다.
 					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_Gathering(m_rGameWorld, m_rOwner));
 				}
 			}

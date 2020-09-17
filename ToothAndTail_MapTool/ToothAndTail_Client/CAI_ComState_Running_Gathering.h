@@ -17,5 +17,6 @@ public:
 private:
 	bool m_bIsGathering = true;
 	float m_fTickTime = 0.f;
+	float m_fRepeatTime = 0.f;
 };
 

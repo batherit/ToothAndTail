@@ -38,6 +38,7 @@ public:
 		// 점령되지 않은 상태이거나, 점령된 상태더라도 돼지도 없고, 돼지 생성 도중이 아니라면,
 		return m_eState == STATE_UNOCCUPIED || (m_eState == STATE_OCCUPIED && !m_pPig && !m_bIsPigGenerating);
 	}
+	CPig* GetPig() const { return m_pPig; }
 
 private:
 	CFarmland::E_STATE m_eState = STATE_UNOCCUPIED;
