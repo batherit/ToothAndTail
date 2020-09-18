@@ -50,15 +50,15 @@
 // 돼지
 #define PIG_WIDTH			32
 #define PIG_HEIGHT			32
-#define PIG_MAX_HP			200.f
+#define PIG_MAX_HP			150.f
 #define PIG_SPEED			3.f * BASE_SCALE
 #define PIG_GEN_SEC			5.f
-#define PIG_CROP_TIME		0.6f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
+#define PIG_CROP_TIME		0.8f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
 #define PIG_CROP_AMOUNT		1	
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
 #define PIG_DETECTION_RANGE	120.f * BASE_SCALE	// 돼지는 감지범위가 곧 공격범위다.
-#define PIG_BULLET_DAMAGE	15 //5
+#define PIG_BULLET_DAMAGE	10 //5
 #define PIG_BULLET_SPEED	250.f * BASE_SCALE
 #define PIG_ATTACK_DELAY	1.f		
 
@@ -74,13 +74,13 @@
 #define TUNNEL_MIDDLE_HEIGHT		54
 #define TUNNEL_MIDDLE_MAX_HP		100.f
 #define TUNNEL_MIDDLE_BUILD_SEC		10.f
-#define TUNNEL_MIDDLE_BUILD_COST	70
+#define TUNNEL_MIDDLE_BUILD_COST	80
 // 3) 대형
 #define TUNNEL_BIG_WIDTH			70
 #define TUNNEL_BIG_HEIGHT			70
 #define TUNNEL_BIG_MAX_HP			130.f
 #define TUNNEL_BIG_BUILD_SEC		13.f
-#define TUNNEL_BIG_BUILD_COST		80
+#define TUNNEL_BIG_BUILD_COST		100
 
 #define UNIT_RADIUS					9.f * BASE_SCALE
 // 유닛 //청솔모(SQUIRREL), 도마뱀(LIZARD), 두더지(MOLE), 스컹크(SKUNK), 오소리(BADGER), 여우(FOX)
@@ -98,7 +98,7 @@
 #define SQUIRREL_BULLET_SPEED		250.f * BASE_SCALE
 #define SQUIRREL_ATTACK_DELAY		1.f	
 // 2) 도마뱀(LIZARD, 소형)
-#define LIZARD_COST				25
+#define LIZARD_COST				30
 #define LIZARD_SUPPLY_NUM		3
 #define LIZARD_GEN_SEC			9.f
 #define LIZARD_WIDTH			32
@@ -111,7 +111,7 @@
 #define LIZARD_BULLET_SPEED		250.f * BASE_SCALE
 #define LIZARD_ATTACK_DELAY		1.f	
 // 3) 두더지(MOLE, 소형)
-#define MOLE_COST				30
+#define MOLE_COST				50
 #define MOLE_SUPPLY_NUM			2
 #define MOLE_GEN_SEC			10.f
 #define MOLE_WIDTH				28
@@ -124,7 +124,7 @@
 #define MOLE_BULLET_SPEED		300.f * BASE_SCALE
 #define MOLE_ATTACK_DELAY		0.6f	
 // 4) 스컹크(MOLE, 중형)
-#define SKUNK_COST				35
+#define SKUNK_COST				75
 #define SKUNK_SUPPLY_NUM		2
 #define SKUNK_GEN_SEC			11.f
 #define SKUNK_WIDTH				32
@@ -137,7 +137,7 @@
 #define SKUNK_BULLET_SPEED		250.f * BASE_SCALE
 #define SKUNK_ATTACK_DELAY		1.f	
 // 5) 오소리(BADGER, 대형)
-#define BADGER_COST				50
+#define BADGER_COST				100
 #define BADGER_SUPPLY_NUM		2	
 #define BADGER_GEN_SEC			13.f
 #define BADGER_WIDTH			52
@@ -150,7 +150,7 @@
 #define BADGER_BULLET_SPEED		250.f * BASE_SCALE
 #define BADGER_ATTACK_DELAY		0.05f	
 // 6) 여우(FOX, 대형)
-#define FOX_COST				50
+#define FOX_COST				100
 #define FOX_SUPPLY_NUM			2
 #define FOX_GEN_SEC				13.f
 #define FOX_WIDTH				72
