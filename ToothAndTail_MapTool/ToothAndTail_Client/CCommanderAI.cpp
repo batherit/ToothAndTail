@@ -144,9 +144,11 @@ void CCommanderAI::AdjustTunnelGeneratorIndex(void)
 	int iTunnelsNumPerUnit = (vecMyWindmills.size() * ALLOWABLE_TUNNEL_NUM_PER_WINDMILL) / iTunnelGeneratorSize;
 
 	int iIndex = -1;
+	int iCurIndex = -1;
 	for (int i = 0; i < iTunnelGeneratorSize; ++i) {
-		if (m_vecTunnelGenerator[(m_iTunnelGeneratorIndex + i) % iTunnelGeneratorSize]->GetTunnelsNum() < iTunnelsNumPerUnit) {
-			iIndex = (m_iTunnelGeneratorIndex + i) % iTunnelGeneratorSize;
+		iCurIndex = (m_iTunnelGeneratorIndex + 1 + i) % iTunnelGeneratorSize;
+		if (m_vecTunnelGenerator[iCurIndex]->GetTunnelsNum() < iTunnelsNumPerUnit) {
+			iIndex = iCurIndex;
 			break;
 		}
 	}

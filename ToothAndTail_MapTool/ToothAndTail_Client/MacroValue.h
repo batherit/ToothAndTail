@@ -26,7 +26,7 @@
 #define WINDMILL_COST		60
 #define WINDMILL_WIDTH		140
 #define WINDMILL_HEIGHT		140
-#define WINDMILL_MAX_HP		500.f
+#define WINDMILL_MAX_HP		700.f
 #define WINDMILL_RADIUS		42.f * BASE_SCALE
 #define ATTACKED_KEEP_TIME		1.f
 #define ALLOWABLE_TUNNEL_NUM_PER_WINDMILL	12
@@ -41,7 +41,7 @@
 #define FARMLAND_COST			60
 #define FARMLAND_WIDTH			80
 #define FARMLAND_HEIGHT			54
-#define FARMLAND_FERTILITY		540	// 활성화된 농장의 초기 토지력(CROP 하나당 40.f의 지력이라 표현.)
+#define FARMLAND_FERTILITY		630	// 활성화된 농장의 초기 토지력(CROP 하나당 40.f의 지력이라 표현.)
 #define FARMLAND_BUILD_SEC		5.f	// 농장을 활성화하는데 걸리는 시간초
 // 작물
 #define CROP_WIDTH		24
@@ -50,15 +50,15 @@
 // 돼지
 #define PIG_WIDTH			32
 #define PIG_HEIGHT			32
-#define PIG_MAX_HP			50.f
+#define PIG_MAX_HP			200.f
 #define PIG_SPEED			3.f * BASE_SCALE
 #define PIG_GEN_SEC			5.f
-#define PIG_CROP_TIME		0.7f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
+#define PIG_CROP_TIME		0.6f		// PIG_CROP_TIME마다 PIG_CROP_AMOUNT만큼 수확
 #define PIG_CROP_AMOUNT		1	
 #define PIG_COST			60
 #define PIG_SUPPLY_NUM		1
 #define PIG_DETECTION_RANGE	120.f * BASE_SCALE	// 돼지는 감지범위가 곧 공격범위다.
-#define PIG_BULLET_DAMAGE	5 //5
+#define PIG_BULLET_DAMAGE	15 //5
 #define PIG_BULLET_SPEED	250.f * BASE_SCALE
 #define PIG_ATTACK_DELAY	1.f		
 
@@ -87,12 +87,12 @@
 // 1) 청솔모(SQUIRREL, 소형)
 #define SQUIRREL_COST				20
 #define SQUIRREL_SUPPLY_NUM			3
-#define SQUIRREL_GEN_SEC			5.f
+#define SQUIRREL_GEN_SEC			7.f
 #define SQUIRREL_WIDTH				26
 #define SQUIRREL_HEIGHT				26
 #define SQUIRREL_MAX_HP				25.f
 #define SQUIRREL_SPEED				60.f * BASE_SCALE
-#define SQUIRREL_DETECTION_RANGE	90.f * BASE_SCALE
+#define SQUIRREL_DETECTION_RANGE	120.f * BASE_SCALE
 #define SQUIRREL_ATTACK_RANGE		70.f * BASE_SCALE
 #define SQUIRREL_BULLET_DAMAGE		5
 #define SQUIRREL_BULLET_SPEED		250.f * BASE_SCALE
@@ -100,12 +100,12 @@
 // 2) 도마뱀(LIZARD, 소형)
 #define LIZARD_COST				25
 #define LIZARD_SUPPLY_NUM		3
-#define LIZARD_GEN_SEC			7.f
+#define LIZARD_GEN_SEC			9.f
 #define LIZARD_WIDTH			32
 #define LIZARD_HEIGHT			32
 #define LIZARD_MAX_HP			35.f
-#define LIZARD_SPEED			50.f * BASE_SCALE
-#define LIZARD_DETECTION_RANGE	100.f * BASE_SCALE
+#define LIZARD_SPEED			60.f * BASE_SCALE
+#define LIZARD_DETECTION_RANGE	120.f * BASE_SCALE
 #define LIZARD_ATTACK_RANGE		80.f * BASE_SCALE
 #define LIZARD_BULLET_DAMAGE	7
 #define LIZARD_BULLET_SPEED		250.f * BASE_SCALE
@@ -113,53 +113,53 @@
 // 3) 두더지(MOLE, 소형)
 #define MOLE_COST				30
 #define MOLE_SUPPLY_NUM			2
-#define MOLE_GEN_SEC			8.f
+#define MOLE_GEN_SEC			10.f
 #define MOLE_WIDTH				28
 #define MOLE_HEIGHT				28
 #define MOLE_MAX_HP				45.f
-#define MOLE_DETECTION_RANGE	90.f * BASE_SCALE
+#define MOLE_DETECTION_RANGE	140.f * BASE_SCALE
 #define MOLE_ATTACK_RANGE		35.f * BASE_SCALE
-#define MOLE_SPEED				50.f * BASE_SCALE
-#define MOLE_BULLET_DAMAGE		15//8
+#define MOLE_SPEED				55.f * BASE_SCALE
+#define MOLE_BULLET_DAMAGE		14//8
 #define MOLE_BULLET_SPEED		300.f * BASE_SCALE
 #define MOLE_ATTACK_DELAY		0.6f	
 // 4) 스컹크(MOLE, 중형)
 #define SKUNK_COST				35
 #define SKUNK_SUPPLY_NUM		2
-#define SKUNK_GEN_SEC			9.f
+#define SKUNK_GEN_SEC			11.f
 #define SKUNK_WIDTH				32
 #define SKUNK_HEIGHT			32
 #define SKUNK_MAX_HP			60.f
-#define SKUNK_SPEED				50.f * BASE_SCALE
-#define SKUNK_DETECTION_RANGE	130.f * BASE_SCALE
+#define SKUNK_SPEED				45.f * BASE_SCALE
+#define SKUNK_DETECTION_RANGE	140.f * BASE_SCALE
 #define SKUNK_ATTACK_RANGE		100.f * BASE_SCALE
-#define SKUNK_BULLET_DAMAGE		15
+#define SKUNK_BULLET_DAMAGE		12
 #define SKUNK_BULLET_SPEED		250.f * BASE_SCALE
 #define SKUNK_ATTACK_DELAY		1.f	
 // 5) 오소리(BADGER, 대형)
 #define BADGER_COST				50
 #define BADGER_SUPPLY_NUM		2	
-#define BADGER_GEN_SEC			10.f
+#define BADGER_GEN_SEC			13.f
 #define BADGER_WIDTH			52
 #define BADGER_HEIGHT			52
-#define BADGER_MAX_HP			90.f
+#define BADGER_MAX_HP			75.f
 #define BADGER_SPEED			40.f * BASE_SCALE
-#define BADGER_DETECTION_RANGE	150.f * BASE_SCALE
+#define BADGER_DETECTION_RANGE	160.f * BASE_SCALE
 #define BADGER_ATTACK_RANGE		100.f * BASE_SCALE
-#define BADGER_BULLET_DAMAGE	10
+#define BADGER_BULLET_DAMAGE	8
 #define BADGER_BULLET_SPEED		250.f * BASE_SCALE
 #define BADGER_ATTACK_DELAY		0.05f	
 // 6) 여우(FOX, 대형)
 #define FOX_COST				50
 #define FOX_SUPPLY_NUM			2
-#define FOX_GEN_SEC				10.f
+#define FOX_GEN_SEC				13.f
 #define FOX_WIDTH				72
 #define FOX_HEIGHT				72
-#define FOX_MAX_HP				90.f
+#define FOX_MAX_HP				75.f
 #define FOX_SPEED				40.f * BASE_SCALE
-#define FOX_DETECTION_RANGE		150.f * BASE_SCALE	
+#define FOX_DETECTION_RANGE		160.f * BASE_SCALE	
 #define FOX_ATTACK_RANGE		130.f * BASE_SCALE
-#define FOX_BULLET_DAMAGE		40
+#define FOX_BULLET_DAMAGE		25
 #define FOX_BULLET_SPEED		450.f * BASE_SCALE
 #define FOX_ATTACK_DELAY		1.f	
 

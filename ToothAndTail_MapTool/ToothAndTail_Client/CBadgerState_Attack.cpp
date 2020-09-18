@@ -23,7 +23,7 @@ void CBadgerState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 14, 1, 0.f, 0, false));
 	m_rOwner.SetSpeed(0.f);
-	m_fAttackDelayOffset = GetNumberMinBetweenMax(0.f, 0.2f);
+	m_fAttackDelayOffset = GetNumberMinBetweenMax(0.f, 0.15f);
 }
 
 int CBadgerState_Attack::Update(float _fDeltaTime)
@@ -87,11 +87,11 @@ int CBadgerState_Attack::Update(float _fDeltaTime)
 
 		if (!m_bIsShooting) {
 			// 1.0초 대기후 탄환을 발사한다.
-			if ((m_fElapsedTime += _fDeltaTime) >= BADGER_ATTACK_DELAY) {
+			if ((m_fElapsedTime += _fDeltaTime) >= BADGER_ATTACK_DELAY + m_fAttackDelayOffset) {
 				// 총알 생성
 				m_rGameWorld.GetListObjs().emplace_back(new CBullet(m_rGameWorld, pTargetEnemy, UNIT::TYPE_BADGER, m_rOwner.GetXY()));
 				// 발사 애니메이션을 진행한다.
-				m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 15, 3, 0.2f, 1, false));
+				m_rOwner.SetNewAnimInfo(AnimInfo(0, 8, 15, 3, BADGER_ATTACK_DELAY + m_fAttackDelayOffset, 1, false));
 				m_bIsShooting = true;
 			}
 		}
