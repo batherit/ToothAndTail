@@ -24,9 +24,8 @@ public:
 	virtual void Release(void);
 	virtual void InvalidateObj() override;
 	void Occupied(CCommander* _pCommander);
-	virtual void TakeDamage(float _fDamageAmount) override;
-	//virtual void CollectGarbageObjs();
-	//vector<CFarmland*>& GetFarmlands() { return m_vecFarmlands; }
+	virtual void TakeDamage(float _fDamageAmount, CObj* _pAttacker) override;
+	D3DXVECTOR3 GetAttackerPos() const { return m_vAttackerPos; }
 
 public:
 	//void SetWindmillState(CWindmill::E_STATE _eState) { m_eState = _eState; }
@@ -46,5 +45,6 @@ private:
 
 	bool m_bIsAttackedRecently = false;
 	float m_fAttackedTickTime = 0.f;
+	D3DXVECTOR3 m_vAttackerPos;
 };
 

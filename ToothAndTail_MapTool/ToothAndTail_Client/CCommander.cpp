@@ -25,6 +25,7 @@ CCommander::CCommander(CGameWorld & _rGameWorld, float _fX, float _fY, CCommande
 	m_vecMyWindmills.reserve(10);
 	m_vecWindmills.reserve(10);
 
+	//SetRotationDegree(90.f);
 	SetDetectionRange(COMMANDER_DETECTION_RANGE);
 	SetPrivateCamera(new CCamera(_rGameWorld, this));
 	GetPrivateCamera()->SetY(-15.f);

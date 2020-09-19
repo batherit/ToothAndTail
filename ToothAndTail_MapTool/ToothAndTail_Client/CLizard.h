@@ -22,7 +22,7 @@ public:
 		m_pTunnel = nullptr;
 	}
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
-	virtual void TakeDamage(float _fDamageAmount) override;
+	virtual void TakeDamage(float _fDamageAmount, CObj* _pAttacker) override;
 public:
 	CStateMgr<CLizard>* GetStateMgr(void) const { return m_pStateMgr; }
 

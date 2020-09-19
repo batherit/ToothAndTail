@@ -41,9 +41,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 	for (auto& pMyWindmill : vecMyWindmills) {
 		if (pMyWindmill->IsAttackedRecently()) {
 			// 플레이어 제분소로 병력을 이동시킨다.
-			vGoalPos = pMyWindmill->GetXY();
-			vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
-			if (m_rOwner.GeneratePathToGoal(vGoalPos, pMyWindmill)) {
+			if (m_rOwner.GeneratePathToGoal(pMyWindmill->GetAttackerPos(), pMyWindmill)) {
 				// 제분소를 공격하러 가는 것이 아니므로 nullptr로 설정.
 				m_rOwner.SetWindmillToAttack(nullptr);
 				m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
@@ -58,7 +56,7 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 			for (auto& pFarmland : pMyWindmill->GetFarmlands()) {
 				pPig = pFarmland->GetPig();
 				if (pPig && pPig->IsAttackedRecently()) {
-					if (m_rOwner.GeneratePathToGoal(pFarmland->GetXY(), pMyWindmill)) {
+					if (m_rOwner.GeneratePathToGoal(pPig->GetAttackerPos(), pMyWindmill)) {
 						// 제분소를 공격하러 가는 것이 아니므로 nullptr로 설정.
 						m_rOwner.SetWindmillToAttack(nullptr);
 						m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));

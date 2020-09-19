@@ -140,7 +140,6 @@ void CTitleScene::HoveredOnExitButton(void *)
 		CSoundMgr::GetInstance()->PlaySound(TEXT("Menu_OnMouse.wav"), CSoundMgr::UI);
 		m_bIsOnExitButtonHovered = true;
 	}
-	
 }
 
 void CTitleScene::UnhoveredOnExitButton(void *)

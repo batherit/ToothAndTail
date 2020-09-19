@@ -7,6 +7,7 @@
 #include "CGameWorld.h"
 #include "CBurst.h"
 #include "CUI_UnitHP.h"
+#include "CBullet.h"
 
 
 
@@ -83,9 +84,10 @@ void CPig::InvalidateObj(void)
 	CComDepObj::InvalidateObj();
 }
 
-void CPig::TakeDamage(float _fDamageAmount)
+void CPig::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	CComDepObj::TakeDamage(_fDamageAmount);
+	m_vAttackerPos = dynamic_cast<CBullet*>(_pAttacker)->GetStartPos();
 	m_bIsAttackedRecently = true;
 	m_fAttackedTickTime = ATTACKED_KEEP_TIME;
 }

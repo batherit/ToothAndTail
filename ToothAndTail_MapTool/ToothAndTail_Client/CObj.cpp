@@ -93,15 +93,17 @@ D3DXMATRIX CObj::GetParentMatrix(CObj::E_COORD_TYPE _eCoordType) const
 
 D3DXMATRIX CObj::GetObjectMatrix(CObj::E_COORD_TYPE _eCoordType) const
 {
-	D3DXMATRIX matObj, matScale, matTrans;
+	D3DXMATRIX matObj, matScale, matRot, matTrans;	// 크자이 공은 제외
 	D3DXMatrixIdentity(&matObj);
 	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, 0.f);	//Local
+	D3DXMatrixRotationZ(&matRot, m_fRotationRadian);
 	D3DXMatrixTranslation(&matTrans, m_vPos.x, m_vPos.y, 0.f);	//Local
-	matObj = matScale * matTrans;
+	matObj = matScale * matRot * matTrans;
 
 	switch (_eCoordType)
 	{
 	case CObj::COORD_TYPE_WORLD: 
+		// 부
 		matObj *= GetParentMatrix(_eCoordType);
 		break;
 	}

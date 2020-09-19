@@ -53,9 +53,9 @@ int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
 		for (auto& pMyWindmill : vecMyWindmills) {
 			if (pMyWindmill->IsAttackedRecently()) {
 				// 플레이어 제분소로 병력을 이동시킨다.
-				vGoalPos = pMyWindmill->GetXY();
-				vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
-				if (m_rOwner.GeneratePathToGoal(vGoalPos, pMyWindmill)) {
+				//vGoalPos = pMyWindmill->GetXY();
+				//vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
+				if (m_rOwner.GeneratePathToGoal(pMyWindmill->GetAttackerPos(), pMyWindmill)) {
 					// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
 					m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
 				}
@@ -69,7 +69,7 @@ int CAI_ComState_Running_Gathering::Update(float _fDeltaTime)
 				for (auto& pFarmland : pMyWindmill->GetFarmlands()) {
 					pPig = pFarmland->GetPig();
 					if (pPig && pPig->IsAttackedRecently()) {
-						if (m_rOwner.GeneratePathToGoal(pFarmland->GetXY(), pMyWindmill)) {
+						if (m_rOwner.GeneratePathToGoal(pPig->GetAttackerPos(), pMyWindmill)) {
 							// TODO : CAI_ComState_Running_WaveFlag를 세팅하면 될 것 같다. 지금은 Run으로 세팅
 							m_rOwner.GetStateMgr()->SetNextState(new CAI_ComState_Running_GatheringForDefense(m_rGameWorld, m_rOwner));
 						}

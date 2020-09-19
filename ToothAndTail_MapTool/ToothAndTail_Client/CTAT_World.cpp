@@ -21,23 +21,6 @@ CTAT_World::~CTAT_World()
 
 LRESULT CTAT_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	// ÁÜ °íÁ¤
-	/*switch (nMessageID)
-	{
-	case WM_MOUSEWHEEL:
-	{
-		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
-
-		if (zDelta > 0) {
-			if(GetMainCamera()) GetMainCamera()->ZoomIn(0.05f);
-		}
-		else {
-			if (GetMainCamera()) GetMainCamera()->ZoomOut(0.05f);
-		}
-		break;
-	}
-	}*/
-
 	GetSceneManager()->OnProcessingWindowMessage(hWnd, nMessageID, wParam, lParam);
 
 	return 0;
@@ -47,7 +30,6 @@ void CTAT_World::Ready(void)
 {
 	LoadResources();
 		
-	//GetSceneManager()->SetNextScene(new CTestScene(*this));		// ÃÊ±â¾À ¼¼ÆÃ
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	GetSceneManager()->RequestSceneInit();
 }
@@ -85,10 +67,10 @@ void CTAT_World::Render(void)
 		GetSceneManager()->Render(GetMainCamera());
 
 	if (m_eGameResult == CTAT_World::RESULT_WIN) {
-		CGraphicDevice::GetInstance()->RenderText(L"Victory!", D3DXVECTOR3((WINCX >> 2) + 50.f , (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 0, 0, 200));
+		CGraphicDevice::GetInstance()->RenderText(L"Victory!", D3DXVECTOR3(50.f , (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 0, 0, 200));
 	}
 	else if(m_eGameResult == CTAT_World::RESULT_LOSE) {
-		CGraphicDevice::GetInstance()->RenderText(L"Defeat..", D3DXVECTOR3((WINCX >> 2) + 50.f, (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 200, 0, 0));
+		CGraphicDevice::GetInstance()->RenderText(L"Defeat..", D3DXVECTOR3(50.f, (WINCY >> 1) + 120.f, 0.f), 5.f, D3DCOLOR_ARGB(220, 200, 0, 0));
 	}
 
 	EndRender();

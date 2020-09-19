@@ -74,7 +74,7 @@ void CFox::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }
 
-void CFox::TakeDamage(float _fDamageAmount)
+void CFox::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	D3DXVECTOR3 vPos = GetXY();
 	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 100.f, _fDamageAmount));

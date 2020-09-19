@@ -12,6 +12,7 @@
 #include "CUI_UnitHP.h"
 #include "CCamera.h"
 #include "CTAT_World.h"
+#include "CBullet.h"
 
 
 //CWindmill::CWindmill(CGameWorld & _rGameWorld, float _fX, float _fY, CCommander* _pCommander)
@@ -277,9 +278,10 @@ void CWindmill::Occupied(CCommander* _pCommander)
 	InitHP(WINDMILL_MAX_HP);
 }
 
-void CWindmill::TakeDamage(float _fDamageAmount)
+void CWindmill::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	CComDepObj::TakeDamage(_fDamageAmount);
+	m_vAttackerPos = dynamic_cast<CBullet*>(_pAttacker)->GetStartPos();
 	m_bIsAttackedRecently = true;
 	m_fAttackedTickTime = ATTACKED_KEEP_TIME;
 }

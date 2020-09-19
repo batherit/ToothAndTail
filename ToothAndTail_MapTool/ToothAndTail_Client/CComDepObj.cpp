@@ -303,7 +303,7 @@ bool CComDepObj::CanAttackTargetEnemy()
 	return fLength <= m_fAttackRange + m_fAttackRangeOffset;
 }
 
-void CComDepObj::TakeDamage(float _fDamageAmount)
+void CComDepObj::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	if (g_bIsCheating) {
 		if (GetCommander() == GetGameWorld().GetPlayer()) {

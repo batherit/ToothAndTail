@@ -40,11 +40,8 @@ public:
 public:
 	void MoveTo(float _fDeltaX, float _fDeltaY) { m_vPos.x += _fDeltaX; m_vPos.y += _fDeltaY; /*if (m_pCollider) m_pCollider->LateUpdate();*/}
 	virtual void MoveByDeltaTime(float _fDeltaTime) { m_vPos.x += (m_vDir.x * m_fSpeed * _fDeltaTime); m_vPos.y += (m_vDir.y * m_fSpeed * _fDeltaTime); if (m_pCollider) m_pCollider->LateUpdate();}
-	void RotateZ(float _fDeltaDegree) {
-		D3DXMATRIX matRotZ;
-		D3DXMatrixRotationZ(&matRotZ, D3DXToRadian(_fDeltaDegree));
-		D3DXVec3TransformNormal(&m_vDir, &m_vDir, &matRotZ);
-	}
+	void RotateRadianZ(float _fDeltaRadian) { m_fRotationRadian += _fDeltaRadian; }
+	void RotateDegreeZ(float _fDeltaDegree) { m_fRotationRadian += D3DXToRadian(_fDeltaDegree); }
 
 	// Set
 	void SetParent(CObj* _pParent) { m_pParent = _pParent; }
@@ -87,6 +84,8 @@ public:
 		SetX(static_cast<float> ((_rcRect.right + _rcRect.left) >> 1));
 		SetY(static_cast<float> ((_rcRect.bottom + _rcRect.top) >> 1));
 	}
+	void SetRotationRadian(float _fRadian) { m_fRotationRadian = _fRadian; }
+	void SetRotationDegree(float _fDegree) { m_fRotationRadian = D3DXToRadian(_fDegree); }
 	
 	// Get
 	CCamera* GetPrivateCamera() const { return m_pPrivateCamera; }
@@ -147,6 +146,9 @@ public:
 	inline LONG GetTop(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).top; }
 	inline LONG GetRight(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).right; }
 	inline LONG GetBottom(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const { return GetRect(_eCoordType).bottom; }
+	float GetRotationRadian() const { return m_fRotationRadian; }
+	float GetRotationDegree() const { return D3DXToDegree(m_fRotationRadian); }
+
 
 	CObj* GetCollider(void) const { return m_pCollider; }
 
@@ -169,6 +171,7 @@ protected:
 	D3DXVECTOR3 m_vScale = { 1.f, 1.f, 0.f };
 	D3DXVECTOR3 m_vRenderOffset = { 0.f, 0.f, 0.f };
 	D3DXVECTOR3 m_vDir = { 1.f, 0.f, 0.f };
+	float m_fRotationRadian = 0.f;
 
 	//OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;
 	float m_fMaxSpeed = 987654321.f;

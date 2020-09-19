@@ -7,6 +7,7 @@
 CBullet::CBullet(CGameWorld & _rGameWorld, CComDepObj * _pTarget, UNIT::E_TYPE _eUnitType, D3DXVECTOR3 _vStartPos)
 	:
 	CSpriteObj(_rGameWorld, _vStartPos.x, _vStartPos.y),
+	m_vStartPos(_vStartPos),
 	m_pTarget(_pTarget),
 	m_vTargetPos(_pTarget->GetXY())
 {
@@ -15,6 +16,7 @@ CBullet::CBullet(CGameWorld & _rGameWorld, CComDepObj * _pTarget, UNIT::E_TYPE _
 	D3DXVECTOR3 vToTarget = _pTarget->GetXY() - _vStartPos;
 	D3DXVec3Normalize(&vToTarget, &vToTarget);
 	SetToXY(vToTarget);
+	SetRotationDegree(GetPositiveDegreeByVector(vToTarget));
 
 	const TextureInfo* pTextureInfo = nullptr;
 	switch (_eUnitType) {
@@ -90,7 +92,7 @@ int CBullet::Update(float _fDeltaTime)
 	if (fLength <= 10.f || D3DXVec3Dot(&GetToXY(), &vToTarget) <= 0.f) {
 		// 탄환이 타겟 중점으로부터 10이하 길이로 있거나, 꿰뚫고 지나간 경우
 		if(IS_VALID_OBJ(m_pTarget) && !m_pTarget->IsDead()) {
-			m_pTarget->TakeDamage(m_fDamage);
+			m_pTarget->TakeDamage(m_fDamage, this);
 			if (m_pTarget->IsDead())
 				// 타겟이 죽었다면 무효화한다.
 				m_pTarget->InvalidateObj();

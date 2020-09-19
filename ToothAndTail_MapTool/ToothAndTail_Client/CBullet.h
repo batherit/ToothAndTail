@@ -14,8 +14,12 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void CollectGarbageObjs() override;
 
+	D3DXVECTOR3 GetStartPos(void) const { return m_vStartPos; }
+	D3DXVECTOR3 GetTargetPos(void) const { return m_vTargetPos; }
+
 private:
 	CComDepObj* m_pTarget = nullptr;
+	D3DXVECTOR3 m_vStartPos;
 	D3DXVECTOR3 m_vTargetPos;
 	float m_fDamage = 0.f;
 };

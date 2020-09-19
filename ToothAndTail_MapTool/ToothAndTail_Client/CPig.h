@@ -20,7 +20,8 @@ public:
 	virtual void RegisterToRenderList(vector<CObj*>& _vecRenderList);
 	virtual void Release(void);
 	virtual void InvalidateObj(void) override;
-	virtual void TakeDamage(float _fDamageAmount) override;
+	virtual void TakeDamage(float _fDamageAmount, CObj* _pAttacker) override;
+	D3DXVECTOR3 GetAttackerPos() const { return m_vAttackerPos; }
 
 public:
 	CStateMgr<CPig>* GetStateMgr(void) const { return m_pStateMgr; }
@@ -41,5 +42,7 @@ private:
 
 	bool m_bIsAttackedRecently = false;
 	float m_fAttackedTickTime = 0.f;
+
+	D3DXVECTOR3 m_vAttackerPos;
 };
 

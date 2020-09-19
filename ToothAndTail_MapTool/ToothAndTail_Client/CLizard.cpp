@@ -73,7 +73,7 @@ void CLizard::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 	GetUIUnitHP()->RegisterToRenderList(_vecRenderList);
 }
 
-void CLizard::TakeDamage(float _fDamageAmount)
+void CLizard::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	D3DXVECTOR3 vPos = GetXY();
 	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 30.f, _fDamageAmount));
