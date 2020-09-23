@@ -23,7 +23,7 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const wstring & wstrMapFilePath
 	//m_pMap->PushTexture(CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
 	//m_pMap->SetScaleXY(BASE_SCALE, BASE_SCALE);
 	m_pMapImage = new CUI_Image(m_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"MAP"));
-	m_pMapImage->SetOutputArea(0, 0, MAP_WIDTH * BASE_SCALE, MAP_HEIGHT * BASE_SCALE);
+	m_pMapImage->SetOutputArea(0, 0, static_cast<LONG>(MAP_WIDTH * BASE_SCALE), static_cast<LONG>(MAP_HEIGHT * BASE_SCALE));
 	
 	// 맵 오브젝트 정보 생성
 	LoadMapBorderLines(hFile);
@@ -64,7 +64,7 @@ bool CMapLoader::IsTileInRange(int iRow, int iCol) const
 
 bool CMapLoader::IsTileInRange(int iLineIndex) const
 {
-	if (0 > iLineIndex || iLineIndex >= m_vecTiles.size()) return false;
+	if (0 > iLineIndex || iLineIndex >= static_cast<int>(m_vecTiles.size())) return false;
 	return true;
 }
 
@@ -247,7 +247,7 @@ int CMapLoader::GetLineIndex(const D3DXVECTOR3 & _vPos) const
 void CMapLoader::UpdateBlockingTiles()
 {
 	m_vecBlockingTiles.clear();
-	for (int i = 0; i < m_vecTiles.size(); ++i) {
+	for (int i = 0; i < static_cast<int>(m_vecTiles.size()); ++i) {
 		if (m_vecTiles[i]->GetTileType() == TILE::TYPE_BLOCKING) {
 			m_vecBlockingTiles.emplace_back(m_vecTiles[i]);
 		}

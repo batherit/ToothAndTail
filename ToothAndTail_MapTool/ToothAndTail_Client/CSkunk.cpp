@@ -77,6 +77,6 @@ void CSkunk::RegisterToRenderList(vector<CObj*>& _vecRenderList)
 void CSkunk::TakeDamage(float _fDamageAmount, CObj* _pAttacker)
 {
 	D3DXVECTOR3 vPos = GetXY();
-	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 45.f, _fDamageAmount));
+	GetGameWorld().GetListObjs().emplace_back(new CParticle_Blood(GetGameWorld(), vPos.x, vPos.y + 45.f, static_cast<int>(_fDamageAmount)));
 	CComDepObj::TakeDamage(_fDamageAmount);
 }

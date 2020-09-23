@@ -141,7 +141,7 @@ bool CComDepObj::GoToTargetPoint(float _fDeltaTime)
 
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
-		vResistanceDir /= (m_vecCollidedUnits.size());
+		vResistanceDir /= static_cast<FLOAT>(m_vecCollidedUnits.size());
 	}
 	// 타겟 벡터를 구한다.
 	D3DXVec3Normalize(&vToTarget, &(m_vTargetPos - GetXY()));
@@ -191,7 +191,7 @@ bool CComDepObj::GoToTarget(float _fDeltaTime)
 
 	// 겹침이 많을수록 저항이 줄어든다.
 	if (!m_vecCollidedUnits.empty()) {
-		vResistanceDir /= (m_vecCollidedUnits.size());
+		vResistanceDir /= static_cast<FLOAT>(m_vecCollidedUnits.size());
 	}
 	// 타겟 벡터를 구한다.
 	D3DXVec3Normalize(&vToTarget, &(m_pTargetEnemy->GetXY() - GetXY()));

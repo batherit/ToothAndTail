@@ -67,7 +67,7 @@ void CUI_UnitHP::DisplayHP(void)
 {
 	m_fElapsedTime = 0.f;
 	RECT rcOutputArea = m_pUnitHPFill->GetOutputArea();
-	rcOutputArea.top = rcOutputArea.bottom - m_pOwner->GetHPRatio() * m_ciHPLength;
+	rcOutputArea.top = static_cast<LONG>(rcOutputArea.bottom - m_pOwner->GetHPRatio() * m_ciHPLength);
 	m_pUnitHPFill->SetSyncOutputArea(rcOutputArea);
 }
 

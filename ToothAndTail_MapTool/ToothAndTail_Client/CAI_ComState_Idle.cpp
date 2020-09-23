@@ -78,9 +78,9 @@ int CAI_ComState_Idle::Update(float _fDeltaTime)
 			if (!vecWindmills.empty()) {
 				// 플레이어 제분소로 병력을 이동시킨다.
 				int iIndex = rand() % vecWindmills.size();
-				vGoalPos = vecWindmills[iIndex]->GetXY();
-				vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.2f;	// 위치 보정
-				if (m_rOwner.GeneratePathToGoal(vGoalPos, vecWindmills[iIndex])) {
+				//vGoalPos = vecWindmills[iIndex]->GetXY();
+				//vGoalPos.y += TILE_HEIGHT * BASE_SCALE * 1.4f * (rand() % 2 == 0 ? 1.f : -1.f);	// 위치 보정
+				if (m_rOwner.GeneratePathToGoal(vecWindmills[iIndex]->GetFarmlands()[rand() % 8]->GetXY(), vecWindmills[iIndex])) {
 					// 공격 타겟이 되는 제분소를 저장해둔다.
 					m_rOwner.SetWindmillToAttack(vecWindmills[iIndex]);
 					// 달리면서 병력 모으는 상태로 설정한다.

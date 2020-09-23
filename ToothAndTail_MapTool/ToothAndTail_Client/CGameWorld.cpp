@@ -2,7 +2,7 @@
 #include "CGameWorld.h"
 #include "CTimer.h"
 #include "CSceneMgr.h"
-#include "CSpace.h"
+//#include "CSpace.h"
 // #include "CBitmapMgr.h"
 
 
@@ -10,9 +10,9 @@ CGameWorld::CGameWorld()
 	:
 	m_pGraphicDevice(CGraphicDevice::GetInstance()),
 	m_pTimer_Main(new CTimer(CTimer::TIMER_TYPE_WINDOWS)),
-	m_pSceneManager_Main(new CSceneMgr(*this)),
+	m_pSceneManager_Main(new CSceneMgr(*this))//,
 	// ViewSpace는 렌더 컬링할때 쓰일 수 있다.
-	m_pViewSpace_Main(new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX), static_cast<int>(WINCY)))
+	//m_pViewSpace_Main(new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX), static_cast<int>(WINCY)))
 {
 	srand((unsigned int)time(nullptr));
 
@@ -26,7 +26,7 @@ CGameWorld::~CGameWorld()
 {
 	SafelyDeleteObj(m_pTimer_Main);
 	SafelyDeleteObj(m_pSceneManager_Main);
-	SafelyDeleteObj(m_pViewSpace_Main);
+	//SafelyDeleteObj(m_pViewSpace_Main);
 	m_vecRenderObjs_Main.clear();
 	m_vecRenderObjs_Main.shrink_to_fit();
 	m_pGraphicDevice->DestroyInstance();

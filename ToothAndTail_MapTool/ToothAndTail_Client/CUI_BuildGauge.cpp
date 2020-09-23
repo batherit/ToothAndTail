@@ -67,7 +67,7 @@ void CUI_BuildGauge::UpdateGauge(float _fProgress)
 {
 	m_fProgress = Clamp(_fProgress, 0.f, 1.f);
 	RECT rcOutputArea = m_pBuildGaugeFill->GetOutputArea();
-	rcOutputArea.top = rcOutputArea.bottom - m_fProgress * m_ciGaugeLength;
+	rcOutputArea.top = static_cast<LONG>(rcOutputArea.bottom - m_fProgress * m_ciGaugeLength);
 	m_pBuildGaugeFill->SetSyncOutputArea(rcOutputArea);
 }
 

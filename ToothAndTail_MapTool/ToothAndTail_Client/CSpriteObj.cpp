@@ -64,26 +64,6 @@ void CSpriteObj::Render(CCamera * _pCamera)
 		&D3DXVECTOR3(static_cast<FLOAT>(m_iWidth >> 1), static_cast<FLOAT>(m_iHeight >> 1), 0.f),
 		nullptr, 
 		m_clRenderColor);
-
-	// 렉트 표시용.
-	/*rcObjRect = GetRect();
-	D3DXVECTOR3 vLeftTop = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.left), static_cast<FLOAT>(rcObjRect.top), 0.f));
-	D3DXVECTOR3 vRightBottom = _pCamera->GetScreenPoint(D3DXVECTOR3(static_cast<FLOAT>(rcObjRect.right), static_cast<FLOAT>(rcObjRect.bottom), 0.f));
-	D3DXVECTOR2 vecList[] =
-	{
-	   D3DXVECTOR2(vLeftTop.x, vLeftTop.y),
-	   D3DXVECTOR2(vLeftTop.x, vRightBottom.y),
-	   D3DXVECTOR2(vRightBottom.x, vRightBottom.y),
-	   D3DXVECTOR2(vRightBottom.x, vLeftTop.y),
-	   D3DXVECTOR2(vLeftTop.x, vLeftTop.y)
-	};
-
-	LPD3DXLINE pLine;
-	D3DXCreateLine(CGraphicDevice::GetInstance()->GetDevice(), &pLine);
-	pLine->Begin();
-	pLine->Draw(vecList, 5, D3DCOLOR_ARGB(255, 255, 0, 0));
-	pLine->End();
-	pLine->Release();*/
 }
 
 void CSpriteObj::RenderShadow(CCamera * _pCamera)

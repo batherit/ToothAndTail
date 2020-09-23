@@ -25,7 +25,7 @@
 CUI_Gauge::CUI_Gauge(CGameWorld & _rGameWorld, CObj * _pOwner, RECT _rcMaxGaugeRect, float _fMax, float _fCurrent, float _fOffsetX, float _fOffsetY, UI::E_GAUGE _eDir, UI::E_PIVOT _ePivot)
 	:
 	m_pOwner(_pOwner),
-	CObj(_rGameWorld, 0.f, 0.f, 0.f, 0.f),
+	CObj(_rGameWorld, 0.f, 0.f, 0, 0),
 	m_rcMaxGaugeRect(_rcMaxGaugeRect),
 	m_fMax(_fMax),
 	m_fCurrent(_fCurrent),
@@ -58,7 +58,7 @@ void CUI_Gauge::SetCurrentGauge(float _fCurrent)
 		{
 		case UI::PIVOT_LEFT:
 			rcCurGaugeRect.left = m_rcMaxGaugeRect.left;
-			rcCurGaugeRect.right = m_rcMaxGaugeRect.left + (m_rcMaxGaugeRect.right - m_rcMaxGaugeRect.left) * fT;
+			rcCurGaugeRect.right = static_cast<LONG>(m_rcMaxGaugeRect.left + (m_rcMaxGaugeRect.right - m_rcMaxGaugeRect.left) * fT);
 			break;
 		default:
 			break;

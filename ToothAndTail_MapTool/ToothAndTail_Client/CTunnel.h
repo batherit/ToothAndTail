@@ -45,7 +45,7 @@ private:
 
 	float m_fGenTime = 0.f;		// 젠 시간 : ElapsedTime이 이를 초과하면 유닛을 생성함.
 	int m_iMaxSupplyNum = 0;	// 최대 보급 수 : 이 수를 넘어서 생성할 수 없다.
-	int m_iUnitCost = 0;		// 생성할 유닛 비용
+	UINT m_iUnitCost = 0;		// 생성할 유닛 비용
 
 	CUI_BuildGauge* m_pBuildGauge = nullptr;
 

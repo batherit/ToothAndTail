@@ -119,7 +119,7 @@ public:
 	D3DXVECTOR3 GetToXY(void) const { return D3DXVECTOR3(GetToX(), GetToY(), 0.f); }
 	float GetSpeed(void) const { return m_fSpeed; }
 	float GetMaxSpeed(void) const { return m_fMaxSpeed; }
-	virtual float GetFloor() const { return GetBottom(); }
+	virtual float GetFloor() const { return static_cast<float>(GetBottom()); }
 
 	inline RECT GetRect(CObj::E_COORD_TYPE _eCoordType = CObj::COORD_TYPE_WORLD) const {
 		D3DXVECTOR3 vLeftTop(m_vPos.x /*+ m_vRenderOffset.x*/ - (m_iWidth >> 1) * GetScaleX(), m_vPos.y /*+ m_vRenderOffset.y*/ - (m_iHeight >> 1)* GetScaleY(), 0.f);

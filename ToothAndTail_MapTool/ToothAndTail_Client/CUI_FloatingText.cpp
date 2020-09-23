@@ -4,7 +4,7 @@
 
 CUI_FloatingText::CUI_FloatingText(CGameWorld & _rGameWorld, float _fX, float _fY, const wstring & _wstrText, float _fLifeTime)
 	:
-	CObj(_rGameWorld, _fX, _fY, 10.f, 10.f, 0.f, -1.f, 90.f),
+	CObj(_rGameWorld, _fX, _fY, 10, 10, 0.f, -1.f, 90.f),
 	m_wstrText(_wstrText),
 	m_cfLifeTime(_fLifeTime)
 {

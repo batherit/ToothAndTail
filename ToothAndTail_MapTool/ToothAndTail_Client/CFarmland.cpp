@@ -278,7 +278,7 @@ int CFarmland::Cropped(void)
 	}
 
 	int iAmountPerCrop = FARMLAND_FERTILITY / 9;			// 작물 하나에서 얻을 수 있는 수확물량
-	int iCropNum = m_iCurrentFertility / iAmountPerCrop + 1;	// 현재 작물수
+	unsigned int iCropNum = m_iCurrentFertility / iAmountPerCrop + 1;	// 현재 작물수
 	
 	int iIndexToRemove = -1;
 	while (m_vecCrops.size() > iCropNum) {

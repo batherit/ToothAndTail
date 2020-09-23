@@ -109,8 +109,8 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 3; ++j) {
 				if (i == 1 && j == 1) continue;
-				vFarmlandPos.x = -1.f * (TILE_WIDTH << 1) + (i + j) * (TILE_WIDTH);
-				vFarmlandPos.y = (i - j) * (TILE_HEIGHT);
+				vFarmlandPos.x = static_cast<float>(-1.f * (TILE_WIDTH << 1) + (i + j) * (TILE_WIDTH));
+				vFarmlandPos.y = static_cast<float>((i - j) * TILE_HEIGHT);
 				vFarmlandPos.z = 0.f;
 				pFarmland = new CFarmland(GetGameWorld(), vFarmlandPos.x, vFarmlandPos.y, eFarmlandStates[i * 3 + j], _pCommander);
 				pFarmland->SetParent(this);
@@ -131,8 +131,8 @@ CWindmill::CWindmill(CGameWorld & _rGameWorld, int _iLineIndex, CCommander * _pC
 		for (int i = 0; i < 3; ++i) {
 			for (int j = 0; j < 3; ++j) {
 				if (i == 1 && j == 1) continue;
-				vFarmlandPos.x = -1.f * (TILE_WIDTH << 1) + (i + j) * (TILE_WIDTH);
-				vFarmlandPos.y = (i - j) * (TILE_HEIGHT);
+				vFarmlandPos.x = static_cast<float>(-1.f * (TILE_WIDTH << 1) + (i + j) * TILE_WIDTH);
+				vFarmlandPos.y = static_cast<float>((i - j) * TILE_HEIGHT);
 				vFarmlandPos.z = 0.f;
 				pFarmland = new CFarmland(GetGameWorld(), vFarmlandPos.x, vFarmlandPos.y, eFarmlandStates[i * 3 + j], _pCommander);
 				pFarmland->SetParent(this);

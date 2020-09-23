@@ -41,7 +41,7 @@ public:
 	void EndRender(void);
 	CTimer* GetTimer(void) const { return m_pTimer_Main; }
 	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager_Main; }
-	CSpace* GetViewSpace(void) const { return m_pViewSpace_Main; }
+	//CSpace* GetViewSpace(void) const { return m_pViewSpace_Main; }
 	list<CObj*>& GetListObjs(void) { return m_listObjs_Main; } // 객체의 생성과 소멸은 객체를 생성/소멸하는 주체가 담당한다.
 	vector<CObj*>& GetVecRenderObjs(void) { return m_vecRenderObjs_Main; }
 	void RenderListObjs(CCamera* _pCamera, bool _bListClear = true, bool(*funcComp)(CObj* obj1, CObj* obj2) = [](CObj*, CObj*) { return false; });
@@ -62,7 +62,7 @@ private:
 	CMapLoader* m_pMapLoader_Main	= nullptr;
 	CCamera* m_pCamera_Main			= nullptr;
 	
-	CSpace* m_pViewSpace_Main		= nullptr;
+	//CSpace* m_pViewSpace_Main		= nullptr;
 	CSceneMgr* m_pSceneManager_Main	= nullptr;
 	list<CObj*> m_listObjs_Main;
 	vector<CObj*> m_vecRenderObjs_Main;

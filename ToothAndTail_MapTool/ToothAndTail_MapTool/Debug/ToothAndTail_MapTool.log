@@ -30,4 +30,5 @@ d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptoo
 d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\toothandtail_maptoolview.cpp(209): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\mylab\gamelab\algorithm\toothandtail\toothandtail_maptool\toothandtail_maptool\toothandtail_maptoolview.cpp(210): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
+  LINK : D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
   ToothAndTail_MapTool.vcxproj -> D:\MyLab\GameLab\Algorithm\ToothAndTail\ToothAndTail_MapTool\Debug\ToothAndTail_MapTool.exe

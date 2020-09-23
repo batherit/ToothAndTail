@@ -340,7 +340,7 @@ int CTunnel::Update(float _fDeltaTime)
 			// 2) 커멘더의 자본이 충분한지? true
 			// => 생성을 시작한다.
 			// 3) 시간이 다 됐으면, 유닛을 생성한다.
-			if (m_listUnits.size() >= m_iMaxSupplyNum) return 1;
+			if (static_cast<int>(m_listUnits.size()) >= m_iMaxSupplyNum) return 1;
 			if (GetCommander()->GetMoney() < m_iUnitCost) return 1;
 			//++m_iSupplyNum;
 			GetCommander()->DecreseMoney(m_iUnitCost);

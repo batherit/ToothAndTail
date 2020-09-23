@@ -23,10 +23,10 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 	POINT ptPos;
 	//ptPos.x = 613.f * 0.7f * 0.5f;
 	// ptPos.y = WINCY - 188.f * 0.7f * 0.5f + 1;
-	ptPos.x = (411.f - 240.f)  * 1.1f * 0.5f;
-	ptPos.y = 92.f * 1.1f * 0.5f + 1;
+	ptPos.x = static_cast<LONG>((411.f - 240.f)  * 1.1f * 0.5f);
+	ptPos.y = static_cast<LONG>(92.f * 1.1f * 0.5f + 1.f);
 	//m_pLeftWoodBack->SetOutputArea(ptPos, 613.f * 0.7f, 188.f * 0.7f);
-	m_pLeftWoodBack->SetOutputArea(ptPos, 411.f * 1.1f, 92.f * 1.1f);
+	m_pLeftWoodBack->SetOutputArea(ptPos, static_cast<size_t>(411.f * 1.1f), static_cast<size_t>(92.f * 1.1f));
 	//m_pLeftWoodBack->SetScale(1.7f);
 
 	m_pMiddleWoodBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"), D3DXVECTOR3());
@@ -35,19 +35,19 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 	m_pMiddleWoodBack->SetExtractionArea(0, 334, 727, 334 + 89);
 	//ptPos.x = (WINCX >> 1) + 80.f;
 	//ptPos.y = WINCY - 89.f * 0.7f * 0.5f + 1;
-	ptPos.x = (WINCX >> 1);
-	ptPos.y = 70.f * 0.7f * 0.5f + 1;
-	m_pMiddleWoodBack->SetOutputArea(ptPos, 727.f * 0.7f, 89.f * 0.7f);
+	ptPos.x = static_cast<LONG>(WINCX >> 1);
+	ptPos.y = static_cast<LONG>(70.f * 0.7f * 0.5f + 1.f);
+	m_pMiddleWoodBack->SetOutputArea(ptPos, static_cast<size_t>(727.f * 0.7f), static_cast<size_t>(89.f * 0.7f));
 	m_pMiddleWoodBack->SetScaleY(-1.f);
 
 	m_pRightWoodBack = new CUI_Image(_rGameWorld, CTextureMgr::GetInstance()->GetTextureInfo(L"UI_SET"), D3DXVECTOR3());
 	m_pRightWoodBack->SetParent(this);
 	//614 424 405 137
 	m_pRightWoodBack->SetExtractionArea(614, 424, 614 + 405, 424 + 137);
-	ptPos.x = WINCX - 405.f * 0.75f * 0.5f + 1;
+	ptPos.x = static_cast<LONG>(WINCX - 405.f * 0.75f * 0.5f + 1.f);
 	//ptPos.y = WINCY - 137.f * 0.7f * 0.5f + 1;
-	ptPos.y = 135.f * 0.7f * 0.5f + 1;
-	m_pRightWoodBack->SetOutputArea(ptPos, 405.f * 0.75f, 137.f * 0.7f);
+	ptPos.y = static_cast<LONG>(135.f * 0.7f * 0.5f + 1.f);
+	m_pRightWoodBack->SetOutputArea(ptPos, static_cast<size_t>(405.f * 0.75f), static_cast<size_t>(137.f * 0.7f));
 	m_pRightWoodBack->SetScaleY(-1.f);
 
 	// 미니맵
@@ -60,7 +60,7 @@ CUI_InGameUI::CUI_InGameUI(CGameWorld & _rGameWorld, CCommander * _pCommander, c
 		vector<CTunnelGenerator*>& rTunnelGenerators = _pCommander->GetTunnelGenerators();
 		int iTunnelGeneratorSize = rTunnelGenerators.size();
 		float fUnitSignGap = static_cast<float>(m_pMiddleWoodBack->GetWidth()) / iTunnelGeneratorSize;
-		float fStartX = m_pMiddleWoodBack->GetOutputArea().left;
+		float fStartX = static_cast<float>(m_pMiddleWoodBack->GetOutputArea().left);
 		for (int i = 0; i < iTunnelGeneratorSize; ++i) {
 			pUnitSign = new CUI_UnitSign(_rGameWorld, _pCommander, rTunnelGenerators[i]->GetUnitType(),
 				D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), /*WINCY - 89.f*/ 230.f * 0.7f * 0.5f + 1 - 20, 0.f));
@@ -126,7 +126,7 @@ void CUI_InGameUI::Render(CCamera * _pCamera)
 	D3DXVECTOR3 vPos;
 	CTunnelGenerator* pTunnelGenerator = nullptr;
 	if (m_pCommander) {
-		for (int i = 0; i < m_vecUnitSigns.size(); ++i) {
+		for (int i = 0; i < static_cast<int>(m_vecUnitSigns.size()); ++i) {
 			m_vecUnitSigns[i]->SetScale(1.f);
 			// 현재 선택된 유닛 표식은 크게 키워준다.
 			vPos = m_vecUnitSigns[i]->GetXY();
@@ -161,7 +161,7 @@ void CUI_InGameUI::ChangeCommander(CCommander * _pCommander)
 	vector<CTunnelGenerator*>& rTunnelGenerators = _pCommander->GetTunnelGenerators();
 	int iTunnelGeneratorSize = rTunnelGenerators.size();
 	float fUnitSignGap = static_cast<float>(m_pMiddleWoodBack->GetWidth()) / iTunnelGeneratorSize;
-	float fStartX = m_pMiddleWoodBack->GetOutputArea().left;
+	float fStartX = static_cast<float>(m_pMiddleWoodBack->GetOutputArea().left);
 	for (int i = 0; i < iTunnelGeneratorSize; ++i) {
 		pUnitSign = new CUI_UnitSign(GetGameWorld(), _pCommander, rTunnelGenerators[i]->GetUnitType(),
 			D3DXVECTOR3(fStartX + fUnitSignGap * (0.5f + i), /*WINCY - 89.f*/ 230.f * 0.7f * 0.5f + 1 - 20, 0.f));
